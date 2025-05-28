@@ -1,0 +1,83 @@
+/* CKEditor container */
+.ck.ck-editor__main {
+   /* Dark background for the main editor area */
+   background-color: #1e293b !important; /* slate-800 */
+   color: #e2e8f0 !important; /* slate-200 */
+ }
+ 
+ /* Editable area */
+ .ck-editor__editable {
+   background-color: #1e293b !important; /* slate-800 */
+   color: #e2e8f0 !important; /* slate-200 */
+   border-color: #475569 !important; /* slate-600 */
+ }
+ 
+ /* Toolbar */
+ .ck.ck-toolbar {
+   background: #0f172a !important; /* slate-900 */
+   border-color: #475569 !important; /* slate-600 */
+ }
+ 
+ /* Toolbar buttons */
+ .ck.ck-button {
+   color: #e2e8f0 !important; /* slate-200 */
+   background: #1e293b !important; /* slate-800 */
+ }
+ 
+ /* Toolbar button hover state */
+ .ck.ck-button:hover {
+   background: #334155 !important; /* slate-700 */
+ }
+ 
+ /* Active toolbar button */
+ .ck.ck-button.ck-on {
+   background: #4f46e5 !important; /* indigo-600 */
+   color: #ffffff !important;
+ }
+ 
+ /* Dropdown panels */
+ .ck.ck-dropdown__panel {
+   background: #1e293b !important; /* slate-800 */
+   border-color: #475569 !important; /* slate-600 */
+ }
+ 
+ /* Dropdown items */
+ .ck.ck-list__item {
+   color: #e2e8f0 !important; /* slate-200 */
+ }
+ 
+ /* Dropdown item hover state */
+ .ck.ck-list__item:hover {
+   background: #334155 !important; /* slate-700 */
+ }
+ 
+ /* Input fields within CKEditor (e.g., in dialogs) */
+ .ck.ck-input {
+   background: #1e293b !important; /* slate-800 */
+   border-color: #475569 !important; /* slate-600 */
+   color: #e2e8f0 !important; /* slate-200 */
+ }
+ 
+ /* Focus state for inputs */
+ .ck.ck-input:focus {
+   border-color: #4f46e5 !important; /* indigo-600 */
+ }
+ 
+ /* Dialog overlays */
+ .ck.ck-balloon-panel {
+   background: #1e293b !important; /* slate-800 */
+   border-color: #475569 !important; /* slate-600 */
+ }
+ 
+ /* Text and other content within the editor */
+ .ck-content {
+   color: #e2e8f0 !important; /* slate-200 */
+ }
+ 
+ /* Links within the editor content */
+ .ck-content a {
+   color: #818cf8 !important; /* indigo-400 */
+ }
+ 
+ 
+ /* https://laracasts.com/discuss/channels/vue/how-set-height-of-ckeditor-with-vuejs-component */
