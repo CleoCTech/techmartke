@@ -14,11 +14,11 @@ git pull origin $BRANCH || exit 1
 echo "[2/7] Installing PHP dependencies..."
 composer install --no-dev --optimize-autoloader || exit 1
 
-echo "[3/7] Installing Node dependencies..."
-npm install || exit 1
+# echo "[3/7] Installing Node dependencies..."
+# npm install || exit 1
 
-echo "[4/7] Building assets..."
-npm run build || exit 1
+# echo "[4/7] Building assets..."
+# npm run build || exit 1
 
 echo "[5/7] Copying public folder to public_html..."
 rsync -a "$PROJECT_DIR/public/" "$PUBLIC_HTML/" || exit 1
