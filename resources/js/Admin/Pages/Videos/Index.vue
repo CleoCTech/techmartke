@@ -20,7 +20,13 @@
                         <!-- <TdCheckbox  :item="record.uuid+'#'+listData.data.indexOf(record)" @onCheck="onCheck"/> -->
                         <TdCheckbox :item="record.uuid+'#'+listData.data.indexOf(record)" @onCheck="onCheck"/>
                         <Td>{{record.title}} </Td> 
-                        <Td><img :src="$page.props.storagePaths[setup.settings.storageName].cover_images.readPath+record.cover_image" alt="Thumbnail" class="h-12 w-12" /></Td>
+                        <Td>
+                            <img
+                                :src="record.cover_image ? `/thumbnails/${record.cover_image}` : ''"
+                                alt="Thumbnail"
+                                class="h-12 w-12"
+                            />
+                        </Td>
                         <Td>{{record.sequence}} </Td> 
                         <Td>{{record.video_url}} </Td> 
                         <Td>{{record.created_at}} </Td>

@@ -64,3 +64,7 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Intervention Image Package Requirements
+
+ The `intervention/image` package, used for image processing including watermarking, requires the following PHP extensions:\n\n - **Mbstring PHP Extension**\n - **Image Processing PHP Extension**: You need at least one of GD, Imagick, or libvips installed. GD is commonly included with PHP, while Imagick is recommended for better performance. \n - **Exif PHP Extension**: Highly recommended for correct image orientation handling.\n\n Please ensure these extensions are enabled in your PHP installation if you encounter issues with image processing.\n\n ## Windows (XAMPP) Installation Notes for Imagick\n\n For users on Windows using XAMPP, the Imagick extension needs to be installed by downloading a pre-compiled DLL that matches your specific PHP version, architecture (x86/x64), and thread safety (TS/NTS). These DLLs can be found on the PECL website.\n\n The DLLs for version 3.8.0, which is compatible with various PHP versions including 7.2-8.4, can be downloaded from: [https://pecl.php.net/package/imagick/3.8.0/windows](https://pecl.php.net/package/imagick/3.8.0/windows)\n\n Make sure to select the download link that precisely matches your PHP environment details obtained from `phpinfo()`.\n```

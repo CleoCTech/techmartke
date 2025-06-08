@@ -3,18 +3,19 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Novus Institute of Technology is a leading technology and computer science institute offering innovative courses, expert faculty, and hands-on training. Empower your future with world-class education, industry partnerships, and a vibrant tech community. Enroll today to start your journey in technology excellence.">
-        <meta name="keywords" content="Novus Institute of Technology, technology institute, computer science, IT courses, tech education, coding bootcamp, software development, digital skills, technology training, innovation, STEM, online learning, industry partnerships, tech careers, student success, Kenya, Africa">
-        <meta name="author" content="Novus Institute of Technology">
-        <meta name="robots" content="index, follow">
-        <meta property="og:title" content="Novus Institute of Technology">
-        <meta property="og:description" content="Novus Institute of Technology is a leading technology and computer science institute offering innovative courses, expert faculty, and hands-on training. Empower your future with world-class education, industry partnerships, and a vibrant tech community.">
+        <meta name="description" content="{{ config('app.metaDescription') }}">
+        <meta name="keywords" content="{{ config('app.metaKeywords') }}">
+        <meta name="author" content="{{ config('app.metaAuthor') }}">
+        <meta name="publisher" content="{{ config('app.metaPublisher') }}">
+        <meta name="robots" content="{{ config('app.metaRobots') }}">
+        <meta property="og:title" content="{{ config('app.company.name') }}">
+        <meta property="og:description" content="{{ config('app.metaDescription') }}">
         <meta property="og:image" content="{{ asset('images/og-image.jpg') }}">
         <meta property="og:url" content="{{ url()->current() }}">
         <meta property="og:type" content="website">
         <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:title" content="Novus Institute of Technology">
-        <meta name="twitter:description" content="Novus Institute of Technology is a leading technology and computer science institute offering innovative courses, expert faculty, and hands-on training. Empower your future with world-class education, industry partnerships, and a vibrant tech community.">
+        <meta name="twitter:title" content="{{ config('app.company.name') }}">
+        <meta name="twitter:description" content="{{ config('app.metaDescription') }}">
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
 

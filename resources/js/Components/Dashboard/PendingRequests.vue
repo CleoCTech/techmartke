@@ -2,7 +2,7 @@
   <div class="bg-white dark:bg-slate-800 shadow-lg rounded-lg overflow-hidden">
     <div class="p-6">
       <div class="flex justify-between items-center mb-6">
-        <h2 class="text-2xl font-semibold text-gray-800 dark:text-white">Pending Requests</h2>
+        <h2 class="text-2xl font-semibold text-gray-800 dark:text-white">Pending Applications</h2>
         <div class="flex items-center space-x-4">
           <select 
             v-model="filterType" 

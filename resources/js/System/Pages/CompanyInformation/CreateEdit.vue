@@ -1,11 +1,11 @@
 <template>
     <div>
-        <Head title="Church Information" />
+        <Head title="Company Information" />
         <x-create-edit-template :setup="setup" :selected="selected">
             <form v-on:submit.prevent="submit" action="#" method="POST" enctype="multipart/form-data">
                 <x-grid>
                    
-                    <x-grid-col>
+                    <x-grid-col class="sm:col-span-6">
                         <x-form-group>
                             <template #label>Name</template>
                             <template #value>
@@ -14,55 +14,92 @@
                             </template>
                         </x-form-group>
                     </x-grid-col>
-                    <x-grid-col>
+                    <x-grid-col class="sm:col-span-6">
                         <x-form-group>
                             <template #label>Short Name</template>
                             <template #value><x-input type="text" v-model="form.shortName"/></template>
                         </x-form-group>
                     </x-grid-col>
-                    <x-grid-col>
+                    <x-grid-col class="sm:col-span-6">
                         <x-form-group>
                             <template #label>Establishment Date</template>
                             <template #value><x-input type="date" v-model="form.establishmentDate"/></template>
                         </x-form-group>
                     </x-grid-col>
-                    <x-grid-col>
+                    <x-grid-col class="sm:col-span-6">
+                        <x-form-group>
+                            <template #label>Motto</template>
+                            <template #value><x-input type="text" v-model="form.motto"/></template>
+                        </x-form-group>
+                    </x-grid-col>
+                    <x-grid-col class="sm:col-span-6">
+                        <x-form-group>
+                            <template #label>Total Students</template>
+                            <template #value><x-input type="text" v-model="form.total_students"/></template>
+                        </x-form-group>
+                    </x-grid-col>
+                    <x-grid-col class="sm:col-span-6">
+                        <x-form-group>
+                            <template #label>Programs Available</template>
+                            <template #value><x-input type="text" v-model="form.programs_available"/></template>
+                        </x-form-group>
+                    </x-grid-col>
+                    <x-grid-col class="sm:col-span-6">
+                        <x-form-group>
+                            <template #label>Job Placement Rate</template>
+                            <template #value><x-input type="text" v-model="form.job_placement_rate"/></template>
+                        </x-form-group>
+                    </x-grid-col>
+                    <x-grid-col class="sm:col-span-6">
                         <x-form-group>
                             <template #label>Vision</template>
-                            <template #value><x-input type="text" v-model="form.vision"/></template>
+                            <template #value>
+                                <ckeditor v-cloak :editor="editor" v-model="form.vision" @ready="cardData != null? form.vision = cardData.vision :''"></ckeditor>
+                            </template>
                         </x-form-group>
                     </x-grid-col>
-                    <x-grid-col>
+                    <x-grid-col class="sm:col-span-6">
                         <x-form-group>
                             <template #label>Mission</template>
-                            <template #value><x-input type="text" v-model="form.mission"/></template>
+                            <template #value>
+                                <ckeditor v-cloak :editor="editor" v-model="form.mission" @ready="cardData != null? form.mission = cardData.mission :''"></ckeditor>
+                            </template>
                         </x-form-group>
                     </x-grid-col>
-                    <x-grid-col>
+                    <x-grid-col class="sm:col-span-6">
                         <x-form-group>
                             <template #label>Location</template>
                             <template #value><x-input type="text" v-model="form.location"/></template>
                         </x-form-group>
                     </x-grid-col>
-                    <x-grid-col>
+                    <x-grid-col class="sm:col-span-6">
                         <x-form-group>
                             <template #label>Emails</template>
                             <template #value><x-input type="text" v-model="form.emails"/></template>
                         </x-form-group>
                     </x-grid-col>
-                    <x-grid-col>
+                    <x-grid-col class="sm:col-span-6">
+                        <x-form-group>
+                            <template #label>Highlight</template>
+                            <template #value>
+                                <ckeditor v-cloak :editor="editor" v-model="form.highlight" @ready="cardData != null? form.highlight = cardData.highlight :''"></ckeditor>
+                            </template>
+                        </x-form-group>
+                    </x-grid-col>
+                    
+                    <x-grid-col class="sm:col-span-6">
                         <x-form-group>
                             <template #label>Phone Numbers</template>
                             <template #value><x-input type="text" v-model="form.phoneNumbers"/></template>
                         </x-form-group>
                     </x-grid-col>
-                    <x-grid-col>
+                    <x-grid-col class="sm:col-span-6">
                         <x-form-group>
                             <template #label>Address</template>
                             <template #value><x-input type="text" v-model="form.address"/></template>
                         </x-form-group>
                     </x-grid-col>
-                    <x-grid-col>
+                    <x-grid-col class="sm:col-span-6">
                         <x-form-group>
                             <template #label>About Short</template>
                             <template #value><x-input type="text" v-model="form.about_short"/></template>
@@ -70,7 +107,7 @@
                     </x-grid-col>
                     
                     
-                    <x-grid-col class="sm:col-span-3">
+                    <x-grid-col class="sm:col-span-6">
                         <x-form-group class="sm:grid-cols-1">
                             <template #label>History</template>
                             <template #value>
@@ -78,7 +115,7 @@
                             </template>
                         </x-form-group>
                     </x-grid-col>
-                    <x-grid-col class="sm:col-span-3">
+                    <x-grid-col class="sm:col-span-6">
                         <x-form-group class="sm:grid-cols-1">
                             <template #label>About</template>
                             <template #value>
@@ -86,7 +123,7 @@
                             </template>
                         </x-form-group>
                     </x-grid-col>
-                    <x-grid-col class="sm:col-span-3">
+                    <x-grid-col class="sm:col-span-6">
                         <x-form-group class="sm:grid-cols-1">
                             <template #label>Core Values</template>
                             <template #value>
@@ -167,6 +204,9 @@ const form = reactive({
     motto: null,
     core_values: null,
     fee_naration: null,
+    highlight: null,
+    programs_available: null,
+    job_placement_rate: null,
 })
 
 const show_image = ref('')
@@ -204,11 +244,14 @@ function setData() {
         form.phoneNumbers = props.cardData.phone_numbers
         form.address = props.cardData.address
         form.logo = props.cardData.logo
-        form.total_students = props.cardData.total_students
+        form.total_students = props.cardData.total_members
         form.teachers = props.cardData.teachers
         form.graduate_students = props.cardData.graduate_students
         form.schools = props.cardData.schools
         form.fee_naration = props.cardData.fee_naration
+        form.highlight = props.cardData.highlight
+        form.programs_available = props.cardData.programs_available
+        form.job_placement_rate = props.cardData.job_placement_rate
     }
     
     

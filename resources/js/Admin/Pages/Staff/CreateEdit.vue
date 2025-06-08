@@ -4,8 +4,8 @@
         <x-create-edit-template :setup="setup" :selected="selected">
             <form v-on:submit.prevent="submit" action="#" method="POST" enctype="multipart/form-data">
                 <x-grid>
-                   
-                    <x-grid-col class="sm:col-span-4">
+                    <!-- Row 1: Name, Title, Email -->
+                    <x-grid-col class="md:col-span-4">
                         <x-form-group>
                             <template #label>Name</template>
                             <template #value>
@@ -13,7 +13,7 @@
                             </template>
                         </x-form-group>
                     </x-grid-col>
-                    <x-grid-col class="sm:col-span-4">
+                    <x-grid-col class="md:col-span-4">
                         <x-form-group>
                             <template #label>Title</template>
                             <template #value>
@@ -21,7 +21,7 @@
                             </template>
                         </x-form-group>
                     </x-grid-col>
-                    <x-grid-col class="sm:col-span-4">
+                    <x-grid-col class="md:col-span-4">
                         <x-form-group>
                             <template #label>Email</template>
                             <template #value>
@@ -29,7 +29,9 @@
                             </template>
                         </x-form-group>
                     </x-grid-col>
-                    <x-grid-col class="sm:col-span-4">
+
+                    <!-- Row 2: Phone No., Sequence, Status -->
+                    <x-grid-col class="md:col-span-4">
                         <x-form-group>
                             <template #label>Phone No.</template>
                             <template #value>
@@ -37,55 +39,13 @@
                             </template>
                         </x-form-group>
                     </x-grid-col>
-                    <x-grid-col>
-                        <x-form-group>
-                            <template #label>Facebook Handle</template>
-                            <template #value><x-input type="text" v-model="form.facebook_link"/></template>
-                        </x-form-group>
-                    </x-grid-col>
-                    <x-grid-col>
-                        <x-form-group>
-                            <template #label>LinkedIn Handle</template>
-                            <template #value><x-input type="text" v-model="form.linkedin_link"/></template>
-                        </x-form-group>
-                    </x-grid-col>
-                    <x-grid-col>
-                        <x-form-group>
-                            <template #label>X Handle</template>
-                            <template #value><x-input type="text" v-model="form.x_link"/></template>
-                        </x-form-group>
-                    </x-grid-col>
-                    <x-grid-col>
-                        <x-form-group>
-                            <template #label>WhatsApp Handle</template>
-                            <template #value><x-input type="text" v-model="form.whatsapp_link"/></template>
-                        </x-form-group>
-                    </x-grid-col>
-                    <x-grid-col>
-                        <x-form-group>
-                            <template #label>Youtube Handle</template>
-                            <template #value><x-input type="text" v-model="form.youtube_link"/></template>
-                        </x-form-group>
-                    </x-grid-col>
-                    <x-grid-col>
+                     <x-grid-col class="md:col-span-4">
                         <x-form-group>
                             <template #label>Sequence</template>
                             <template #value><x-input type="text" v-model="form.sequence"/></template>
                         </x-form-group>
                     </x-grid-col>
-                    <x-grid-col class="sm:col-span-2">
-                        <x-form-group>
-                            <template #label>Photo</template>
-                            <template #value>
-                                <img v-if="show_image == '' && form.cover_image != null" :src="$page.props.storagePaths[setup.settings.storageName].cover_images.readPath+form.cover_image" class="h-20 w-20">
-
-                                <x-input type="file"  @input="onFileChange($event, 'cover_image', show_image)" ref="input" class="shadow appearance-none border w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline disabled:opacity-40"/>
-                                
-                                <img v-if="show_image != ''" :src="show_image" class="h-20 w-20">
-                            </template>
-                        </x-form-group>
-                    </x-grid-col>
-                    <x-grid-col class="col-span-3">
+                   <x-grid-col class="md:col-span-4">
                         <x-form-group>
                             <template #label>Status</template>
                             <template #value>
@@ -97,7 +57,112 @@
                         </x-form-group>
                     </x-grid-col>
 
-                    <x-grid-col v-if="form.status == 3">
+                    <!-- Row 3: Social Media Handles (Facebook, LinkedIn, X) -->
+                    <x-grid-col class="md:col-span-4">
+                        <x-form-group>
+                            <template #label>Facebook Handle</template>
+                            <template #value><x-input type="text" v-model="form.facebook_link"/></template>
+                        </x-form-group>
+                    </x-grid-col>
+                    <x-grid-col class="md:col-span-4">
+                        <x-form-group>
+                            <template #label>LinkedIn Handle</template>
+                            <template #value><x-input type="text" v-model="form.linkedin_link"/></template>
+                        </x-form-group>
+                    </x-grid-col>
+                    <x-grid-col class="md:col-span-4">
+                        <x-form-group>
+                            <template #label>X Handle</template>
+                            <template #value><x-input type="text" v-model="form.x_link"/></template>
+                        </x-form-group>
+                    </x-grid-col>
+
+                     <!-- Row 4: Social Media Handles (WhatsApp, Youtube), Photo -->
+                    <x-grid-col class="md:col-span-4">
+                        <x-form-group>
+                            <template #label>WhatsApp Handle</template>
+                            <template #value><x-input type="text" v-model="form.whatsapp_link"/></template>
+                        </x-form-group>
+                    </x-grid-col>
+                    <x-grid-col class="md:col-span-4">
+                        <x-form-group>
+                            <template #label>Youtube Handle</template>
+                            <template #value><x-input type="text" v-model="form.youtube_link"/></template>
+                        </x-form-group>
+                    </x-grid-col>
+                     <x-grid-col class="md:col-span-4">
+                        <x-form-group>
+                            <template #label>Photo</template>
+                            <template #value>
+                                <img v-if="show_image == '' && form.cover_image != null" :src="$page.props.storagePaths[setup.settings.storageName].cover_images.readPath+form.cover_image" class="h-20 w-20">
+                                <x-input type="file"  @input="onFileChange($event, 'cover_image', show_image)" ref="input" class="shadow appearance-none border w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline disabled:opacity-40"/>
+                                <img v-if="show_image != ''" :src="show_image" class="h-20 w-20">
+                            </template>
+                        </x-form-group>
+                    </x-grid-col>
+
+                    <!-- Row 5 (Full Width) -->
+                    <x-grid-col class="md:col-span-12">
+                        <x-form-group>
+                            <template #label>Expertise</template>
+                            <template #value>
+                                <TagInput
+                                    v-model="form.expertise"
+                                    placeholder="Add expertise areas (press Enter to add)"
+                                    :suggestions="['Artificial Intelligence', 'Machine Learning', 'Data Science', 'Web Development', 'Mobile Development', 'Cloud Computing', 'DevOps', 'Cybersecurity']"
+                                />
+                            </template>
+                        </x-form-group>
+                    </x-grid-col>
+
+                    <!-- Row 6 -->
+                    <x-grid-col class="md:col-span-6">
+                        <x-form-group>
+                            <template #label>Experience</template>
+                            <template #value>
+                                <x-input v-model="form.experience" placeholder="e.g., 15 years" />
+                            </template>
+                        </x-form-group>
+                    </x-grid-col>
+                    <x-grid-col class="md:col-span-6">
+                        <x-form-group>
+                            <template #label>Education</template>
+                            <template #value>
+                                <x-input v-model="form.education" placeholder="e.g., MS Software Engineering - Stanford" />
+                            </template>
+                        </x-form-group>
+                    </x-grid-col>
+
+                    <!-- Row 7 (Full Width) -->
+                    <x-grid-col class="md:col-span-12">
+                        <x-form-group>
+                            <template #label>Achievements</template>
+                            <template #value>
+                                <x-textarea 
+                                    v-model="form.achievements" 
+                                    rows="4" 
+                                    placeholder="e.g., Former Lead Engineer at Microsoft, Built systems serving 100M+ users"
+                                />
+                            </template>
+                        </x-form-group>
+                    </x-grid-col>
+
+                    <!-- Row 8 (Full Width) -->
+                    <x-grid-col class="md:col-span-12">
+                        <x-form-group>
+                            <template #label>Quote</template>
+                            <template #value>
+                                <x-textarea 
+                                    v-model="form.quote" 
+                                    rows="3" 
+                                    placeholder="e.g., Great software is built by great teams, and great teams start with great education."
+                                />
+                            </template>
+                        </x-form-group>
+                    </x-grid-col>
+
+                    <!-- Row 9 (Conditional) -->
+                    <x-grid-col v-if="form.status == 3" class="md:col-span-4">
                         <x-form-group>
                             <template #label>Publish Time</template>
                             <template #value><x-input type="datetime-local" v-model="form.publish_time"/></template>
@@ -144,20 +209,25 @@ const handleFileChange = (event) => {
 };
 const form = reactive({
     uuid: null,
-    name: null,
-    title: null,
-    email: null,
-    phone_no: null,
-    cover_image: null,
-    facebook_link: null,
-    x_link: null,
-    linkedin_link: null,
-    whatsapp_link: null,
-    youtube_link: null,
-    status: null,
+    name: '',
+    title: '',
+    email: '',
+    phone_no: '',
+    facebook_link: '',
+    whatsapp_link: '',
+    youtube_link: '',
+    linkedin_link: '',
+    x_link: '',
+    expertise: [],
+    experience: '',
+    education: '',
+    achievements: '',
+    quote: '',
+    image: null,
     sequence: null,
-    publish_time: null,
-})
+    status: null,
+    publish_time: null
+});
 
 
 function setData() {
@@ -176,6 +246,16 @@ function setData() {
         form.status = props.cardData.status;
         form.sequence = props.cardData.sequence;
         form.publish_time = props.cardData.publish_time2;
+        form.position = props.cardData.position;
+        form.expertise = props.cardData.expertise || [];
+        form.experience = props.cardData.experience;
+        form.education = props.cardData.education;
+        form.achievements = props.cardData.achievements;
+        form.quote = props.cardData.quote;
+        
+        if (props.cardData.image) {
+            show_image.value = props.cardData.image;
+        }
     }
     
 }
@@ -192,7 +272,7 @@ const { editor,editorConfig, submit, onFileChange, ckeditor, xGrid,
         Checkbox,
         xButton,
         AppLayout,
-        xCreateEditTemplate, TextInput } = useCreateEdit(props, setData, form )
+        xCreateEditTemplate, TextInput, TagInput } = useCreateEdit(props, setData, form )
 
 
 </script>

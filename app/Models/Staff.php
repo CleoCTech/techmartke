@@ -18,10 +18,16 @@ class Staff extends Model
     protected $keyType = 'int';
     public $incrementing = true;
 
+
+
     protected $casts = [
         'created_at'  => 'date:d-M-Y',
         'updated_at'  => 'date:d-M-Y',
         'publish_time'  => 'datetime:d-M-Y h:m:s',
+        'expertise' => 'array',
+        'sequence' => 'integer',
+        'status' => 'integer',
+        'publish_time' => 'datetime',
     ];
     protected static function boot()
     {

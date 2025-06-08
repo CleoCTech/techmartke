@@ -4,6 +4,7 @@ import { ref, onMounted, onUnmounted, computed } from 'vue';
 import { usePage } from '@inertiajs/vue3';
 import { useNotify } from "@/Composables/useNotify";
 import Loader from '@/Guest/Partials/Preloader.vue';
+import axios from 'axios';
 
 const apiKey = 'AIzaSyCLNvruqejh6c-eU0TGpk67AdW-wfZfuaI'; // Replace with your actual Google Maps API key
 const latitude = -1.13711; // Replace with the latitude of your shop
@@ -44,13 +45,24 @@ const socialLinks = [
   { name: 'Apple Podcasts', icon: Podcast, url: '#' }
 ]
 
+const contactInfo = ref({ address: '', phone: '', email: '' });
+
 onMounted(async () => {
-  isLoading.value = false; // Set loading to true at the start
-  // try {
-  //   //await getFooterData(); // Await getFooterData function
-  // } finally {
-  //   isLoading.value = false; // Ensure loading is false after both are done
-  // }
+  isLoading.value = true;
+  try {
+    const response = await axios.get('/footer-data');
+    if (response.data && response.data.companyInfo) {
+      contactInfo.value = {
+        address: response.data.companyInfo.address || '',
+        phone: response.data.companyInfo.phone_numbers || '',
+        email: response.data.companyInfo.emails || ''
+      };
+    }
+  } catch (error) {
+    contactInfo.value = { address: '', phone: '', email: '' };
+  } finally {
+    isLoading.value = false;
+  }
 });
 
 const getFooterData = async () => {
@@ -66,19 +78,11 @@ const getFooterData = async () => {
   }
 };
 
-
-const contactInfo = {
-  address: '123 Technology Drive, Nakuru City',
-  phone: '0724 301 007 / 0791 675 898',
-  email: 'info@novustechhub.com / nariphontechs@gmail.com'
-}
-
 const quickLinks = [
   { href: '/about', label: 'About Us' },
   { href: '/courses', label: 'Courses' },
-  { href: '/admissions', label: 'Admissions' },
-  { href: '/events', label: 'Events' },
-  { href: '/awards', label: 'Awards' }
+  { href: '/application', label: 'Application' },
+  { href: '/login', label: 'Login' }
 ]
 
 const resources = [
@@ -89,7 +93,7 @@ const resources = [
 ]
 
 const currentYear = computed(() => new Date().getFullYear())
-const instituteName = 'Novus Institute of Technology'
+const instituteName = page.props.config?.appName || 'Novus Computer Training Institute'
 const instituteMission = 'Building the Future, Byte by Byte'
 
 </script>
@@ -103,7 +107,7 @@ const instituteMission = 'Building the Future, Byte by Byte'
       <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
         <div class="col-span-1 md:col-span-2">
           <div class="flex items-center space-x-2 mb-4">
-            <GraduationCap class="h-8 w-8" />
+            <img src="/assets/images/novus-logo.png" alt="logo" class="h-8 w-8" />
             <span class="font-bold text-xl">{{ instituteName }}</span>
           </div>
           <p class="text-gray-300 mb-4">{{ instituteMission }}</p>

@@ -68,6 +68,30 @@
                         <template #value>{{cardData.updated_by}}</template>
                     </x-show-group>
                 </x-grid-col>
+                <!-- <x-grid-col>
+                    <x-show-group>
+                        <template #label>Type</template>
+                        <template #value>{{cardData.type}}</template>
+                    </x-show-group>
+                </x-grid-col> -->
+                <x-grid-col>
+                    <x-show-group>
+                        <template #label>Speakers</template>
+                        <template #value>{{ Array.isArray(cardData.speakers) ? cardData.speakers.join(', ') : (cardData.speakers ? cardData.speakers.replace(/\[|\]|"/g, '').split(',').join(', ') : '') }}</template>
+                    </x-show-group>
+                </x-grid-col>
+                <x-grid-col>
+                    <x-show-group>
+                        <template #label>Attendees</template>
+                        <template #value>{{cardData.attendees}}</template>
+                    </x-show-group>
+                </x-grid-col>
+                <x-grid-col>
+                    <x-show-group>
+                        <template #label>Price</template>
+                        <template #value>{{cardData.price}}</template>
+                    </x-show-group>
+                </x-grid-col>
             </x-grid>
         </x-show-template>
     </div>

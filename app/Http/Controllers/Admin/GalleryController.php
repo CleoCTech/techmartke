@@ -52,21 +52,19 @@ class GalleryController extends Controller
     public function index(){
         $user = Auth::user();
 
-        if (!UserRoleService::hasRole(['administrator', 'superadmin'])) {
+        // if (!UserRoleService::hasRole(['administrator', 'superadmin'])) {
 
-            $this->extraConditions = [
-                // ['column' => 'status', 'operator' => '=', 'value' => 'active'], // Example: Only active records
-                ['column' => 'branch_id', 'operator' => '=', 'value' => $user->branch_id] // Restrict to user’s branch
-            ];
-        }
+        //     $this->extraConditions = [
+        //         // ['column' => 'status', 'operator' => '=', 'value' => 'active'], // Example: Only active records
+        //         ['column' => 'branch_id', 'operator' => '=', 'value' => $user->branch_id] // Restrict to user’s branch
+        //     ];
+        // }
         $this->def_index();
         return Inertia::render($this->settings['xFolder'].'/Index',$this->viewData);
     }
     public function create(){
         $this->def_create();
-        $branches = Branch::all();
         $maxSequence = Gallery::max('sequence');
-        $this->viewData['branches'] = $branches;
         $this->viewData['maxSequence'] = $maxSequence;
         return Inertia::render($this->settings['xFolder'].'/CreateEdit',$this->viewData);
     }
@@ -75,6 +73,7 @@ class GalleryController extends Controller
         // Log::info('Uploaded file size: ' . $request->file('cover_image')->getSize());
         $this->validate($request, [
             'title' => 'required',
+            'category' => 'required',
             'cover_image' => 'required|file|mimes:jpg,jpeg,png|max:5024',
             'status' => 'required',
             'publish_time' => 'nullable|required_if:status,=,3',
@@ -87,6 +86,7 @@ class GalleryController extends Controller
             }
             $record = [
                 'title' => $request->title,
+                'category' => $request->category,
                 // 'cover_image' => $request->cover_image,
                 // 'is_global' => $request->is_global,
                 // 'branch_id' => $request->branch_id,
@@ -143,9 +143,9 @@ class GalleryController extends Controller
     }
     public function edit($uuid){
         $this->def_edit($uuid);
-        $branches = Branch::all();
+        // $branches = Branch::all();
 
-        $this->viewData['branches'] = $branches;
+        // $this->viewData['branches'] = $branches;
         if($this->viewData['cardData']['status'] == 3){
             $this->viewData['cardData']['publish_time2'] = $this->viewData['cardData']['publish_time']->format('Y-m-d\TH:i');
         }

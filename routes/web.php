@@ -40,6 +40,7 @@ use App\Http\Controllers\Admin\VideosController;
 use App\Http\Controllers\System\AttachmentsController;
 use App\Http\Controllers\Admin\PartnerController;
 use App\Http\Controllers\Admin\AwardController;
+use App\Http\Controllers\Admin\SuccessStoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -111,6 +112,47 @@ Route::prefix('admin')->group(function () {
     Route::get('/financial-overview', [AdminGeneralController::class, 'getFinancialOverview'])->name('admin.financial-overview');
     Route::get('/pending-requests', [AdminGeneralController::class, 'getPendingRequests'])->name('admin.pending-requests');
     Route::post('/request/{id}/update-status', [AdminGeneralController::class, 'updateRequestStatus'])->name('admin.request.update-status');
+
+    // Department Routes
+    Route::get('/departments', [DepartmentController::class, 'index'])->name('admin.departments');
+    Route::get('/departments/create', [DepartmentController::class, 'create']);
+    Route::get('/departments/show/{uuid}', [DepartmentController::class, 'show']);
+    Route::get('/departments/edit/{uuid}', [DepartmentController::class, 'edit']);
+    Route::post('/departments/store', [DepartmentController::class, 'store']);
+    Route::delete('/departments/delete/{uuid}', [DepartmentController::class, 'destroy']);
+    Route::get('/departments/list', [DepartmentController::class, 'list'])->name('admin.departments.list');
+    Route::get('/departments/overview', [DepartmentController::class, 'overview'])->name('admin.department.overview');
+    Route::get('/departments/summary', [DepartmentController::class, 'summary'])->name('admin.departments.summary');
+
+    // Designation Routes
+    Route::get('/designations', [DesignationController::class, 'index'])->name('admin.designations');
+    Route::get('/designations/create', [DesignationController::class, 'create']);
+    Route::get('/designations/show/{uuid}', [DesignationController::class, 'show']);
+    Route::get('/designations/edit/{uuid}', [DesignationController::class, 'edit']);
+    Route::post('/designations/store', [DesignationController::class, 'store']);
+    Route::delete('/designations/delete/{uuid}', [DesignationController::class, 'destroy']);
+
+    /***
+     * Courses
+     */
+    Route::get('/course',[AdminServicesController::class,'index'])->name('admin.course');
+    Route::get('/course/create',[AdminServicesController::class,'create']);
+    Route::get('/course/show/{uuid}',[AdminServicesController::class,'show']);
+    Route::get('/course/edit/{uuid}',[AdminServicesController::class,'edit']);
+    Route::post('/course/store',[AdminServicesController::class,'store']);
+    Route::delete('/course/delete/{uuid}',[AdminServicesController::class,'destroy']);
+    Route::get('/course/report/{name}',[AdminServicesController::class,'report']);
+
+    /***
+     * Testimonies
+     */
+    Route::get('/testimony', [TestimoniesController::class, 'index'])->name('admin.testimony');
+    Route::get('/testimony/create', [TestimoniesController::class, 'create']);
+    Route::get('/testimony/show/{uuid}', [TestimoniesController::class, 'show']);
+    Route::get('/testimony/edit/{uuid}', [TestimoniesController::class, 'edit']);
+    Route::post('/testimony/store', [TestimoniesController::class, 'store']);
+    Route::delete('/testimony/delete/{uuid}', [TestimoniesController::class, 'destroy']);
+    Route::get('/testimony/report/{name}', [TestimoniesController::class, 'report']);
 
     /***
      * FAQ
@@ -269,6 +311,69 @@ Route::prefix('admin')->group(function () {
     Route::delete('/award/delete/{uuid}', [AwardController::class, 'destroy']);
     Route::get('/award/report/{name}', [AwardController::class, 'report']);
 
+    /***
+     * Success Stories
+     */
+    Route::get('/success-story', [SuccessStoryController::class, 'index'])->name('admin.success-story');
+    Route::get('/success-story/create', [SuccessStoryController::class, 'create']);
+    Route::get('/success-story/show/{uuid}', [SuccessStoryController::class, 'show']);
+    Route::get('/success-story/edit/{uuid}', [SuccessStoryController::class, 'edit']);
+    Route::post('/success-story/store', [SuccessStoryController::class, 'store']);
+    Route::delete('/success-story/delete/{uuid}', [SuccessStoryController::class, 'destroy']);
+    Route::get('/success-story/report/{name}', [SuccessStoryController::class, 'report']);
+
+    // Department Head Routes
+    Route::get('/department-head', [DepartmentHeadController::class, 'index'])->name('admin.department-head');
+    Route::get('/department-head/create', [DepartmentHeadController::class, 'create']);
+    Route::get('/department-head/show/{uuid}', [DepartmentHeadController::class, 'show']);
+    Route::get('/department-head/edit/{uuid}', [DepartmentHeadController::class, 'edit']);
+    Route::post('/department-head/store', [DepartmentHeadController::class, 'store']);
+    Route::delete('/department-head/delete/{uuid}', [DepartmentHeadController::class, 'destroy']);
+
+    // Department Goal Routes
+    Route::get('/department-goal', [DepartmentGoalController::class, 'index'])->name('admin.department-goal');
+    Route::get('/department-goal/create', [DepartmentGoalController::class, 'create']);
+    Route::get('/department-goal/show/{uuid}', [DepartmentGoalController::class, 'show']);
+    Route::get('/department-goal/edit/{uuid}', [DepartmentGoalController::class, 'edit']);
+    Route::post('/department-goal/store', [DepartmentGoalController::class, 'store']);
+    Route::delete('/department-goal/delete/{uuid}', [DepartmentGoalController::class, 'destroy']);
+
+    // Department Activity Routes
+    Route::get('/department-activity', [DepartmentActivityController::class, 'index'])->name('admin.department-activity');
+    Route::get('/department-activity/create', [DepartmentActivityController::class, 'create']);
+    Route::get('/department-activity/show/{uuid}', [DepartmentActivityController::class, 'show']);
+    Route::get('/department-activity/edit/{uuid}', [DepartmentActivityController::class, 'edit']);
+    Route::post('/department-activity/store', [DepartmentActivityController::class, 'store']);
+    Route::delete('/department-activity/delete/{uuid}', [DepartmentActivityController::class, 'destroy']);
+
+    // Department Requests 
+    Route::get('/department-requests', [DepartmentRequestController::class, 'index'])->name('admin.department-requests');
+    Route::get('/department-requests/create', [DepartmentRequestController::class, 'create'])->name('admin.department-requests.create');
+    Route::post('/department-requests', [DepartmentRequestController::class, 'store'])->name('admin.department-requests.store');
+    Route::get('/department-requests/{uuid}', [DepartmentRequestController::class, 'show'])->name('admin.department-requests.show');
+    Route::get('/department-requests/{uuid}/edit', [DepartmentRequestController::class, 'edit'])->name('admin.department-requests.edit');
+    Route::put('/department-requests/{uuid}', [DepartmentRequestController::class, 'update'])->name('admin.department-requests.update');
+    Route::delete('/department-requests/{uuid}', [DepartmentRequestController::class, 'destroy'])->name('admin.department-requests.destroy');
+
+    Route::get('/departments-for-modal', [DepartmentRequestController::class, 'getDepartments'])
+        ->name('admin.departments-for-modal');
+
+    //// Fiscal Year Routes
+    Route::get('/fiscal', [FiscalYearController::class, 'index'])->name('admin.fiscal');
+    Route::get('/fiscal/create', [FiscalYearController::class, 'create']);
+    Route::get('/fiscal/show/{uuid}', [FiscalYearController::class, 'show']);
+    Route::get('/fiscal/edit/{uuid}', [FiscalYearController::class, 'edit']);
+    Route::post('/fiscal/store', [FiscalYearController::class, 'store']);
+    Route::delete('/fiscal/delete/{uuid}', [FiscalYearController::class, 'destroy']);
+
+    // Fiscal Period Routes
+    Route::get('/fiscal-period', [FiscalPeriodController::class, 'index'])->name('admin.fiscal-period');
+    Route::get('/fiscal-period/create', [FiscalPeriodController::class, 'create']);
+    Route::get('/fiscal-period/show/{uuid}', [FiscalPeriodController::class, 'show']);
+    Route::get('/fiscal-period/edit/{uuid}', [FiscalPeriodController::class, 'edit']);
+    Route::post('/fiscal-period/store', [FiscalPeriodController::class, 'store']);
+    Route::delete('/fiscal-period/delete/{uuid}', [FiscalPeriodController::class, 'destroy']);
+    
     // Change Password Routes
     Route::get('/settings/change-password', [AdminPasswordController::class, 'edit'])->name('password.edit');
     Route::put('/settings/change-password', [AdminPasswordController::class, 'update'])->name('password.change');

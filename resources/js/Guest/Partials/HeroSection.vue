@@ -64,7 +64,7 @@
         <div class="mb-4 mt-4 animate-bounce-in">
           <div class="inline-flex items-center space-x-3 bg-white/10 backdrop-blur-sm rounded-full px-6 py-3 border border-white/20 hover:bg-white/20 transition-all duration-500 hover:scale-105">
             <GraduationCap class="h-6 w-6 text-white animate-spin-slow" />
-            <span class="text-white font-medium tracking-wide">NOVUS INSTITUTE OF TECHNOLOGY</span>
+            <span class="text-white font-medium tracking-wide">{{ $page.props.config.appName }}</span>
           </div>
         </div>
 
@@ -83,19 +83,19 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 max-w-4xl mx-auto">
           <div class="text-center animate-scale-in-delayed">
             <div class="text-3xl font-bold text-white mb-2">
-              <span ref="studentsCounter" class="counter">0</span>+
+              <span ref="studentsCounter" class="counter">{{ companyInfo.total_members }}</span>+
             </div>
             <div class="text-white/80 text-sm uppercase tracking-wide">Students Enrolled</div>
           </div>
           <div class="text-center animate-scale-in-delayed-2">
             <div class="text-3xl font-bold text-white mb-2">
-              <span ref="programsCounter" class="counter">0</span>
+              <span ref="programsCounter" class="counter">{{ companyInfo.programs }}</span>
             </div>
             <div class="text-white/80 text-sm uppercase tracking-wide">Programs Available</div>
           </div>
           <div class="text-center animate-scale-in-delayed-3">
             <div class="text-3xl font-bold text-white mb-2">
-              <span ref="placementCounter" class="counter">0</span>%
+              <span ref="placementCounter" class="counter">{{ companyInfo.jobs }}</span>%
             </div>
             <div class="text-white/80 text-sm uppercase tracking-wide">Job Placement Rate</div>
           </div>
@@ -148,76 +148,18 @@
 
 <script setup>
 import { GraduationCap, Users, Award, BookOpen, Star, ArrowRight, Calendar, ChevronDown } from 'lucide-vue-next'
-// No major logic needed for this hero section
+import axios from 'axios';
+import Loader from '@/Guest/Partials/Preloader.vue';
 import { onMounted, ref } from 'vue'
 // Counter refs
 const studentsCounter = ref(null)
 const programsCounter = ref(null)
 const placementCounter = ref(null)
 
+const companyInfo = ref({ total_members: 0, programs: 0, jobs: 0 });
+const isLoading = ref(true);
+
 // Data
-const institutionValues = [
-  {
-    title: 'MOTTO',
-    description: '"Innovation Through Education"'
-  },
-  {
-    title: 'MISSION',
-    description: 'To provide world-class technology education that empowers students to become innovative leaders in the digital age.'
-  },
-  {
-    title: 'VISION',
-    description: 'To be the premier technology institute that bridges the gap between academic excellence and industry innovation.'
-  },
-  {
-    title: 'CORE VALUES',
-    description: 'Excellence • Innovation • Integrity • Collaboration • Continuous Learning'
-  }
-]
-
-const features = [
-  {
-    title: 'Expert Faculty',
-    description: 'Learn from industry professionals and academic experts',
-    icon: 'GraduationCap'
-  },
-  {
-    title: 'Modern Curriculum',
-    description: 'Stay ahead with cutting-edge technology courses',
-    icon: 'BookOpen'
-  },
-  {
-    title: 'Strong Community',
-    description: 'Join a network of passionate technology enthusiasts',
-    icon: 'Users'
-  },
-  {
-    title: 'Industry Recognition',
-    description: 'Accredited programs with industry partnerships',
-    icon: 'Award'
-  }
-]
-
-const testimonials = [
-  {
-    id: 1,
-    content: 'The hands-on approach at Novus Institute prepared me perfectly for my career in software development.',
-    name: 'Sarah Johnson',
-    position: 'Software Engineer, TechCorp'
-  },
-  {
-    id: 2,
-    content: 'The faculty\'s industry experience and mentorship made all the difference in my learning journey.',
-    name: 'Michael Chen',
-    position: 'Data Scientist, InnovateLab'
-  },
-  {
-    id: 3,
-    content: 'The practical projects and real-world applications helped me build a strong portfolio.',
-    name: 'Emily Rodriguez',
-    position: 'UX Designer, DesignStudio'
-  }
-]
 
 // Icon mapping function
 const getIcon = (iconName) => {
@@ -247,13 +189,28 @@ const animateCounter = (element, target, duration = 2000) => {
 }
 
 // Start animations when component mounts
-onMounted(() => {
-  // Delay counter animations to start after other animations
-  setTimeout(() => {
-    if (studentsCounter.value) animateCounter(studentsCounter.value, 50, 2000)
-    if (programsCounter.value) animateCounter(programsCounter.value, 8, 1500)
-    if (placementCounter.value) animateCounter(placementCounter.value, 95, 1800)
-  }, 1500)
+onMounted(async () => {
+  isLoading.value = true;
+  try {
+    const response = await axios.get('/footer-data');
+    if (response.data && response.data.companyInfo) {
+      companyInfo.value = {
+        total_members: Number(response.data.companyInfo.total_members) || 0,
+        programs: Number(response.data.companyInfo.programs_available) || 0,
+        jobs: Number(response.data.companyInfo.job_placement_rate) || 0
+      };
+    }
+  } catch (error) {
+    companyInfo.value = { total_members: 0, programs: 0, jobs: 0 };
+  } finally {
+    // Animate counters after data is loaded
+    setTimeout(() => {
+      if (studentsCounter.value) animateCounter(studentsCounter.value, companyInfo.value.total_members, 2000)
+      if (programsCounter.value) animateCounter(programsCounter.value, companyInfo.value.programs, 1500)
+      if (placementCounter.value) animateCounter(placementCounter.value, companyInfo.value.jobs, 1800)
+      isLoading.value = false;
+    }, 1500);
+  }
 })
 </script>
 
@@ -473,7 +430,7 @@ onMounted(() => {
 
 .animate-typing-3 {
   animation: typing-3 4s ease-in-out;
-  overflow: hidden;
+    overflow: hidden;
   white-space: nowrap;
 }
 

@@ -60,13 +60,13 @@ class VideoController extends Controller
     {
         $user = Auth::user();
 
-        if (!UserRoleService::hasRole(['administrator', 'superadmin'])) {
+        // if (!UserRoleService::hasRole(['administrator', 'superadmin'])) {
 
-            $this->extraConditions = [
-                // ['column' => 'status', 'operator' => '=', 'value' => 'active'], // Example: Only active records
-                ['column' => 'branch_id', 'operator' => '=', 'value' => $user->branch_id] // Restrict to user’s branch
-            ];
-        }
+        //     $this->extraConditions = [
+        //         // ['column' => 'status', 'operator' => '=', 'value' => 'active'], // Example: Only active records
+        //         ['column' => 'branch_id', 'operator' => '=', 'value' => $user->branch_id] // Restrict to user’s branch
+        //     ];
+        // }
         $this->def_index();
         return Inertia::render($this->settings['xFolder'] . '/Index', $this->viewData);
     }

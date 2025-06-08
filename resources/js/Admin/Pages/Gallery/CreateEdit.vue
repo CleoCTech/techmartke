@@ -14,16 +14,25 @@
                         </x-form-group>
                     </x-grid-col>
 
-                    <x-grid-col class="sm:col-span-6">
+                    <x-grid-col class="sm:col-span-4">
+                        <x-form-group>
+                            <template #label>Category</template>
+                            <template #value>
+                                <x-input type="text" v-model="form.category"/>
+                            </template>
+                        </x-form-group>
+                    </x-grid-col>
+
+                    <!-- <x-grid-col class="sm:col-span-6">
                         <x-form-group class="sm:grid-cols-1">
                         <template #label>Is For All Branches?</template>
                         <template #value>
                             <input type="checkbox" v-model="form.is_global" @change="toggleBranchVisibility">
                         </template>
                         </x-form-group>
-                    </x-grid-col>
+                    </x-grid-col> -->
 
-                    <x-grid-col class="sm:col-span-4" v-if="!form.is_global">
+                    <!-- <x-grid-col class="sm:col-span-4" v-if="!form.is_global">
                         <x-form-group>
                         <template #label>Branch</template>
                         <template #value>
@@ -34,6 +43,15 @@
                             </option>
                             </x-select>
                         </template>
+                        </x-form-group>
+                    </x-grid-col> -->
+
+                    <x-grid-col class="sm:col-span-6">
+                        <x-form-group class="sm:grid-cols-1">
+                            <template #label>Description</template>
+                            <template #value>
+                                <ckeditor v-cloak :editor="editor" v-model="form.description" @ready="cardData != null? form.description = cardData.description :''"></ckeditor>
+                            </template>
                         </x-form-group>
                     </x-grid-col>
 
@@ -104,7 +122,6 @@ import { ref, reactive, computed, onMounted, watch   } from 'vue'
 
 const props = defineProps({
     ...createEditProps,
-    branches: Array,
     maxSequence: {
         type: Number,
         default: 0
@@ -123,10 +140,11 @@ onMounted(() => {
 const form = reactive({
     uuid: null,
     title: null,
+    category: null,
+    description: null,
     sequence: null,
     is_global: null,
     cover_image: null,
-    branch_id: null,
     status: null,
     publish_time: null,
 })
@@ -136,8 +154,9 @@ function setData() {
     if (props.cardData != null && props.cardData.uuid != null) {
         form.uuid = props.cardData.uuid;
         form.title = props.cardData.title;
+        form.category = props.cardData.category;
+        form.description = props.cardData.description;
         form.is_global = props.cardData.is_global === 1; // Convert 1 to true, 0 to false;
-        form.branch_id = props.cardData.branch_id;
         form.sequence = props.cardData.sequence;
         form.cover_image = props.cardData.cover_image;
         form.status = props.cardData.status;
@@ -146,17 +165,17 @@ function setData() {
     
 }
 
-const toggleBranchVisibility = () => {
-  if (form.is_global) {
-    form.branch_id = null
-  }
-}
+// const toggleBranchVisibility = () => {
+//   if (form.is_global) {
+//     form.branch_id = null
+//   }
+// }
 
-watch(() => form.is_global, (newValue) => {
-  if (newValue) {
-    form.branch_id = null
-  }
-})
+// watch(() => form.is_global, (newValue) => {
+//   if (newValue) {
+//     form.branch_id = null
+//   }
+// })
 const { editor,editorConfig, submit, onFileChange, ckeditor, xGrid,
         xFormGroup,
         xGridCol,

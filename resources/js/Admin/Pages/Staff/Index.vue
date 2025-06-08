@@ -7,7 +7,8 @@
                     <tr class="">
                         <ThCheckbox :selected-items="selected" @toggle-select-all="handleToggleSelectAll" />
                         <Th>Name</Th>
-                        <Th>Title</Th>
+                        <Th>Position</Th>
+                        <Th>Expertise</Th>
                         <Th>Email</Th>
                         <Th>Phone No.</Th>
                         <Th>Sequence</Th>
@@ -22,6 +23,18 @@
                         <TdCheckbox :item="record.uuid+'#'+listData.data.indexOf(record)" @onCheck="onCheck"/>
                         <Td>{{record.name}} </Td> 
                         <Td>{{record.title}} </Td> 
+                        <Td>
+                            <div class="flex flex-wrap gap-1">
+                                <span v-for="(expertise, idx) in record.expertise?.slice(0, 2)" 
+                                      :key="idx"
+                                      class="px-2 py-0.5 bg-blue-100 text-blue-800 rounded-full text-xs">
+                                    {{ expertise }}
+                                </span>
+                                <span v-if="record.expertise?.length > 2" class="text-gray-500 text-xs">
+                                    +{{ record.expertise.length - 2 }} more
+                                </span>
+                            </div>
+                        </Td>
                         <Td>{{record.email}} </Td> 
                         <Td>{{record.phone_no}} </Td> 
                         <Td>{{record.sequence}} </Td> 

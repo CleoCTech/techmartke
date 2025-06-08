@@ -8,6 +8,9 @@
                         <ThCheckbox :selected-items="selected" @toggle-select-all="handleToggleSelectAll" />
                         <Th>Title</Th>
                         <Th>Type</Th>
+                        <Th>Speakers</Th>
+                        <Th>Attendees</Th>
+                        <Th>Price</Th>
                         <Th>Description</Th>
                         <!-- <Th>Start Date</Th>
                         <Th>End Date</Th> -->
@@ -23,6 +26,9 @@
                         <TdCheckbox :item="record.uuid+'#'+listData.data.indexOf(record)" @onCheck="onCheck"/>
                         <Td>{{record.title}}</Td> 
                         <Td>{{ getEventTypeCaption(record.event_type) }}</Td>
+                        <Td>{{ Array.isArray(record.speakers) ? record.speakers.join(', ') : (record.speakers ? record.speakers.replace(/\[|\]|"/g, '').split(',').join(', ') : '') }}</Td>
+                        <Td>{{record.attendees}}</Td>
+                        <Td>{{record.price}}</Td>
                         <Td  v-html="trimHtml(record.description)"></Td> 
                         <Td>{{record.location}}</Td> 
                         <Td>{{record.created_at}} </Td>

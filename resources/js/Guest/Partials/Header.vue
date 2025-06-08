@@ -8,8 +8,9 @@
       <div class="flex justify-between h-16">
         <div class="flex items-center">
           <Link href="/" class="flex items-center space-x-2">
-            <GraduationCap class="h-8 w-8" />
-            <span class="font-bold text-xl">Novus Institute of Technology</span>
+            <!-- <GraduationCap class="h-8 w-8" /> -->
+            <img src="/assets/images/novus-logo.png" alt="logo" class="h-8 w-8" />
+            <span class="font-bold text-xl">{{ $page.props.config.appName }}</span>
           </Link>
         </div>
 

@@ -56,21 +56,20 @@ class VideosController extends Controller
     public function index(){
         $user = Auth::user();
 
-        if (!UserRoleService::hasRole(['administrator', 'superadmin'])) {
+        // if (!UserRoleService::hasRole(['administrator', 'superadmin'])) {
 
-            $this->extraConditions = [
-                // ['column' => 'status', 'operator' => '=', 'value' => 'active'], // Example: Only active records
-                ['column' => 'branch_id', 'operator' => '=', 'value' => $user->branch_id] // Restrict to user’s branch
-            ];
-        }
+        //     $this->extraConditions = [
+        //         // ['column' => 'status', 'operator' => '=', 'value' => 'active'], // Example: Only active records
+        //         ['column' => 'branch_id', 'operator' => '=', 'value' => $user->branch_id] // Restrict to user's branch
+        //     ];
+        // }
         $this->def_index();
         return Inertia::render($this->settings['xFolder'].'/Index',$this->viewData);
     }
     public function create(){
         $this->def_create();
-        $branches = Branch::all();
+        // $branches = Branch::all();
         $maxSequence = Video::max('sequence');
-        $this->viewData['branches'] = $branches;
         $this->viewData['maxSequence'] = $maxSequence;
         return Inertia::render($this->settings['xFolder'].'/CreateEdit',$this->viewData);
     }
@@ -83,6 +82,9 @@ class VideosController extends Controller
             'video_url' => 'required',
             'status' => 'required',
             'publish_time' => 'nullable|required_if:status,=,3',
+            'duration' => 'nullable|string',
+            'category' => 'nullable|string',
+            'views' => 'nullable|integer',
         ]);
         info($request->all());
         DB::beginTransaction();
@@ -101,16 +103,21 @@ class VideosController extends Controller
                 'video_path' => $request->video_url,
                 'status' => $request->status,
                 'sequence' => $request->sequence,
+                'duration' => $request->duration,
+                'category' => $request->category,
+                'views' => $request->views,
                 // 'publish_time' => $request->publish_time,
             ];
-            if ($request->branch_id == 'null') {
-            } else {
-                $branch_id = $request->branch_id;
-                $record['branch_id'] = $branch_id;
-            }
-            $record['is_global'] = filter_var($request->is_global, FILTER_VALIDATE_BOOLEAN);
-            if($request->hasFile('thumbnail_url') || $request->hasFile('cover_image')){
-                $record['cover_image'] = $fileName;
+            // if ($request->branch_id == 'null') {
+            // } else {
+            //     $branch_id = $request->branch_id;
+            //     $record['branch_id'] = $branch_id;
+            // }
+            //$record['is_global'] = filter_var($request->is_global, FILTER_VALIDATE_BOOLEAN);
+            // Save only the filename from thumbnail_url to cover_image
+            if ($request->thumbnail_url) {
+                $coverImage = basename(parse_url($request->thumbnail_url, PHP_URL_PATH));
+                $record['cover_image'] = $coverImage;
             }
             // if($request->status != 3){
             //     $record['publish_time'] = null;
@@ -158,7 +165,7 @@ class VideosController extends Controller
         $this->def_edit($uuid);
         $branches = Branch::all();
         $maxSequence = Video::max('sequence');
-        $this->viewData['branches'] = $branches;
+        // $this->viewData['branches'] = $branches;
         $this->viewData['maxSequence'] = $maxSequence;
         if($this->viewData['cardData']['status'] == 3){
             $this->viewData['cardData']['publish_time2'] = $this->viewData['cardData']['publish_time']->format('Y-m-d\TH:i');
@@ -233,8 +240,8 @@ class VideosController extends Controller
             $uniqueFileName = Str::uuid() . '.' . $extension;
             $finalPath = "videos/{$uniqueFileName}";
 
-            // Create empty file
-            Storage::put($finalPath, '');
+            // Create empty file in the public disk
+            Storage::disk('public')->put($finalPath, '');
             
             // Get all chunks and sort them
             $chunks = collect(Storage::files($chunkPath))
@@ -244,23 +251,26 @@ class VideosController extends Controller
                     return $aIndex - $bIndex;
                 });
 
-            // Merge chunks
+            // Merge chunks (binary-safe) into storage/app/public/videos/...
+            $finalFilePath = storage_path('app/public/' . $finalPath);
+            $finalFile = fopen($finalFilePath, 'ab');
             foreach ($chunks as $chunk) {
                 $chunkContent = Storage::get($chunk);
-                Storage::append($finalPath, $chunkContent);
+                fwrite($finalFile, $chunkContent);
             }
-
-            // Clean up chunks
-            Storage::deleteDirectory($chunkPath);
+            fclose($finalFile);
 
              // Extract thumbnail
-            //  info('Extracting thumbnail: ' . $finalPath);
              $thumbnailPath = $this->extractThumbnail($finalPath);
+
+             // Extract duration
+             $duration = $this->getVideoDuration($finalPath);
 
              return response()->json([
                  'message' => 'File merged successfully',
                  'path' => $uniqueFileName,
-                 'thumbnail' => $thumbnailPath
+                 'thumbnail' => $thumbnailPath,
+                 'duration' => $duration
              ]);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
@@ -269,17 +279,17 @@ class VideosController extends Controller
     private function extractThumbnail($videoPath)
     {
         $thumbnailFileName = Str::uuid() . '.jpg';
-        $thumbnailPath = "storage/thumbnails/{$thumbnailFileName}";
-        
-        // Get the full path for the video using base_path() with storage_path()
-        $fullVideoPath = storage_path('app/' . $videoPath);
-        
-        // Get the full path for the thumbnail using public_path()
-        $fullThumbnailPath = public_path('storage/' . $thumbnailPath);
+        $thumbnailRelativePath = "thumbnails/{$thumbnailFileName}";
 
-        // Ensure the thumbnails directory exists in the public storage
-        if (!Storage::disk('public')->exists('thumbnails')) {
-            Storage::disk('public')->makeDirectory('thumbnails');
+        // Full path to the video in storage/app/public/videos/...
+        $fullVideoPath = storage_path('app/public/' . $videoPath);
+
+        // Full path to the thumbnail in public/thumbnails/...
+        $fullThumbnailPath = public_path($thumbnailRelativePath);
+
+        // Ensure the thumbnails directory exists in public
+        if (!file_exists(public_path('thumbnails'))) {
+            mkdir(public_path('thumbnails'), 0777, true);
         }
 
         // Check if ffmpeg is available
@@ -287,8 +297,7 @@ class VideosController extends Controller
 
         if (!$ffmpegAvailable) {
             Log::warning("FFmpeg is not available. Using default thumbnail.");
-            // Use a default thumbnail image
-            return $this->useDefaultThumbnail($thumbnailPath);
+            return $this->useDefaultThumbnail($thumbnailRelativePath);
         }
 
         // Extract thumbnail at 1 second mark
@@ -309,8 +318,8 @@ class VideosController extends Controller
                 throw new \RuntimeException("Failed to extract thumbnail: " . $errorOutput);
             }
 
-            return Storage::disk('public')->url($thumbnailPath);
-            return $thumbnailPath;
+            // Return the public URL (e.g., /thumbnails/uuid.jpg)
+            return url('thumbnails/' . $thumbnailFileName);
         } catch (\Exception $e) {
             Log::error("Exception while extracting thumbnail: " . $e->getMessage());
             throw $e;
@@ -343,23 +352,22 @@ class VideosController extends Controller
         
         // Return the public URL
         return $thumbnailPath;
-        return Storage::disk('public')->path($thumbnailPath);
     }
 
-    // private function useDefaultThumbnail($thumbnailPath)
-    // {
-    //        // Define the path for the default thumbnail
-    //     $defaultThumbnailPath = 'thumbnails/default-video-thumbnail.jpg';
-
-    //     // Check if the default thumbnail exists in the public disk
-    //     if (Storage::disk('public')->exists($defaultThumbnailPath)) {
-    //         // Copy the default thumbnail to the specified path
-    //         Storage::put($thumbnailPath, Storage::disk('public')->get($defaultThumbnailPath));
-    //         return $thumbnailPath;
-    //     }
-        
-    //     // If default thumbnail doesn't exist, log a warning and return null
-    //     Log::warning("Default thumbnail image not found.");
-    //     return null;
-    // }
+    private function getVideoDuration($videoPath)
+    {
+        $fullVideoPath = storage_path('app/public/' . $videoPath);
+        $process = new \Symfony\Component\Process\Process([
+            'ffprobe', '-v', 'error', '-show_entries',
+            'format=duration', '-of', 'default=noprint_wrappers=1:nokey=1', $fullVideoPath
+        ]);
+        $process->run();
+        if ($process->isSuccessful()) {
+            $seconds = floatval(trim($process->getOutput()));
+            $minutes = floor($seconds / 60);
+            $remainingSeconds = round($seconds % 60);
+            return sprintf('%d:%02d', $minutes, $remainingSeconds); // e.g., 5:30
+        }
+        return null;
+    }
 }

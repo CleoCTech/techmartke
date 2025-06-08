@@ -23,7 +23,7 @@ const hasChurchManagementAccess = computed(() => {
     'managechurchtestimonies',
     'managechurchoffering',
     'managechurchattendance',
-    'managechurchservice',
+    'managechurchcourse',
     'manageevents',
     'managegallery'
   ];
@@ -151,7 +151,7 @@ const closeSidebar = () => {
         </button>
         <!-- Logo -->
         <Link class="block" :href="route('admin.dashboard')">
-          <img src="/assets/images/TwiggyLogo.svg" alt="logo" />
+          <img src="/assets/images/novus-logo.png" alt="logo" class="h-10 w-10" />
         </Link>
       </div>
 
@@ -277,9 +277,7 @@ const closeSidebar = () => {
               $page.url.includes('admin/fiscal') ||
               $page.url.includes('admin/fiscal-period') ||
               $page.url.includes('admin/departments') ||
-              $page.url.includes('admin/designations') ||
-              $page.url.includes('admin/church-leadership') ||
-              $page.url.includes('admin/branch-leadership')">
+              $page.url.includes('admin/designations')">
               <a class="block text-slate-200 hover:text-white truncate transition duration-150"
                 :class="parentLink.expanded && 'hover:text-slate-200'" href="#0"
                 @click.prevent="parentLink.handleClick(); sidebarExpanded = true">
@@ -307,22 +305,12 @@ const closeSidebar = () => {
                       <a class="block transition duration-150 truncate"
                         :class="$page.url == '/system/company-information' ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'"
                         :href="href" @click="navigate">
-                        <span class="text-sm font-medium md:opacity-100 duration-200">Church
+                        <span class="text-sm font-medium md:opacity-100 duration-200">Company
                           Information</span>
                       </a>
                     </li>
                   </SidebarLink>
 
-                  <SidebarLink :href="route('admin.branch')" :active="$page.url == '/admin/branch'">
-                    <li class="mb-1 last:mb-0">
-                      <a class="block transition duration-150 truncate"
-                        :class="$page.url.startsWith('/admin/branch') ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'"
-                        :href="href" @click="navigate">
-                        <span class="text-sm font-medium md:opacity-100 duration-200">Church
-                          Branches</span>
-                      </a>
-                    </li>
-                  </SidebarLink>
 
                   <SidebarLink :href="route('system.social')" :active="$page.url == '/system/social-media'">
                     <li class="mb-1 last:mb-0">
@@ -336,27 +324,7 @@ const closeSidebar = () => {
                   </SidebarLink>
 
                   <!-- New items -->
-                  <SidebarLink :href="route('admin.fiscal')" :active="$page.url == '/admin/fiscal'">
-                    <li class="mb-1 last:mb-0">
-                      <a class="block transition duration-150 truncate"
-                        :class="$page.url.startsWith('/admin/fiscal') ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'"
-                        :href="href" @click="navigate">
-                        <span class="text-sm font-medium md:opacity-100 duration-200">Fiscal
-                          Year</span>
-                      </a>
-                    </li>
-                  </SidebarLink>
-
-                  <SidebarLink :href="route('admin.fiscal-period')" :active="$page.url == '/admin/fiscal-period'">
-                    <li class="mb-1 last:mb-0">
-                      <a class="block transition duration-150 truncate"
-                        :class="$page.url.startsWith('/admin/fiscal-period') ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'"
-                        :href="href" @click="navigate">
-                        <span class="text-sm font-medium md:opacity-100 duration-200">Fiscal
-                          Period</span>
-                      </a>
-                    </li>
-                  </SidebarLink>
+                 
 
                   <SidebarLink :href="route('admin.departments')" :active="$page.url == '/admin/departments'">
                     <li class="mb-1 last:mb-0">
@@ -378,26 +346,12 @@ const closeSidebar = () => {
                     </li>
                   </SidebarLink>
 
-                  <SidebarLink :href="route('admin.church-leadership')"
-                    :active="$page.url == '/admin/church-leadership'">
+                  <SidebarLink :href="route('admin.staff')" :active="$page.url.startsWith('/staff')">
                     <li class="mb-1 last:mb-0">
                       <a class="block transition duration-150 truncate"
-                        :class="$page.url.startsWith('/admin/church-leadership') ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'"
+                        :class="$page.url.startsWith('/staff') ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'"
                         :href="href" @click="navigate">
-                        <span class="text-sm font-medium md:opacity-100 duration-200">Church
-                          Leadership</span>
-                      </a>
-                    </li>
-                  </SidebarLink>
-
-                  <SidebarLink :href="route('admin.branch-leadership')"
-                    :active="$page.url == '/admin/branch-leadership'">
-                    <li class="mb-1 last:mb-0">
-                      <a class="block transition duration-150 truncate"
-                        :class="$page.url.startsWith('/admin/branch-leadership') ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'"
-                        :href="href" @click="navigate">
-                        <span class="text-sm font-medium md:opacity-100 duration-200">Branch
-                          Leadership</span>
+                        <span class="text-sm font-medium md:opacity-100 duration-200">Staff</span>
                       </a>
                     </li>
                   </SidebarLink>
@@ -409,15 +363,15 @@ const closeSidebar = () => {
 
         <div v-if="hasChurchManagementAccess">
           <h3 class="text-xs uppercase text-slate-500 font-semibold pl-3">
-            <span class="md:block lg:sidebar-expanded:block 2xl:block">Church Management</span>
+            <span class="md:block lg:sidebar-expanded:block 2xl:block">School Management</span>
           </h3>
           <ul class="mt-3">
-            <!-- Service Management  -->
+            <!-- Course Management  -->
             <SidebarLinkGroup
               
-              v-slot="parentLink" :activeCondition="$page.url.includes('service')">
+              v-slot="parentLink" :activeCondition="$page.url.startsWith('/system/courses')">
               <a class="block text-slate-200 hover:text-white truncate transition duration-150"
-                :class="$page.url.includes('service') ? 'hover:text-slate-200' : 'hover:text-white'" href="#0"
+                :class="$page.url.startsWith('/system/courses') ? 'hover:text-slate-200' : 'hover:text-white'" href="#0"
                 @click.prevent="parentLink.handleClick(); sidebarExpanded = true">
                 <div class="flex items-center justify-between">
                   <div class="flex items-center">
@@ -427,7 +381,7 @@ const closeSidebar = () => {
                       <path class="fill-current text-slate-400"
                         d="M12 5.5l-1.5 1.5H9v2H7.5V11H9v2h1.5l1.5 1.5 1.5-1.5H15V11h1.5V9H15V7h-1.5L12 5.5zM10.5 9H12v2h-1.5V9zm3 0H15v2h-1.5V9z" />
                     </svg>
-                    <span class="text-sm font-medium ml-3 md:opacity-100  duration-200">Services
+                    <span class="text-sm font-medium ml-3 md:opacity-100  duration-200">Courses
                     </span>
                   </div>
                   <div class="flex shrink-0 ml-2">
@@ -440,12 +394,12 @@ const closeSidebar = () => {
               </a>
               <div class="md:block lg:sidebar-expanded:block 2xl:block">
                 <ul class="pl-9 mt-1" :class="!parentLink.expanded && 'hidden'">
-                  <SidebarLink :href="route('admin.service')" :active="$page.url == '/admin/service'">
+                  <SidebarLink :href="route('system.courses.index')" :active="$page.url.startsWith(route('system.courses.index'))">
                     <li class="mb-1 last:mb-0">
                       <a class="block transition duration-150 truncate"
                         :class="isExactActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'" :href="href"
                         @click="navigate">
-                        <span class="text-sm font-medium md:opacity-100  duration-200">Services</span>
+                        <span class="text-sm font-medium md:opacity-100  duration-200">Courses</span>
                       </a>
                     </li>
                   </SidebarLink>
@@ -454,174 +408,7 @@ const closeSidebar = () => {
                 </ul>
               </div>
             </SidebarLinkGroup>
-            <!-- Attendance Management -->
-            <SidebarLinkGroup v-slot="parentLink" :activeCondition="$page.url.includes('attendance')">
-              <a class="block text-slate-200 truncate transition duration-150"
-                :class="$page.url.includes('attendance') ? 'hover:text-slate-200' : 'hover:text-white'" href="#0"
-                @click.prevent="parentLink.handleClick(); sidebarExpanded = true">
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center">
-                    <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
-                      <path class="fill-current"
-                        :class="$page.url.includes('attendance') ? 'text-indigo-500' : 'text-slate-600'"
-                        d="M12 0C5.383 0 0 5.383 0 12s5.383 12 12 12 12-5.383 12-12S18.617 0 12 0z" />
-                      <path class="fill-current"
-                        :class="$page.url.includes('attendance') ? 'text-indigo-600' : 'text-slate-600'"
-                        d="M12 3c-4.963 0-9 4.037-9 9s4.037 9 9 9 9-4.037 9-9-4.037-9-9-9z" />
-                      <path class="fill-current"
-                        :class="$page.url.includes('attendance') ? 'text-indigo-200' : 'text-slate-400'"
-                        d="M12 15c-1.654 0-3-1.346-3-3 0-.462.113-.894.3-1.285L6 6l4.714 3.301A2.973 2.973 0 0112 9c1.654 0 3 1.346 3 3s-1.346 3-3 3z" />
-                    </svg>
-                    <span
-                      class="text-sm font-medium ml-3 lg:opacity-100 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Attendance</span>
-                  </div>
-                  <div class="flex shrink-0 ml-2">
-                    <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400"
-                      :class="parentLink.expanded && 'rotate-180'" viewBox="0 0 12 12">
-                      <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
-                    </svg>
-                  </div>
-                </div>
-              </a>
-              <div class="md:block lg:sidebar-expanded:block 2xl:block">
-                <ul class="pl-9 mt-1" :class="!parentLink.expanded && 'hidden'">
-                  <SidebarLink :href="route('admin.attendance')" :active="$page.url == '/admin/attendance'">
-                    <li class="mb-1 last:mb-0">
-                      <a class="block transition duration-150 truncate"
-                        :class="isExactActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'" :href="href"
-                        @click="navigate">
-                        <span
-                          class="text-sm font-medium lg:opacity-100 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Track
-                          Attendance</span>
-                      </a>
-                    </li>
-                  </SidebarLink>
-                  <SidebarLink :href="route('admin.attendance')" :active="$page.url == '/admin/attendance/reports'">
-                    <li class="mb-1 last:mb-0">
-                      <a class="block transition duration-150 truncate"
-                        :class="isExactActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'" :href="href"
-                        @click="navigate">
-                        <span
-                          class="text-sm font-medium lg:opacity-100 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Attendance
-                          Reports</span>
-                      </a>
-                    </li>
-                  </SidebarLink>
-                </ul>
-              </div>
-            </SidebarLinkGroup>
-
-            <!-- Offerings Management -->
-            <SidebarLinkGroup v-slot="parentLink" :activeCondition="$page.url.includes('offering')">
-              <a class="block text-slate-200 truncate transition duration-150"
-                :class="$page.url.includes('offering') ? 'hover:text-slate-200' : 'hover:text-white'" href="#0"
-                @click.prevent="parentLink.handleClick(); sidebarExpanded = true">
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center">
-                    <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
-                      <path class="fill-current"
-                        :class="$page.url.includes('offering') ? 'text-indigo-500' : 'text-slate-600'"
-                        d="M13 11.5l1.5 1.5-4 4-1.5-1.5 4-4z" />
-                      <path class="fill-current"
-                        :class="$page.url.includes('offering') ? 'text-indigo-300' : 'text-slate-400'"
-                        d="M12 0C5.383 0 0 5.383 0 12s5.383 12 12 12 12-5.383 12-12S18.617 0 12 0zm-1.707 18.707l-4-4a.999.999 0 010-1.414l4-4a.999.999 0 111.414 1.414L8.414 12l3.293 3.293a.999.999 0 11-1.414 1.414z" />
-                    </svg>
-                    <span
-                      class="text-sm font-medium ml-3 lg:opacity-100 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Offerings</span>
-                  </div>
-                  <div class="flex shrink-0 ml-2">
-                    <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400"
-                      :class="parentLink.expanded && 'rotate-180'" viewBox="0 0 12 12">
-                      <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
-                    </svg>
-                  </div>
-                </div>
-              </a>
-              <div class="md:block lg:sidebar-expanded:block 2xl:block">
-                <ul class="pl-9 mt-1" :class="!parentLink.expanded && 'hidden'">
-                  <SidebarLink :href="route('admin.offering')" :active="$page.url == '/admin/offering'">
-                    <li class="mb-1 last:mb-0">
-                      <a class="block transition duration-150 truncate"
-                        :class="isExactActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'" :href="href"
-                        @click="navigate">
-                        <span
-                          class="text-sm font-medium lg:opacity-100 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Record
-                          Offerings</span>
-                      </a>
-                    </li>
-                  </SidebarLink>
-                  <SidebarLink :href="route('admin.offering')" :active="$page.url == '/admin/offerings/reports'">
-                    <li class="mb-1 last:mb-0">
-                      <a class="block transition duration-150 truncate"
-                        :class="isExactActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'" :href="href"
-                        @click="navigate">
-                        <span
-                          class="text-sm font-medium lg:opacity-100 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Offering
-                          Reports</span>
-                      </a>
-                    </li>
-                  </SidebarLink>
-                </ul>
-              </div>
-            </SidebarLinkGroup>
-
-            <!-- Special Needs Ministry -->
-            <!-- <SidebarLinkGroup v-slot="parentLink" :activeCondition="$page.url.includes('special-need')">
-              <a class="block text-slate-200 truncate transition duration-150"
-                :class="$page.url.includes('special-need') ? 'hover:text-slate-200' : 'hover:text-white'" href="#0"
-                @click.prevent="parentLink.handleClick(); sidebarExpanded = true">
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center">
-                    <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
-                      <path class="fill-current"
-                        :class="$page.url.includes('special-need') ? 'text-indigo-500' : 'text-slate-600'"
-                        d="M12 0C5.383 0 0 5.383 0 12s5.383 12 12 12 12-5.383 12-12S18.617 0 12 0z" />
-                      <path class="fill-current"
-                        :class="$page.url.includes('special-need') ? 'text-indigo-600' : 'text-slate-600'"
-                        d="M12 3c-4.963 0-9 4.037-9 9s4.037 9 9 9 9-4.037 9-9-4.037-9-9-9z" />
-                      <path class="fill-current"
-                        :class="$page.url.includes('special-need') ? 'text-indigo-200' : 'text-slate-400'"
-                        d="M12 15c-1.654 0-3-1.346-3-3 0-.462.113-.894.3-1.285L6 6l4.714 3.301A2.973 2.973 0 0112 9c1.654 0 3 1.346 3 3s-1.346 3-3 3z" />
-                    </svg>
-                    <span
-                      class="text-sm font-medium ml-3 lg:opacity-100 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Special
-                      Needs</span>
-                  </div>
-                  <div class="flex shrink-0 ml-2">
-                    <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400"
-                      :class="parentLink.expanded && 'rotate-180'" viewBox="0 0 12 12">
-                      <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
-                    </svg>
-                  </div>
-                </div>
-              </a>
-              <div class="md:block  lg:sidebar-expanded:block 2xl:block">
-                <ul class="pl-9 mt-1" :class="!parentLink.expanded && 'hidden'">
-                  <SidebarLink :href="route('admin.special-need')" :active="$page.url == '/admin/special-need'">
-                    <li class="mb-1 last:mb-0">
-                      <a class="block transition duration-150 truncate"
-                        :class="isExactActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'" :href="href"
-                        @click="navigate">
-                        <span
-                          class="text-sm font-medium lg:opacity-100 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Members</span>
-                      </a>
-                    </li>
-                  </SidebarLink>
-                  <SidebarLink :href="route('admin.special-need')"
-                    :active="$page.url == '/admin/special-needs/support'">
-                    <li class="mb-1 last:mb-0">
-                      <a class="block transition duration-150 truncate"
-                        :class="isExactActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'" :href="href"
-                        @click="navigate">
-                        <span
-                          class="text-sm font-medium lg:opacity-100 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Support
-                          Programs</span>
-                      </a>
-                    </li>
-                  </SidebarLink>
-                </ul>
-              </div>
-            </SidebarLinkGroup>  -->
+           
 
             <!-- Testimonies -->
             <SidebarLinkGroup v-slot="parentLink" :activeCondition="$page.url.includes('testimony')">
@@ -670,6 +457,60 @@ const closeSidebar = () => {
                         <span
                           class="text-sm font-medium lg:opacity-100 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Add
                           Testimony</span>
+                      </a>
+                    </li>
+                  </SidebarLink>
+                </ul>
+              </div>
+            </SidebarLinkGroup>
+
+            <!-- Success Stories -->
+            <SidebarLinkGroup v-slot="parentLink" :activeCondition="$page.url.includes('success-story')">
+              <a class="block text-slate-200 truncate transition duration-150"
+                :class="$page.url.includes('success-story') ? 'hover:text-slate-200' : 'hover:text-white'" href="#0"
+                @click.prevent="parentLink.handleClick(); sidebarExpanded = true">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center">
+                    <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
+                      <path class="fill-current"
+                        :class="$page.url.includes('success-story') ? 'text-indigo-500' : 'text-slate-600'"
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
+                      <path class="fill-current"
+                        :class="$page.url.includes('success-story') ? 'text-indigo-300' : 'text-slate-400'"
+                        d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0 8c-1.65 0-3-1.35-3-3s1.35-3 3-3 3 1.35 3 3-1.35 3-3 3z" />
+                    </svg>
+                    <span
+                      class="text-sm font-medium ml-3 lg:opacity-100 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Success Stories</span>
+                  </div>
+                  <div class="flex shrink-0 ml-2">
+                    <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400"
+                      :class="parentLink.expanded && 'rotate-180'" viewBox="0 0 12 12">
+                      <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
+                    </svg>
+                  </div>
+                </div>
+              </a>
+              <div class="md:block lg:sidebar-expanded:block 2xl:block">
+                <ul class="pl-9 mt-1" :class="!parentLink.expanded && 'hidden'">
+                  <SidebarLink :href="route('admin.success-story')" :active="$page.url == '/admin/success-story'">
+                    <li class="mb-1 last:mb-0">
+                      <a class="block transition duration-150 truncate"
+                        :class="isExactActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'" :href="href"
+                        @click="navigate">
+                        <span
+                          class="text-sm font-medium lg:opacity-100 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">View
+                          Success Stories</span>
+                      </a>
+                    </li>
+                  </SidebarLink>
+                  <SidebarLink :href="route('admin.success-story') + '/create'" :active="$page.url == '/admin/success-story/create'">
+                    <li class="mb-1 last:mb-0">
+                      <a class="block transition duration-150 truncate"
+                        :class="isExactActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'" :href="href"
+                        @click="navigate">
+                        <span
+                          class="text-sm font-medium lg:opacity-100 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Add
+                          Success Story</span>
                       </a>
                     </li>
                   </SidebarLink>

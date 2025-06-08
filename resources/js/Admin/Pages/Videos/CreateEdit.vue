@@ -15,28 +15,7 @@
                         </x-form-group>
                     </x-grid-col>
 
-                    <x-grid-col class="sm:col-span-6">
-                        <x-form-group class="sm:grid-cols-1">
-                        <template #label>Is For All Branches?</template>
-                        <template #value>
-                            <input type="checkbox" v-model="form.is_global" @change="toggleBranchVisibility">
-                        </template>
-                        </x-form-group>
-                    </x-grid-col>
-
-                    <x-grid-col class="sm:col-span-4" v-if="!form.is_global">
-                        <x-form-group>
-                        <template #label>Branch</template>
-                        <template #value>
-                            <x-select v-model="form.branch_id">
-                            <option value="">-- Select Branch --</option>
-                            <option v-for="branch in branches" :key="branch.id" :value="branch.id">
-                                {{ branch.name }}
-                            </option>
-                            </x-select>
-                        </template>
-                        </x-form-group>
-                    </x-grid-col>
+                    
 
                     <x-grid-col class="sm:col-span-4">
                         <x-form-group>
@@ -63,6 +42,32 @@
                         </x-form-group>
                     </x-grid-col>
 
+                    <x-grid-col class="sm:col-span-4">
+                        <x-form-group>
+                            <template #label>Duration</template>
+                            <template #value>
+                                <x-input type="text" v-model="form.duration" placeholder="Duration will be set automatically" readonly />
+                            </template>
+                        </x-form-group>
+                    </x-grid-col>
+
+                    <x-grid-col class="sm:col-span-4">
+                        <x-form-group>
+                            <template #label>Category</template>
+                            <template #value>
+                                <x-input type="text" v-model="form.category" placeholder="e.g., Testimonials" />
+                            </template>
+                        </x-form-group>
+                    </x-grid-col>
+
+                    <x-grid-col class="sm:col-span-4">
+                        <x-form-group>
+                            <template #label>Views</template>
+                            <template #value>
+                                <x-input type="number" v-model="form.views" placeholder="e.g., 0" />
+                            </template>
+                        </x-form-group>
+                    </x-grid-col>
 
                     <x-grid-col class="col-span-3">
                         <x-form-group>
@@ -212,7 +217,6 @@ import axios from 'axios'
 
 const props = defineProps({
     ...createEditProps,
-    branches: Array,
     maxSequence: {
         type: Number,
         default: 0
@@ -248,6 +252,9 @@ const form = reactive({
     video_url: null,
     status: null,
     publish_time: null,
+    duration: null,
+    category: null,
+    views: 0,
 })
 
 
@@ -256,7 +263,6 @@ function setData() {
         form.uuid = props.cardData.uuid;
         form.title = props.cardData.title;
         form.is_global = props.cardData.is_global === 1; // Convert 1 to true, 0 to false;
-        form.branch_id = props.cardData.branch_id;
         form.sequence = props.cardData.sequence;
         form.description = props.cardData.description;
         form.thumbnail_url = props.cardData.cover_image;
@@ -264,21 +270,13 @@ function setData() {
         form.video_url = props.cardData.video_path;
         form.status = props.cardData.status;
         form.publish_time = props.cardData.publish_time2;
+        form.duration = props.cardData.duration ?? null;
+        form.category = props.cardData.category ?? null;
+        form.views = props.cardData.views ?? 0;
     }
 
 }
 
-const toggleBranchVisibility = () => {
-  if (form.is_global) {
-    form.branch_id = null
-  }
-}
-
-watch(() => form.is_global, (newValue) => {
-  if (newValue) {
-    form.branch_id = null
-  }
-})
 // Format file size to human readable format
 const formatFileSize = (bytes) => {
     if (bytes === 0) return '0 Bytes'
@@ -366,9 +364,11 @@ const uploadChunks = async () => {
         form.video_url = response.data.path
         // Only set thumbnail_url if no custom thumbnail was uploaded
         if (!form.thumbnail_url) {
-            // console.log('Thumbnail:', '/storage/'+response.data.thumbnail)
-            console.log('Thumbnail:', response.data.thumbnail)
             form.thumbnail_url = response.data.thumbnail
+        }
+        // Set duration from backend
+        if (response.data.duration) {
+            form.duration = response.data.duration
         }
         isUploading.value = false
     } catch (error) {

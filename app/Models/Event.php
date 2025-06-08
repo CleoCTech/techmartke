@@ -67,14 +67,13 @@ class Event extends Model
         if($column == 'event_type'){
             $options = [
                 ['id' => 1,'caption' => 'Event'],
-                ['id' => 2,'caption' => 'Branch'],
-                ['id' => 3,'caption' => 'Departmental'],
-                ['id' => 4,'caption' => 'Group'],
-                ['id' => 5,'caption' => 'Evangelism'],
-                ['id' => 6,'caption' => 'Service'],
-                ['id' => 7,'caption' => 'Prayer Gathering'],
-                ['id' => 8,'caption' => 'Seminar'],
-                ['id' => 10,'caption' => 'Others'],
+                ['id' => 2,'caption' => 'Conference'],
+                ['id' => 3,'caption' => 'Seminar'],
+                ['id' => 4,'caption' => 'Workshop'],
+                ['id' => 5,'caption' => 'Bootcamp'],
+                ['id' => 6,'caption' => 'Networking'],
+                ['id' => 7,'caption' => 'Training'],
+                ['id' => 8,'caption' => 'Others'],
             ];
         }
         if(isset($options)){

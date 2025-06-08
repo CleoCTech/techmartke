@@ -23,41 +23,6 @@
                         </x-form-group>
                     </x-grid-col>
 
-                    <x-grid-col class="col-span-12 sm:col-span-6">
-                        <x-form-group class="sm:grid-cols-1">
-                            <template #label>Is For All Branches?</template>
-                            <template #value>
-                                <div class="flex items-center">
-                                    <!-- Bind the checkbox to form.is_for_all_branches -->
-                                    <input 
-                                        type="checkbox" 
-                                        v-model="form.is_for_all_branches" 
-                                        @change="toggleBranchVisibility" 
-                                        class="h-5 w-5"
-                                    >
-                                    <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Yes, apply to all branches</span>
-                                </div>
-                            </template>
-                        </x-form-group>
-                    </x-grid-col>
-
-                    <!-- <div>
-                        Debug: form.is_for_all_branches = {{ form.is_for_all_branches }}
-                    </div> -->
-                    <x-grid-col class="col-span-12 sm:col-span-4" v-if="!form.is_for_all_branches">
-                        <x-form-group>
-                        <template #label>Branch</template>
-                        <template #value>
-                            <x-select v-model="form.branch_id" class="w-full">
-                            <option value="">-- Select Branch --</option>
-                            <option v-for="branch in branches" :key="branch.id" :value="branch.id">
-                                {{ branch.name }}
-                            </option>
-                            </x-select>
-                        </template>
-                        </x-form-group>
-                    </x-grid-col>
-
                     <x-grid-col class="col-span-12 sm:col-span-3">
                         <x-form-group>
                             <template #label>Event Type</template>
@@ -102,6 +67,57 @@
 
                     <x-grid-col class="col-span-12 sm:col-span-3">
                         <x-form-group>
+                            <template #label>Start Time</template>
+                            <template #value><x-input type="time" v-model="form.start_time" class="w-full"/></template>
+                        </x-form-group>
+                    </x-grid-col>
+
+                    <x-grid-col class="col-span-12 sm:col-span-3">
+                        <x-form-group>
+                            <template #label>End Time</template>
+                            <template #value><x-input type="time" v-model="form.end_time" class="w-full"/></template>
+                        </x-form-group>
+                    </x-grid-col>
+
+                    <!-- <x-grid-col class="col-span-12 sm:col-span-3">
+                        <x-form-group>
+                            <template #label>Type</template>
+                            <template #value>
+                                <x-input type="text" v-model="form.type" class="w-full"/>
+                            </template>
+                        </x-form-group>
+                    </x-grid-col> -->
+
+                    <x-grid-col class="col-span-12 sm:col-span-6">
+                        <x-form-group>
+                            <template #label>Speakers (comma separated)</template>
+                            <template #value>
+                                <x-input type="text" v-model="form.speakers" class="w-full" placeholder="e.g. John Doe, Jane Smith"/>
+                            </template>
+                        </x-form-group>
+                    </x-grid-col>
+
+                    <x-grid-col class="col-span-12 sm:col-span-3">
+                        <x-form-group>
+                            <template #label>Attendees</template>
+                            <template #value>
+                                <x-input type="number" v-model="form.attendees" class="w-full"/>
+                            </template>
+                        </x-form-group>
+                    </x-grid-col>
+
+                    <x-grid-col class="col-span-12 sm:col-span-3">
+                        <x-form-group>
+                            <template #label>Price</template>
+                            <template #value>
+                                <x-input type="text" v-model="form.price" class="w-full"/>
+                            </template>
+                        </x-form-group>
+                    </x-grid-col>
+                </x-grid>
+
+                <x-grid-col class="col-span-12 sm:col-span-3">
+                        <x-form-group>
                             <template #label>Cover Image</template>
                             <template #value>
                                 <div class="flex flex-col space-y-2">
@@ -140,7 +156,6 @@
                             <template #value><x-input type="datetime-local" v-model="form.publish_time" class="w-full"/></template>
                         </x-form-group>
                     </x-grid-col>
-                </x-grid>
 
                 <div class="flex justify-center py-3 mt-4">
                     <x-button type="submit" class="w-full sm:w-auto px-6 py-2">Submit</x-button>
@@ -181,6 +196,12 @@ const form = reactive({
     cover_image: null,
     status: null,
     publish_time: null,
+    // type: null,
+    speakers: null,
+    attendees: null,
+    price: null,
+    start_time: null,
+    end_time: null,
 })
 const show_image = ref('')
 const test = ref('gggg')
@@ -207,6 +228,25 @@ function setData() {
         form.cover_image = props.cardData.cover_image;
         form.status = props.cardData.status;
         form.publish_time = props.cardData.publish_time2;
+        // form.type = props.cardData.type;
+        form.speakers = (() => {
+            if (typeof props.cardData.speakers === 'string') {
+                try {
+                    const parsed = JSON.parse(props.cardData.speakers);
+                    return Array.isArray(parsed) ? parsed.join(', ') : props.cardData.speakers;
+                } catch (e) {
+                    return props.cardData.speakers;
+                }
+            } else if (Array.isArray(props.cardData.speakers)) {
+                return props.cardData.speakers.join(', ');
+            } else {
+                return props.cardData.speakers;
+            }
+        })();
+        form.attendees = props.cardData.attendees;
+        form.price = props.cardData.price;
+        form.start_time = props.cardData.start_time;
+        form.end_time = props.cardData.end_time;
     }
 }
 
@@ -235,6 +275,23 @@ const { editor, editorConfig, submit, onFileChange, ckeditor, xGrid,
         xButton,
         AppLayout,
         xCreateEditTemplate, TextInput } = useCreateEdit(props, setData, form)
+
+    let submitEvent = submit; // Declare submitEvent (instead of re-declaring submit) and assign from the original submit
+
+    // Override the submit function (using submitEvent) to handle speakers conversion
+    const originalSubmit = submitEvent;
+    submitEvent = () => {
+        // Convert comma-separated speakers string back to array (and then JSON) before submitting
+        const formData = { ...form };
+        if (formData.speakers) {
+            // Ensure speakers is treated as a string before splitting
+            formData.speakers = String(formData.speakers).split(',').map(speaker => speaker.trim());
+        } else {
+            formData.speakers = [];
+        }
+        // Pass the modified formData (with speakers as a JSON string) to the original submit function
+        originalSubmit({ ...formData, speakers: JSON.stringify(formData.speakers) });
+    };
 </script>
 
 <style scoped>

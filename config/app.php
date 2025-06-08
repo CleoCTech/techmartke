@@ -51,6 +51,9 @@ return [
         'gallery' => [
             'cover_images' => ["storePath" => "gallery/cover_images/","readPath" => "/storage/gallery/cover_images/",'disk' => "public"],
         ],
+        'success_stories' => [
+            'cover_images' => ["storePath" => "success_stories/cover_images/","readPath" => "/storage/success_stories/cover_images/",'disk' => "public"],
+        ],
         'thumbnails' => [
             'cover_images' => ["storePath" => "thumbnails/cover_images/","readPath" => "/storage/thumbnails/cover_images/",'disk' => "public"],
         ],
@@ -72,6 +75,9 @@ return [
             'cover_images' => ["storePath" => "videos/cover_images/","readPath" => "/storage/videos/cover_images/",'disk' => "public"],
             'videos ' => ["storePath" => "videos/videos/","readPath" => "/storage/videos/",'disk' => "public"],
         ],
+        'courses' => [
+            'cover_images' => ["storePath" => "courses/cover_images/","readPath" => "/storage/courses/cover_images/",'disk' => "public"],
+        ],
     ],
 
     'maxRecsPerPage' => 30,
@@ -81,7 +87,7 @@ return [
         'shortName' => env('COMPANY_SHORT_NAME'),
         'website' => env('APP_URL'),
         'COMPANY_USER' => 'Administrator',
-        'COMPANY_EMAIL' => 'admin@dcm-kenya.com',
+        'COMPANY_EMAIL' => 'info@novustechhub.com',
         'COMPANY_PASS' => '12345678',
     ],
     'developer' => [
@@ -103,10 +109,10 @@ return [
             'deleted' => 'Record Deleted successfully',
         ],
     ],
-    'metaDescription' => env('COMPANY_NAME').' - '. "To take the divine presence of God to the nations and peoples of the world; and to demonstrate the character of the Spirit.",
-    'metaKeywords' => 'Divinely Called Ministries,DCM-Kenya, Biblical teaching,community church Church, God, Jesus, Holy Spirit, Spirit, Character, Nations, Peoples, spiritual journey',
-    'metaAuthor' => 'Wenla Systems & Solutions Ltd.',
-    'metaPublisher' => 'Wenla Systems & Solutions Ltd.',
+    'metaDescription' => env('COMPANY_NAME').' - '. "Novus Computer Training Institute of Technology is a leading technology and computer science institute offering innovative courses, expert faculty, and hands-on training. Empower your future with world-class education, industry partnerships, and a vibrant tech community.",
+    'metaKeywords' => 'Novus Institute of Technology, technology institute, computer science, IT courses, tech education, coding bootcamp, software development, digital skills, technology training, innovation, STEM, online learning, industry partnerships, tech careers, student success, Kenya, Africa',
+    'metaAuthor' => env('COMPANY_NAME'),
+    'metaPublisher' => env('COMPANY_NAME'),
     'metaRobots' => 'index, follow',
     'serverType' => env('SERVER_TYPE'),
 

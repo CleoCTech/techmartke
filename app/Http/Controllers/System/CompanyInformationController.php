@@ -18,7 +18,7 @@ class CompanyInformationController extends Controller
 
     public $settings = [
         'model' =>  '\\App\\Models\\System\\CompanyInformation',
-        'caption' =>  "Church Information",
+        'caption' =>  "Company Information",
         'xFolder' =>  "System/Pages/CompanyInformation",
         'indexRoute' =>  "/system/company-information",
         'storageName' =>  "companyinfo",
@@ -71,6 +71,11 @@ class CompanyInformationController extends Controller
             'emails' => 'required',
             'phoneNumbers' => 'required',
             'address' => 'required',
+            'motto' => 'required',
+            'total_students' => 'required',
+            'highlight' => 'required',
+            'programs_available' => 'required|numeric',
+            'job_placement_rate' => 'required|numeric',
             // 'logo' => 'required',
         ]);
         DB::beginTransaction();
@@ -90,10 +95,18 @@ class CompanyInformationController extends Controller
                 'about_newsletter' => $request->about_newsletter,
                 'about_short' => $request->about_short,
                 'about' => $request->about,
+                'history' => $request->history,
+                // 'welcome_message' => $request->welcome_message,
                 'phone_numbers' => $request->phoneNumbers,
                 'emails' => $request->emails,
                 'address' => $request->address,
                 'logo' => $request->logo,
+                'motto' => $request->motto,
+                'total_members' => $request->total_students,
+                'highlight' => $request->highlight,
+                'core_values' => $request->core_values,
+                'programs_available' => $request->programs_available,
+                'job_placement_rate' => $request->job_placement_rate,
             ];
             if($request->hasFile('logo')){
                 $record['logo'] = $fileName;
@@ -105,7 +118,11 @@ class CompanyInformationController extends Controller
             }
             $this->defaultModel::updateOrCreate(["uuid" => $this->pKey], $record);
             if($request->hasFile('logo')){
-                $fileData = ['file' => $request->file('logo'),'fileName' => $fileName, 'storageName' => $this->settings['storageName'].'\\images','prevFile' => $this->prevRecord != null? $this->prevRecord->logo:null];
+                $fileData = new \stdClass();
+                $fileData->file = $request->file('logo');
+                $fileData->fileName = $fileName;
+                $fileData->storageName = $this->settings['storageName'].'\\images';
+                $fileData->prevFile = $this->prevRecord != null ? $this->prevRecord->logo : null;
                 if(!$this->uploadFile($fileData)){
                     $this->isCommit = false;
                 }

@@ -54,21 +54,15 @@ class EventController extends Controller
     public function index(){
         $user = Auth::user();
 
-        if (!UserRoleService::hasRole(['administrator', 'superadmin'])) {
-
-            $this->extraConditions = [
-                // ['column' => 'status', 'operator' => '=', 'value' => 'active'], // Example: Only active records
-                ['column' => 'branch_id', 'operator' => '=', 'value' => $user->branch_id] // Restrict to user’s branch
-            ];
-        }
+        
         $this->def_index();
         return Inertia::render($this->settings['xFolder'].'/Index',$this->viewData);
     }
     public function create(){
         $this->def_create();
-        $branches = Branch::all();
+        // $branches = Branch::all();
 
-        $this->viewData['branches'] = $branches;
+        // $this->viewData['branches'] = $branches;
         return Inertia::render($this->settings['xFolder'].'/CreateEdit',$this->viewData);
     }
     public function store(REQUEST $request){
@@ -83,6 +77,12 @@ class EventController extends Controller
             // 'cover_image' => 'nullable|file|mimes:jpg,jpeg,png|max:10024',
             'status' => 'required',
             'publish_time' => 'nullable|required_if:status,=,3',
+            // 'type' => 'nullable|string',
+            'speakers' => 'nullable', // Accept as array or JSON
+            'attendees' => 'nullable|integer',
+            'price' => 'nullable|string',
+            'start_time' => 'nullable|date_format:H:i',
+            'end_time' => 'nullable|date_format:H:i',
         ]);
         DB::beginTransaction();
         try{
@@ -107,21 +107,26 @@ class EventController extends Controller
                 'title' => $request->title,
                 'description' => $request->description,
                 'content' => $request->content,
-                'date' => $startDate,
+                // 'date' => $startDate,
                 'start_date' => $startDate,
                 'end_date' => $endDate,
                 'status' => $request->status,
                 'location' => $request->location,
                 'event_type' => $request->event_type,
-                'is_for_all_branches' => $request->is_for_all_branches,
                 
                 'sequence' => $request->sequence,
+                // 'type' => $request->type,
+                'speakers' => (is_array($request->speakers) ? json_encode($request->speakers) : (($request->speakers) ? json_encode(explode(',', $request->speakers)) : null)),
+                'attendees' => $request->attendees,
+                'price' => $request->price,
+                'start_time' => $request->start_time,
+                'end_time' => $request->end_time,
             ];
-            if ($request->branch_id != 'null' && $request->is_for_all_branches == false) {
-                $branch_id = $request->branch_id;
-                $record['branch_id'] = $branch_id;
-            }
-            $record['is_for_all_branches'] = filter_var($request->is_for_all_branches, FILTER_VALIDATE_BOOLEAN);
+            // if ($request->branch_id != 'null' && $request->is_for_all_branches == false) {
+            //     $branch_id = $request->branch_id;
+            //     $record['branch_id'] = $branch_id;
+            // }
+            // $record['is_for_all_branches'] = filter_var($request->is_for_all_branches, FILTER_VALIDATE_BOOLEAN);
 
             if($request->hasFile('cover_image')){
                 $record['cover_image'] = $fileName;
@@ -164,9 +169,9 @@ class EventController extends Controller
     }
     public function edit($uuid){
         $this->def_edit($uuid);
-        $branches = Branch::all();
+        // $branches = Branch::all();
 
-        $this->viewData['branches'] = $branches;
+        // $this->viewData['branches'] = $branches;
         if($this->viewData['cardData']['status'] == 3){
             $this->viewData['cardData']['publish_time2'] = $this->viewData['cardData']['publish_time']->format('Y-m-d\TH:i');
         }

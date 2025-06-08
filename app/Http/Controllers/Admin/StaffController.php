@@ -88,7 +88,15 @@ class StaffController extends Controller
                 'cover_image' => $request->cover_image,
                 'status' => $request->status,
                 'sequence' => $request->sequence,
-                'publish_time' => $request->publish_time,
+                //'publish_time' => $request->publish_time,
+                'expertise' => $request->expertise,
+                'experience' => $request->experience,
+                'education' => $request->education,
+                'achievements' => $request->achievements,
+                'quote' => $request->quote,
+                'sequence' => $request->sequence ?? 0,
+                'publish_time' => $request->status == 3 ?  $request->publish_time : null,
+                'created_by' => Auth::user()->email,
             ];
             if($request->hasFile('cover_image')){
                 $record['cover_image'] = $fileName;

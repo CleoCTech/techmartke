@@ -21,6 +21,7 @@ import AppLayout from '@/System/Layouts/AppLayout.vue'
 import xCreateEditTemplate from '@/System/Pages/Templates/CRUD/CreateEdit.vue'
 import TextInput from '@/Components/TextInput.vue';
 import FileInput from '@/Components/FileInput.vue';
+import TagInput from '@/Components/TagInput.vue'
 
 import { provide, getCurrentInstance } from 'vue'
 import {useNotify} from "@/Composables/useNotify";
@@ -209,7 +210,7 @@ export const useCreateEdit = (props, setData, form) => {
         AppLayout,
         xCreateEditTemplate,
         TextInput,
-        FileInput
+        FileInput,TagInput
     }
 }
 

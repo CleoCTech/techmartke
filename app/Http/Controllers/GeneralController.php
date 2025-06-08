@@ -29,6 +29,9 @@ use App\Models\Course;
 use App\Models\Partner;
 use App\Models\Testmony;
 use App\Models\Award;
+use App\Models\SuccessStory;
+use App\Models\System\Course as SystemCourse;
+use App\Models\Testimonial;
 
 class GeneralController extends Controller
 {
@@ -42,54 +45,59 @@ class GeneralController extends Controller
 
     public function home()
     {
-        // $companyInfo = CompanyInformation::first();
-        // $staff = Staff::where('status',2)->orWhere(function($query){
-        //         $query->where('status',3)
-        //         ->where('publish_time','<=',date('Y-m-d h:i:s'));
-        //     })->get();
-        // $news = News::where('status',2)->orWhere(function($query){
-        //         $query->where('status',3)
-        //         ->where('publish_time','<=',date('Y-m-d h:i:s'));
-        //     })->get();
-        // $events = Event::where('status',2)->orWhere(function($query){
-        //         $query->where('status',3)
-        //         ->where('publish_time','<=',date('Y-m-d h:i:s'));
-        //     })->get();
-           
-        // $video = Video::where('status', 2)
-        // ->orderBy('sequence', 'ASC')
-        // ->first();
-        // $stats = Statistic::where('status', 2)
-        // ->orderBy('sequence', 'ASC')
-        // ->get();
+        // Fetch testimonials (using Testmony model) – filter by status 2 or (status 3 and publish_time <= now)
+        $testimonials = Testimonial::where('status', 2)
+            ->orWhere(function($query) {
+                $query->where('status', 3)
+                    ->where('publish_time', '<=', date('Y-m-d h:i:s'));
+            })->get();
 
-        // $directory = public_path('storage/companyinfo/images/carousel');
-        // $files = File::files($directory);
-        // $images = [];
-        // //../../../../public/storage/companyinfo/images/3.jpeg
-        // foreach ($files as $file) {
-        //     $images[] = asset('storage/companyinfo/images/carousel/' . $file->getFilename());
-        // }
-        // $images = [
-        //     url('storage/companyInfo/images/carousel/1.jpeg'),
-        //     // url('storage/companyinfo/images/glenn-carstens-peters-npxXWgQ33ZQ-unsplash.jpg'),
-        //     // url('storage/companyinfo/images/kevin-bhagat-zNRITe8NPqY-unsplash.jpg'),
-        //     // url('storage/companyinfo/images/luca-bravo-9l_326FISzk-unsplash.jpg'),
-        //     url('storage/companyInfo/images/carousel/2.jpeg'),
-        //     url('storage/companyInfo/images/carousel/3.jpeg'),
-        // ];
+        // Fetch campus gallery (using Gallery model) – filter by status 2 or (status 3 and publish_time <= now)
+        $campusGallery = Gallery::where('status', 2)
+            ->orWhere(function($query) {
+                $query->where('status', 3)
+                    ->where('publish_time', '<=', date('Y-m-d h:i:s'));
+            })->get();
+
+        // Fetch success stories (using Testmony model – you may choose to filter or map further if needed)
+        $successStories = SuccessStory::where('status', 2)
+            ->orWhere(function($query) {
+                $query->where('status', 3)
+                    ->where('publish_time', '<=', date('Y-m-d h:i:s'));
+            })->get();
+
+        // Fetch course preview (using Course model) – filter by status 2 or (status 3 and publish_time <= now)
+        $coursePreview = SystemCourse::where('status', 2)->get();
+
+        // Fetch faculty spotlight (using Staff model) – filter by status 2 or (status 3 and publish_time <= now)
+        $facultySpotlight = Staff::where('status', 2)
+            ->orWhere(function($query) {
+                $query->where('status', 3)
+                    ->where('publish_time', '<=', date('Y-m-d h:i:s'));
+            })->get();
+
+        // Fetch upcoming events slider (using Event model) – filter by status 2 or (status 3 and publish_time <= now)
+        $upcomingEventsSlider = Event::where('status', 2)
+            ->orWhere(function($query) {
+                $query->where('status', 3)
+                    ->where('publish_time', '<=', date('Y-m-d h:i:s'));
+            })->get();
+
+        // Fetch video gallery (using Video model) – filter by status 2 or (status 3 and publish_time <= now)
+        $videoGallery = Video::where('status', 2)->get();
+
+        $firstAttachment = Attachment::where('is_archived',0)->first();
 
         return Inertia::render('Guest/Pages/Home', [
-            // 'companyLogoUrl' => '',
-            // 'staffs' =>$staff,
-            // 'news' =>$news,
-            // 'events' =>$events,
-            // 'video' =>$video,
-            'companyLogoUrl' => '',
-            'staffs' =>[],
-            'news' =>[],
-            'events' =>[],
-            'video' =>[],
+            'testimonials' => $testimonials,
+            'campusGallery' => $campusGallery,
+            'successStories' => $successStories,
+            'coursePreview' => $coursePreview,
+            'facultySpotlight' => $facultySpotlight,
+            'upcomingEventsSlider' => $upcomingEventsSlider,
+            'videoGallery' => $videoGallery,
+            'firstAttachment' => $firstAttachment,
+            // ...other props as needed
         ]);
     }
 
@@ -214,21 +222,10 @@ class GeneralController extends Controller
 
     public function footerData(){
         $companyInfo = CompanyInformation::first();
-        $gallery = Gallery::where('status',2)->get();
         $socialMedias = SocialMedia::where('status',2)->get();
-        // $projects = Project::where('status',2)->orWhere(function($query){
-        //     $query->where('status',3)
-        //     ->where('publish_time','<=',date('Y-m-d h:i:s'));
-        // })->get();
-        // $takeActions = TakeAction::get();
-        // info($gallery);
         $data = [
             'companyInfo' => $companyInfo,
             'socialMedias' => $socialMedias,
-            'galleries' => $gallery,
-            // 'services' => $services,
-            // 'projects' => $projects,
-            // 'takeActions' => $takeActions,
         ];
         return $data;
     }
@@ -574,7 +571,7 @@ class GeneralController extends Controller
 
     public function testimonials()
     {
-        $testimonials = Testmony::where('status', 2)
+        $testimonials = Testimonial::where('status', 2)
             ->orWhere(function($query) {
                 $query->where('status', 3)
                     ->where('publish_time', '<=', date('Y-m-d h:i:s'));

@@ -3,7 +3,7 @@
 namespace App\Traits\Admin;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
-use Image;
+use Intervention\Image\Facades\Image;
 // use Intervention\Image\ImageManager;
 //
 trait UploadFileTrait
@@ -72,19 +72,19 @@ trait UploadFileTrait
             $font->valign('bottom');
             $font->angle(90);
         });
-        $height = $imgFile->height();
-        $width = $imgFile->width();
+        // $height = $imgFile->height();
+        // $width = $imgFile->width();
 
-        info('height: '.$height); //856
-        info('width: '.$width); //1280
+        // info('height: '.$height); //856
+        // info('width: '.$width); //1280
 
-        if ($width < 1280) {
-            $imgFile->resize(1280, 856, function ($c) {
-                $c->aspectRatio();
-                // $c->upsize();
-            });
-        }
-       
+        // if ($width < 1280) {
+        //     $imgFile->resize(1280, 856, function ($c) {
+        //         $c->aspectRatio();
+        //         // $c->upsize();
+        //     });
+        // }
+      
 
         $prevFile = $data['prevFile'] != null? $data['prevFile']:null;
         //delete previous file
@@ -103,7 +103,7 @@ trait UploadFileTrait
         //save new file
         // $isSuccess = $imgFile->storeAs($path, $fileName, $disk);
         // $isSuccess = $file->save(public_path($path).'/'.$fileName);
-        $isSuccess = $imgFile->save(public_path($path).'/'.$fileName);
+        $isSuccess = $imgFile->save(public_path($path).'/'.$fileName, 90); // Save with 90% quality
         if($isSuccess){
             return true;
         }
