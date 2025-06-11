@@ -16,6 +16,19 @@
                         <template #value>{{cardData.email}}</template>
                     </x-show-group>
                 </x-grid-col>
+                <x-grid-col>
+                    <x-show-group>
+                        <template #label>Phone</template>
+                        <template #value>{{cardData.phone_number}}</template>
+                    </x-show-group>
+                </x-grid-col>
+                <x-grid-col>
+                    <x-show-group>
+                        <template #label>Subject</template>
+                        <template #value>{{cardData.subject}}</template>
+                    </x-show-group>
+                </x-grid-col>
+
                 <x-grid-col class="sm:col-span-12">
                     <x-show-group>
                         <template #label>Message</template>

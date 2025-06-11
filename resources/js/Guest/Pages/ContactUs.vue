@@ -21,7 +21,7 @@
             
             <h1 class="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
               Contact
-              <span class="block text-blue-200">Novus Institute of Technology</span>
+              <span class="block text-blue-200">{{$page.props.config.appName}}</span>
             </h1>
             
             <p class="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
@@ -229,7 +229,7 @@
   </template>
   
   <script setup>
-  import { ref } from 'vue'
+  import { ref, onMounted } from 'vue'
   import { 
     MessageCircle, 
     Send, 
@@ -242,6 +242,7 @@
     FileText,
     Users
   } from 'lucide-vue-next'
+  import axios from 'axios'
   
   const form = ref({
     firstName: '',
@@ -255,34 +256,8 @@
   const isSubmitting = ref(false)
   const showSuccess = ref(false)
   
-  const contactInfo = [
-    {
-      title: 'Phone Numbers',
-      icon: 'Phone',
-      details: [
-        '+254 724 301 007',
-        '+254 791 675 898',
-      ]
-    },
-    {
-      title: 'Email Addresses',
-      icon: 'Mail',
-      details: [
-        'admissions@novustechhub.com',
-        'info@novustechhub.com',
-        'support@novustechhub.com'
-      ]
-    },
-    {
-      title: 'Physical Address',
-      icon: 'MapPin',
-      details: [
-        '123 Technology Street',
-        'Innovation District',
-        'Nakuru, Kenya'
-      ]
-    }
-  ]
+  const isLoading = ref(true)
+  const contactInfo = ref([])
   
   const quickActions = [
     { title: 'Schedule Campus Visit', icon: 'Calendar' },
@@ -290,29 +265,72 @@
     { title: 'Join Virtual Tour', icon: 'Users' }
   ]
   
+  onMounted(async () => {
+    isLoading.value = true
+    try {
+      const response = await axios.get('/footer-data')
+      if (response.data && response.data.companyInfo) {
+        const info = response.data.companyInfo
+        contactInfo.value = [
+          {
+            title: 'Phone Numbers',
+            icon: 'Phone',
+            details: info.phone_numbers ? info.phone_numbers.split(',').map(s => s.trim()) : []
+          },
+          {
+            title: 'Email Addresses',
+            icon: 'Mail',
+            details: info.emails ? info.emails.split(',').map(s => s.trim()) : []
+          },
+          {
+            title: 'Physical Address',
+            icon: 'MapPin',
+            details: info.address ? [info.address] : []
+          }
+        ]
+      }
+    } catch (error) {
+      contactInfo.value = []
+    } finally {
+      isLoading.value = false
+    }
+  })
+  
   const submitForm = async () => {
     isSubmitting.value = true
-    
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    
-    isSubmitting.value = false
-    showSuccess.value = true
-    
-    // Reset form
-    form.value = {
-      firstName: '',
-      lastName: '',
-      email: '',
-      phone: '',
-      subject: '',
-      message: ''
-    }
-    
-    // Hide success message after 5 seconds
-    setTimeout(() => {
+    try {
+      const payload = {
+        first_name: form.value.firstName,
+        last_name: form.value.lastName,
+        email: form.value.email,
+        phone: form.value.phone,
+        subject: form.value.subject,
+        message: form.value.message
+      }
+      const response = await axios.post('/customer-inquiry', payload)
+      if (response.data && response.data.success) {
+        showSuccess.value = true
+        // Reset form
+        form.value = {
+          firstName: '',
+          lastName: '',
+          email: '',
+          phone: '',
+          subject: '',
+          message: ''
+        }
+        // Hide success message after 5 seconds
+        setTimeout(() => {
+          showSuccess.value = false
+        }, 5000)
+      }
+    } catch (error) {
+      // Optionally show error message
       showSuccess.value = false
-    }, 5000)
+      // You can add error handling here
+    } finally {
+      isSubmitting.value = false
+    }
   }
   </script>
   

@@ -77,6 +77,7 @@ Route::get('/admissions/requirements', [GuestGeneralContoller::class, 'admission
 Route::get('/admissions/regulations', [GuestGeneralContoller::class, 'admissionRegulations'])->name('admissions.regulations');
 Route::get('/awards', [GuestGeneralContoller::class, 'awards'])->name('awards');
 Route::get('/application', [GuestGeneralContoller::class, 'application'])->name('application');
+Route::get('/application/download/{uuid}', [GuestGeneralContoller::class, 'downloadApplicationForm'])->name('application.download');
 
 // Common data routes
 Route::get('/topbar-data', [GuestGeneralContoller::class, 'topBarData']);

@@ -8,6 +8,8 @@
                         <ThCheckbox :selected-items="selected" @toggle-select-all="handleToggleSelectAll" />
                         <Th>Name</Th>
                         <Th>Email</Th>
+                        <Th>Phone</Th>
+                        <Th>Subject</Th>
                         <Th>Message</Th>
                         <Th>Date</Th>
                         <Th>Status</Th>
@@ -20,6 +22,8 @@
                         <TdCheckbox :item="record.uuid+'#'+listData.data.indexOf(record)" @onCheck="onCheck"/>
                         <Td>{{record.name}} </Td>  
                         <Td>{{record.email}} </Td>  
+                        <Td>{{record.phone_number}} </Td>  
+                        <Td><span style="text-transform: uppercase;">{{record.subject}}</span> </Td>  
                         <Td>{{record.message}} </Td>  
                         <Td>{{record.created_at}} </Td>
                         <Td>

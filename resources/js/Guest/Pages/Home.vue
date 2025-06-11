@@ -39,7 +39,7 @@ function toggleExpand(title) {
 
 const downloadAttachment = (uuid) => {
   //system/attachment/show/${attachment.uuid}
-  window.open(`/system/attachment/show/${uuid}`, '_blank');
+  window.open(`/application/download/${uuid}`, '_blank');
 };
 
 const expandedCore = ref({});
@@ -109,10 +109,7 @@ const getFooterData = async () => {
 };
 
 // Data that would come from Laravel-Inertia
-const heroContent = {
-  title: 'Welcome to Novus Institute of Technology',
-  subtitle: 'Shaping Tomorrow\'s Technology Leaders Through Innovation, Excellence, and Practical Learning'
-}
+
 
 const institutionValues = [
   {
@@ -165,9 +162,6 @@ const upcomingEventsSlider = computed(() => props.upcomingEventsSlider ?? []);
 const videoGallery = computed(() => props.videoGallery ?? []);
 const firstAttachment = computed(() => props.firstAttachment ?? []);
 // Counter refs
-const studentsCounter = ref(null)
-const programsCounter = ref(null)
-const placementCounter = ref(null)
 
 // Slider states
 const currentCampusSlide = ref(0)

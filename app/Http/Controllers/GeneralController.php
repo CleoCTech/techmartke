@@ -86,7 +86,9 @@ class GeneralController extends Controller
         // Fetch video gallery (using Video model) – filter by status 2 or (status 3 and publish_time <= now)
         $videoGallery = Video::where('status', 2)->get();
 
-        $firstAttachment = Attachment::where('is_archived',0)->first();
+        $firstAttachment = Attachment::where('is_archived',0)
+        ->where('description','like','%Application%')
+        ->first();
 
         return Inertia::render('Guest/Pages/Home', [
             'testimonials' => $testimonials,
@@ -246,18 +248,21 @@ class GeneralController extends Controller
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
+            'phone' => 'required|string|max:255',
+            'subject' => 'required|string|max:255',
             'message' => 'required|string',
         ]);
 
         DB::beginTransaction();
         try {
-            //code...
             Inquiry::create([
                 'name' => $request->first_name.' ' .$request->last_name,
                 'email' => $request->email,
+                'phone_number' => $request->phone,
+                'subject' => $request->subject,
                 'message' => $request->message,
                 'status' =>1,
-            ]); 
+            ]);
             DB::commit();
             $data = [
                 'success' => config('app.defaultErrors.crud.created')
@@ -603,6 +608,20 @@ class GeneralController extends Controller
         return Inertia::render('Guest/Pages/Awards', [
             'awards' => $awards,
         ]);
+    }
+
+    public function downloadApplicationForm($uuid){
+        $cardData = Attachment::where('uuid',$uuid)->first();
+        if($cardData == null){
+            return redirect('/')->with('error',"Not Found");
+        }
+        $file = public_path('storage/attachments/admin/') . $cardData->filename;
+
+        if (!file_exists($file)) {
+            return redirect('/')->with('error', "File does not exist");
+        }
+        
+        return response()->file($file);
     }
 
 }
