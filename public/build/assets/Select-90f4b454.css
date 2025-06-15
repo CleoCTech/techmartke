@@ -1,0 +1,1 @@
+.themed-select{color-scheme:light dark}.themed-select option{background-color:#fff;color:#1e293b}@media (prefers-color-scheme: dark){.themed-select option{background-color:#1e293b;color:#f1f5f9}}:root:has(.dark) .themed-select option{background-color:#1e293b;color:#f1f5f9}

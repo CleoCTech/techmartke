@@ -67,4 +67,111 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 ## Intervention Image Package Requirements
 
- The `intervention/image` package, used for image processing including watermarking, requires the following PHP extensions:\n\n - **Mbstring PHP Extension**\n - **Image Processing PHP Extension**: You need at least one of GD, Imagick, or libvips installed. GD is commonly included with PHP, while Imagick is recommended for better performance. \n - **Exif PHP Extension**: Highly recommended for correct image orientation handling.\n\n Please ensure these extensions are enabled in your PHP installation if you encounter issues with image processing.\n\n ## Windows (XAMPP) Installation Notes for Imagick\n\n For users on Windows using XAMPP, the Imagick extension needs to be installed by downloading a pre-compiled DLL that matches your specific PHP version, architecture (x86/x64), and thread safety (TS/NTS). These DLLs can be found on the PECL website.\n\n The DLLs for version 3.8.0, which is compatible with various PHP versions including 7.2-8.4, can be downloaded from: [https://pecl.php.net/package/imagick/3.8.0/windows](https://pecl.php.net/package/imagick/3.8.0/windows)\n\n Make sure to select the download link that precisely matches your PHP environment details obtained from `phpinfo()`.\n```
+ The `intervention/image` package, used for image processing including watermarking, requires the following PHP extensions:\n\n - **Mbstring PHP Extension**\n - **Image Processing PHP Extension**: You need at least one of GD, Imagick, or libvips installed. GD is commonly included with PHP, while Imagick is recommended for better performance. \n - **Exif PHP Extension**: Highly recommended for correct image orientation handling.\n\n Please ensure these extensions are enabled in your PHP installation if you encounter issues with image processing.\n\n ## Windows (XAMPP) Installation Notes for Imagick\n\n For users on Windows using XAMPP, the Imagick extension needs to be installed by downloading a pre-compiled DLL that matches your specific PHP version, architecture (x86/x64), and thread safety (TS/NTS). These DLLs can be found on the PECL website.\n\n The DLLs for version 3.8.0, which is compatible with various PHP versions including 7.2-8.4, can be downloaded from: [https://pecl.php.net/package/imagick/3.8.0/windows](https://pecl.php.net/package/imagick/3.8.0/windows)\n\n Make sure to select the download link that precisely matches your PHP environment details obtained from `phpinfo()`.\n
+
+## CI/CD Deployment on Shared Hosting (cPanel)
+
+This project is deployed on a shared hosting (cPanel) environment using a CI/CD pipeline that leverages Git (via cPanel's Git Version Control) and a post–receive hook (which runs a deploy script) to automate deployment. Below is a step–by–step guide on how we set up and link our cPanel Git repo (and then trigger deployment) so that pushing from your local machine (or GitHub) updates your live site.
+
+---
+
+### Step 1: Set Up Git Version Control in cPanel
+
+1. **Log in to cPanel.**  
+2. In the cPanel dashboard, search for "Git Version Control" (or "Git™ Version Control").  
+3. Click "Create" (or "Create Repository").  
+4. **Repository Path:**  
+   - (Example: `/home/novuiroh/repos/novus.git`)  
+   - (Choose a path outside your web root (e.g., not inside `public_html`) for security.)  
+5. **Repository Name:**  
+   - (Example: "novus")  
+6. **Clone Repository:**  
+   - (You can initialize an empty repo or clone from an existing remote (e.g., GitHub).)  
+   - (If you initialize empty, you'll push from your local machine later.)  
+7. Click "Create" (or "Create Repository") to finish.
+
+---
+
+### Step 2: Link Your cPanel Git Repo to GitHub (Optional)
+
+- **If you want to pull from GitHub (or push to GitHub and then pull on cPanel):**  
+  - In cPanel's Git Version Control, click "Clone" (or "Clone Repository") and paste your GitHub HTTPS URL (e.g., `https://github.com/yourusername/novus.git`).  
+  - (Note: Using HTTPS is recommended for shared hosting; SSH requires extra SSH key setup.)  
+- **If you're pushing directly to cPanel (automated deployment):**  
+  - You can skip this step (or use a bare repo on cPanel).
+
+---
+
+### Step 3: Clone (or Pull) Your Repo to Your Deployment Directory
+
+- **Clone (if you're starting fresh):**  
+  - In cPanel's Terminal (or via SSH), run:  
+    ```bash
+    cd ~/public_html
+    git clone /home/novuiroh/repos/novus.git novus
+    ```
+- **Pull (if you're updating an existing clone):**  
+  - In cPanel's Terminal (or via SSH), run:  
+    ```bash
+    cd ~/public_html/novus
+    git pull origin master
+    ```
+  (Adjust branch name if you're not on "master.")
+
+---
+
+### Step 4: Set Up a Post–Receive Hook (for Automated Deployment)
+
+- In your cPanel Git repo (e.g., `/home/novuiroh/repos/novus.git/.git/hooks/`), create (or edit) a file named `post–receive` with the following content:
+  ```bash
+  #!/bin/bash
+  sh /home/novuiroh/novus/deploy.sh
+  ```
+- **Make the hook executable:**  
+  (In cPanel's Terminal or via SSH, run:)
+  ```bash
+  chmod +x /home/novuiroh/repos/novus.git/.git/hooks/post–receive
+  ```
+- **Also, ensure that your deploy script (`deploy.sh`) is executable:**  
+  ```bash
+  chmod +x /home/novuiroh/novus/deploy.sh
+  ```
+
+---
+
+### Step 5: (Optional) Build Assets Locally and Commit (and Push) Built Files
+
+- **On your local machine (in your project's root folder), run:**  
+  ```bash
+  npm install
+  npm run build
+  ```
+- **Remove (or comment out) the built asset folders (e.g., "public/js", "public/css") from your `.gitignore`** so that they're committed.  
+- **Commit (and push) your changes (including the built files) to GitHub (or your cPanel remote):**  
+  ```bash
+  git add –all
+  git commit –m "Build assets (built locally)"
+  git push origin master
+  ```
+- **If you're pushing to your cPanel remote (for automated deployment), run:**  
+  ```bash
+  git push production master
+  ```
+  (where "production" is your cPanel remote.)
+
+---
+
+### Step 6: Trigger Deployment (via Post–Receive Hook)
+
+- **If you're pushing to your cPanel Git remote (or bare repo), your post–receive hook (which calls `deploy.sh`) will run automatically.**  
+- **If you're pushing to GitHub (and then pulling on cPanel), you'll need to manually pull (or set up a webhook) to trigger your deploy script.**
+
+---
+
+### Additional Resources
+
+- For a video walk–through (and further details) on setting up Git (and linking to GitHub) in cPanel, see:  
+  [YouTube: Setting Up Git Version Control in cPanel (CI/CD for Shared Hosting)](https://www.youtube.com/watch?v=CUltSMH2EVU)
+
+---
+

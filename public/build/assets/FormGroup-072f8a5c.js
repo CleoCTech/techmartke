@@ -1,0 +1,1 @@
+import{_ as t,o as a,c,b as s,z as o}from"./app-ec2fed4d.js";const r={},l={class:"px-2 py-1"},n={class:"px-2"};function _(e,d){return a(),c("div",null,[s("div",l,[o(e.$slots,"label")]),s("div",n,[o(e.$slots,"value")])])}const p=t(r,[["render",_]]);export{p as default};

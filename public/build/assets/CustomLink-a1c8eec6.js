@@ -1,0 +1,1 @@
+import{_ as e,y as t,r as n,o as a,k as r,w as c,z as p}from"./app-ec2fed4d.js";const _={components:{Link:t}};function i(o,l,f,d,k,m){const s=n("Link");return a(),r(s,{class:""},{default:c(()=>[p(o.$slots,"default")]),_:3})}const $=e(_,[["render",i]]);export{$ as default};

@@ -1,0 +1,1 @@
+import{_ as o,o as r,c,b as s}from"./app-ec2fed4d.js";const t={},a={class:"hidden sm:block"};function d(n,e){return r(),c("div",a,e[0]||(e[0]=[s("div",{class:"py-8"},[s("div",{class:"border-t border-gray-200"})],-1)]))}const _=o(t,[["render",d]]);export{_ as default};

@@ -1,0 +1,1 @@
+const e={setup(){return{fullPage:!0,fullPageLoader:null}},methods:{loadingShowFullPage(){this.fullPageLoader=this.$loading.show({canCancel:!1})},loadingHideFullPage(){this.fullPageLoader.hide()}}};export{e as V};

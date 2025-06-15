@@ -1,0 +1,1 @@
+import{_ as e,o as t,c as o,z as a}from"./app-ec2fed4d.js";const c={props:{colspan:{default:"2"}}},r={class:"px-1 py-1 sm:py-2"};function n(s,p,l,d,_,f){return t(),o("td",r,[a(s.$slots,"default")])}const i=e(c,[["render",n]]);export{i as default};

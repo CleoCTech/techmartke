@@ -1,0 +1,1 @@
+import{o as e,c as t,t as o,z as n}from"./app-ec2fed4d.js";const l={class:"block font-medium text-sm text-gray-700"},c={key:0},r={key:1},_={__name:"InputLabel",props:{value:String},setup(s){return(a,u)=>(e(),t("label",l,[s.value?(e(),t("span",c,o(s.value),1)):(e(),t("span",r,[n(a.$slots,"default")]))]))}};export{_ as default};
