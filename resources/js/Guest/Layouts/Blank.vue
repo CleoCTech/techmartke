@@ -36,7 +36,9 @@ onMounted(() => {
                 <slot />
             </main>
             </div>
-        </div>     
+        </div>
+        <!-- WhatsApp Floating Button -->
+        <WhatsAppButton />
     </div>
 </template>
 

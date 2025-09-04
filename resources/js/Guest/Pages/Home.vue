@@ -11,8 +11,8 @@ import ResourcesSection from '@/Guest/Partials/ResourcesSection.vue'
 import LatestContentSection from '@/Guest/Partials/LatestContentSection.vue'
 import HeroSection from '@/Guest/Partials/HeroSection.vue'
 
-import { GraduationCap, Users, Award, BookOpen, Star, ArrowRight, User, Lightbulb, ShieldCheck, Handshake, Globe, ArrowUpCircle, FileText, CreditCard, IdCard, Camera, Shield, Heart, MessageCircle } from 'lucide-vue-next'
-import { Play, Pause, ChevronLeft, ChevronRight, ExternalLink, MapPin, Calendar as CalendarIcon, Clock as ClockIcon } from 'lucide-vue-next'
+import { GraduationCap, Users, Award, BookOpen, Star, ArrowRight, User, Lightbulb, ShieldCheck, Handshake, Globe, ArrowUpCircle, FileText, CreditCard, IdCard, Camera, Shield, MessageCircle } from 'lucide-vue-next'
+import { Play, Pause, ChevronLeft, ChevronRight, ExternalLink, MapPin, Calendar as CalendarIcon, Clock as ClockIcon, Target, Flag, Eye, Heart, Download } from 'lucide-vue-next'
 
 import { usePage, router } from '@inertiajs/vue3';
 
@@ -114,19 +114,27 @@ const getFooterData = async () => {
 const institutionValues = [
   {
     title: 'MOTTO',
-    description: '"Building the Future, Byte by Byte "'
+    description: '"Coding the Future Today, Byte by Byte"',
+    icon: 'Target',
+    color: 'bg-blue-500'
   },
   {
     title: 'MISSION',
-    description: 'Our mission is to provide a transformative educational experience that nurtures creativity, fosters innovation, and promotes ethical practices in the field of computer science. We strive to cultivate a diverse and inclusive learning environment, equipping students with the skills and knowledge necessary to excel in the ever-evolving tech landscape. Through a commitment to excellence in teaching, research, and community engagement, we aim to inspire our students to make meaningful contributions to the world and to drive positive change in the digital age. '
+    description: 'Our mission is to provide a transformative educational experience that nurtures creativity, fosters innovation, and promotes ethical practices in the field of computer science. We strive to cultivate a diverse and inclusive learning environment, equipping students with the skills and knowledge necessary to excel in the ever-evolving tech landscape.',
+    icon: 'Flag',
+    color: 'bg-green-500'
   },
   {
     title: 'VISION',
-    description: 'Our vision at Nariphon Academy is to be a leading institution in computer science and technology education, renowned for our commitment to excellence, innovation, and inclusivity. We aspire to create a dynamic learning environment that fosters creativity, encourages collaboration, and prepares students to thrive in a rapidly evolving digital world. Through cutting-edge research, industry partnerships, and community engagement, we aim to shape the future of technology, inspire the next generation of tech leaders, and make a positive impact on society.'
+    description: 'Our vision at Novus Academy is to be a leading institution in computer science and technology education, renowned for our commitment to excellence, innovation, and inclusivity. We aspire to create a dynamic learning environment that fosters creativity, encourages collaboration, and prepares students to thrive in a rapidly evolving digital world.',
+    icon: 'Eye',
+    color: 'bg-purple-500'
   },
   {
     title: 'CORE VALUES',
-    description: '•	Humility • Innovation •	Excellence • Integrity • Inclusivity • Collaboration • Lifelong Learning •Responsibility • Empowerment'
+    description: 'Humility • Innovation • Excellence • Integrity • Inclusivity • Collaboration • Lifelong Learning • Responsibility • Empowerment',
+    icon: 'Heart',
+    color: 'bg-red-500'
   }
 ]
 
@@ -182,9 +190,11 @@ const eventInterval = ref(null)
 const playingVideo = ref(null)
 // Slider Functions
 const nextSlide = (sliderType) => {
+  console.log('nextSlide called:', sliderType, 'current slide:', currentCampusSlide.value);
   switch (sliderType) {
     case 'campus':
-      currentCampusSlide.value = (currentCampusSlide.value + 1) % campusGallery.length
+      currentCampusSlide.value = (currentCampusSlide.value + 1) % mappedCampusGallery.value.length
+      console.log('New campus slide:', currentCampusSlide.value);
       break
     case 'success':
       currentSuccessSlide.value = (currentSuccessSlide.value + 1) % successStories.length
@@ -205,9 +215,11 @@ const nextSlide = (sliderType) => {
 }
 
 const prevSlide = (sliderType) => {
+  console.log('prevSlide called:', sliderType, 'current slide:', currentCampusSlide.value);
   switch (sliderType) {
     case 'campus':
-      currentCampusSlide.value = currentCampusSlide.value === 0 ? campusGallery.length - 1 : currentCampusSlide.value - 1
+      currentCampusSlide.value = currentCampusSlide.value === 0 ? mappedCampusGallery.value.length - 1 : currentCampusSlide.value - 1
+      console.log('New campus slide:', currentCampusSlide.value);
       break
     case 'success':
       currentSuccessSlide.value = currentSuccessSlide.value === 0 ? successStories.length - 1 : currentSuccessSlide.value - 1
@@ -467,16 +479,34 @@ const getIcon = (iconName) => {
 
 const galleryImagePath = (cover_image) => `/storage/gallery/cover_images/${cover_image}`;
 
-const mappedCampusGallery = computed(() =>
-  campusGallery.value.map(item => ({
+const mappedCampusGallery = computed(() => {
+  if (!campusGallery.value || campusGallery.value.length === 0) {
+    return [
+      {
+        id: 1,
+        image: '/img/slider/slider-1.jpg',
+        title: 'Innovation Hub',
+        description: 'Discover cutting-edge technology and creative solutions in our state-of-the-art innovation hub.',
+        category: 'Innovation'
+      },
+      {
+        id: 2,
+        image: '/img/slider/slider-2.jpg',
+        title: 'Learning Excellence',
+        description: 'Experience world-class education with hands-on training and industry-relevant curriculum.',
+        category: 'Education'
+      }
+    ];
+  }
+  
+  return campusGallery.value.map(item => ({
     id: item.id,
     image: galleryImagePath(item.cover_image),
     title: item.title,
     description: item.description,
-    category: item.category ?? '',
-    // add other fields if needed
-  }))
-);
+    category: item.category ?? 'Campus',
+  }));
+});
 
 const successStoryImagePath = (cover_image) => `/storage/success_stories/cover_images/${cover_image}`;
 
@@ -596,85 +626,113 @@ const formatKsh = (value) => {
 
     <!-- Hero Section -->
     <!-- <div class="relative h-screen"> -->
-    <HeroSection />
+   
 
-    <!-- Campus Gallery Section -->
-    <section class="py-20 bg-gradient-to-br from-white to-blue-50 relative overflow-hidden">
-      <!-- Background Elements -->
-      <div class="absolute inset-0 opacity-5">
-        <div
-          class="absolute top-20 right-20 w-40 h-40 border border-blue-300 rounded-lg transform rotate-12 animate-float">
-        </div>
-        <div class="absolute bottom-32 left-32 w-32 h-32 border border-blue-300 rounded-full animate-pulse-slow"></div>
-      </div>
-
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div class="text-center mb-16">
-          <div class="inline-flex items-center space-x-3 bg-blue-100 rounded-full px-6 py-3 mb-6 animate-bounce-in">
-            <Camera class="h-6 w-6 text-blue-600" />
-            <span class="text-blue-900 font-medium tracking-wide">CAMPUS LIFE</span>
-          </div>
-          <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 animate-slide-in-up">
-            Experience Our
-            <span class="text-blue-600">Modern Campus</span>
-          </h2>
-          <p class="text-xl text-gray-600 max-w-3xl mx-auto animate-fade-in-up-slow">
-            Discover state-of-the-art facilities, collaborative spaces, and an inspiring environment designed for
-            innovation
-          </p>
-        </div>
-
-        <!-- Campus Slider -->
-        <div class="relative">
-          <div class="overflow-hidden rounded-2xl shadow-2xl" @mouseenter="stopAutoPlay('campus')"
-            @mouseleave="startAutoPlay('campus', 6000)">
-            <div class="flex transition-transform duration-700 ease-in-out"
-              :style="{ transform: `translateX(-${currentCampusSlide * 100}%)` }">
-              <div v-for="slide in mappedCampusGallery" :key="slide.id" class="w-full flex-shrink-0 relative">
-                <div class="relative h-96 md:h-[500px]">
-                  <img :src="slide.image" :alt="slide.title" class="w-full h-full object-cover" />
-                  <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-
-                  <!-- Content Overlay -->
-                  <div class="absolute bottom-0 left-0 right-0 p-8 text-white">
-                    <div class="max-w-4xl mx-auto">
-                      <div class="flex items-center space-x-3 mb-4">
-                        <span class="bg-blue-500 px-3 py-1 rounded-full text-sm font-medium">
-                          {{ slide.category }}
-                        </span>
-                      </div>
-                      <h3 class="text-3xl md:text-4xl font-bold mb-4">{{ slide.title }}</h3>
-                      <p class="text-xl text-white/90 max-w-2xl">{{ slide.description }}</p>
+        <!-- Modern Image Gallery Carousel -->
+    <div class="relative w-full h-screen bg-black">
+      <!-- Main Carousel -->
+      <div class="relative w-full h-full overflow-hidden" @mouseenter="stopAutoPlay('campus')" @mouseleave="startAutoPlay('campus', 4000)">
+        <!-- Slide Container -->
+        <div class="flex h-full transition-all duration-1000 ease-out"
+          :style="{ transform: `translateX(-${currentCampusSlide * 100}%)` }">
+          
+          <div v-for="(slide, index) in mappedCampusGallery" :key="slide.id" 
+            class="w-full h-full flex-shrink-0 relative group">
+            
+            <!-- Background Image with Zoom Effect -->
+            <div class="absolute inset-0 overflow-hidden">
+              <img :src="slide.image" :alt="slide.title" 
+                class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
+            </div>
+            
+            <!-- Dynamic Overlay -->
+            <div class="absolute inset-0 bg-gradient-to-br from-black/60 via-transparent to-black/80"></div>
+            
+            <!-- Floating Content Card -->
+            <div class="absolute inset-0 flex items-end justify-end p-8">
+              <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 md:p-8 max-w-2xl w-full border border-white/20">
+                <!-- Category Tag -->
+                <div class="inline-flex items-center bg-blue-500/90 text-white px-4 py-2 rounded-full text-sm font-semibold mb-6">
+                  <span class="w-2 h-2 bg-white rounded-full mr-2 animate-pulse"></span>
+                  {{ slide.category }}
+                </div>
+                
+                <!-- Main Title -->
+                <h1 class="text-3xl md:text-5xl lg:text-6xl font-black text-white mb-4 leading-none tracking-tight">
+                  {{ slide.title }}
+                </h1>
+                
+                <!-- Description -->
+                <p class="text-lg md:text-xl text-white/90 mb-6 leading-relaxed max-w-xl">
+                  {{ slide.description }}
+                </p>
+                
+                <!-- Interactive Elements -->
+                <div class="flex items-center justify-between">
+                  <!-- Slide Progress -->
+                  <div class="flex items-center space-x-4">
+                    <div class="text-white/70 text-lg font-medium">
+                      {{ currentCampusSlide + 1 }} of {{ mappedCampusGallery.length }}
+                    </div>
+                    <div class="w-24 h-1 bg-white/30 rounded-full overflow-hidden">
+                      <div class="h-full bg-gradient-to-r from-blue-400 to-blue-600 transition-all duration-500"
+                        :style="{ width: `${((currentCampusSlide + 1) / mappedCampusGallery.length) * 100}%` }"></div>
                     </div>
                   </div>
+                  
+                  <!-- Explore Button -->
+                  <button class="bg-white/20 hover:bg-white/30 text-white px-6 py-3 rounded-full font-medium transition-all duration-300 hover:scale-105 backdrop-blur-sm border border-white/30">
+                    Explore More
+                  </button>
                 </div>
               </div>
             </div>
           </div>
-
-          <!-- Navigation Arrows -->
-          <button @click="prevSlide('campus')"
-            class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white p-3 rounded-full transition-all duration-300 hover:scale-110">
-            <ChevronLeft class="h-6 w-6" />
-          </button>
-          <button @click="nextSlide('campus')"
-            class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white p-3 rounded-full transition-all duration-300 hover:scale-110">
-            <ChevronRight class="h-6 w-6" />
-          </button>
-
-          <!-- Dots Indicator -->
-          <div class="flex justify-center space-x-2 mt-8">
-            <button v-for="(slide, index) in mappedCampusGallery" :key="slide.id" @click="goToSlide('campus', index)"
-              :class="[
-                'w-3 h-3 rounded-full transition-all duration-300',
-                currentCampusSlide === index
-                  ? 'bg-blue-600 w-8'
-                  : 'bg-gray-300 hover:bg-gray-400'
-              ]"></button>
-          </div>
         </div>
       </div>
-    </section>
+      
+      <!-- Floating Navigation -->
+      <div class="absolute top-1/2 left-8 transform -translate-y-1/2 z-10">
+        <button @click="prevSlide('campus')" 
+          class="group bg-black/30 hover:bg-black/50 text-white p-4 rounded-full transition-all duration-300 hover:scale-110 backdrop-blur-sm border border-white/20">
+          <ChevronLeft class="h-8 w-8 group-hover:-translate-x-1 transition-transform" />
+        </button>
+      </div>
+      
+      <div class="absolute top-1/2 right-8 transform -translate-y-1/2 z-10">
+        <button @click="nextSlide('campus')" 
+          class="group bg-black/30 hover:bg-black/50 text-white p-4 rounded-full transition-all duration-300 hover:scale-110 backdrop-blur-sm border border-white/20">
+          <ChevronRight class="h-8 w-8 group-hover:translate-x-1 transition-transform" />
+        </button>
+      </div>
+      
+      <!-- Bottom Indicator Bar -->
+      <div class="absolute bottom-0 left-0 right-0 h-1 bg-white/20">
+        <div class="h-full bg-gradient-to-r from-blue-400 to-blue-600 transition-all duration-500"
+          :style="{ width: `${((currentCampusSlide + 1) / mappedCampusGallery.length) * 100}%` }"></div>
+      </div>
+      
+      <!-- Slide Dots -->
+      <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3">
+        <button v-for="(slide, index) in mappedCampusGallery" :key="slide.id" @click="goToSlide('campus', index)"
+          :class="[
+            'transition-all duration-300 rounded-full border-2 border-white/50',
+            currentCampusSlide === index 
+              ? 'w-12 h-3 bg-white' 
+              : 'w-3 h-3 bg-white/30 hover:bg-white/50'
+          ]"></button>
+      </div>
+      
+      <!-- Floating Info Panel - Bottom Right -->
+      <div class="absolute bottom-8 right-8 bg-black/40 backdrop-blur-md rounded-lg p-3 border border-white/20">
+        <div class="text-white text-center">
+          <div class="text-lg font-bold">{{ currentCampusSlide + 1 }}</div>
+          <div class="text-xs text-white/70">Slide</div>
+        </div>
+      </div>
+    </div>
+
+    <HeroSection />
 
     <!-- Success Stories Section -->
     <section class="py-20 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 relative overflow-hidden">
@@ -1348,26 +1406,57 @@ const formatKsh = (value) => {
     </section>
 
     <!-- Institution Values -->
-    <section class="py-16 bg-gray-50">
+    <section class="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12">
-          <h2 class="text-3xl font-bold text-gray-900 mb-4">Our Foundation</h2>
+        <div class="text-center mb-16">
+          <h2 class="text-4xl font-bold text-gray-900 mb-4">Our Foundation</h2>
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto">Discover the core principles that drive our commitment to excellence in technology education</p>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           <div v-for="value in institutionValues" :key="value.title"
-            class="bg-white rounded-lg shadow-md p-6 text-center">
-            <h3 class="text-blue-900 font-bold text-lg mb-4">{{ value.title }}</h3>
-            <p class="text-gray-600">
-              <span v-if="!expanded[value.title] && value.description.length > 120">
-                {{ value.description.slice(0, 120) }}...
-                <button class="text-blue-700 underline ml-1" @click="toggleExpand(value.title)">Read More</button>
+            class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-8 text-center group hover:-translate-y-2">
+            
+            <!-- Icon -->
+            <div class="w-16 h-16 mx-auto mb-6 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300"
+              :class="value.color">
+              <component :is="getIcon(value.icon)" class="h-8 w-8 text-white" />
+            </div>
+            
+            <!-- Title -->
+            <h3 class="text-blue-900 font-bold text-xl mb-4">{{ value.title }}</h3>
+            
+            <!-- Description -->
+            <p class="text-gray-600 leading-relaxed">
+              <span v-if="!expanded[value.title] && value.description.length > 100">
+                {{ value.description.slice(0, 100) }}...
+                <button class="text-blue-600 hover:text-blue-800 font-medium ml-1 transition-colors" 
+                  @click="toggleExpand(value.title)">Read More</button>
               </span>
               <span v-else>
                 {{ value.description }}
-                <button v-if="value.description.length > 120" class="text-blue-700 underline ml-1"
+                <button v-if="value.description.length > 100" 
+                  class="text-blue-600 hover:text-blue-800 font-medium ml-1 transition-colors"
                   @click="toggleExpand(value.title)">Show Less</button>
               </span>
             </p>
+          </div>
+        </div>
+        
+        <!-- Download Complete About Us -->
+        <div class="text-center">
+          <div class="bg-white rounded-xl shadow-lg p-8 max-w-2xl mx-auto">
+            <div class="flex items-center justify-center mb-4">
+              <Download class="h-8 w-8 text-blue-600 mr-3" />
+              <h3 class="text-2xl font-bold text-gray-900">Complete About Us</h3>
+            </div>
+            <p class="text-gray-600 mb-6">Get the full story of Novus Computer Training Institute, our history, achievements, and detailed information about our programs and values.</p>
+            <a href="/assets/docs/ABOUT NOVUS.pdf" 
+              download="About_Novus_Computer_Training_Institute.pdf"
+              class="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors duration-300 hover:scale-105">
+              <Download class="h-5 w-5 mr-2" />
+              Download Complete About Us (PDF)
+            </a>
           </div>
         </div>
       </div>
@@ -1472,47 +1561,371 @@ const formatKsh = (value) => {
 </template>
 
 <style scoped>
-.clip-hexagon {
-  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+/* Redesigned Campus Gallery Carousel Styles */
+.carousel-container {
+  position: relative;
 }
 
-/* Smooth transitions */
-.transition-all {
-  transition-property: all;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+.carousel-slide {
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Hover animations */
-.group:hover .transform {
-  transform: translateX(0.5rem);
+.carousel-slide-content {
+  position: relative;
+  overflow: hidden;
 }
 
-
-/* Side navigation animations */
-.group:hover .bg-white\/90 {
-  background-color: rgba(255, 255, 255, 1);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+.carousel-image {
+  transition: transform 0.8s ease-in-out;
 }
 
-/* Arrow button animations */
-button:hover {
-  transform: translateY(-50%) scale(1.05);
+.carousel-slide-content:hover .carousel-image {
+  transform: scale(1.05);
 }
 
-/* Vertical line animations */
-.group:hover .bg-white\/30 {
-  height: 24px;
-  background-color: rgba(255, 255, 255, 0.5);
+.carousel-overlay {
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.4) 40%,
+    rgba(0, 0, 0, 0.1) 70%,
+    transparent 100%
+  );
 }
 
-/* Text rotation */
-.text-orientation\:mixed {
-  text-orientation: mixed;
+/* Top Content Styles */
+.carousel-top-content {
+  opacity: 0.9;
+  transform: translateY(20px);
+  animation: slideInTop 0.6s ease-out forwards;
 }
 
-/* Additional hover effects */
-a,
-button {
-  transition: all 0.2s ease-in-out;
+.carousel-badge {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.carousel-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.carousel-current {
+  color: #3b82f6;
+  font-weight: 700;
+}
+
+.carousel-separator {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.carousel-total {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Bottom Content Styles */
+.carousel-bottom-content {
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(0, 0, 0, 0.7) 50%,
+    transparent 100%
+  );
+  padding-top: 2rem;
+  transform: translateY(30px);
+  animation: slideInBottom 0.8s ease-out forwards;
+}
+
+.carousel-text-content {
+  color: white;
+}
+
+.carousel-title {
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #ffffff, #e2e8f0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 768px) {
+  .carousel-title {
+    font-size: 4rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .carousel-title {
+    font-size: 5rem;
+  }
+}
+
+.carousel-description {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 2rem;
+  max-width: 600px;
+}
+
+@media (min-width: 768px) {
+  .carousel-description {
+    font-size: 1.5rem;
+  }
+}
+
+/* Progress Bar */
+.carousel-progress-container {
+  margin-top: 2rem;
+}
+
+.carousel-progress-bar {
+  width: 200px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+  border-radius: 2px;
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.carousel-progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20px;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3));
+  border-radius: 2px;
+}
+
+/* Navigation Buttons */
+.carousel-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 10;
+  color: white;
+}
+
+.carousel-nav-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.carousel-nav-left {
+  left: 2rem;
+}
+
+.carousel-nav-right {
+  right: 2rem;
+}
+
+.carousel-nav-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.carousel-nav-btn:hover .carousel-nav-icon {
+  transform: scale(1.1);
+}
+
+/* Dots Indicator */
+.carousel-dots-container {
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 1rem;
+  z-index: 10;
+}
+
+.carousel-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.carousel-dot:hover {
+  background: rgba(255, 255, 255, 0.5);
+  transform: scale(1.2);
+}
+
+.carousel-dot-active {
+  background: #3b82f6;
+  border-color: #3b82f6;
+  transform: scale(1.3);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+}
+
+/* Animation classes */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes bounce-in {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in-up {
+  0% {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in-up-slow {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInTop {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 0.9;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s ease-in-out infinite;
+}
+
+.animate-bounce-in {
+  animation: bounce-in 0.6s ease-out;
+}
+
+.animate-slide-in-up {
+  animation: slide-in-up 0.8s ease-out;
+}
+
+.animate-fade-in-up-slow {
+  animation: fade-in-up-slow 1.2s ease-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .carousel-nav-btn {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .carousel-nav-left {
+    left: 1rem;
+  }
+  
+  .carousel-nav-right {
+    right: 1rem;
+  }
+  
+  .carousel-dots-container {
+    bottom: 2rem;
+  }
+  
+  .carousel-title {
+    font-size: 2.5rem;
+  }
+  
+  .carousel-description {
+    font-size: 1.125rem;
+  }
 }
 </style>

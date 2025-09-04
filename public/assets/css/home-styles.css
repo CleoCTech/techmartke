@@ -1,0 +1,242 @@
+/* Home Page Custom Styles */
+
+/* Hexagon clip path */
+.clip-hexagon {
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+/* Smooth transitions */
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover animations */
+.group:hover .transform {
+  transform: translateX(0.5rem);
+}
+
+/* Side navigation animations */
+.group:hover .bg-white\/90 {
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Arrow button animations */
+button:hover {
+  transform: translateY(-50%) scale(1.05);
+}
+
+/* Vertical line animations */
+.group:hover .bg-white\/30 {
+  height: 24px;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Text rotation */
+.text-orientation\:mixed {
+  text-orientation: mixed;
+}
+
+/* Additional hover effects */
+a,
+button {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Campus Gallery Carousel Enhancements */
+.campus-carousel {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.campus-carousel-slide {
+  transition: transform 0.7s ease-in-out;
+}
+
+.campus-carousel-overlay {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.2) 50%, transparent 100%);
+}
+
+.campus-carousel-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  border: none;
+  color: white;
+  padding: 1rem;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.campus-carousel-nav:hover {
+  background: rgba(255, 255, 255, 0.4);
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.campus-carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 3rem;
+}
+
+.campus-carousel-dot {
+  transition: all 0.3s ease;
+  border-radius: 9999px;
+  cursor: pointer;
+  border: none;
+}
+
+.campus-carousel-dot.active {
+  background-color: #2563eb;
+  width: 3rem;
+  height: 0.75rem;
+}
+
+.campus-carousel-dot:not(.active) {
+  background-color: #d1d5db;
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+.campus-carousel-dot:not(.active):hover {
+  background-color: #9ca3af;
+}
+
+/* Slide counter styles */
+.slide-counter {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.slide-counter-text {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.slide-counter-current {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.125rem;
+}
+
+.slide-counter-separator {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1.125rem;
+}
+
+.slide-counter-total {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.125rem;
+}
+
+.slide-progress-bar {
+  width: 6rem;
+  height: 0.25rem;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.slide-progress-fill {
+  height: 100%;
+  background-color: white;
+  transition: width 0.3s ease-in-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .campus-carousel-nav {
+    padding: 0.75rem;
+  }
+  
+  .campus-carousel-dots {
+    margin-top: 2rem;
+  }
+}
+
+/* Animation classes */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes bounce-in {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in-up {
+  0% {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in-up-slow {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s ease-in-out infinite;
+}
+
+.animate-bounce-in {
+  animation: bounce-in 0.6s ease-out;
+}
+
+.animate-slide-in-up {
+  animation: slide-in-up 0.8s ease-out;
+}
+
+.animate-fade-in-up-slow {
+  animation: fade-in-up-slow 1.2s ease-out;
+}

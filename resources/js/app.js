@@ -39,6 +39,7 @@ import TawkMessengerVue from '@tawk.to/tawk-messenger-vue-3';
 import GuestBlankLayout from '@/Guest/Layouts/Blank.vue'
 import GuestLayout from '@/Guest/Layouts/Guest.vue'
 import SystemLayout from '@/System/Layouts/AppLayout.vue'
+import WhatsAppButton from '@/Components/WhatsAppButton.vue'
 
 
 // const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
@@ -156,6 +157,7 @@ createInertiaApp({
             .component('Link',Link)
             .component('GDialog', GDialog)
             .component('Icon', Icon)
+            .component('WhatsAppButton', WhatsAppButton)
             .use(createPinia())
            
             .use(VueSocialSharing, {

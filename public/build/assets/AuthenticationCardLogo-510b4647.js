@@ -1,1 +1,0 @@
-import{o as a,k as t,w as r,b as s,u as o,y as n}from"./app-ec2fed4d.js";const l={__name:"AuthenticationCardLogo",setup(c){return(u,e)=>(a(),t(o(n),{href:"/"},{default:r(()=>e[0]||(e[0]=[s("img",{src:"/storage/general/favicon.png",alt:"",srcset:""},null,-1)])),_:1}))}};export{l as default};

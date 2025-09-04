@@ -1,0 +1,1 @@
+import{_ as t,o as e,c}from"./app-2b3a22fe.js";/* empty css                  */const s={},o={class:"px-2 justify-items-start p-1"};function r(a,n){return e(),c("th",o)}const i=t(s,[["render",r]]);export{i as default};

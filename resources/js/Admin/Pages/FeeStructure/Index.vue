@@ -1,306 +1,108 @@
 <template>
     <div>
+        <Head title="Fee Structures" />
+        <x-index-template :setup="setup" :listData="listData" :selected="selected">
+            <Table :setup="setup" :listData="listData">
+                <template #thead>
+                    <tr>
+                        <ThCheckbox :selected-items="selected" @toggle-select-all="handleToggleSelectAll" />
+                        <Th>Training Module</Th>
+                        <Th>Course Type</Th>
+                        <Th>Fee</Th>
+                        <Th>Duration</Th>
+                        <Th>Description</Th>
+                        <Th>Status</Th>
+                        <Th>Date Created</Th>
+                    </tr>
+                </template>
+                <template #tbody>
+                    <Tr v-for="(record, index) in listData.data" :key="index" :row="record.uuid+'#'+index" 
+                        :isSelected="isSelected(record.uuid+'#'+index)" 
+                        :url="setup.settings.indexRoute+'/show/'+record.uuid">
+                        
+                        <!-- Checkbox for selection -->
+                        <TdCheckbox :item="record.uuid+'#'+listData.data.indexOf(record)" @onCheck="onCheck"/>
+                        
+                        <!-- Training Module -->
+                        <Td>{{ record.training_module?.title || 'N/A' }}</Td>
 
-        <Head title="Fee Structure" />
-        <!-- <x-loading :show="loading" /> -->
-        <div v-if="!loading">
-
-        
-        <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto flex">
-            <div class="flex-grow">
-                <div class="mb-8">
-                    <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold">Fee Structure</h1>
-                </div>
-
-                <x-panel>
-                    <template #title>Add New Record</template>
-                    <template #body>
-                        <form @submit.prevent="submitNewFee">
-                            <x-grid>
-                                <x-grid-col class="">
-                                    <x-form-group>
-                                        <template #label>Grade<span class="text-rose-500">*</span></template>
-                                        <template #value>
-                                            <x-input type="text" v-model="newFee.grade"  @input="newFee.grade = newFee.grade.toUpperCase()" />
-                                        </template>
-                                    </x-form-group>
-                                </x-grid-col>
-                                <x-grid-col class="">
-                                    <x-form-group>
-                                        <template #label>Term 1<span class="text-rose-500">*</span></template>
-                                        <template #value>
-                                            <x-input type="number" v-model="newFee.term1" @input="updateNewFeeTotal" required />
-                                        </template>
-                                    </x-form-group>
-                                </x-grid-col>
-
-                                <x-grid-col class="">
-                                    <x-form-group>
-                                        <template #label>Term 2<span class="text-rose-500">*</span></template>
-                                        <template #value>
-                                            <x-input type="number" v-model="newFee.term2" @input="updateNewFeeTotal" required />
-                                        </template>
-                                    </x-form-group>
-                                </x-grid-col>
-                                <x-grid-col class="">
-                                    <x-form-group>
-                                        <template #label>Term 3<span class="text-rose-500">*</span></template>
-                                        <template #value>
-                                            <x-input type="number" v-model="newFee.term3" @input="updateNewFeeTotal" required/>
-                                        </template>
-                                    </x-form-group>
-                                </x-grid-col>
-                                <x-grid-col class="">
-                                    <x-form-group>
-                                        <template #label>Category <span class="text-rose-500">*</span></template>
-                                        <template #value>
-                                            <x-select v-model="newFee.category" required>
-                                                <option value="" select>--select--</option>
-                                                <option value="full_boarding">Full Boarding</option>
-                                                <option value="flex_boarding">Flex Boarding</option>
-                                                <option value="day_school">Day School</option>
-                                            </x-select>
-                                        </template>
-                                    </x-form-group>
-                                </x-grid-col>
-                                <x-grid-col class="">
-                                    <x-form-group>
-                                        <template #label>Total</template>
-                                        <template #value>
-                                            <x-input type="number" :value="newFee.total" disabled />
-                                        </template>
-                                    </x-form-group>
-                                </x-grid-col>
-
-                            </x-grid>
-                            <div class="flex justify-center py-3">
-                                <x-button type="submit">Add Fee</x-button>
+                        <!-- Course Type -->
+                        <Td>
+                            <div class="flex items-center space-x-2">
+                                <div class="w-3 h-3 rounded-full" :class="record.course_type?.color_class"></div>
+                                <span>{{ record.course_type?.name || 'N/A' }}</span>
                             </div>
-                        </form>
-                        <!-- <x-attachment v-if="isAttachments && setup.pageType == 'edit'" class="flex-none pr-2 md:max-w-xs" :setup="setup" :selected="selected"/> -->
-                    </template>
-                    <!-- <template #footer>Add New Record</template> -->
-                </x-panel>
-            </div>
-            <!-- Right Column (x-attachment) -->
-            <div class="flex-none">
-                <!-- <x-attachment v-if="isAttachments && setup.pageType == 'edit'" class="pr-2 md:max-w-xs" :setup="setup"
-                    :selected="selected" /> -->
-            </div>
+                        </Td>
 
-        </div>
+                        <!-- Fee -->
+                        <Td>Sh. {{ record.fee?.toLocaleString() }}</Td>
 
-        <x-panel>
-            <template #body>
-                
-            
-            <h3 class="text-white">Full Boarding</h3>
-            <table border="1" cellpadding="5">
-                <thead>
-                    <tr>
-                        <th>Grade</th>
-                        <th>Term 1</th>
-                        <th>Term 2</th>
-                        <th>Term 3</th>
-                        <th>Totals</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="fee in fullBoarding" :key="fee.id">
-                        <td>{{ fee.grade }}</td>
-                        <td><input type="number" v-model="fee.term1" @input="updateTotal(fee)" /></td>
-                        <td><input type="number" v-model="fee.term2" @input="updateTotal(fee)" /></td>
-                        <td><input type="number" v-model="fee.term3" @input="updateTotal(fee)" /></td>
-                        <td>{{ formatCurrency(fee.total) }}</td>
-                        <!-- <td>
-                            <x-button  @click="updateFee(fee)">Save</x-button>
-                            
-                        </td> -->
-                        <td><button @click="updateFee(fee)" class="btn dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-emerald-500">Save</button></td>
-                    </tr>
-                </tbody>
-            </table>
+                        <!-- Duration -->
+                        <Td>{{ record.duration }}</Td>
 
-            <!-- Flex Boarding Section -->
-            <h3 class="text-white">Flex Boarding</h3>
-            <table border="1" cellpadding="5">
-                <thead>
-                    <tr>
-                        <th>Grade</th>
-                        <th>Term 1</th>
-                        <th>Term 2</th>
-                        <th>Term 3</th>
-                        <th>Totals</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="fee in flexBoarding" :key="fee.id">
-                        <td>{{ fee.grade }}</td>
-                        <td><input type="number" v-model="fee.term1" @input="updateTotal(fee)" /></td>
-                        <td><input type="number" v-model="fee.term2" @input="updateTotal(fee)" /></td>
-                        <td><input type="number" v-model="fee.term3" @input="updateTotal(fee)" /></td>
-                        <td>{{ formatCurrency(fee.total) }}</td>
-                        <td> <button @click="updateFee(fee)" class="btn dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-emerald-500">Save</button></td>
-                    </tr>
-                </tbody>
-            </table>
+                        <!-- Description -->
+                        <Td>{{ record.description ? (record.description.length > 50 ? record.description.substring(0, 50) + '...' : record.description) : '-' }}</Td>
 
-            <!-- Day School Section -->
-            <h3 class="text-white">Day School</h3>
-            <table border="1" cellpadding="5">
-                <thead>
-                    <tr>
-                        <th>Grade</th>
-                        <th>Term 1</th>
-                        <th>Term 2</th>
-                        <th>Term 3</th>
-                        <th>Totals</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="fee in daySchool" :key="fee.id">
-                        <td>{{ fee.grade }}</td>
-                        <td><input type="number" v-model="fee.term1" @input="updateTotal(fee)" /></td>
-                        <td><input type="number" v-model="fee.term2" @input="updateTotal(fee)" /></td>
-                        <td><input type="number" v-model="fee.term3" @input="updateTotal(fee)" /></td>
-                        <td>{{ formatCurrency(fee.total) }}</td>
-                        <td><button @click="updateFee(fee)" class="btn dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-emerald-500">Save</button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </template>
-        </x-panel>
-    </div>
+                        <!-- Status -->
+                        <Td>
+                            <Badge :class="getStatusClass(record.is_active)">
+                                {{ getStatusCaption(record.is_active) }}
+                            </Badge>
+                        </Td>
+
+                        <!-- Date Created -->
+                        <Td>{{ record.created_at }}</Td>
+                    </Tr>
+                </template>
+            </Table>
+        </x-index-template>
     </div>
 </template>
 
 <script setup>
-import { ref,onMounted,getCurrentInstance  } from 'vue';
-import { useForm, router } from '@inertiajs/vue3'; // Inertia's Vue 3 form handling
-import xPanel from '@/Components/Panel.vue'
-import xAttachment from '@/Components/Attachment.vue'
-import xGrid from '@/Components/Grid.vue'
-import xGridCol from '@/Components/GridCol.vue'
-import xLoading from '@/Components/Loading.vue'
-import xFormGroup from '@/Components/FormGroup.vue'
-import xInput from '@/Components/TextInput.vue'
-import xSelect from '@/Components/Select.vue'
-import xButton from '@/Components/Button.vue'
-import {useNotify} from "@/Composables/useNotify";
+import { provide, getCurrentInstance } from 'vue';
+import { indexProps, useIndex } from '@/Composables/useIndex';
+import { Head } from '@inertiajs/vue3';
+import Badge from '@/Components/Mosaic/Badge.vue';
+import { ref } from 'vue';
 
-
-// Props passed from the controller
-const props = defineProps(['fees']);
-let {notification} = useNotify();
-
-const loading = ref(true);
 const context = getCurrentInstance()?.appContext.config.globalProperties;
-// Simulate the loading process (for example, during the fetching of data)
-onMounted( async () => {
-    context.$showLoading()
-  // Simulate a delay (such as fetching data from the server)
-  setTimeout(() => {
-    context.$hideLoading()
-    loading.value = false; // Hide the loader after the page content has loaded
-  }, 1000); // Replace with actual data-fetching logic
-});
 
-// Refactor fees based on categories
-const fullBoarding = ref(props.fees.filter(fee => fee.category === 'full_boarding'));
-const flexBoarding = ref(props.fees.filter(fee => fee.category === 'flex_boarding'));
-const daySchool = ref(props.fees.filter(fee => fee.category === 'day_school'));
+// Define props
+const props = defineProps({ ...indexProps });
 
-// New fee data (form for adding a new record)
-const newFee = ref({
-    grade: '',
-    term1: 0,
-    term2: 0,
-    term3: 0,
-    total: 0,
-    category: '',
-});
+// Status mapping
+const statuses = ref([
+  { id: true, caption: 'Active', color: 'bg-green-500 text-white' },
+  { id: false, caption: 'Inactive', color: 'bg-gray-400 text-white' },
+]);
 
-// Function to calculate total for the new fee record
-const updateNewFeeTotal = () => {
-    // newFee.value.total = newFee.value.tuition + (newFee.value.boarding || 0);
-    newFee.value.total = parseFloat(newFee.value.term1) + (parseFloat(newFee.value.term2) || 0) +  parseFloat(newFee.value.term3);
-};
+// Get the class for the status badge
+function getStatusClass(status) {
+  const statusObj = statuses.value.find((s) => s.id === status);
+  return statusObj ? statusObj.color : 'bg-gray-300 text-black';
+}
 
-// Function to add new fee via Inertia post request
-const submitNewFee = () => {
-    context.$showLoading() // Show loader when the form is submitted
-    if (newFee.value.category == '') {
-        context.$hideLoading()
-        notification('Category cannot be empty!', 'error');
-        return;
-    }
-    const form = useForm({
-        grade: newFee.value.grade,
-        term1: newFee.value.term1,
-        term2: newFee.value.term2,
-        term3: newFee.value.term3,
-        total: newFee.value.total,
-        category: newFee.value.category,
-    });
+// Get the caption for the status badge
+function getStatusCaption(status) {
+  const statusObj = statuses.value.find((s) => s.id === status);
+  return statusObj ? statusObj.caption : 'Unknown';
+}
 
-    form.post('/admin/fee-structure', {
-        onSuccess: () => {
-            //alert('New fee record added successfully!');
-            notification('New fee record added successfully!', 'success');
-            form.reset(); // Reset the form after successful submission
-            // loading.value = false; // Hide loader on success
-            context.$hideLoading()
-            router.visit('/admin/fee-structure');
-        },
-        onError: () => {
-            // alert('An error occurred while adding the fee.');
-            notification('An error occurred while adding the fee.', 'error');
-            // loading.value = false; // Hide loader on error
-            context.$hideLoading()
-        }
-    });
-};
-
-// Update total dynamically
-const updateTotal = (fee) => {
-    fee.total = parseFloat(fee.term1) + parseFloat((fee.term2 || 0)) +  parseFloat((fee.term3 || 0));
-
-};
-
-// Format currency
-const formatCurrency = (amount) => {
-    return `KSH.${amount.toLocaleString()}`;
-};
-
-// Function to update fee via Inertia
-const updateFee = (fee) => {
-    // loading.value = true; // Show loader when updating
-    context.$showLoading()
-    const form = useForm({
-        term1: fee.term1,
-        term2: fee.term2,
-        term3: fee.term3,
-        total: fee.total
-    });
-
-    form.put(`/admin/fee-structure/${fee.id}`, {
-        onSuccess: () => {
-            // alert('Fee updated successfully!');
-            notification('Fee updated successfully!', 'success');
-            // loading.value = false; // Hide loader on success
-            context.$hideLoading()
-        },
-        onError: () => {
-            // alert('An error occurred while updating the fee.');
-            notification('An error occurred while updating the fee!', 'error');
-            // loading.value = false; // Hide loader on error
-            context.$hideLoading()
-        }
-    });
-};
+// Use the index composable
+const {
+    xIndexTemplate,
+    Table,
+    Th,
+    ThCheckbox,
+    Td,
+    TdCheckbox,
+    Tr,
+    xBadge,
+    handleToggleSelectAll,
+    isSelected,
+    onCheck
+} = useIndex(props);
 </script>
 
 <style scoped>

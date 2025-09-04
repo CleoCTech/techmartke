@@ -82,6 +82,7 @@ const quickLinks = [
   { href: '/about', label: 'About Us' },
   { href: '/courses', label: 'Courses' },
   { href: '/application', label: 'Application' },
+  { href: '/scholarship', label: 'Scholarship' },
   { href: '/login', label: 'Login' }
 ]
 
@@ -94,7 +95,7 @@ const resources = [
 
 const currentYear = computed(() => new Date().getFullYear())
 const instituteName = page.props.config?.appName || 'Novus Computer Training Institute'
-const instituteMission = 'Building the Future, Byte by Byte'
+const instituteMission = 'Coding the Future Today, Byte by Byte'
 
 </script>
 

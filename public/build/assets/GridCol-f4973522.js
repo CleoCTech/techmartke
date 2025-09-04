@@ -1,0 +1,1 @@
+import{_ as o,o as s,c as t,z as r}from"./app-2b3a22fe.js";/* empty css                  */const c={},n={class:""};function a(e,_){return s(),t("div",n,[r(e.$slots,"default")])}const f=o(c,[["render",a]]);export{f as default};

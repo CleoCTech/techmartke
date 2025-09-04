@@ -32,6 +32,12 @@ use App\Models\Award;
 use App\Models\SuccessStory;
 use App\Models\System\Course as SystemCourse;
 use App\Models\Testimonial;
+use App\Models\TrainingModule;
+use App\Models\CourseType;
+use App\Models\FeeStructure;
+use App\Models\PaymentOption;
+use App\Models\RegistrationFee;
+use App\Models\ScholarshipApplication;
 
 class GeneralController extends Controller
 {
@@ -87,8 +93,11 @@ class GeneralController extends Controller
         $videoGallery = Video::where('status', 2)->get();
 
         $firstAttachment = Attachment::where('is_archived',0)
-        ->where('description','like','%Application%')
+        ->where('description','like','%Application Form%')
+        ->where('table_id','undefined')
         ->first();
+
+        // dd($firstAttachment);
 
         return Inertia::render('Guest/Pages/Home', [
             'testimonials' => $testimonials,
@@ -396,6 +405,136 @@ class GeneralController extends Controller
             ], 500);
         }
     }
+
+    public function generalApplicationPost(Request $request)
+    {
+        info("generalApplicationPost");
+        
+        try {
+            $validated = $request->validate([
+                'first_name' => 'required|string|max:255',
+                'last_name' => 'required|string|max:255',
+                'email' => 'required|email|max:255',
+                'phone' => 'required|string|max:255',
+                'date_of_birth' => 'required|date',
+                'program' => 'required|string|max:255',
+                'start_date' => 'required|string|max:255',
+                'study_format' => 'required|in:in-person,online,hybrid',
+                'career_goals' => 'required|string',
+                'hear_about_us' => 'nullable|string|max:255',
+                'additional_info' => 'nullable|string',
+                'terms_accepted' => 'required|in:0,1',
+                'marketing_consent' => 'in:0,1',
+            ]);
+            info('after validation');
+        
+            DB::beginTransaction();
+            
+            $app = Application::create([
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'date_of_birth' => $request->date_of_birth,
+                'program' => $request->program,
+                'start_date' => $request->start_date,
+                'study_format' => $request->study_format,
+                'career_goals' => $request->career_goals,
+                'hear_about_us' => $request->hear_about_us,
+                'additional_info' => $request->additional_info,
+                'terms_accepted' => $request->terms_accepted === '1',
+                'marketing_consent' => $request->marketing_consent === '1',
+                'status' => 1,
+            ]);
+
+            DB::commit();
+            return response()->json([
+                'success' => 'Application submitted successfully! We will contact you within 2-3 business days.'
+            ]);
+            
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            info('Validation error: ' . json_encode($e->errors()));
+            return response()->json([
+                'error' => 'Validation failed',
+                'errors' => $e->errors()
+            ], 422);
+        } catch (\Throwable $th) {
+            DB::rollback();
+            Log::error($th);
+            return response()->json([
+                'error' => config('app.defaultErrors.default')
+            ], 500);
+        }
+    }
+
+
+    public function scholarshipApplicationPost(Request $request)
+    {
+        info("scholarshipApplicationPost");
+        $validated = $request->validate([
+            'type' => 'required|in:student,professional',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'required|string|max:255',
+            'notes' => 'nullable|string',
+        ]);
+
+        DB::beginTransaction();
+        try {
+            $scholarshipApp = ScholarshipApplication::create([
+                'type' => $request->type,
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'notes' => $request->notes,
+                'status' => 1, // New
+            ]);
+
+            // Handle file uploads if any
+            if($request->hasFile('application_form')){
+                $fileName = time() . '_' . $request->file('application_form')->getClientOriginalName();
+                $record = [
+                    'filename' => $fileName,
+                    'description' => 'Scholarship Application Form',
+                    'table_id' => 'scholarship_applications',
+                    'record_id' => $scholarshipApp->uuid,
+                    'storageName' => 'scholarshipApplications',
+                    'created_by' => $request->email,
+                ];
+                Attachment::create($record);
+                $request->file('application_form')->storeAs('public/attachments/scholarship_applications', $fileName);
+            }
+
+            if($request->hasFile('supporting_documents')){
+                foreach($request->file('supporting_documents') as $file){
+                    $fileName = time() . '_' . $file->getClientOriginalName();
+                    $record = [
+                        'filename' => $fileName,
+                        'description' => 'Supporting Document',
+                        'table_id' => 'scholarship_applications',
+                        'record_id' => $scholarshipApp->uuid,
+                        'storageName' => 'scholarshipApplications',
+                        'created_by' => $request->email,
+                    ];
+                    Attachment::create($record);
+                    $file->storeAs('public/attachments/scholarship_applications', $fileName);
+                }
+            }
+
+            DB::commit();
+            return response()->json([
+                'success' => 'Scholarship application submitted successfully! We will review your application and contact you within 2 weeks.'
+            ]);
+            
+        } catch (\Throwable $th) {
+            DB::rollback();
+            Log::error($th);
+            return response()->json([
+                'error' => config('app.defaultErrors.default')
+            ], 500);
+        }
+    }
+
     public function showNews($slug) {
 
         $news = News::where('status',2)
@@ -513,15 +652,54 @@ class GeneralController extends Controller
 
     public function trainingFees()
     {
-        // $fees = Fee::where('status', 2)->get();
-        // $feeStructure = Attachment::latest()->first();
-        
+        // Get all active training modules with their fee structures
+        $modules = TrainingModule::active()
+            ->with(['feeStructures' => function($query) {
+                $query->active()->with('courseType');
+            }])
+            ->orderBy('sort_order')
+            ->get()
+            ->map(function($module) {
+                return [
+                    'id' => $module->id,
+                    'title' => $module->title,
+                    'courses' => $module->feeStructures->map(function($feeStructure) {
+                        return [
+                            'type' => $feeStructure->courseType->name,
+                            'fee' => $feeStructure->fee,
+                            'duration' => $feeStructure->duration,
+                            'color_class' => $feeStructure->courseType->color_class
+                        ];
+                    })
+                ];
+            });
+
+        // Get payment options
+        $paymentOptions = PaymentOption::active()
+            ->orderBy('sort_order')
+            ->get()
+            ->map(function($option) {
+                return [
+                    'title' => $option->title,
+                    'description' => $option->description,
+                    'benefit' => $option->benefit,
+                    'icon' => $option->icon
+                ];
+            });
+
+        // Get registration fee
+        $registrationFee = RegistrationFee::active()->first();
+
         return Inertia::render('Guest/Pages/TrainingFees', [
-            // 'fees' => $fees,
-            // 'feeStructure' => $feeStructure,
-            'fees' => [],
-            'feeStructure' => [],
+            'modules' => $modules,
+            'paymentOptions' => $paymentOptions,
+            'registrationFee' => $registrationFee,
         ]);
+    }
+
+    public function scholarships()
+    {
+        return Inertia::render('Guest/Pages/Scholarships');
     }
 
     public function computerEthics()

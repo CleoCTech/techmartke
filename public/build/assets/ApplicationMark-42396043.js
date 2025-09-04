@@ -1,1 +1,0 @@
-import{_ as e,o as c,c as t}from"./app-ec2fed4d.js";const o={},r={src:"/storage/general/favicon.png",alt:"",srcset:""};function n(s,a){return c(),t("img",r)}const i=e(o,[["render",n]]);export{i as default};

@@ -11,6 +11,9 @@ use App\Models\DepartmentRequest;
 use App\Models\Offering;
 use App\Models\System\Service;
 use App\Models\Testmony;
+use App\Models\Application;
+use App\Models\ScholarshipApplication;
+use App\Models\System\Course;
 use App\Services\UserRoleService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -31,6 +34,74 @@ class GeneralController extends Controller
     {
         // info('here');
         return Inertia::render('Admin/Pages/Dashboard');
+    }
+
+    public function statistics()
+    {
+        try {
+            // Get application statistics
+            $totalApplications = Application::count();
+            $totalScholarships = ScholarshipApplication::count();
+            $totalCourses = Course::where('status', 2)->count(); // Active courses
+            
+            // For website visits, we'll use a simple counter for now
+            // In a real application, you might want to implement proper analytics
+            $websiteVisits = rand(1000, 5000); // Placeholder - replace with actual analytics
+            
+            // Get recent activity
+            $recentActivity = [];
+            
+            // Recent applications
+            $recentApplications = Application::latest()->take(3)->get();
+            foreach ($recentApplications as $app) {
+                $recentActivity[] = [
+                    'id' => 'app_' . $app->id,
+                    'description' => 'New application from ' . $app->first_name . ' ' . $app->last_name,
+                    'time' => Carbon::parse($app->created_at)->diffForHumans(),
+                    'color' => 'bg-blue-500'
+                ];
+            }
+            
+            // Recent scholarship applications
+            $recentScholarships = ScholarshipApplication::latest()->take(3)->get();
+            foreach ($recentScholarships as $scholarship) {
+                $recentActivity[] = [
+                    'id' => 'sch_' . $scholarship->id,
+                    'description' => 'New scholarship application from ' . $scholarship->name,
+                    'time' => Carbon::parse($scholarship->created_at)->diffForHumans(),
+                    'color' => 'bg-purple-500'
+                ];
+            }
+            
+            // Sort by creation time and take the most recent 5
+            usort($recentActivity, function($a, $b) {
+                return strtotime($b['time']) - strtotime($a['time']);
+            });
+            $recentActivity = array_slice($recentActivity, 0, 5);
+            
+            return response()->json([
+                'totalApplications' => $totalApplications,
+                'totalScholarships' => $totalScholarships,
+                'totalCourses' => $totalCourses,
+                'websiteVisits' => $websiteVisits,
+                'recentActivity' => $recentActivity
+            ]);
+            
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Failed to load statistics',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function whatsappConfig()
+    {
+        return response()->json([
+            'phone' => config('app.whatsapp.phone'),
+            'defaultMessage' => config('app.whatsapp.default_message'),
+            'enabled' => config('app.whatsapp.enabled')
+        ]);
     }
     public function deptDashboard()
     {

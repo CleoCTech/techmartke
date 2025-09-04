@@ -1,1 +1,0 @@
-import{o as a,k as o,w as s,b as t,u as r,y as n}from"./app-ec2fed4d.js";const c={__name:"AuthenticationCardLogo",setup(u){return(l,e)=>(a(),o(r(n),{href:"/"},{default:s(()=>e[0]||(e[0]=[t("img",{src:"/assets/images/novus-logo.png",alt:"logo"},null,-1)])),_:1}))}};export{c as default};

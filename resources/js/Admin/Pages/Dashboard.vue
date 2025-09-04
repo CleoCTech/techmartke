@@ -11,6 +11,7 @@
     <!-- Card (Recent Activity) -->
     <!-- Cards -->
     <div class="grid grid-cols-12 gap-6">
+      <ApplicationStats class="col-span-full xl:col-span-6" />
       <AttendanceTrendsGraph class="col-span-full xl:col-span-6" />
       <RecentReports class="col-span-full xl:col-span-6" />
       <PendingRequests v-if="canViewPendingRequests" class="col-span-full xl:col-span-6" />
@@ -61,6 +62,7 @@ import QuickActions from '@/Components/Dashboard/QuickActions.vue'
 import RecentActivities from '@/Components/Dashboard/RecentActivities.vue'
 import CalendarWidget from '@/Components/Dashboard/CalendarWidget.vue'
 import DepartmentSummary from '@/Components/Dashboard/DepartmentSummary.vue'
+import ApplicationStats from '@/Components/Dashboard/ApplicationStats.vue'
 
 import DashboardCard10 from '@/Components/Dashboard/DashboardCard10.vue'
 import DashboardCard05 from '@/Components/Dashboard/DashboardCard05.vue'

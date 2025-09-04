@@ -1,1 +1,0 @@
-import{o as e,c as t,t as o,z as l}from"./app-ec2fed4d.js";const n={class:"block font-medium text-sm text-gray-700"},c={key:0},r={key:1},_={__name:"Label",props:{value:String},setup(s){return(a,i)=>(e(),t("label",n,[s.value?(e(),t("span",c,o(s.value),1)):(e(),t("span",r,[l(a.$slots,"default")]))]))}};export{_ as default};

@@ -67,6 +67,9 @@ return [
         'applications' => [
             'attachments' => ["storePath" => "attachments/applications/","readPath" => "/storage/attachments/applications/",'disk' => "public"],
         ],
+        'scholarshipApplications' => [
+            'attachments' => ["storePath" => "attachments/scholarship_applications/","readPath" => "/storage/attachments/scholarship_applications/",'disk' => "public"],
+        ],
         'ictFiles' => [
             'cover_images' => ["storePath" => "ictFiles/cover_images/","readPath" => "/storage/cover_images/",'disk' => "public"],
             'videos' => ["storePath" => "ictFiles/videos/","readPath" => "/storage/videos/",'disk' => "public"],
@@ -89,6 +92,11 @@ return [
         'COMPANY_USER' => 'Administrator',
         'COMPANY_EMAIL' => 'info@novustechhub.com',
         'COMPANY_PASS' => '12345678',
+    ],
+    'whatsapp' => [
+        'phone' => env('WHATSAPP_PHONE', '254724301007'),
+        'default_message' => env('WHATSAPP_DEFAULT_MESSAGE', 'Hello! I would like to learn more about Novus Institute programs.'),
+        'enabled' => env('WHATSAPP_ENABLED', true),
     ],
     'developer' => [
         'name' => env('DEV_COMPANY_NAME', 'Wenla Systems & Solutions Ltd.'),

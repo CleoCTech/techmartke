@@ -36,4 +36,9 @@ class Partner extends Model
 
         return $options[$field] ?? [];
     }
+
+    public static function getTableName()
+    {
+        return with(new static)->getTable();
+    }
 } 

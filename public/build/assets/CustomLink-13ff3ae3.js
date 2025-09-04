@@ -1,0 +1,1 @@
+import{_ as t,y as e,r as n,o as a,k as r,w as c,z as p}from"./app-2b3a22fe.js";/* empty css                  */const i={components:{Link:e}};function _(o,l,f,m,d,k){const s=n("Link");return a(),r(s,{class:""},{default:c(()=>[p(o.$slots,"default")]),_:3})}const L=t(i,[["render",_]]);export{L as default};

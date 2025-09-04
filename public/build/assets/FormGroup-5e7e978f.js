@@ -1,0 +1,1 @@
+import{_ as t,o as r,c as a,b as s,z as o}from"./app-2b3a22fe.js";/* empty css                  */const c={},l={class:"px-2 py-1"},n={class:"px-2"};function _(e,d){return r(),a("div",null,[s("div",l,[o(e.$slots,"label")]),s("div",n,[o(e.$slots,"value")])])}const f=t(c,[["render",_]]);export{f as default};

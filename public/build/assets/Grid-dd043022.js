@@ -1,1 +1,0 @@
-import{_ as o,o as r,c,z as e}from"./app-ec2fed4d.js";const d={},l={class:"grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"};function t(s,i){return r(),c("div",l,[e(s.$slots,"default")])}const a=o(d,[["render",t]]);export{a as default};

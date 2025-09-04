@@ -17,6 +17,8 @@ import Loader from '@/Guest/Partials/Preloader.vue'
             <slot />
         </main>
         <Footer />
+        <!-- WhatsApp Floating Button -->
+        <WhatsAppButton />
         <!-- Suspended Book Now Button -->
         <!-- <Link href="#" class="fixed bottom-4 right-4 bg-companyGreen text-white px-14 mr-4 text-2xl  py-3 rounded-full shadow-lg hover:bg-purple-900 transition duration-300">
             Apply Now

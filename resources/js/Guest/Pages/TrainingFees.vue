@@ -56,8 +56,8 @@
               <div class="flex items-center space-x-3">
                 <CreditCard class="h-6 w-6" />
                 <div>
-                  <div class="text-sm font-medium opacity-90">One-Time Registration Fee</div>
-                  <div class="text-2xl font-bold">Sh. 3,000</div>
+                  <div class="text-sm font-medium opacity-90">{{ registrationFee.title }}</div>
+                  <div class="text-2xl font-bold">{{ registrationFee.currency }} {{ registrationFee.amount.toLocaleString() }}</div>
                 </div>
               </div>
             </div>
@@ -173,11 +173,13 @@
             <h3 class="text-3xl font-bold text-center text-gray-900 mb-12">Flexible Payment Options</h3>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <!-- Full Payment Card -->
               <div
                 v-for="(option, index) in paymentOptions"
                 :key="option.title"
                 class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 animate-scale-in"
                 :style="{ animationDelay: `${index * 150}ms` }"
+                :class="{ 'border-2 border-red-200 hover:border-red-300': option.title === 'Scholarship' }"
               >
                 <div class="text-center">
                   <div class="bg-blue-100 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
@@ -185,7 +187,45 @@
                   </div>
                   <h4 class="text-xl font-bold text-gray-900 mb-3">{{ option.title }}</h4>
                   <p class="text-gray-600 mb-4">{{ option.description }}</p>
-                  <div class="text-2xl font-bold text-blue-900">{{ option.benefit }}</div>
+                  
+                  <!-- Special styling for Scholarship card -->
+                  <div v-if="option.title === 'Scholarship'" class="space-y-3 mb-4 text-left">
+                    <div class="bg-blue-50 p-3 rounded-lg">
+                      <h5 class="font-semibold text-blue-900 text-sm">For Students</h5>
+                      <p class="text-xs text-gray-600">Previous year students with min grade C-</p>
+                    </div>
+                    <div class="bg-green-50 p-3 rounded-lg">
+                      <h5 class="font-semibold text-green-900 text-sm">For Professionals</h5>
+                      <p class="text-xs text-gray-600">Working professionals seeking career advancement</p>
+                    </div>
+                  </div>
+                  
+                  <div class="text-2xl font-bold text-blue-900 mb-4">{{ option.benefit }}</div>
+                  
+                  <!-- Download Forms for Scholarship -->
+                  <div v-if="option.title === 'Scholarship'" class="space-y-2">
+                    <a href="/assets/docs/Scholarship Form-Students.pdf" 
+                       download="Scholarship_Form_Students.pdf"
+                       class="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors w-full justify-center">
+                      <Download class="h-4 w-4 mr-2" />
+                      Student Form
+                    </a>
+                    <a href="/assets/docs/Scholarship Form-Professionals.pdf" 
+                       download="Scholarship_Form_Professionals.pdf"
+                       class="inline-flex items-center bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors w-full justify-center">
+                      <Download class="h-4 w-4 mr-2" />
+                      Professional Form
+                    </a>
+                    
+                    <!-- Apply Link -->
+                    <div class="mt-4">
+                      <a href="/scholarships" 
+                         class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors">
+                        <FileText class="h-4 w-4 mr-1" />
+                        Apply for Scholarship
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -225,60 +265,32 @@
     HelpCircle,
     Calendar,
     Users,
-    Zap
+    Zap,
+    Download,
+    Award,
+    FileText
   } from 'lucide-vue-next'
-  
-  const modules = [
-    {
-      id: 1,
-      title: 'MODULE I',
-      courses: [
-        { type: 'Refresher Course', fee: 12775, duration: '3 months' },
-        { type: 'Beginner Course', fee: 17845, duration: '6 months' },
-        { type: 'Intermediate Course', fee: 9850, duration: '4 months' }
-      ]
+
+  // Props from Laravel-Inertia
+  const props = defineProps({
+    modules: {
+      type: Array,
+      default: () => []
     },
-    {
-      id: 2,
-      title: 'MODULE II',
-      courses: [
-        { type: 'Refresher Course', fee: 17645, duration: '3 months' },
-        { type: 'Beginner Course', fee: 22945, duration: '6 months' },
-        { type: 'Intermediate Course', fee: 13845, duration: '4 months' }
-      ]
+    paymentOptions: {
+      type: Array,
+      default: () => []
     },
-    {
-      id: 3,
-      title: 'MODULE III',
-      courses: [
-        { type: 'Refresher Course', fee: 27775, duration: '3 months' },
-        { type: 'Beginner Course', fee: 36845, duration: '6 months' },
-        { type: 'Intermediate Course', fee: 23850, duration: '4 months' }
-      ]
+    registrationFee: {
+      type: Object,
+      default: () => ({
+        title: 'One-Time Registration Fee',
+        amount: 3000,
+        currency: 'Sh.'
+      })
     }
-  ]
-  
-  const paymentOptions = [
-    {
-      title: 'Full Payment',
-      description: 'Pay the complete fee upfront and save on processing',
-      benefit: '5% Discount',
-      icon: 'DollarSign'
-    },
-    {
-      title: 'Installments',
-      description: 'Split your payment into manageable monthly installments',
-      benefit: 'Flexible Terms',
-      icon: 'Calendar'
-    },
-    {
-      title: 'Scholarship',
-      description: 'Apply for merit-based scholarships and financial aid',
-      benefit: 'Up to 30% Off',
-      icon: 'Users'
-    }
-  ]
-  
+  })
+
   const getCourseColor = (courseType) => {
     const colors = {
       'Refresher Course': 'bg-green-400',

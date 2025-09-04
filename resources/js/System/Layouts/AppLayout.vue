@@ -50,5 +50,7 @@ onMounted(() => {
                 </main>
             </div>
         </div>
+        <!-- WhatsApp Floating Button -->
+        <WhatsAppButton />
     </div>
 </template>

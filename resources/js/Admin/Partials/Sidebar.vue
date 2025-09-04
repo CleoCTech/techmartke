@@ -517,6 +517,152 @@ const closeSidebar = () => {
                 </ul>
               </div>
             </SidebarLinkGroup>
+
+            <!-- Fee Management -->
+            <SidebarLinkGroup v-slot="parentLink" :activeCondition="$page.url.includes('training-module') || 
+              $page.url.includes('course-type') || 
+              $page.url.includes('fee-structure') || 
+              $page.url.includes('payment-option') || 
+              $page.url.includes('registration-fee')">
+              <a class="block text-slate-200 truncate transition duration-150"
+                :class="($page.url.includes('training-module') || $page.url.includes('course-type') || $page.url.includes('fee-structure') || $page.url.includes('payment-option') || $page.url.includes('registration-fee')) ? 'hover:text-slate-200' : 'hover:text-white'" href="#0"
+                @click.prevent="parentLink.handleClick(); sidebarExpanded = true">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center">
+                    <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
+                      <path class="fill-current"
+                        :class="($page.url.includes('training-module') || $page.url.includes('course-type') || $page.url.includes('fee-structure') || $page.url.includes('payment-option') || $page.url.includes('registration-fee')) ? 'text-indigo-500' : 'text-slate-600'"
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
+                      <path class="fill-current"
+                        :class="($page.url.includes('training-module') || $page.url.includes('course-type') || $page.url.includes('fee-structure') || $page.url.includes('payment-option') || $page.url.includes('registration-fee')) ? 'text-indigo-300' : 'text-slate-400'"
+                        d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0 8c-1.65 0-3-1.35-3-3s1.35-3 3-3 3 1.35 3 3-1.35 3-3 3z" />
+                    </svg>
+                    <span
+                      class="text-sm font-medium ml-3 lg:opacity-100 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Fee Management</span>
+                  </div>
+                  <div class="flex shrink-0 ml-2">
+                    <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400"
+                      :class="parentLink.expanded && 'rotate-180'" viewBox="0 0 12 12">
+                      <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
+                    </svg>
+                  </div>
+                </div>
+              </a>
+              <div class="md:block lg:sidebar-expanded:block 2xl:block">
+                <ul class="pl-9 mt-1" :class="!parentLink.expanded && 'hidden'">
+                  <SidebarLink :href="route('admin.training-module')" :active="$page.url.startsWith('/admin/training-module')">
+                    <li class="mb-1 last:mb-0">
+                      <a class="block transition duration-150 truncate"
+                        :class="$page.url.startsWith('/admin/training-module') ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'" :href="href"
+                        @click="navigate">
+                        <span
+                          class="text-sm font-medium lg:opacity-100 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Training Modules</span>
+                      </a>
+                    </li>
+                  </SidebarLink>
+                  <SidebarLink :href="route('admin.course-type')" :active="$page.url.startsWith('/admin/course-type')">
+                    <li class="mb-1 last:mb-0">
+                      <a class="block transition duration-150 truncate"
+                        :class="$page.url.startsWith('/admin/course-type') ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'" :href="href"
+                        @click="navigate">
+                        <span
+                          class="text-sm font-medium lg:opacity-100 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Course Types</span>
+                      </a>
+                    </li>
+                  </SidebarLink>
+                  <SidebarLink :href="route('admin.fee-structure')" :active="$page.url.startsWith('/admin/fee-structure')">
+                    <li class="mb-1 last:mb-0">
+                      <a class="block transition duration-150 truncate"
+                        :class="$page.url.startsWith('/admin/fee-structure') ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'" :href="href"
+                        @click="navigate">
+                        <span
+                          class="text-sm font-medium lg:opacity-100 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Fee Structures</span>
+                      </a>
+                    </li>
+                  </SidebarLink>
+                  <SidebarLink :href="route('admin.payment-option')" :active="$page.url.startsWith('/admin/payment-option')">
+                    <li class="mb-1 last:mb-0">
+                      <a class="block transition duration-150 truncate"
+                        :class="$page.url.startsWith('/admin/payment-option') ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'" :href="href"
+                        @click="navigate">
+                        <span
+                          class="text-sm font-medium lg:opacity-100 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Payment Options</span>
+                      </a>
+                    </li>
+                  </SidebarLink>
+                  <SidebarLink :href="route('admin.registration-fee')" :active="$page.url.startsWith('/admin/registration-fee')">
+                    <li class="mb-1 last:mb-0">
+                      <a class="block transition duration-150 truncate"
+                        :class="$page.url.startsWith('/admin/registration-fee') ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'" :href="href"
+                        @click="navigate">
+                        <span
+                          class="text-sm font-medium lg:opacity-100 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Registration Fees</span>
+                      </a>
+                    </li>
+                  </SidebarLink>
+                </ul>
+              </div>
+            </SidebarLinkGroup>
+          </ul>
+        </div>
+
+        <!-- Applications Section -->
+        <div>
+          <h3 class="text-xs uppercase text-slate-500 font-semibold pl-3">
+            <span class="md:block lg:sidebar-expanded:block 2xl:block">Applications</span>
+          </h3>
+          <ul class="mt-3">
+            <!-- Applications -->
+            <SidebarLinkGroup v-slot="parentLink" :activeCondition="$page.url.includes('application') || $page.url.includes('scholarship-application')">
+              <a class="block text-slate-200 truncate transition duration-150"
+                :class="($page.url.includes('application') || $page.url.includes('scholarship-application')) ? 'hover:text-slate-200' : 'hover:text-white'" href="#0"
+                @click.prevent="parentLink.handleClick(); sidebarExpanded = true">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center">
+                    <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
+                      <path class="fill-current"
+                        :class="($page.url.includes('application') || $page.url.includes('scholarship-application')) ? 'text-indigo-500' : 'text-slate-600'"
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
+                      <path class="fill-current"
+                        :class="($page.url.includes('application') || $page.url.includes('scholarship-application')) ? 'text-indigo-300' : 'text-slate-400'"
+                        d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0 8c-1.65 0-3-1.35-3-3s1.35-3 3-3 3 1.35 3 3-1.35 3-3 3z" />
+                    </svg>
+                    <span
+                      class="text-sm font-medium ml-3 lg:opacity-100 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Applications</span>
+                  </div>
+                  <div class="flex shrink-0 ml-2">
+                    <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400"
+                      :class="parentLink.expanded && 'rotate-180'" viewBox="0 0 12 12">
+                      <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
+                    </svg>
+                  </div>
+                </div>
+              </a>
+              <div class="md:block lg:sidebar-expanded:block 2xl:block">
+                <ul class="pl-9 mt-1" :class="!parentLink.expanded && 'hidden'">
+                  <SidebarLink :href="route('admin.application')" :active="$page.url.startsWith('/admin/application')">
+                    <li class="mb-1 last:mb-0">
+                      <a class="block transition duration-150 truncate"
+                        :class="$page.url.startsWith('/admin/application') ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'" :href="href"
+                        @click="navigate">
+                        <span
+                          class="text-sm font-medium lg:opacity-100 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">General Applications</span>
+                      </a>
+                    </li>
+                  </SidebarLink>
+                  <SidebarLink :href="route('admin.scholarship-application')" :active="$page.url.startsWith('/admin/scholarship-application')">
+                    <li class="mb-1 last:mb-0">
+                      <a class="block transition duration-150 truncate"
+                        :class="$page.url.startsWith('/admin/scholarship-application') ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'" :href="href"
+                        @click="navigate">
+                        <span
+                          class="text-sm font-medium lg:opacity-100 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Scholarship Applications</span>
+                      </a>
+                    </li>
+                  </SidebarLink>
+                </ul>
+              </div>
+            </SidebarLinkGroup>
           </ul>
         </div>
 

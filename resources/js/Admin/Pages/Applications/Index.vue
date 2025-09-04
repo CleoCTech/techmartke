@@ -8,23 +8,23 @@
                         <ThCheckbox :selected-items="selected" @toggle-select-all="handleToggleSelectAll" />
                         <Th>First Name</Th>
                         <Th>Last Name</Th>
-                        <Th>Contact Number</Th>
                         <Th>Email</Th>
-                        <Th>Grade Level</Th>
+                        <Th>Phone</Th>
+                        <Th>Program</Th>
+                        <Th>Study Format</Th>
                         <Th>Date</Th>
                         <Th>Status</Th>
                     </tr>
                 </template>
                 <template #tbody>
                     <Tr v-for="(record,index) in listData.data" v-bind:key="index" :row="record.uuid+'#'+index" :isSelected="isSelected(record.uuid+'#'+index)" :url="setup.settings.indexRoute+'/show/'+record.uuid">
-                        <!-- <x-tabletd-checkbox v-if="isMultipleSelect" :item="record.uuid+'#'+listData.data.indexOf(record)" @onCheck="onCheck"/> -->
-                        <!-- <TdCheckbox  :item="record.uuid+'#'+listData.data.indexOf(record)" @onCheck="onCheck"/> -->
                         <TdCheckbox :item="record.uuid+'#'+listData.data.indexOf(record)" @onCheck="onCheck"/>
                         <Td>{{record.first_name}} </Td>  
                         <Td>{{record.last_name}} </Td>  
-                        <Td>{{record.contact_number}} </Td>  
                         <Td>{{record.email}} </Td>  
-                        <Td>{{record.grade_level}} </Td>  
+                        <Td>{{record.phone}} </Td>  
+                        <Td>{{record.program}} </Td>  
+                        <Td>{{record.study_format}} </Td>  
                         <Td>{{record.created_at}} </Td>
                         <Td>
                             <Badge 
@@ -32,7 +32,6 @@
                                 {{ setup.statuses[setup.statuses.findIndex(x => x.id === record.status)].caption }}
                             </Badge>
                         </Td>
-
                     </Tr>
                 </template>
             </Table>

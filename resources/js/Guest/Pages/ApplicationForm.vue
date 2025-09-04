@@ -44,7 +44,9 @@
                     type="text"
                     required
                     class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    :class="{ 'border-red-500': errors.firstName }"
                   />
+                  <p v-if="errors.firstName" class="text-red-500 text-sm mt-1">{{ errors.firstName }}</p>
                 </div>
                 <div>
                   <label for="lastName" class="block text-sm font-medium text-gray-700 mb-1">Last Name *</label>
@@ -54,7 +56,9 @@
                     type="text"
                     required
                     class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    :class="{ 'border-red-500': errors.lastName }"
                   />
+                  <p v-if="errors.lastName" class="text-red-500 text-sm mt-1">{{ errors.lastName }}</p>
                 </div>
               </div>
   
@@ -67,7 +71,9 @@
                     type="email"
                     required
                     class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    :class="{ 'border-red-500': errors.email }"
                   />
+                  <p v-if="errors.email" class="text-red-500 text-sm mt-1">{{ errors.email }}</p>
                 </div>
                 <div>
                   <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number *</label>
@@ -77,7 +83,9 @@
                     type="tel"
                     required
                     class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    :class="{ 'border-red-500': errors.phone }"
                   />
+                  <p v-if="errors.phone" class="text-red-500 text-sm mt-1">{{ errors.phone }}</p>
                 </div>
               </div>
   
@@ -89,7 +97,9 @@
                   type="date"
                   required
                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  :class="{ 'border-red-500': errors.dateOfBirth }"
                 />
+                <p v-if="errors.dateOfBirth" class="text-red-500 text-sm mt-1">{{ errors.dateOfBirth }}</p>
               </div>
             </div>
   
@@ -108,12 +118,14 @@
                   v-model="formData.program"
                   required
                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  :class="{ 'border-red-500': errors.program }"
                 >
                   <option value="">Select a program</option>
                   <option v-for="program in availablePrograms" :key="program" :value="program">
                     {{ program }}
                   </option>
                 </select>
+                <p v-if="errors.program" class="text-red-500 text-sm mt-1">{{ errors.program }}</p>
               </div>
   
               <div>
@@ -123,12 +135,14 @@
                   v-model="formData.startDate"
                   required
                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  :class="{ 'border-red-500': errors.startDate }"
                 >
                   <option value="">Select start date</option>
                   <option value="fall-2024">Fall 2024 (September)</option>
                   <option value="spring-2025">Spring 2025 (January)</option>
                   <option value="summer-2025">Summer 2025 (May)</option>
                 </select>
+                <p v-if="errors.startDate" class="text-red-500 text-sm mt-1">{{ errors.startDate }}</p>
               </div>
   
               <div>
@@ -162,6 +176,7 @@
                     Hybrid (Online + In-Person)
                   </label>
                 </div>
+                <p v-if="errors.studyFormat" class="text-red-500 text-sm mt-1">{{ errors.studyFormat }}</p>
               </div>
   
               <div>
@@ -173,7 +188,9 @@
                   rows="4"
                   placeholder="What are your career goals and how will this program help you achieve them?"
                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  :class="{ 'border-red-500': errors.careerGoals }"
                 ></textarea>
+                <p v-if="errors.careerGoals" class="text-red-500 text-sm mt-1">{{ errors.careerGoals }}</p>
               </div>
             </div>
   
@@ -221,8 +238,24 @@
                     required
                     class="mt-1"
                   />
-                  <span class="text-sm">I agree to the Terms and Conditions and Privacy Policy *</span>
+                  <div class="text-sm">
+                    <span>I agree to the </span>
+                    <a href="/assets/docs/Terms and Conditions.pdf" 
+                       download="Terms_and_Conditions_Novus_Institute.pdf"
+                       target="_blank"
+                       class="text-blue-600 hover:text-blue-800 underline font-medium inline-flex items-center">
+                      <Download class="h-3 w-3 mr-1" />
+                      Terms and Conditions
+                    </a>
+                    <span> and </span>
+                    <a href="/privacy-policy" 
+                       class="text-blue-600 hover:text-blue-800 underline font-medium">
+                      Privacy Policy
+                    </a>
+                    <span> *</span>
+                  </div>
                 </label>
+                <p v-if="errors.termsAccepted" class="text-red-500 text-sm">{{ errors.termsAccepted }}</p>
   
                 <label class="flex items-start space-x-2">
                   <input
@@ -259,16 +292,23 @@
               <button
                 v-if="currentStep === totalSteps"
                 type="submit"
-                :disabled="!formData.termsAccepted"
-                class="px-6 py-2 bg-blue-900 text-white rounded-md hover:bg-blue-800 disabled:opacity-50 disabled:cursor-not-allowed"
+                :disabled="!formData.termsAccepted || isSubmitting"
+                class="px-6 py-2 bg-blue-900 text-white rounded-md hover:bg-blue-800 disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
               >
-                Submit Application
+                <span v-if="isSubmitting" class="mr-2">
+                  <svg class="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                </span>
+                {{ isSubmitting ? 'Submitting...' : 'Submit Application' }}
               </button>
               <button
                 v-else
                 type="button"
                 @click="nextStep"
-                class="px-6 py-2 bg-blue-900 text-white rounded-md hover:bg-blue-800"
+                :disabled="!canProceedToNext"
+                class="px-6 py-2 bg-blue-900 text-white rounded-md hover:bg-blue-800 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Next
               </button>
@@ -280,93 +320,276 @@
   </template>
   
   <script setup>
-  import { ref, computed } from 'vue'
-  import { User, GraduationCap, Send } from 'lucide-vue-next'
+import { ref, computed, watch } from 'vue'
+import { User, GraduationCap, Send, Download } from 'lucide-vue-next'
+
+// Props that would come from Laravel-Inertia
+const props = defineProps({
+  pageData: {
+    type: Object,
+    default: () => ({
+      title: 'Application Form',
+      subtitle: 'Start your journey with Novus Computer Training Institute'
+    })
+  },
+  availablePrograms: {
+    type: Array,
+    default: () => [
+      'Software Development',
+      'Data Science & Analytics',
+      'Cybersecurity',
+      'Mobile App Development',
+      'Artificial Intelligence',
+      'UI/UX Design'
+    ]
+  }
+})
+
+// Form state
+const currentStep = ref(1)
+const totalSteps = 3
+const isSubmitting = ref(false)
+
+// Load saved data from localStorage on component mount
+const savedFormData = localStorage.getItem('applicationFormData')
+const initialFormData = savedFormData ? JSON.parse(savedFormData) : {
+  // Personal Information
+  firstName: '',
+  lastName: '',
+  email: '',
+  phone: '',
+  dateOfBirth: '',
   
-  // Props that would come from Laravel-Inertia
-  const props = defineProps({
-    pageData: {
-      type: Object,
-      default: () => ({
-        title: 'Application Form',
-        subtitle: 'Start your journey with Novus Institute of Technology'
-      })
-    },
-    availablePrograms: {
-      type: Array,
-      default: () => [
-        'Software Development',
-        'Data Science & Analytics',
-        'Cybersecurity',
-        'Mobile App Development',
-        'Artificial Intelligence',
-        'UI/UX Design'
-      ]
-    }
-  })
+  // Program Selection
+  program: '',
+  startDate: '',
+  studyFormat: '',
+  careerGoals: '',
   
-  // Form state
-  const currentStep = ref(1)
-  const totalSteps = 3
+  // Final Details
+  hearAboutUs: '',
+  additionalInfo: '',
+  termsAccepted: false,
+  marketingConsent: false
+}
+
+const formData = ref(initialFormData)
+
+// Load saved step from localStorage
+const savedStep = localStorage.getItem('applicationFormStep')
+if (savedStep) {
+  currentStep.value = parseInt(savedStep)
+}
+
+// Save form data to localStorage whenever it changes
+watch(formData, (newData) => {
+  localStorage.setItem('applicationFormData', JSON.stringify(newData))
+}, { deep: true })
+
+// Save current step to localStorage
+watch(currentStep, (newStep) => {
+  localStorage.setItem('applicationFormStep', newStep.toString())
+})
+
+// Form validation errors
+const errors = ref({})
+
+// Computed
+const progress = computed(() => (currentStep.value / totalSteps) * 100)
+
+// Validation functions
+const validateStep1 = () => {
+  errors.value = {}
+  let isValid = true
+
+  if (!formData.value.firstName.trim()) {
+    errors.value.firstName = 'First name is required'
+    isValid = false
+  }
+
+  if (!formData.value.lastName.trim()) {
+    errors.value.lastName = 'Last name is required'
+    isValid = false
+  }
+
+  if (!formData.value.email.trim()) {
+    errors.value.email = 'Email is required'
+    isValid = false
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.value.email)) {
+    errors.value.email = 'Please enter a valid email address'
+    isValid = false
+  }
+
+  if (!formData.value.phone.trim()) {
+    errors.value.phone = 'Phone number is required'
+    isValid = false
+  }
+
+  if (!formData.value.dateOfBirth) {
+    errors.value.dateOfBirth = 'Date of birth is required'
+    isValid = false
+  }
+
+  return isValid
+}
+
+const validateStep2 = () => {
+  errors.value = {}
+  let isValid = true
+
+  if (!formData.value.program) {
+    errors.value.program = 'Please select a program'
+    isValid = false
+  }
+
+  if (!formData.value.startDate) {
+    errors.value.startDate = 'Please select a start date'
+    isValid = false
+  }
+
+  if (!formData.value.studyFormat) {
+    errors.value.studyFormat = 'Please select a study format'
+    isValid = false
+  }
+
+  if (!formData.value.careerGoals.trim()) {
+    errors.value.careerGoals = 'Career goals are required'
+    isValid = false
+  }
+
+  return isValid
+}
+
+const validateStep3 = () => {
+  errors.value = {}
+  let isValid = true
+
+  if (!formData.value.termsAccepted) {
+    errors.value.termsAccepted = 'You must accept the terms and conditions'
+    isValid = false
+  }
+
+  return isValid
+}
+
+// Check if user can proceed to next step
+const canProceedToNext = computed(() => {
+  if (currentStep.value === 1) {
+    return validateStep1()
+  } else if (currentStep.value === 2) {
+    return validateStep2()
+  }
+  return true
+})
+
+// Methods
+const nextStep = () => {
+  let isValid = false
   
-  const formData = ref({
-    // Personal Information
+  if (currentStep.value === 1) {
+    isValid = validateStep1()
+  } else if (currentStep.value === 2) {
+    isValid = validateStep2()
+  }
+
+  if (isValid && currentStep.value < totalSteps) {
+    currentStep.value++
+  }
+}
+
+const previousStep = () => {
+  if (currentStep.value > 1) {
+    currentStep.value--
+  }
+}
+
+const clearFormData = () => {
+  formData.value = {
     firstName: '',
     lastName: '',
     email: '',
     phone: '',
     dateOfBirth: '',
-    
-    // Program Selection
     program: '',
     startDate: '',
     studyFormat: '',
     careerGoals: '',
-    
-    // Final Details
     hearAboutUs: '',
     additionalInfo: '',
     termsAccepted: false,
     marketingConsent: false
-  })
-  
-  // Computed
-  const progress = computed(() => (currentStep.value / totalSteps) * 100)
-  
-  // Methods
-  const nextStep = () => {
-    if (currentStep.value < totalSteps) {
-      currentStep.value++
-    }
   }
-  
-  const previousStep = () => {
-    if (currentStep.value > 1) {
-      currentStep.value--
-    }
+  currentStep.value = 1
+  localStorage.removeItem('applicationFormData')
+  localStorage.removeItem('applicationFormStep')
+}
+
+const handleSubmit = async () => {
+  // Validate final step
+  if (!validateStep3()) {
+    return
   }
-  
-  const handleSubmit = () => {
-    // In a real Laravel-Inertia app, you would use Inertia.post() here
-    console.log('Application submitted:', formData.value)
-    alert('Application submitted successfully! We will contact you within 2-3 business days.')
+
+  isSubmitting.value = true
+  errors.value = {}
+
+  try {
+    // Create FormData for submission
+    const formDataToSubmit = new FormData();
     
-    // Reset form
-    formData.value = {
-      firstName: '',
-      lastName: '',
-      email: '',
-      phone: '',
-      dateOfBirth: '',
-      program: '',
-      startDate: '',
-      studyFormat: '',
-      careerGoals: '',
-      hearAboutUs: '',
-      additionalInfo: '',
-      termsAccepted: false,
-      marketingConsent: false
+    // Personal Information
+    formDataToSubmit.append('first_name', formData.value.firstName);
+    formDataToSubmit.append('last_name', formData.value.lastName);
+    formDataToSubmit.append('email', formData.value.email);
+    formDataToSubmit.append('phone', formData.value.phone);
+    formDataToSubmit.append('date_of_birth', formData.value.dateOfBirth);
+    
+    // Program Selection
+    formDataToSubmit.append('program', formData.value.program);
+    formDataToSubmit.append('start_date', formData.value.startDate);
+    formDataToSubmit.append('study_format', formData.value.studyFormat);
+    formDataToSubmit.append('career_goals', formData.value.careerGoals);
+    
+    // Final Details
+    formDataToSubmit.append('hear_about_us', formData.value.hearAboutUs);
+    formDataToSubmit.append('additional_info', formData.value.additionalInfo);
+    formDataToSubmit.append('terms_accepted', formData.value.termsAccepted ? '1' : '0');
+    formDataToSubmit.append('marketing_consent', formData.value.marketingConsent ? '1' : '0');
+    
+    // Get CSRF token with fallback
+    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || 
+                     document.querySelector('input[name="_token"]')?.value ||
+                     '';
+    
+    // Submit to Laravel backend
+    const response = await fetch('/application', {
+      method: 'POST',
+      body: formDataToSubmit,
+      headers: {
+        'X-CSRF-TOKEN': csrfToken
+      }
+    })
+
+    const data = await response.json()
+
+    if (data.success) {
+      alert(data.success);
+      // Clear form data and localStorage
+      clearFormData();
+    } else if (data.error) {
+      if (data.errors) {
+        // Handle validation errors
+        errors.value = data.errors;
+        alert('Please fix the validation errors and try again.');
+      } else {
+        alert('Error: ' + data.error);
+      }
     }
-    currentStep.value = 1
+  } catch (error) {
+    console.error('Error:', error);
+    alert('An error occurred while submitting your application. Please try again.');
+  } finally {
+    isSubmitting.value = false;
   }
-  </script>
+}
+</script>

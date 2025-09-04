@@ -12,6 +12,7 @@ export default defineConfig({
                 'resources/css/app.css'
             ],
             refresh: true,
+            detectTls: false,
         }),
         vue({
             template: {
@@ -33,9 +34,22 @@ export default defineConfig({
             },
         },
     ],
+    server: {
+        host: '0.0.0.0',
+        port: 5173,
+        cors: true,
+        hmr: {
+            host: 'novus.test',
+            port: 5173,
+        },
+    },
     resolve: {
         alias: {
           '@': resolve('./resources/js'),
         },
     },
 });
+
+
+
+

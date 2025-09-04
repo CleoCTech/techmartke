@@ -41,6 +41,12 @@ use App\Http\Controllers\System\AttachmentsController;
 use App\Http\Controllers\Admin\PartnerController;
 use App\Http\Controllers\Admin\AwardController;
 use App\Http\Controllers\Admin\SuccessStoryController;
+use App\Http\Controllers\Admin\TrainingModuleController;
+use App\Http\Controllers\Admin\CourseTypeController;
+use App\Http\Controllers\Admin\FeeStructureController;
+use App\Http\Controllers\Admin\PaymentOptionController;
+use App\Http\Controllers\Admin\RegistrationFeeController;
+use App\Http\Controllers\Admin\ScholarshipApplicationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,6 +72,7 @@ Route::get('/courses', [GuestGeneralContoller::class, 'courses'])->name('courses
 Route::get('/course/{slug}', [GuestGeneralContoller::class, 'showCourse'])->name('course.show');
 Route::get('/community', [GuestGeneralContoller::class, 'community'])->name('community');
 Route::get('/training-fees', [GuestGeneralContoller::class, 'trainingFees'])->name('training-fees');
+Route::get('/scholarships', [GuestGeneralContoller::class, 'scholarships'])->name('scholarships');
 Route::get('/computer-ethics', [GuestGeneralContoller::class, 'computerEthics'])->name('computer-ethics');
 Route::get('/institution/motto', [GuestGeneralContoller::class, 'motto'])->name('institution.motto');
 Route::get('/institution/mission', [GuestGeneralContoller::class, 'mission'])->name('institution.mission');
@@ -78,10 +85,13 @@ Route::get('/admissions/regulations', [GuestGeneralContoller::class, 'admissionR
 Route::get('/awards', [GuestGeneralContoller::class, 'awards'])->name('awards');
 Route::get('/application', [GuestGeneralContoller::class, 'application'])->name('application');
 Route::get('/application/download/{uuid}', [GuestGeneralContoller::class, 'downloadApplicationForm'])->name('application.download');
+Route::post('/application', [GuestGeneralContoller::class, 'generalApplicationPost'])->name('application.post');
+Route::post('/scholarship-application', [GuestGeneralContoller::class, 'scholarshipApplicationPost'])->name('scholarship-application.post');
 
 // Common data routes
 Route::get('/topbar-data', [GuestGeneralContoller::class, 'topBarData']);
 Route::get('/footer-data', [GuestGeneralContoller::class, 'footerData']);
+Route::get('/api/whatsapp-config', [AdminGeneralController::class, 'whatsappConfig']);
 Route::post('/customer-inquiry', [GuestGeneralContoller::class, 'sendMessage'])->name('inquiry');
 
 // Route::middleware([
@@ -108,6 +118,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/branch-dashboard',[AdminGeneralController::class,'branchDashboard'])->name('branch.dashboard');
     Route::get('/guest-dashboard',[AdminGeneralController::class,'guestDashboard'])->name('guest.dashboard');
     Route::get('/dashboard/statistics',[AdminGeneralController::class,'statistics'])->name('admin.dashboard.statistics');
+    Route::get('/whatsapp-config',[AdminGeneralController::class,'whatsappConfig'])->name('admin.whatsapp.config');
     Route::get('/dashboard/charts/{category}/{duration}',[AdminGeneralController::class,'chartsData'])->name('admin.charts');
     Route::get('/recent-reports', [AdminGeneralController::class, 'getRecentReports'])->name('admin.recent-reports');
     Route::get('/financial-overview', [AdminGeneralController::class, 'getFinancialOverview'])->name('admin.financial-overview');
@@ -291,6 +302,17 @@ Route::prefix('admin')->group(function () {
     Route::get('/application/report/{name}',[ApplicationsController::class,'report']);
 
     /***
+     * scholarship application
+     */
+    Route::get('/scholarship-application',[ScholarshipApplicationController::class,'index'])->name('admin.scholarship-application');
+    Route::get('/scholarship-application/create',[ScholarshipApplicationController::class,'create']);
+    Route::get('/scholarship-application/show/{uuid}',[ScholarshipApplicationController::class,'show']);
+    Route::get('/scholarship-application/edit/{uuid}',[ScholarshipApplicationController::class,'edit']);
+    Route::post('/scholarship-application/store',[ScholarshipApplicationController::class,'store']);
+    Route::delete('/scholarship-application/delete/{uuid}',[ScholarshipApplicationController::class,'destroy']);
+    Route::get('/scholarship-application/report/{name}',[ScholarshipApplicationController::class,'report']);
+
+    /***
      * Partners
      */
     Route::get('/partner', [PartnerController::class, 'index'])->name('admin.partner');
@@ -322,6 +344,61 @@ Route::prefix('admin')->group(function () {
     Route::post('/success-story/store', [SuccessStoryController::class, 'store']);
     Route::delete('/success-story/delete/{uuid}', [SuccessStoryController::class, 'destroy']);
     Route::get('/success-story/report/{name}', [SuccessStoryController::class, 'report']);
+
+    /***
+     * Training Modules
+     */
+    Route::get('/training-module', [TrainingModuleController::class, 'index'])->name('admin.training-module');
+    Route::get('/training-module/create', [TrainingModuleController::class, 'create']);
+    Route::get('/training-module/show/{uuid}', [TrainingModuleController::class, 'show']);
+    Route::get('/training-module/edit/{uuid}', [TrainingModuleController::class, 'edit']);
+    Route::post('/training-module/store', [TrainingModuleController::class, 'store']);
+    Route::delete('/training-module/delete/{uuid}', [TrainingModuleController::class, 'destroy']);
+    Route::get('/training-module/report/{name}', [TrainingModuleController::class, 'report']);
+
+    /***
+     * Course Types
+     */
+    Route::get('/course-type', [CourseTypeController::class, 'index'])->name('admin.course-type');
+    Route::get('/course-type/create', [CourseTypeController::class, 'create']);
+    Route::get('/course-type/show/{uuid}', [CourseTypeController::class, 'show']);
+    Route::get('/course-type/edit/{uuid}', [CourseTypeController::class, 'edit']);
+    Route::post('/course-type/store', [CourseTypeController::class, 'store']);
+    Route::delete('/course-type/delete/{uuid}', [CourseTypeController::class, 'destroy']);
+    Route::get('/course-type/report/{name}', [CourseTypeController::class, 'report']);
+
+    /***
+     * Fee Structures
+     */
+    Route::get('/fee-structure', [FeeStructureController::class, 'index'])->name('admin.fee-structure');
+    Route::get('/fee-structure/create', [FeeStructureController::class, 'create']);
+    Route::get('/fee-structure/show/{uuid}', [FeeStructureController::class, 'show']);
+    Route::get('/fee-structure/edit/{uuid}', [FeeStructureController::class, 'edit']);
+    Route::post('/fee-structure/store', [FeeStructureController::class, 'store']);
+    Route::delete('/fee-structure/delete/{uuid}', [FeeStructureController::class, 'destroy']);
+    Route::get('/fee-structure/report/{name}', [FeeStructureController::class, 'report']);
+
+    /***
+     * Payment Options
+     */
+    Route::get('/payment-option', [PaymentOptionController::class, 'index'])->name('admin.payment-option');
+    Route::get('/payment-option/create', [PaymentOptionController::class, 'create']);
+    Route::get('/payment-option/show/{uuid}', [PaymentOptionController::class, 'show']);
+    Route::get('/payment-option/edit/{uuid}', [PaymentOptionController::class, 'edit']);
+    Route::post('/payment-option/store', [PaymentOptionController::class, 'store']);
+    Route::delete('/payment-option/delete/{uuid}', [PaymentOptionController::class, 'destroy']);
+    Route::get('/payment-option/report/{name}', [PaymentOptionController::class, 'report']);
+
+    /***
+     * Registration Fees
+     */
+    Route::get('/registration-fee', [RegistrationFeeController::class, 'index'])->name('admin.registration-fee');
+    Route::get('/registration-fee/create', [RegistrationFeeController::class, 'create']);
+    Route::get('/registration-fee/show/{uuid}', [RegistrationFeeController::class, 'show']);
+    Route::get('/registration-fee/edit/{uuid}', [RegistrationFeeController::class, 'edit']);
+    Route::post('/registration-fee/store', [RegistrationFeeController::class, 'store']);
+    Route::delete('/registration-fee/delete/{uuid}', [RegistrationFeeController::class, 'destroy']);
+    Route::get('/registration-fee/report/{name}', [RegistrationFeeController::class, 'report']);
 
     // Department Head Routes
     Route::get('/department-head', [DepartmentHeadController::class, 'index'])->name('admin.department-head');

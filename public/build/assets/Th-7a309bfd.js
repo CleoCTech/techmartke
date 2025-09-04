@@ -1,1 +1,0 @@
-import{_ as s,o as t,c as o,b as a,z as c}from"./app-ec2fed4d.js";const r={},n={class:"px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px"},l={class:"font-semibold text-left"};function _(e,p){return t(),o("th",n,[a("div",l,[c(e.$slots,"default")])])}const f=s(r,[["render",_]]);export{f as default};

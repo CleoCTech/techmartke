@@ -1,0 +1,1 @@
+import{o,k as t,w as a,b as s,u as r,y as n}from"./app-2b3a22fe.js";/* empty css                  */const c={__name:"AuthenticationCardLogo",setup(u){return(i,e)=>(o(),t(r(n),{href:"/"},{default:a(()=>[...e[0]||(e[0]=[s("img",{src:"/assets/images/novus-logo.png",alt:"logo"},null,-1)])]),_:1}))}};export{c as default};
