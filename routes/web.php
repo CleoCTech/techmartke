@@ -47,6 +47,7 @@ use App\Http\Controllers\Admin\FeeStructureController;
 use App\Http\Controllers\Admin\PaymentOptionController;
 use App\Http\Controllers\Admin\RegistrationFeeController;
 use App\Http\Controllers\Admin\ScholarshipApplicationController;
+use App\Http\Controllers\Admin\AlbumCollectionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,6 +75,7 @@ Route::get('/community', [GuestGeneralContoller::class, 'community'])->name('com
 Route::get('/training-fees', [GuestGeneralContoller::class, 'trainingFees'])->name('training-fees');
 Route::get('/scholarships', [GuestGeneralContoller::class, 'scholarships'])->name('scholarships');
 Route::get('/computer-ethics', [GuestGeneralContoller::class, 'computerEthics'])->name('computer-ethics');
+Route::get('/galleries', [GuestGeneralContoller::class, 'galleries'])->name('galleries');
 Route::get('/institution/motto', [GuestGeneralContoller::class, 'motto'])->name('institution.motto');
 Route::get('/institution/mission', [GuestGeneralContoller::class, 'mission'])->name('institution.mission');
 Route::get('/institution/vision', [GuestGeneralContoller::class, 'vision'])->name('institution.vision');
@@ -107,7 +109,7 @@ Route::post('/customer-inquiry', [GuestGeneralContoller::class, 'sendMessage'])-
  * Auth User
  */
 Route::get('/dashboard',[GuestGeneralContoller::class,'dashboard']);
-Route::get('/gallery',[GuestGeneralContoller::class,'gallery'])->name('gallery');
+Route::get('/gallery',[GuestGeneralContoller::class,'galleries'])->name('gallery');
 
 Route::get('/news', [GuestGeneralContoller::class, 'news'])->name('news');
 Route::get('/news/{slug}', [GuestGeneralContoller::class, 'showNews'])->name('news.show');
@@ -455,6 +457,19 @@ Route::prefix('admin')->group(function () {
     // Change Password Routes
     Route::get('/settings/change-password', [AdminPasswordController::class, 'edit'])->name('password.edit');
     Route::put('/settings/change-password', [AdminPasswordController::class, 'update'])->name('password.change');
+
+    /***
+     * Album Collections
+     */
+    Route::get('/album-collections', [AlbumCollectionController::class, 'index'])->name('admin.album-collections');
+    Route::get('/album-collections/create', [AlbumCollectionController::class, 'create']);
+    Route::get('/album-collections/show/{uuid}', [AlbumCollectionController::class, 'show']);
+    Route::get('/album-collections/edit/{uuid}', [AlbumCollectionController::class, 'edit']);
+    Route::post('/album-collections/store', [AlbumCollectionController::class, 'store']);
+    Route::put('/album-collections/{uuid}', [AlbumCollectionController::class, 'update']);
+    Route::delete('/album-collections/delete/{uuid}', [AlbumCollectionController::class, 'destroy']);
+    Route::delete('/album-collections/{uuid}/images/{image}', [AlbumCollectionController::class, 'deleteImage'])->name('admin.album-collections.delete-image');
+    Route::post('/album-collections/{uuid}/update-image-order', [AlbumCollectionController::class, 'updateImageOrder'])->name('admin.album-collections.update-image-order');
 });
 
 Route::group([], __DIR__.'/system.php');

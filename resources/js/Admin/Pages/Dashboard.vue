@@ -70,7 +70,7 @@ import axios from 'axios';
 import { Link, usePage } from '@inertiajs/vue3'
 
 const page = usePage();
-const user = computed(() => page.props.auth.user);
+const user = computed(() => page.props.auth?.user || {});
 
 const salutation = ref('');
 const context = getCurrentInstance()?.appContext.config.globalProperties;
@@ -111,7 +111,7 @@ const departments = ref([]);
 
 const fetchDepartments = async () => {
   try {
-    const response = await axios.get(route('admin.departments.list'));
+    const response = await axios.get('/admin/departments/list');
     departments.value = response.data;
   } catch (error) {
     console.error('Error fetching departments:', error);
@@ -119,13 +119,17 @@ const fetchDepartments = async () => {
 };
 
 onMounted(async () => {
-  context.$showLoading()
-  setSalutation();
-  fetchDepartments();
-  setTimeout(() => {
-    
-    context.$hideLoading()
-  }, 3000);
+  try {
+    context.$showLoading()
+    setSalutation();
+    await fetchDepartments();
+  } catch (error) {
+    console.error('Error in Dashboard onMounted:', error);
+  } finally {
+    setTimeout(() => {
+      context.$hideLoading()
+    }, 500);
+  }
 
   // chartData.value = setChartData();
   // chartOptions.value = setChartOptions();
@@ -142,9 +146,9 @@ const canAccessfinancesummary = computed(() => {
   ];
 
   return (
-    user.value.roles.includes('administrator') ||
-    user.value.roles.includes('superadmin') ||
-    user.value.permissions.some(permission => permissions.includes(permission))
+    user.value?.roles?.includes('administrator') ||
+    user.value?.roles?.includes('superadmin') ||
+    user.value?.permissions?.some(permission => permissions.includes(permission))
   );
 });
 const canViewPendingRequests = computed(() => {
@@ -153,9 +157,9 @@ const canViewPendingRequests = computed(() => {
   ];
 
   return (
-    user.value.roles.includes('administrator') ||
-    user.value.roles.includes('superadmin') ||
-    user.value.permissions.some(permission => permissions.includes(permission))
+    user.value?.roles?.includes('administrator') ||
+    user.value?.roles?.includes('superadmin') ||
+    user.value?.permissions?.some(permission => permissions.includes(permission))
   );
 });
 </script>

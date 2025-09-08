@@ -81,6 +81,10 @@ return [
         'courses' => [
             'cover_images' => ["storePath" => "courses/cover_images/","readPath" => "/storage/courses/cover_images/",'disk' => "public"],
         ],
+        'album_collections' => [
+            'cover_images' => ["storePath" => "album_collections/cover_images/","readPath" => "/storage/album_collections/cover_images/",'disk' => "public"],
+            'images' => ["storePath" => "album_collections/images/","readPath" => "/storage/album_collections/images/",'disk' => "public"],
+        ],
     ],
 
     'maxRecsPerPage' => 30,

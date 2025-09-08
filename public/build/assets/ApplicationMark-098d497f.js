@@ -1,1 +1,0 @@
-import{_ as e,o as t,c}from"./app-2b3a22fe.js";/* empty css                  */const o={},r={src:"/storage/general/favicon.png",alt:"",srcset:""};function n(s,a){return t(),c("img",r)}const p=e(o,[["render",n]]);export{p as default};

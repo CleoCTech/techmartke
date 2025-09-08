@@ -20,10 +20,88 @@
             v-for="item in navigationItems"
             :key="item.href"
             :href="item.href"
-            class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-800 transition-colors"
+            :class="[
+              'px-3 py-2 rounded-md text-sm font-medium transition-colors',
+              $page.url === item.href || ($page.url.startsWith(item.href) && item.href !== '/')
+                ? 'bg-blue-800 text-white shadow-md'
+                : 'hover:bg-blue-800'
+            ]"
           >
             {{ item.label }}
           </Link>
+          
+          <!-- More Dropdown -->
+          <div class="relative group" @mouseenter="openMoreDropdown" @mouseleave="scheduleCloseMoreDropdown">
+            <button
+              @click="toggleMoreDropdown"
+              class="flex items-center px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-800 transition-colors"
+            >
+              More
+              <ChevronDown class="ml-1 h-4 w-4 transition-transform duration-200" :class="{ 'rotate-180': isMoreDropdownOpen }" />
+            </button>
+            
+            <!-- Dropdown Menu -->
+            <div
+              v-show="isMoreDropdownOpen"
+              @mouseenter="cancelCloseMoreDropdown"
+              @mouseleave="scheduleCloseMoreDropdown"
+              class="absolute right-0 mt-1 w-48 bg-blue-900 rounded-md shadow-xl py-1 z-50 border border-blue-700 backdrop-blur-sm"
+            >
+              <Link
+                href="/gallery"
+                :class="[
+                  'flex items-center px-4 py-2 text-sm transition-colors duration-200',
+                  $page.url === '/gallery' || $page.url.startsWith('/gallery')
+                    ? 'bg-blue-800 text-white'
+                    : 'text-white hover:bg-blue-800'
+                ]"
+                @click="closeMoreDropdown"
+              >
+                <Camera class="mr-3 h-4 w-4 text-blue-300" />
+                Gallery
+              </Link>
+              <Link
+                href="/news"
+                :class="[
+                  'flex items-center px-4 py-2 text-sm transition-colors duration-200',
+                  $page.url === '/news' || $page.url.startsWith('/news')
+                    ? 'bg-blue-800 text-white'
+                    : 'text-white hover:bg-blue-800'
+                ]"
+                @click="closeMoreDropdown"
+              >
+                <FileText class="mr-3 h-4 w-4 text-blue-300" />
+                News
+              </Link>
+              <Link
+                href="/events"
+                :class="[
+                  'flex items-center px-4 py-2 text-sm transition-colors duration-200',
+                  $page.url === '/events' || $page.url.startsWith('/events')
+                    ? 'bg-blue-800 text-white'
+                    : 'text-white hover:bg-blue-800'
+                ]"
+                @click="closeMoreDropdown"
+              >
+                <Calendar class="mr-3 h-4 w-4 text-blue-300" />
+                Events
+              </Link>
+              <Link
+                href="/testimonials"
+                :class="[
+                  'flex items-center px-4 py-2 text-sm transition-colors duration-200',
+                  $page.url === '/testimonials' || $page.url.startsWith('/testimonials')
+                    ? 'bg-blue-800 text-white'
+                    : 'text-white hover:bg-blue-800'
+                ]"
+                @click="closeMoreDropdown"
+              >
+                <Heart class="mr-3 h-4 w-4 text-blue-300" />
+                Testimonials
+              </Link>
+            </div>
+          </div>
+          
           <Link
             href="/application"
             class="bg-white text-blue-900 px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-100 transition-colors"
@@ -48,11 +126,74 @@
             v-for="item in navigationItems"
             :key="item.href"
             :href="item.href"
-            class="block px-3 py-2 rounded-md text-base font-medium hover:bg-blue-800"
+            :class="[
+              'block px-3 py-2 rounded-md text-base font-medium transition-colors',
+              $page.url === item.href || ($page.url.startsWith(item.href) && item.href !== '/')
+                ? 'bg-blue-800 text-white shadow-md'
+                : 'hover:bg-blue-800'
+            ]"
             @click="closeMobileMenu"
           >
             {{ item.label }}
           </Link>
+          
+          <!-- Mobile More Menu Items -->
+          <div class="border-t border-blue-800 pt-2 mt-2">
+            <div class="text-xs font-semibold text-blue-200 px-3 py-1 uppercase tracking-wide">More</div>
+            <Link
+              href="/gallery"
+              :class="[
+                'flex items-center px-6 py-2 rounded-md text-base font-medium transition-colors',
+                $page.url === '/gallery' || $page.url.startsWith('/gallery')
+                  ? 'bg-blue-800 text-white shadow-md'
+                  : 'hover:bg-blue-800'
+              ]"
+              @click="closeMobileMenu"
+            >
+              <Camera class="mr-3 h-5 w-5" />
+              Gallery
+            </Link>
+            <Link
+              href="/news"
+              :class="[
+                'flex items-center px-6 py-2 rounded-md text-base font-medium transition-colors',
+                $page.url === '/news' || $page.url.startsWith('/news')
+                  ? 'bg-blue-800 text-white shadow-md'
+                  : 'hover:bg-blue-800'
+              ]"
+              @click="closeMobileMenu"
+            >
+              <FileText class="mr-3 h-5 w-5" />
+              News
+            </Link>
+            <Link
+              href="/events"
+              :class="[
+                'flex items-center px-6 py-2 rounded-md text-base font-medium transition-colors',
+                $page.url === '/events' || $page.url.startsWith('/events')
+                  ? 'bg-blue-800 text-white shadow-md'
+                  : 'hover:bg-blue-800'
+              ]"
+              @click="closeMobileMenu"
+            >
+              <Calendar class="mr-3 h-5 w-5" />
+              Events
+            </Link>
+            <Link
+              href="/testimonials"
+              :class="[
+                'flex items-center px-6 py-2 rounded-md text-base font-medium transition-colors',
+                $page.url === '/testimonials' || $page.url.startsWith('/testimonials')
+                  ? 'bg-blue-800 text-white shadow-md'
+                  : 'hover:bg-blue-800'
+              ]"
+              @click="closeMobileMenu"
+            >
+              <Heart class="mr-3 h-5 w-5" />
+              Testimonials
+            </Link>
+          </div>
+          
           <Link
             href="/application"
             class="block px-3 py-2 rounded-md text-base font-medium bg-blue-700 hover:bg-blue-600"
@@ -72,7 +213,7 @@
   import Loader from '@/Guest/Partials/Preloader.vue'
   import { 
 	MenuIcon, BookOpen, Video, Disc, Mic, FileText, Files,
-	ListChecks, Calendar, Users, Globe2, GraduationCap, Church, Heart, Menu, X
+	ListChecks, Calendar, Users, Globe2, GraduationCap, Church, Heart, Menu, X, ChevronDown, Camera
   } from 'lucide-vue-next'
   
 
@@ -89,6 +230,8 @@ const navigationItems = [
 ]
 
 const isMobileMenuOpen = ref(false)
+const isMoreDropdownOpen = ref(false)
+const dropdownCloseTimer = ref(null)
 
 const toggleMobileMenu = () => {
   isMobileMenuOpen.value = !isMobileMenuOpen.value
@@ -96,6 +239,43 @@ const toggleMobileMenu = () => {
 
 const closeMobileMenu = () => {
   isMobileMenuOpen.value = false
+}
+
+const toggleMoreDropdown = () => {
+  isMoreDropdownOpen.value = !isMoreDropdownOpen.value
+}
+
+const openMoreDropdown = () => {
+  if (dropdownCloseTimer.value) {
+    clearTimeout(dropdownCloseTimer.value)
+    dropdownCloseTimer.value = null
+  }
+  isMoreDropdownOpen.value = true
+}
+
+const scheduleCloseMoreDropdown = () => {
+  if (dropdownCloseTimer.value) {
+    clearTimeout(dropdownCloseTimer.value)
+  }
+  dropdownCloseTimer.value = setTimeout(() => {
+    isMoreDropdownOpen.value = false
+    dropdownCloseTimer.value = null
+  }, 300) // 300ms delay before closing
+}
+
+const cancelCloseMoreDropdown = () => {
+  if (dropdownCloseTimer.value) {
+    clearTimeout(dropdownCloseTimer.value)
+    dropdownCloseTimer.value = null
+  }
+}
+
+const closeMoreDropdown = () => {
+  if (dropdownCloseTimer.value) {
+    clearTimeout(dropdownCloseTimer.value)
+    dropdownCloseTimer.value = null
+  }
+  isMoreDropdownOpen.value = false
 }
 
   let { notification } = useNotify()
@@ -223,6 +403,9 @@ const closeMobileMenu = () => {
 
   onUnmounted(() => {
   document.removeEventListener('click', closeDropdown)
+  if (dropdownCloseTimer.value) {
+    clearTimeout(dropdownCloseTimer.value)
+  }
 })
   
   const getNavData = async () => {
@@ -256,5 +439,23 @@ const closeMobileMenu = () => {
 	transition-property: all;
 	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 	transition-duration: 200ms;
+  }
+
+  /* Dropdown animations */
+  .dropdown-enter-active,
+  .dropdown-leave-active {
+    transition: all 0.2s ease;
+  }
+
+  .dropdown-enter-from,
+  .dropdown-leave-to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  /* Chevron rotation */
+  .rotate-180 {
+    transform: rotate(180deg);
+    transition: transform 0.2s ease;
   }
   </style>

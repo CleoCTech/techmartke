@@ -14,7 +14,7 @@ import HeroSection from '@/Guest/Partials/HeroSection.vue'
 import { GraduationCap, Users, Award, BookOpen, Star, ArrowRight, User, Lightbulb, ShieldCheck, Handshake, Globe, ArrowUpCircle, FileText, CreditCard, IdCard, Camera, Shield, MessageCircle } from 'lucide-vue-next'
 import { Play, Pause, ChevronLeft, ChevronRight, ExternalLink, MapPin, Calendar as CalendarIcon, Clock as ClockIcon, Target, Flag, Eye, Heart, Download } from 'lucide-vue-next'
 
-import { usePage, router } from '@inertiajs/vue3';
+import { usePage, router, Link } from '@inertiajs/vue3';
 
 let { notification } = useNotify();
 
@@ -24,6 +24,7 @@ const staffs = props.staffs;
 const news = props.news;
 const events = props.events;
 const carouselImages = props.carouselImages;
+const albumCollections = props.albumCollections;
 // const video = props.video;
 
 const footerData = ref({});
@@ -610,6 +611,41 @@ const formatKsh = (value) => {
   return 'KSH ' + Number(value).toLocaleString('en-KE', { minimumFractionDigits: 0 });
 };
 
+// Gallery Collections Data - now fetched from database via props
+
+// Gallery Viewer States
+const selectedImage = ref(null);
+const selectedAlbum = ref(null);
+
+// Gallery Viewer Methods
+const openImageViewer = (imageData) => {
+  if (typeof imageData === 'string') {
+    // If it's just an image URL from album
+    selectedImage.value = {
+      image: imageData,
+      title: 'Gallery Image',
+      description: 'A beautiful moment captured in our gallery',
+      category: 'Gallery',
+      date: '2024-01-01'
+    };
+  } else {
+    // If it's a full image object
+    selectedImage.value = imageData;
+  }
+};
+
+const closeImageViewer = () => {
+  selectedImage.value = null;
+};
+
+const openAlbumViewer = (album) => {
+  selectedAlbum.value = album;
+};
+
+const closeAlbumViewer = () => {
+  selectedAlbum.value = null;
+};
+
 </script>
 
 <template>
@@ -1122,6 +1158,173 @@ const formatKsh = (value) => {
         </div>
       </div>
     </section>
+
+    <!-- Gallery Collections Section -->
+    <section class="py-20 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
+      <!-- Background Elements -->
+      <div class="absolute inset-0 opacity-5">
+        <div class="absolute top-20 left-20 w-32 h-32 border border-blue-300 rounded-lg transform rotate-12 animate-float">
+        </div>
+        <div class="absolute bottom-32 right-32 w-24 h-24 border border-blue-300 rounded-full animate-pulse-slow"></div>
+      </div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="text-center mb-16">
+          <div class="inline-flex items-center space-x-3 bg-blue-100 rounded-full px-6 py-3 mb-6 animate-bounce-in">
+            <Camera class="h-6 w-6 text-blue-600" />
+            <span class="text-blue-900 font-medium tracking-wide">GALLERY COLLECTIONS</span>
+          </div>
+          <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 animate-slide-in-up">
+            Explore Our
+            <span class="text-blue-600">Visual Stories</span>
+          </h2>
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto animate-fade-in-up-slow">
+            Discover moments from our campus life, events, and achievements through our photo collections
+          </p>
+        </div>
+
+        <!-- Gallery Collections Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+          <!-- Album Collections -->
+          <div v-for="(album, index) in albumCollections" :key="album.id"
+            class="group cursor-pointer animate-scale-in-delayed" :style="{ animationDelay: `${index * 150}ms` }"
+            @click="openAlbumViewer(album)">
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
+              <!-- Album Cover with Multiple Images Preview -->
+              <div class="relative h-64 overflow-hidden">
+                <!-- Main Cover Image -->
+                <img :src="album.cover_image_url" :alt="album.title"
+                  class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                
+                <!-- Image Count Overlay -->
+                <div class="absolute top-4 right-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm font-medium">
+                  {{ album.image_count }} photos
+                </div>
+
+                <!-- Category Badge -->
+                <div class="absolute top-4 left-4 bg-purple-600 text-white px-3 py-1 rounded-full text-xs font-medium">
+                  {{ album.category }}
+                </div>
+
+                <!-- Album Icon Overlay -->
+                <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <div class="bg-white/20 backdrop-blur-sm rounded-full p-4 transform scale-75 group-hover:scale-100 transition-transform duration-300">
+                    <Camera class="h-8 w-8 text-white" />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Content -->
+              <div class="p-6">
+                <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition-colors">
+                  {{ album.title }}
+                </h3>
+                <p class="text-gray-600 text-sm mb-4 leading-relaxed">
+                  {{ album.description }}
+                </p>
+                <div class="flex items-center justify-between text-xs text-gray-500">
+                  <span class="flex items-center">
+                    <CalendarIcon class="h-3 w-3 mr-1" />
+                    {{ album.created_at }}
+                  </span>
+                  <span class="flex items-center hover:text-purple-600 transition-colors">
+                    <Camera class="h-3 w-3 mr-1" />
+                    View Album
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- View More Button -->
+        <div class="text-center">
+          <Link href="/gallery"
+            class="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+            <Camera class="h-5 w-5 mr-2" />
+            View All Galleries
+            <ArrowRight class="h-5 w-5 ml-2" />
+          </Link>
+        </div>
+      </div>
+    </section>
+
+    <!-- Image Viewer Modal -->
+    <div v-if="selectedImage" class="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+      @click="closeImageViewer">
+      <div class="relative max-w-4xl w-full">
+        <div class="bg-white rounded-2xl overflow-hidden shadow-2xl">
+          <div class="aspect-video bg-gray-900 flex items-center justify-center">
+            <img :src="selectedImage.image" :alt="selectedImage.title"
+              class="w-full h-full object-contain rounded-lg" @click.stop />
+          </div>
+          <div class="p-6 text-gray-900">
+            <h3 class="text-2xl font-bold mb-2">{{ selectedImage.title }}</h3>
+            <p class="text-gray-600 mb-4">{{ selectedImage.description }}</p>
+            <div class="flex items-center justify-between text-sm text-gray-500">
+              <span class="flex items-center">
+                <CalendarIcon class="h-4 w-4 mr-1" />
+                {{ selectedImage.date }}
+              </span>
+              <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">
+                {{ selectedImage.category }}
+              </span>
+            </div>
+          </div>
+        </div>
+        <button @click="closeImageViewer"
+          class="absolute -top-4 -right-4 bg-white text-gray-900 rounded-full p-2 hover:bg-gray-100 transition-colors">
+          <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Album Viewer Modal -->
+    <div v-if="selectedAlbum" class="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+      @click="closeAlbumViewer">
+      <div class="relative max-w-6xl w-full">
+        <div class="bg-white rounded-2xl overflow-hidden shadow-2xl">
+          <!-- Album Header -->
+          <div class="p-6 border-b border-gray-200">
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">{{ selectedAlbum.title }}</h3>
+            <p class="text-gray-600 mb-4">{{ selectedAlbum.description }}</p>
+            <div class="flex items-center justify-between text-sm text-gray-500">
+              <span class="flex items-center">
+                <CalendarIcon class="h-4 w-4 mr-1" />
+                {{ selectedAlbum.created_at || selectedAlbum.date }}
+              </span>
+              <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-xs font-medium">
+                {{ selectedAlbum.image_count || selectedAlbum.imageCount }} photos
+              </span>
+            </div>
+          </div>
+
+          <!-- Album Images Grid -->
+          <div class="p-6">
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              <div v-for="(image, index) in selectedAlbum.images" :key="index"
+                class="group cursor-pointer" @click="openImageViewer(image.image_url || image)">
+                <div class="relative aspect-square overflow-hidden rounded-lg">
+                  <img :src="image.image_url || image" :alt="`${selectedAlbum.title} - Image ${index + 1}`"
+                    class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110" />
+                  <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <Eye class="h-6 w-6 text-white" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button @click="closeAlbumViewer"
+          class="absolute -top-4 -right-4 bg-white text-gray-900 rounded-full p-2 hover:bg-gray-100 transition-colors">
+          <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
 
     <!-- Events Timeline Section -->
     <section class="py-20 bg-gradient-to-br from-blue-50 to-white relative overflow-hidden">

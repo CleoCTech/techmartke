@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Traits\Admin\SearchTrait;
 use App\Traits\Admin\ColumnsTrait;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class Gallery extends Model
 {
@@ -22,6 +23,10 @@ class Gallery extends Model
         'created_at'  => 'date:d-M-Y',
         'updated_at'  => 'date:d-M-Y',
         'publish_time'  => 'datetime:d-M-Y h:m:s',
+    ];
+
+    protected $appends = [
+        'image_url'
     ];
     protected static function boot()
     {
@@ -55,6 +60,12 @@ class Gallery extends Model
     public static function getTableName()
     {
         return with(new static)->getTable();
+    }
+
+    // Accessors
+    public function getImageUrlAttribute()
+    {
+        return $this->cover_image ? Storage::url($this->cover_image) : null;
     }
     public static function options($column){
         if($column == 'status'){

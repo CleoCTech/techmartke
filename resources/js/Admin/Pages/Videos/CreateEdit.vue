@@ -361,6 +361,8 @@ const uploadChunks = async () => {
             fileId: fileId
         })
 
+        console.log(response)
+
         form.video_url = response.data.path
         // Only set thumbnail_url if no custom thumbnail was uploaded
         if (!form.thumbnail_url) {

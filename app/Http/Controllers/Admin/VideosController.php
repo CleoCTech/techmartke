@@ -260,11 +260,21 @@ class VideosController extends Controller
             }
             fclose($finalFile);
 
+            // Clean up chunks after successful merge
+            Storage::deleteDirectory($chunkPath);
+
              // Extract thumbnail
              $thumbnailPath = $this->extractThumbnail($finalPath);
 
              // Extract duration
              $duration = $this->getVideoDuration($finalPath);
+             
+             Log::info('Video processing completed', [
+                 'path' => $uniqueFileName,
+                 'thumbnail' => $thumbnailPath,
+                 'duration' => $duration,
+                 'video_path' => $finalPath
+             ]);
 
              return response()->json([
                  'message' => 'File merged successfully',
@@ -273,6 +283,14 @@ class VideosController extends Controller
                  'duration' => $duration
              ]);
         } catch (\Exception $e) {
+            // Clean up chunks on error
+            try {
+                Storage::deleteDirectory($chunkPath);
+            } catch (\Exception $cleanupError) {
+                Log::error('Failed to clean up chunks: ' . $cleanupError->getMessage());
+            }
+            
+            Log::error('Video merge error: ' . $e->getMessage());
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
@@ -302,11 +320,16 @@ class VideosController extends Controller
 
         // Extract thumbnail at 1 second mark
         $process = new Process([
-            'ffmpeg',
+            '/opt/homebrew/bin/ffmpeg',
             '-i', $fullVideoPath,
             '-ss', '00:00:01.000',
             '-vframes', '1',
             $fullThumbnailPath
+        ]);
+
+        // Set environment variables to include Homebrew path
+        $process->setEnv([
+            'PATH' => '/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin'
         ]);
 
         try {
@@ -328,7 +351,13 @@ class VideosController extends Controller
 
     private function isFFmpegAvailable()
     {
-        $process = new Process(['ffmpeg', '-version']);
+        $process = new Process(['/opt/homebrew/bin/ffmpeg', '-version']);
+        
+        // Set environment variables to include Homebrew path
+        $process->setEnv([
+            'PATH' => '/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin'
+        ]);
+        
         try {
             $process->run();
             return $process->isSuccessful();
@@ -337,36 +366,63 @@ class VideosController extends Controller
         }
     }
 
-    private function useDefaultThumbnail($thumbnailPath)
+    private function useDefaultThumbnail($thumbnailRelativePath)
     {
-        $defaultThumbnailPath = 'thumbnails/default-video-thumbnail.jpg';
+        // Return the direct URL to the default thumbnail in public/thumbnails/
+        $defaultThumbnailUrl = url('thumbnails/default-video-thumbnail.jpg');
         
-        // Check if the default thumbnail exists in the public disk
-        if (!Storage::disk('public')->exists($defaultThumbnailPath)) {
-            Log::warning("Default thumbnail image not found.");
+        // Check if the default thumbnail exists
+        if (!file_exists(public_path('thumbnails/default-video-thumbnail.jpg'))) {
+            Log::warning("Default thumbnail image not found at: " . public_path('thumbnails/default-video-thumbnail.jpg'));
             return null;
         }
         
-        // Copy the default thumbnail to the specified path
-        Storage::disk('public')->copy($defaultThumbnailPath, $thumbnailPath);
-        
-        // Return the public URL
-        return $thumbnailPath;
+        Log::info("Using default thumbnail: " . $defaultThumbnailUrl);
+        return $defaultThumbnailUrl;
     }
 
     private function getVideoDuration($videoPath)
     {
         $fullVideoPath = storage_path('app/public/' . $videoPath);
+        
+        Log::info('Attempting to get video duration', [
+            'video_path' => $videoPath,
+            'full_path' => $fullVideoPath,
+            'file_exists' => file_exists($fullVideoPath)
+        ]);
+        
+        // Set environment with Homebrew path
         $process = new \Symfony\Component\Process\Process([
-            'ffprobe', '-v', 'error', '-show_entries',
+            '/opt/homebrew/bin/ffprobe', '-v', 'error', '-show_entries',
             'format=duration', '-of', 'default=noprint_wrappers=1:nokey=1', $fullVideoPath
         ]);
+        
+        // Set environment variables to include Homebrew path
+        $process->setEnv([
+            'PATH' => '/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin'
+        ]);
+        
         $process->run();
+        
         if ($process->isSuccessful()) {
-            $seconds = floatval(trim($process->getOutput()));
+            $output = trim($process->getOutput());
+            $seconds = floatval($output);
             $minutes = floor($seconds / 60);
             $remainingSeconds = round($seconds % 60);
-            return sprintf('%d:%02d', $minutes, $remainingSeconds); // e.g., 5:30
+            $duration = sprintf('%d:%02d', $minutes, $remainingSeconds);
+            
+            Log::info('Video duration extracted successfully', [
+                'raw_output' => $output,
+                'seconds' => $seconds,
+                'formatted_duration' => $duration
+            ]);
+            
+            return $duration;
+        } else {
+            Log::error('Failed to extract video duration', [
+                'error' => $process->getErrorOutput(),
+                'exit_code' => $process->getExitCode()
+            ]);
         }
         return null;
     }

@@ -38,6 +38,7 @@ use App\Models\FeeStructure;
 use App\Models\PaymentOption;
 use App\Models\RegistrationFee;
 use App\Models\ScholarshipApplication;
+use App\Models\AlbumCollection;
 
 class GeneralController extends Controller
 {
@@ -92,6 +93,14 @@ class GeneralController extends Controller
         // Fetch video gallery (using Video model) – filter by status 2 or (status 3 and publish_time <= now)
         $videoGallery = Video::where('status', 2)->get();
 
+        // Fetch album collections for gallery section
+        $albumCollections = AlbumCollection::with('images')
+            ->where('is_published', true)
+            ->orderBy('sort_order')
+            ->orderBy('created_at', 'desc')
+            ->limit(6)
+            ->get();
+
         $firstAttachment = Attachment::where('is_archived',0)
         ->where('description','like','%Application Form%')
         ->where('table_id','undefined')
@@ -107,8 +116,48 @@ class GeneralController extends Controller
             'facultySpotlight' => $facultySpotlight,
             'upcomingEventsSlider' => $upcomingEventsSlider,
             'videoGallery' => $videoGallery,
+            'albumCollections' => $albumCollections,
             'firstAttachment' => $firstAttachment,
             // ...other props as needed
+        ]);
+    }
+
+    public function galleries()
+    {
+        // Fetch all published album collections with their images
+        $albumCollections = AlbumCollection::with('images')
+            ->where('is_published', true)
+            ->orderBy('sort_order')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        // Fetch featured album collections
+        $featuredAlbums = AlbumCollection::with('images')
+            ->where('is_published', true)
+            ->where('is_featured', true)
+            ->orderBy('sort_order')
+            ->orderBy('created_at', 'desc')
+            ->limit(3)
+            ->get();
+
+        // Fetch campus gallery for featured slider (same as Home.vue carouselImages)
+        $campusGallery = Gallery::where('status', 2)
+            ->orWhere(function($query) {
+                $query->where('status', 3)
+                    ->where('publish_time', '<=', date('Y-m-d h:i:s'));
+            })
+            ->orderBy('created_at', 'desc')
+            ->limit(5)
+            ->get();
+
+        // Fetch video gallery for the gallery page
+        $videoGallery = Video::where('status', 2)->get();
+
+        return Inertia::render('Guest/Pages/Gallery', [
+            'albumCollections' => $albumCollections,
+            'featuredAlbums' => $featuredAlbums,
+            'campusGallery' => $campusGallery,
+            'videoGallery' => $videoGallery,
         ]);
     }
 

@@ -1,5 +1,5 @@
 <template>
-      <section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700">
+      <section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-purple-900 via-blue-800 to-indigo-700 animate-hero-glow">
       <!-- Animated Background Pattern -->
       <div class="absolute inset-0 opacity-10">
         <div class="absolute top-20 left-20 w-32 h-32 border border-white rounded-lg transform rotate-12 animate-float"></div>
@@ -70,8 +70,8 @@
 
         <!-- Main Heading with typewriter effect -->
         <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight">
-          <span class="block animate-slide-in-up">Technology</span>
-          <span class="block text-blue-200 animate-slide-in-up-delayed">Education</span>
+          <span class="block animate-slide-in-up bg-gradient-to-r from-white via-purple-200 to-blue-200 bg-clip-text text-transparent">Technology</span>
+          <span class="block animate-slide-in-up-delayed bg-gradient-to-r from-purple-300 via-blue-300 to-indigo-300 bg-clip-text text-transparent">Education</span>
         </h1>
 
         <!-- Subtitle with fade-in -->
@@ -81,19 +81,19 @@
 
         <!-- Stats with counter animation -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 max-w-4xl mx-auto">
-          <div class="text-center animate-scale-in-delayed">
+          <div class="text-center animate-scale-in-delayed animate-stats-glow-1">
             <div class="text-3xl font-bold text-white mb-2">
               <span ref="studentsCounter" class="counter">{{ companyInfo.total_members }}</span>+
             </div>
             <div class="text-white/80 text-sm uppercase tracking-wide">Students Enrolled</div>
           </div>
-          <div class="text-center animate-scale-in-delayed-2">
+          <div class="text-center animate-scale-in-delayed-2 animate-stats-glow-2">
             <div class="text-3xl font-bold text-white mb-2">
               <span ref="programsCounter" class="counter">{{ companyInfo.programs }}</span>
             </div>
             <div class="text-white/80 text-sm uppercase tracking-wide">Programs Available</div>
           </div>
-          <div class="text-center animate-scale-in-delayed-3">
+          <div class="text-center animate-scale-in-delayed-3 animate-stats-glow-3">
             <div class="text-3xl font-bold text-white mb-2">
               <span ref="placementCounter" class="counter">{{ companyInfo.jobs }}</span>%
             </div>
@@ -106,28 +106,28 @@
       <div class="absolute bottom-0 left-0 right-0 z-20 animate-slide-in-up-bottom">
         <div class="grid grid-cols-1 md:grid-cols-2">
           <!-- Left Action Card -->
-          <div class="bg-black/40 backdrop-blur-sm border-t border-white/20 p-8 hover:bg-black/60 transition-all duration-500 cursor-pointer group transform hover:scale-105">
+          <div class="bg-gradient-to-r from-purple-900/30 to-blue-900/30 backdrop-blur-sm border-t border-purple-400/30 p-8 hover:from-purple-800/40 hover:to-blue-800/40 transition-all duration-500 cursor-pointer group transform hover:scale-105">
             <div class="flex items-center justify-between">
               <div>
-                <div class="text-white/80 text-sm uppercase tracking-wide mb-2 group-hover:text-blue-200 transition-colors">EXPLORE OUR</div>
-                <div class="text-white text-2xl font-bold group-hover:text-blue-200 transition-colors">
+                <div class="text-white/80 text-sm uppercase tracking-wide mb-2 group-hover:text-purple-300 transition-colors">EXPLORE OUR</div>
+                <div class="text-white text-2xl font-bold group-hover:text-purple-200 transition-colors">
                   Course Catalog
                 </div>
               </div>
-              <ArrowRight class="h-6 w-6 text-white/60 group-hover:text-white group-hover:translate-x-2 transition-all duration-300" />
+              <ArrowRight class="h-6 w-6 text-white/60 group-hover:text-purple-300 group-hover:translate-x-2 transition-all duration-300" />
             </div>
           </div>
 
           <!-- Right Action Card -->
-          <div class="bg-black/40 backdrop-blur-sm border-t border-l border-white/20 p-8 hover:bg-black/60 transition-all duration-500 cursor-pointer group transform hover:scale-105">
+          <div class="bg-gradient-to-r from-indigo-900/30 to-purple-900/30 backdrop-blur-sm border-t border-l border-indigo-400/30 p-8 hover:from-indigo-800/40 hover:to-purple-800/40 transition-all duration-500 cursor-pointer group transform hover:scale-105">
             <div class="flex items-center justify-between">
               <div>
-                <div class="text-white/80 text-sm uppercase tracking-wide mb-2 group-hover:text-blue-200 transition-colors">CHECK OUT</div>
-                <div class="text-white text-2xl font-bold group-hover:text-blue-200 transition-colors">
+                <div class="text-white/80 text-sm uppercase tracking-wide mb-2 group-hover:text-indigo-300 transition-colors">CHECK OUT</div>
+                <div class="text-white text-2xl font-bold group-hover:text-indigo-200 transition-colors">
                   What's Happening
                 </div>
               </div>
-              <Calendar class="h-6 w-6 text-white/60 group-hover:text-white group-hover:translate-x-2 transition-all duration-300" />
+              <Calendar class="h-6 w-6 text-white/60 group-hover:text-indigo-300 group-hover:translate-x-2 transition-all duration-300" />
             </div>
           </div>
         </div>
@@ -513,6 +513,305 @@ onMounted(async () => {
 
 .animate-spin-slow {
   animation: spin-slow 8s linear infinite;
+}
+
+/* AWS-Style Hero Glow Animation - Ultra Smooth Slow Breathing with Purple Enhancement */
+@keyframes hero-glow {
+  0% { 
+    background-image: linear-gradient(to bottom right, 
+      rgb(88 28 135), 
+      rgb(30 64 175), 
+      rgb(67 56 202));
+    box-shadow: 0 0 40px rgba(139, 69, 255, 0.08), 0 0 20px rgba(59, 130, 246, 0.05);
+  }
+  5% {
+    background-image: linear-gradient(to bottom right, 
+      rgb(91 33 139), 
+      rgb(33 66 179), 
+      rgb(70 59 205));
+    box-shadow: 0 0 42px rgba(139, 69, 255, 0.09), 0 0 22px rgba(59, 130, 246, 0.06);
+  }
+  10% {
+    background-image: linear-gradient(to bottom right, 
+      rgb(94 38 143), 
+      rgb(36 68 183), 
+      rgb(73 62 208));
+    box-shadow: 0 0 45px rgba(139, 69, 255, 0.1), 0 0 25px rgba(59, 130, 246, 0.07);
+  }
+  15% {
+    background-image: linear-gradient(to bottom right, 
+      rgb(97 43 147), 
+      rgb(39 70 187), 
+      rgb(76 65 211));
+    box-shadow: 0 0 48px rgba(139, 69, 255, 0.11), 0 0 28px rgba(59, 130, 246, 0.08);
+  }
+  20% {
+    background-image: linear-gradient(to bottom right, 
+      rgb(100 48 151), 
+      rgb(42 72 191), 
+      rgb(79 68 214));
+    box-shadow: 0 0 52px rgba(139, 69, 255, 0.12), 0 0 30px rgba(59, 130, 246, 0.09);
+  }
+  25% {
+    background-image: linear-gradient(to bottom right, 
+      rgb(103 53 155), 
+      rgb(45 74 195), 
+      rgb(82 71 217));
+    box-shadow: 0 0 56px rgba(139, 69, 255, 0.13), 0 0 32px rgba(59, 130, 246, 0.1);
+  }
+  30% {
+    background-image: linear-gradient(to bottom right, 
+      rgb(106 58 159), 
+      rgb(48 76 199), 
+      rgb(85 74 220));
+    box-shadow: 0 0 60px rgba(139, 69, 255, 0.15), 0 0 35px rgba(59, 130, 246, 0.11);
+  }
+  35% {
+    background-image: linear-gradient(to bottom right, 
+      rgb(109 63 163), 
+      rgb(51 78 203), 
+      rgb(88 77 223));
+    box-shadow: 0 0 65px rgba(139, 69, 255, 0.16), 0 0 38px rgba(59, 130, 246, 0.12);
+  }
+  40% {
+    background-image: linear-gradient(to bottom right, 
+      rgb(112 68 167), 
+      rgb(54 80 207), 
+      rgb(91 80 226));
+    box-shadow: 0 0 70px rgba(139, 69, 255, 0.18), 0 0 40px rgba(59, 130, 246, 0.13);
+  }
+  45% {
+    background-image: linear-gradient(to bottom right, 
+      rgb(115 73 171), 
+      rgb(57 82 211), 
+      rgb(94 83 229));
+    box-shadow: 0 0 75px rgba(139, 69, 255, 0.19), 0 0 42px rgba(59, 130, 246, 0.14);
+  }
+  50% {
+    background-image: linear-gradient(to bottom right, 
+      rgb(118 78 175), 
+      rgb(60 84 215), 
+      rgb(97 86 232));
+    box-shadow: 0 0 80px rgba(139, 69, 255, 0.2), 0 0 45px rgba(59, 130, 246, 0.15);
+  }
+  55% {
+    background-image: linear-gradient(to bottom right, 
+      rgb(115 73 171), 
+      rgb(57 82 211), 
+      rgb(94 83 229));
+    box-shadow: 0 0 75px rgba(139, 69, 255, 0.19), 0 0 42px rgba(59, 130, 246, 0.14);
+  }
+  60% {
+    background-image: linear-gradient(to bottom right, 
+      rgb(112 68 167), 
+      rgb(54 80 207), 
+      rgb(91 80 226));
+    box-shadow: 0 0 70px rgba(139, 69, 255, 0.18), 0 0 40px rgba(59, 130, 246, 0.13);
+  }
+  65% {
+    background-image: linear-gradient(to bottom right, 
+      rgb(109 63 163), 
+      rgb(51 78 203), 
+      rgb(88 77 223));
+    box-shadow: 0 0 65px rgba(139, 69, 255, 0.16), 0 0 38px rgba(59, 130, 246, 0.12);
+  }
+  70% {
+    background-image: linear-gradient(to bottom right, 
+      rgb(106 58 159), 
+      rgb(48 76 199), 
+      rgb(85 74 220));
+    box-shadow: 0 0 60px rgba(139, 69, 255, 0.15), 0 0 35px rgba(59, 130, 246, 0.11);
+  }
+  75% {
+    background-image: linear-gradient(to bottom right, 
+      rgb(103 53 155), 
+      rgb(45 74 195), 
+      rgb(82 71 217));
+    box-shadow: 0 0 56px rgba(139, 69, 255, 0.13), 0 0 32px rgba(59, 130, 246, 0.1);
+  }
+  80% {
+    background-image: linear-gradient(to bottom right, 
+      rgb(100 48 151), 
+      rgb(42 72 191), 
+      rgb(79 68 214));
+    box-shadow: 0 0 52px rgba(139, 69, 255, 0.12), 0 0 30px rgba(59, 130, 246, 0.09);
+  }
+  85% {
+    background-image: linear-gradient(to bottom right, 
+      rgb(97 43 147), 
+      rgb(39 70 187), 
+      rgb(76 65 211));
+    box-shadow: 0 0 48px rgba(139, 69, 255, 0.11), 0 0 28px rgba(59, 130, 246, 0.08);
+  }
+  90% {
+    background-image: linear-gradient(to bottom right, 
+      rgb(94 38 143), 
+      rgb(36 68 183), 
+      rgb(73 62 208));
+    box-shadow: 0 0 45px rgba(139, 69, 255, 0.1), 0 0 25px rgba(59, 130, 246, 0.07);
+  }
+  95% {
+    background-image: linear-gradient(to bottom right, 
+      rgb(91 33 139), 
+      rgb(33 66 179), 
+      rgb(70 59 205));
+    box-shadow: 0 0 42px rgba(139, 69, 255, 0.09), 0 0 22px rgba(59, 130, 246, 0.06);
+  }
+  100% { 
+    background-image: linear-gradient(to bottom right, 
+      rgb(88 28 135), 
+      rgb(30 64 175), 
+      rgb(67 56 202));
+    box-shadow: 0 0 40px rgba(139, 69, 255, 0.08), 0 0 20px rgba(59, 130, 246, 0.05);
+  }
+}
+
+.animate-hero-glow {
+  animation: hero-glow 18s ease-in-out infinite;
+}
+
+/* Stats Glow Animations - Ultra Slow Breathing Effect */
+@keyframes stats-glow-1 {
+  0%, 100% { 
+    text-shadow: 0 0 6px rgba(255, 255, 255, 0.15);
+    transform: scale(1);
+  }
+  10% { 
+    text-shadow: 0 0 7px rgba(255, 255, 255, 0.18), 0 0 8px rgba(59, 130, 246, 0.08);
+    transform: scale(1.002);
+  }
+  20% { 
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.2), 0 0 10px rgba(59, 130, 246, 0.1);
+    transform: scale(1.004);
+  }
+  30% { 
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.25), 0 0 12px rgba(59, 130, 246, 0.12);
+    transform: scale(1.006);
+  }
+  40% { 
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.3), 0 0 15px rgba(59, 130, 246, 0.15);
+    transform: scale(1.008);
+  }
+  50% { 
+    text-shadow: 0 0 14px rgba(255, 255, 255, 0.35), 0 0 18px rgba(59, 130, 246, 0.18);
+    transform: scale(1.01);
+  }
+  60% { 
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.3), 0 0 15px rgba(59, 130, 246, 0.15);
+    transform: scale(1.008);
+  }
+  70% { 
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.25), 0 0 12px rgba(59, 130, 246, 0.12);
+    transform: scale(1.006);
+  }
+  80% { 
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.2), 0 0 10px rgba(59, 130, 246, 0.1);
+    transform: scale(1.004);
+  }
+  90% { 
+    text-shadow: 0 0 7px rgba(255, 255, 255, 0.18), 0 0 8px rgba(59, 130, 246, 0.08);
+    transform: scale(1.002);
+  }
+}
+
+@keyframes stats-glow-2 {
+  0%, 100% { 
+    text-shadow: 0 0 6px rgba(255, 255, 255, 0.15);
+    transform: scale(1);
+  }
+  10% { 
+    text-shadow: 0 0 7px rgba(255, 255, 255, 0.18), 0 0 8px rgba(139, 69, 255, 0.08);
+    transform: scale(1.002);
+  }
+  20% { 
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.2), 0 0 10px rgba(139, 69, 255, 0.1);
+    transform: scale(1.004);
+  }
+  30% { 
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.25), 0 0 12px rgba(139, 69, 255, 0.12);
+    transform: scale(1.006);
+  }
+  40% { 
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.3), 0 0 15px rgba(139, 69, 255, 0.15);
+    transform: scale(1.008);
+  }
+  50% { 
+    text-shadow: 0 0 14px rgba(255, 255, 255, 0.35), 0 0 18px rgba(139, 69, 255, 0.18);
+    transform: scale(1.01);
+  }
+  60% { 
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.3), 0 0 15px rgba(139, 69, 255, 0.15);
+    transform: scale(1.008);
+  }
+  70% { 
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.25), 0 0 12px rgba(139, 69, 255, 0.12);
+    transform: scale(1.006);
+  }
+  80% { 
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.2), 0 0 10px rgba(139, 69, 255, 0.1);
+    transform: scale(1.004);
+  }
+  90% { 
+    text-shadow: 0 0 7px rgba(255, 255, 255, 0.18), 0 0 8px rgba(139, 69, 255, 0.08);
+    transform: scale(1.002);
+  }
+}
+
+@keyframes stats-glow-3 {
+  0%, 100% { 
+    text-shadow: 0 0 6px rgba(255, 255, 255, 0.15);
+    transform: scale(1);
+  }
+  10% { 
+    text-shadow: 0 0 7px rgba(255, 255, 255, 0.18), 0 0 8px rgba(16, 185, 129, 0.08);
+    transform: scale(1.002);
+  }
+  20% { 
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.2), 0 0 10px rgba(16, 185, 129, 0.1);
+    transform: scale(1.004);
+  }
+  30% { 
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.25), 0 0 12px rgba(16, 185, 129, 0.12);
+    transform: scale(1.006);
+  }
+  40% { 
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.3), 0 0 15px rgba(16, 185, 129, 0.15);
+    transform: scale(1.008);
+  }
+  50% { 
+    text-shadow: 0 0 14px rgba(255, 255, 255, 0.35), 0 0 18px rgba(16, 185, 129, 0.18);
+    transform: scale(1.01);
+  }
+  60% { 
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.3), 0 0 15px rgba(16, 185, 129, 0.15);
+    transform: scale(1.008);
+  }
+  70% { 
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.25), 0 0 12px rgba(16, 185, 129, 0.12);
+    transform: scale(1.006);
+  }
+  80% { 
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.2), 0 0 10px rgba(16, 185, 129, 0.1);
+    transform: scale(1.004);
+  }
+  90% { 
+    text-shadow: 0 0 7px rgba(255, 255, 255, 0.18), 0 0 8px rgba(16, 185, 129, 0.08);
+    transform: scale(1.002);
+  }
+}
+
+.animate-stats-glow-1 {
+  animation: stats-glow-1 14s ease-in-out infinite;
+}
+
+.animate-stats-glow-2 {
+  animation: stats-glow-2 14s ease-in-out infinite;
+  animation-delay: 4.5s;
+}
+
+.animate-stats-glow-3 {
+  animation: stats-glow-3 14s ease-in-out infinite;
+  animation-delay: 9s;
 }
 
 /* Grid Background */

@@ -69,7 +69,7 @@ import { useToast } from '@/Composables/useToast'
 import { Link, usePage } from '@inertiajs/vue3'
 
 const page = usePage();
-const user = computed(() => page.props.auth.user);
+const user = computed(() => page.props.auth?.user || {});
 
 const isCreateRequestModalOpen = ref(false)
 const showReportDropdown = ref(false)

@@ -1,1 +1,0 @@
-import{_ as e,o,c as r}from"./app-2b3a22fe.js";/* empty css                  */const t={},c={id:"loader",src:"/storage/general/Fountain.gif"};function n(a,s){return o(),r("img",c)}const d=e(t,[["render",n]]);export{d as default};

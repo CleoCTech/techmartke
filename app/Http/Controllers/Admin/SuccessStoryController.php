@@ -76,7 +76,7 @@ class SuccessStoryController extends Controller
             'graduation_year' => 'required|integer|min:1900|max:' . (date('Y') + 1),
             'description' => 'required|string',
             'achievement' => 'nullable|string',
-            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5048',
             'sequence' => 'nullable|integer',
             'status' => 'required|integer',
             'publish_time' => 'nullable|required_if:status,=,3',
