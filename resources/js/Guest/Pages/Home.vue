@@ -38,10 +38,6 @@ function toggleExpand(title) {
   expanded.value[title] = !expanded.value[title];
 }
 
-const downloadAttachment = (uuid) => {
-  //system/attachment/show/${attachment.uuid}
-  window.open(`/application/download/${uuid}`, '_blank');
-};
 
 const expandedCore = ref({});
 function toggleExpandCore(title) {
@@ -127,7 +123,7 @@ const institutionValues = [
   },
   {
     title: 'VISION',
-    description: 'Our vision at Novus Academy is to be a leading institution in computer science and technology education, renowned for our commitment to excellence, innovation, and inclusivity. We aspire to create a dynamic learning environment that fosters creativity, encourages collaboration, and prepares students to thrive in a rapidly evolving digital world.',
+    description: 'Our vision is to be a leading institution in technology education, renowned for our commitment to excellence, innovation, and inclusivity. We aspire to create a dynamic learning environment that fosters creativity, encourages collaboration, and prepares students to thrive in a rapidly evolving digital world.',
     icon: 'Eye',
     color: 'bg-purple-500'
   },
@@ -169,7 +165,6 @@ const coursePreview = computed(() => props.coursePreview ?? []);
 const facultySpotlight = computed(() => props.facultySpotlight ?? []);
 const upcomingEventsSlider = computed(() => props.upcomingEventsSlider ?? []);
 const videoGallery = computed(() => props.videoGallery ?? []);
-const firstAttachment = computed(() => props.firstAttachment ?? []);
 // Counter refs
 
 // Slider states
@@ -931,10 +926,12 @@ const closeAlbumViewer = () => {
               </div>
 
               <!-- CTA Button -->
-              <button
-                class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium">
-                Learn More
-              </button>
+              <Link
+                href="/dashboard"
+                class="block w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center"
+              >
+                Get Started
+              </Link>
             </div>
           </div>
         </div>
@@ -1068,11 +1065,11 @@ const closeAlbumViewer = () => {
             <span class="text-white font-medium tracking-wide">VIDEO GALLERY</span>
           </div>
           <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 animate-slide-in-up">
-            See Novus in
+            See Us in
             <span class="block text-blue-400">Action</span>
           </h2>
           <p class="text-xl text-white/90 max-w-3xl mx-auto animate-fade-in-up-slow">
-            Experience our campus, hear from students, and discover what makes Novus Institute special
+            Experience our campus, hear from students, and discover what makes us special
           </p>
         </div>
 
@@ -1469,7 +1466,7 @@ const closeAlbumViewer = () => {
             Registration Requirements
           </h2>
           <p class="text-xl text-gray-600 max-w-3xl mx-auto animate-fade-in-up-slow">
-            Follow these simple steps to begin your journey with Novus Institute of Technology
+            Follow these simple steps to begin your journey
           </p>
         </div>
 
@@ -1506,19 +1503,15 @@ const closeAlbumViewer = () => {
           <div class="bg-gradient-to-r from-blue-900 to-blue-800 rounded-2xl p-8 text-white animate-slide-in-up-bottom">
             <h3 class="text-2xl font-bold mb-4">Ready to Apply?</h3>
             <p class="text-xl mb-8 opacity-90">
-              Start your application process today and join our community of innovators
+              Get started today and join our community
             </p>
             <div class="space-x-4">
-              <Link href="/application">
+              <Link href="/dashboard">
               <button
                 class="bg-white text-blue-900 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors transform hover:scale-105">
-                Apply Online
+                Get Started
               </button>
               </Link>
-              <button @click="downloadAttachment(firstAttachment.uuid)"
-                class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-900 transition-colors transform hover:scale-105">
-                Download Form
-              </button>
             </div>
           </div>
         </div>
@@ -1558,7 +1551,7 @@ const closeAlbumViewer = () => {
             <span class="block text-blue-200">Computer Ethics</span>
           </h2>
           <p class="text-xl text-white/90 max-w-4xl mx-auto leading-relaxed animate-fade-in-up-slow">
-            At Novus Institute, we believe in responsible technology use. These principles guide our students and
+            We believe in responsible technology use. These principles guide our students and
             faculty in ethical computing practices.
           </p>
         </div>
@@ -1596,7 +1589,7 @@ const closeAlbumViewer = () => {
             class="bg-gradient-to-r from-blue-600/20 to-purple-600/20 backdrop-blur-sm rounded-2xl p-8 border border-white/20 animate-scale-in-delayed">
             <h3 class="text-2xl font-bold text-white mb-4">Our Commitment</h3>
             <p class="text-white/90 text-lg leading-relaxed max-w-4xl mx-auto mb-6">
-              Every student at Novus Institute pledges to uphold these ethical standards, ensuring that technology
+              Every student pledges to uphold these ethical standards, ensuring that technology
               serves humanity with integrity, respect, and responsibility.
             </p>
             <div class="inline-flex items-center space-x-2 bg-white/10 rounded-full px-6 py-3 border border-white/20">
@@ -1653,9 +1646,9 @@ const closeAlbumViewer = () => {
               <Download class="h-8 w-8 text-blue-600 mr-3" />
               <h3 class="text-2xl font-bold text-gray-900">Complete About Us</h3>
             </div>
-            <p class="text-gray-600 mb-6">Get the full story of Novus Computer Training Institute, our history, achievements, and detailed information about our programs and values.</p>
-            <a href="/assets/docs/ABOUT NOVUS.pdf" 
-              download="About_Novus_Computer_Training_Institute.pdf"
+            <p class="text-gray-600 mb-6">Get the full story of our organization, our history, achievements, and detailed information about our programs and values.</p>
+            <a href="#" 
+              download="About_Us.pdf"
               class="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors duration-300 hover:scale-105">
               <Download class="h-5 w-5 mr-2" />
               Download Complete About Us (PDF)
@@ -1669,7 +1662,7 @@ const closeAlbumViewer = () => {
     <section class="py-16">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12">
-          <h2 class="text-3xl font-bold text-gray-900 mb-4">Why Choose Novus Institute?</h2>
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">Why Choose Us?</h2>
           <p class="text-xl text-gray-600">Experience excellence in technology education</p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -1701,13 +1694,6 @@ const closeAlbumViewer = () => {
             <div class="text-sm text-gray-500">{{ testimonial.position }}</div>
           </div>
         </div>
-        <div class="text-center mt-8">
-          <a href="/about"
-            class="inline-flex items-center border border-gray-300 px-6 py-3 rounded-lg hover:bg-gray-50 transition-colors">
-            Read More Testimonials
-            <ArrowRight class="ml-2 h-4 w-4" />
-          </a>
-        </div>
       </div>
     </section>
 
@@ -1717,13 +1703,9 @@ const closeAlbumViewer = () => {
         <h2 class="text-3xl font-bold mb-4">{{ ctaContent.title }}</h2>
         <p class="text-xl mb-8">{{ ctaContent.subtitle }}</p>
         <div class="space-x-4">
-          <Link href="/application"
+          <Link href="/dashboard"
             class="inline-block bg-white text-blue-900 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
-          Apply Now
-          </Link>
-          <Link href="/contact-us"
-            class="inline-block border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-900 transition-colors">
-          Contact Us
+          Get Started
           </Link>
         </div>
       </div>

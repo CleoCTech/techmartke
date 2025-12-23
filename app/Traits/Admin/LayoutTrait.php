@@ -49,6 +49,12 @@ trait LayoutTrait
             // $this->listData = $query->paginate(config('app.maxRecsPerPage'));
             $this->listData = $query->paginate(10);
         } else {
+            // Load relationships even when searching
+            if ($this->isReltionship && !empty($this->relationName)) {
+                $relations = array_map('trim', explode(',', $this->relationName));
+                $query->with($relations);
+            }
+            
             foreach ($this->params as $param) {
                 if ($param['column'] !== 'all') {
                     $query->where($param['column'], 'LIKE', '%' . $param['value'] . '%');

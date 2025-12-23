@@ -10,12 +10,6 @@ import {
 
 const navigationItems = [
   { href: '/', label: 'Home' },
-  { href: '/about', label: 'About' },
-  { href: '/courses', label: 'Courses' },
-  //   { href: '/events', label: 'Events' },
-  { href: '/community', label: 'Community' },
-  { href: '/training-fees', label: 'Fees' },
-  //   { href: '/admissions', label: 'Admissions' },
   { href: '/faq', label: 'FAQ' },
   { href: '/contact', label: 'Contact' }
 ]
@@ -144,8 +138,8 @@ onMounted(() => {
         <div class="flex justify-between h-16">
           <div class="flex items-center">
             <a href="/" class="flex items-center space-x-2">
-              <img src="/assets/images/novus-logo.png" alt="logo" class="h-8 w-8" />
-              <span class="font-bold text-xl">Novus Institute</span>
+              <img src="/assets/images/logo.png" alt="logo" class="h-8 w-8" />
+              <span class="font-bold text-xl">{{ $page.props.config.appName || 'Your App' }}</span>
             </a>
           </div>
 
@@ -155,10 +149,10 @@ onMounted(() => {
               class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-800 transition-colors">
               {{ item.label }}
             </a>
-            <a href="/application"
+            <Link href="/dashboard"
               class="bg-white text-blue-900 px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-100 transition-colors">
-              Apply Now
-            </a>
+              Get Started
+            </Link>
           </div>
 
           <!-- Mobile menu button -->
@@ -177,11 +171,11 @@ onMounted(() => {
               class="block px-3 py-2 rounded-md text-base font-medium hover:bg-blue-800" @click="closeMobileMenu">
               {{ item.label }}
             </a>
-            <a href="/application"
+            <Link href="/dashboard"
               class="block px-3 py-2 rounded-md text-base font-medium bg-blue-700 hover:bg-blue-600"
               @click="closeMobileMenu">
-              Apply Now
-            </a>
+              Get Started
+            </Link>
           </div>
         </div>
       </div>

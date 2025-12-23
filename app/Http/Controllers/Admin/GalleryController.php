@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Branch;
 use App\Models\Gallery;
 use App\Services\UserRoleService;
 use Illuminate\Http\Request;
@@ -94,13 +93,6 @@ class GalleryController extends Controller
                 'sequence' => $request->sequence,
                 'publish_time' => $request->publish_time,
             ];
-            if ($request->branch_id == 'null') {
-                // info("Setting branch id to null");
-            } else {
-                // info("Setting branch id".$request->branch_id);
-                $branch_id = $request->branch_id;
-                $record['branch_id'] = $branch_id;
-            }
             $record['is_global'] = filter_var($request->is_global, FILTER_VALIDATE_BOOLEAN);
             if($request->hasFile('cover_image')){
                 $record['cover_image'] = $fileName;

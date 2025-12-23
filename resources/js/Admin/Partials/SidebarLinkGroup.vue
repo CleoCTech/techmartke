@@ -2,10 +2,16 @@
 import { ref, defineProps } from 'vue'
 
 const props = defineProps({
-  activeCondition: Boolean
+  activeCondition: Boolean,
+  autoExpand: {
+    type: Boolean,
+    default: true // Default behavior: auto-expand when active
+  }
 })
 
-const expanded = ref(props.activeCondition)
+// Start expanded if activeCondition is true AND autoExpand is true
+// Otherwise start collapsed
+const expanded = ref(props.activeCondition && props.autoExpand)
 
 const handleClick = () => {
   expanded.value = !expanded.value

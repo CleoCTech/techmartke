@@ -79,10 +79,9 @@ const getFooterData = async () => {
 };
 
 const quickLinks = [
-  { href: '/about', label: 'About Us' },
-  { href: '/courses', label: 'Courses' },
-  { href: '/application', label: 'Application' },
-  { href: '/scholarship', label: 'Scholarship' },
+  { href: '/faq', label: 'FAQ' },
+  { href: '/events', label: 'Events' },
+  { href: '/news', label: 'News' },
   { href: '/login', label: 'Login' }
 ]
 
@@ -94,8 +93,8 @@ const resources = [
 ]
 
 const currentYear = computed(() => new Date().getFullYear())
-const instituteName = page.props.config?.appName || 'Novus Computer Training Institute'
-const instituteMission = 'Coding the Future Today, Byte by Byte'
+const instituteName = computed(() => page.props.config?.appName || 'Your Organization')
+const instituteMission = 'Empowering the next generation through innovative education and practical training.'
 
 </script>
 
@@ -108,7 +107,7 @@ const instituteMission = 'Coding the Future Today, Byte by Byte'
       <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
         <div class="col-span-1 md:col-span-2">
           <div class="flex items-center space-x-2 mb-4">
-            <img src="/assets/images/novus-logo.png" alt="logo" class="h-8 w-8" />
+            <img src="/assets/images/logo.png" alt="logo" class="h-8 w-8" />
             <span class="font-bold text-xl">{{ instituteName }}</span>
           </div>
           <p class="text-gray-300 mb-4">{{ instituteMission }}</p>

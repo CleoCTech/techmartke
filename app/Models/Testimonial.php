@@ -49,6 +49,12 @@ class Testimonial extends Model
     {
         return with(new static)->getTable();
     }
+    
+    public function service()
+    {
+        return $this->belongsTo(\App\Models\System\Service::class, 'service_id');
+    }
+    
     public static function options($column){
         if($column == 'status'){
             $options = [

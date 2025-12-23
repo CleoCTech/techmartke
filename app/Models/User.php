@@ -31,7 +31,7 @@ class User extends Authenticatable implements LaratrustUser
      * @var string[]
      */
     protected $fillable = [
-        'uuid', 'name', 'email', 'password','branch_id', 'user_category', 'status', 'created_by', 'updated_by',
+        'uuid', 'name', 'email', 'password', 'user_category', 'status', 'created_by', 'updated_by',
     ];
     protected $keyType = 'int';
     public $incrementing = true;
@@ -133,18 +133,5 @@ class User extends Authenticatable implements LaratrustUser
         }
     }
 
-    public function churchBranchLeaderships()
-    {
-        return $this->hasMany(ChurchBranchLeadership::class);
-    }
-
-    public function departmentHeads()
-    {
-        return $this->hasMany(DepartmentHead::class);
-    }
-    public function branch()
-    {
-        return $this->belongsTo(Branch::class);
-    }
 
 }

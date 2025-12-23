@@ -9,7 +9,7 @@
         <div class="flex items-center">
           <Link href="/" class="flex items-center space-x-2">
             <!-- <GraduationCap class="h-8 w-8" /> -->
-            <img src="/assets/images/novus-logo.png" alt="logo" class="h-8 w-8" />
+            <img src="/assets/images/WENLA.png" alt="logo" class="h-8 w-8" />
             <span class="font-bold text-xl">{{ $page.props.config.appName }}</span>
           </Link>
         </div>
@@ -86,27 +86,14 @@
                 <Calendar class="mr-3 h-4 w-4 text-blue-300" />
                 Events
               </Link>
-              <Link
-                href="/testimonials"
-                :class="[
-                  'flex items-center px-4 py-2 text-sm transition-colors duration-200',
-                  $page.url === '/testimonials' || $page.url.startsWith('/testimonials')
-                    ? 'bg-blue-800 text-white'
-                    : 'text-white hover:bg-blue-800'
-                ]"
-                @click="closeMoreDropdown"
-              >
-                <Heart class="mr-3 h-4 w-4 text-blue-300" />
-                Testimonials
-              </Link>
             </div>
           </div>
           
           <Link
-            href="/application"
+            href="/dashboard"
             class="bg-white text-blue-900 px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-100 transition-colors"
           >
-            Apply Now
+            Get Started
           </Link>
         </div>
 
@@ -179,27 +166,14 @@
               <Calendar class="mr-3 h-5 w-5" />
               Events
             </Link>
-            <Link
-              href="/testimonials"
-              :class="[
-                'flex items-center px-6 py-2 rounded-md text-base font-medium transition-colors',
-                $page.url === '/testimonials' || $page.url.startsWith('/testimonials')
-                  ? 'bg-blue-800 text-white shadow-md'
-                  : 'hover:bg-blue-800'
-              ]"
-              @click="closeMobileMenu"
-            >
-              <Heart class="mr-3 h-5 w-5" />
-              Testimonials
-            </Link>
           </div>
           
           <Link
-            href="/application"
+            href="/dashboard"
             class="block px-3 py-2 rounded-md text-base font-medium bg-blue-700 hover:bg-blue-600"
             @click="closeMobileMenu"
           >
-            Apply Now
+            Get Started
           </Link>
         </div>
       </div>
@@ -219,14 +193,7 @@
 
 const navigationItems = [
   { href: '/', label: 'Home' },
-  { href: '/about', label: 'About' },
-  { href: '/courses', label: 'Courses' },
-//   { href: '/events', label: 'Events' },
-  { href: '/community', label: 'Community' },
-  { href: '/training-fees', label: 'Fees' },
-// //   { href: '/admissions', label: 'Admissions' },
-  { href: '/faq', label: 'FAQ' },
-  { href: '/contact-us', label: 'Contact' }
+  { href: '/faq', label: 'FAQ' }
 ]
 
 const isMobileMenuOpen = ref(false)

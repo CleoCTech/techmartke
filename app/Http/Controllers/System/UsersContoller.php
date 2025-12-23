@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\System;
 
 use App\Http\Controllers\Controller;
-use App\Models\Branch;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
@@ -38,7 +37,7 @@ class UsersContoller extends Controller
         'isCharts' => false,
         'isSearch' => true,
         'isReltionship' => true,
-        'relationName' => "roles,permissions,branch",
+        'relationName' => "roles,permissions",
         'paginateRelation' => false,
         'isSelect' => true,
         'isMoreActions' => false,
@@ -69,12 +68,10 @@ class UsersContoller extends Controller
     
     public function create(){
         $roles = Role::all();
-        $branches = Branch::all();
         $permissions = Permission::all();
         $this->def_create();
         $this->viewData['roles'] = $roles;
         $this->viewData['permissions'] = $permissions;
-        $this->viewData['branches'] = $branches;
         return Inertia::render($this->settings['xFolder'].'/CreateEdit',$this->viewData);
     }
 
@@ -89,7 +86,6 @@ class UsersContoller extends Controller
             'roles.*' => 'exists:roles,id', // Ensure each role ID exists in the roles table
             'permissions' => 'present|array', // Ensure permissions is present and an array (can be empty)
             'permissions.*' => 'exists:permissions,id', // Ensure each permission ID exists in the permissions table
-            'branch_id' => 'required|exists:branches,id',
         ]);
 
         ini_set('max_execution_time', 300); //300 seconds = 5 minutes
@@ -99,7 +95,6 @@ class UsersContoller extends Controller
             $record = [
                 'name' => $request->name,
                 'email' => $request->email,
-                'branch_id' => $request->branch_id,
             ];
 
             if($this->pKey == null){
@@ -148,12 +143,10 @@ class UsersContoller extends Controller
         }
         $roles = Role::all();
         $permissions = Permission::all();
-        $branches = Branch::all();
         // info($role);
         $this->viewData['roles'] = $roles;
         $this->viewData['role'] = $role;
         $this->viewData['permissions'] = $permissions;
-        $this->viewData['branches'] = $branches;
 
         return Inertia::render($this->settings['xFolder'].'/Show',$this->viewData);
     }
@@ -171,12 +164,10 @@ class UsersContoller extends Controller
         }
         $roles = Role::all();
         $permissions = Permission::all();
-        $branches = Branch::all();
         // info($role);
         $this->viewData['roles'] = $roles;
         $this->viewData['role'] = $role;
         $this->viewData['permissions'] = $permissions;
-        $this->viewData['branches'] = $branches;
         return Inertia::render($this->settings['xFolder'].'/CreateEdit',$this->viewData);
     }
     public function destroy($uuid){

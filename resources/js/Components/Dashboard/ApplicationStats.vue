@@ -2,20 +2,6 @@
   <div class="bg-white dark:bg-slate-800 rounded-lg shadow-md p-4">
     <div class="flex justify-between items-center mb-4">
       <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Application Statistics</h3>
-      <div class="flex space-x-2">
-        <Link 
-          :href="route('admin.application')"
-          class="text-sm text-indigo-600 dark:text-indigo-400 hover:underline"
-        >
-          View Applications
-        </Link>
-        <Link 
-          :href="route('admin.scholarship-application')"
-          class="text-sm text-indigo-600 dark:text-indigo-400 hover:underline"
-        >
-          View Scholarships
-        </Link>
-      </div>
     </div>
 
     <div v-if="loading" class="flex justify-center items-center h-32">

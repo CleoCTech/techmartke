@@ -3,7 +3,6 @@
 namespace App\Models\System;
 
 use App\Models\Attendance;
-use App\Models\Branch;
 use App\Models\Offering;
 use App\Models\SpecialNeed;
 use App\Models\Testmony;
@@ -87,13 +86,6 @@ class Service extends Model
     public function testimonies()
     {
         return $this->hasMany(Testmony::class);
-    }
-     /**
-     * Get the branch that owns the service.
-     */
-    public function branch()
-    {
-        return $this->belongsTo(Branch::class);
     }
 
 

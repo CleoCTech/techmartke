@@ -31,7 +31,7 @@ import { ref, computed, onMounted } from 'vue'
 
 const isHovered = ref(false)
 const whatsappConfig = ref({
-  phone: '254724301007',
+  phone: '254727057310',
   defaultMessage: 'Hello! I would like to learn more about Novus Institute programs.',
   enabled: true
 })

@@ -159,8 +159,6 @@ class AlbumCollection extends Model
     }
 
     // Helper methods
-
-
     public function getImageUrls()
     {
         return $this->images->map(function ($image) {
@@ -168,3 +166,4 @@ class AlbumCollection extends Model
         });
     }
 }
+

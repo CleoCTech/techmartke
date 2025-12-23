@@ -6,9 +6,9 @@
         
         <!-- Tab navigation -->
              <!-- Tab navigation -->
-      <ul class="relative text-sm font-medium flex flex-nowrap -mx-4 sm:-mx-6 lg:-mx-8  no-scrollbar border-b border-slate-200 dark:border-slate-700">
+      <ul class="relative text-sm font-medium flex flex-nowrap px-4 sm:px-6 lg:px-8 no-scrollbar border-b border-slate-200 dark:border-slate-700">
         <!-- Home tab -->
-        <li class="mr-6 last:mr-0 first:pl-4 sm:first:pl-6 lg:first:pl-8 last:pr-4 sm:last:pr-6 lg:last:pr-8">
+        <li class="mr-6 last:mr-0 first:pl-0 last:pr-4 sm:last:pr-6 lg:last:pr-8">
           <button 
             @click="activeTab('home')"
             class="relative py-3 whitespace-nowrap focus:outline-none group"
@@ -31,7 +31,7 @@
         </li>
 
         <!-- More Actions tab -->
-        <li class="mr-6 last:mr-0 first:pl-4 sm:first:pl-6 lg:first:pl-8 last:pr-4 sm:last:pr-6 lg:last:pr-8">
+        <li class="mr-6 last:mr-0 first:pl-0 last:pr-4 sm:last:pr-6 lg:last:pr-8">
           <button 
             @click="activeTab('moreActions')"
             class="relative py-3 whitespace-nowrap focus:outline-none group"
@@ -54,7 +54,7 @@
         </li>
 
         <!-- Reports tab -->
-        <li class="mr-6 last:mr-0 first:pl-4 sm:first:pl-6 lg:first:pl-8 last:pr-4 sm:last:pr-6 lg:last:pr-8">
+        <li class="mr-6 last:mr-0 first:pl-0 last:pr-4 sm:last:pr-6 lg:last:pr-8">
           <button 
             @click="activeTab('reports')"
             class="relative py-3 whitespace-nowrap focus:outline-none group"
@@ -77,7 +77,7 @@
         </li>
 
         <!-- Charts tab -->
-        <li class="mr-6 last:mr-0 first:pl-4 sm:first:pl-6 lg:first:pl-8 last:pr-4 sm:last:pr-6 lg:last:pr-8">
+        <li class="mr-6 last:mr-0 first:pl-0 last:pr-4 sm:last:pr-6 lg:last:pr-8">
           <button 
             @click="activeTab('charts')"
             class="relative py-3 whitespace-nowrap focus:outline-none group"
@@ -101,7 +101,7 @@
       </ul>
   
         <!-- Content area -->
-        <div class="flex flex-row pr-4 pl-1 pt-4">
+        <div class="flex flex-row pr-4 pl-4 sm:pl-6 lg:pl-8 pt-4">
           <div v-if="active === 'home'" class="w-full">
             <x-standard-actions 
               v-bind="{ setup, selected }"

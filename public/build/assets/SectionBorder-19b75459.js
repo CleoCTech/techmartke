@@ -1,1 +1,0 @@
-import{_ as r,o as s,c as t,b as o}from"./app-84720138.js";/* empty css                  */const c={},a={class:"hidden sm:block"};function d(n,e){return s(),t("div",a,[...e[0]||(e[0]=[o("div",{class:"py-8"},[o("div",{class:"border-t border-gray-200"})],-1)])])}const l=r(c,[["render",d]]);export{l as default};

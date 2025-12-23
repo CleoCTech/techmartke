@@ -1,5 +1,32 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
+import { 
+    Code, 
+    Shield, 
+    LayoutDashboard, 
+    Puzzle, 
+    Sparkles, 
+    Rocket,
+    CheckCircle2,
+    Zap,
+    Layers,
+    Users,
+    Lock,
+    Database,
+    Palette,
+    GitBranch,
+    BookOpen,
+    Github,
+    Mail,
+    Key,
+    Phone,
+    User,
+    Menu,
+    X,
+    Twitter
+} from 'lucide-vue-next';
+
+import { ref } from 'vue';
 
 defineProps({
     canLogin: Boolean,
@@ -7,129 +34,875 @@ defineProps({
     laravelVersion: String,
     phpVersion: String,
 });
+
+const mobileMenuOpen = ref(false);
+
+const toggleMobileMenu = () => {
+    mobileMenuOpen.value = !mobileMenuOpen.value;
+};
+
+const closeMobileMenu = () => {
+    mobileMenuOpen.value = false;
+};
 </script>
 
 <template>
-    <Head title="Welcome" />
+    <Head title="VILT Starter Kit - Accelerate Your Development" />
 
-    <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
-        <div v-if="canLogin" class="sm:fixed sm:top-0 sm:end-0 p-6 text-end z-10">
-            <Link v-if="$page.props.auth.user" :href="route('dashboard')" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</Link>
+    <div class="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
+        <!-- Navigation -->
+        <nav class="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-700">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16">
+                    <!-- Logo -->
+                    <div class="flex items-center space-x-2">
+                        <div class="h-8 w-8 bg-indigo-600 rounded-lg flex items-center justify-center">
+                            <Code class="h-5 w-5 text-white" />
+                        </div>
+                        <span class="text-xl font-bold text-slate-900 dark:text-white">VILT Starter Kit</span>
+                    </div>
 
+                    <!-- Desktop Navigation -->
+                    <div v-if="canLogin" class="hidden md:flex items-center space-x-4">
+                        <a href="#documentation" 
+                            class="px-4 py-2 text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium transition-colors flex items-center">
+                            <BookOpen class="h-4 w-4 mr-2" />
+                            Documentation
+                        </a>
+                        <Link v-if="$page.props.auth.user" 
+                            :href="route('dashboard')" 
+                            class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors font-medium">
+                            Dashboard
+                        </Link>
+                        <template v-else>
+                            <Link :href="route('login')" 
+                                class="px-4 py-2 text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium transition-colors">
+                                Log in
+                            </Link>
+                            <Link v-if="canRegister" 
+                                :href="route('register')" 
+                                class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors font-medium">
+                                Get Started
+                            </Link>
+                        </template>
+                    </div>
+
+                    <!-- Mobile Menu Button -->
+                    <div v-if="canLogin" class="md:hidden flex items-center">
+                        <button 
+                            @click="toggleMobileMenu"
+                            class="p-2 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                            aria-label="Toggle menu"
+                        >
+                            <Menu v-if="!mobileMenuOpen" class="h-6 w-6" />
+                            <X v-else class="h-6 w-6" />
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu -->
+                <div 
+                    v-if="canLogin && mobileMenuOpen" 
+                    class="md:hidden border-t border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900"
+                >
+                    <div class="px-2 pt-2 pb-4 space-y-1">
+                        <!-- Breadcrumb indicator -->
+                        <div class="px-3 py-2 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                            Menu
+                        </div>
+                        
+                        <a 
+                            href="#documentation" 
+                            @click="closeMobileMenu"
+                            class="flex items-center px-3 py-2 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                        >
+                            <BookOpen class="h-5 w-5 mr-3" />
+                            <span>Documentation</span>
+                        </a>
+                        
+                        <a 
+                            href="#features" 
+                            @click="closeMobileMenu"
+                            class="flex items-center px-3 py-2 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                        >
+                            <Sparkles class="h-5 w-5 mr-3" />
+                            <span>Features</span>
+                        </a>
+
+                        <div class="border-t border-slate-200 dark:border-slate-700 my-2"></div>
+
+                        <Link 
+                            v-if="$page.props.auth.user" 
+                            :href="route('dashboard')" 
+                            @click="closeMobileMenu"
+                            class="flex items-center justify-center px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors font-medium"
+                        >
+                            <LayoutDashboard class="h-5 w-5 mr-2" />
+                            <span>Dashboard</span>
+                        </Link>
             <template v-else>
-                <Link :href="route('login')" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</Link>
-
-                <Link v-if="canRegister" :href="route('register')" class="ms-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</Link>
+                            <Link 
+                                :href="route('login')" 
+                                @click="closeMobileMenu"
+                                class="flex items-center justify-center px-4 py-2 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors font-medium"
+                            >
+                                <span>Log in</span>
+                            </Link>
+                            <Link 
+                                v-if="canRegister" 
+                                :href="route('register')" 
+                                @click="closeMobileMenu"
+                                class="flex items-center justify-center px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors font-medium"
+                            >
+                                <Rocket class="h-5 w-5 mr-2" />
+                                <span>Get Started</span>
+                            </Link>
             </template>
         </div>
-
-        <div class="max-w-7xl mx-auto p-6 lg:p-8">
-            <div class="flex justify-center">
-                <svg viewBox="0 0 62 65" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-16 w-auto bg-gray-100 dark:bg-gray-900">
-                    <path d="M61.8548 14.6253C61.8778 14.7102 61.8895 14.7978 61.8897 14.8858V28.5615C61.8898 28.737 61.8434 28.9095 61.7554 29.0614C61.6675 29.2132 61.5409 29.3392 61.3887 29.4265L49.9104 36.0351V49.1337C49.9104 49.4902 49.7209 49.8192 49.4118 49.9987L25.4519 63.7916C25.3971 63.8227 25.3372 63.8427 25.2774 63.8639C25.255 63.8714 25.2338 63.8851 25.2101 63.8913C25.0426 63.9354 24.8666 63.9354 24.6991 63.8913C24.6716 63.8838 24.6467 63.8689 24.6205 63.8589C24.5657 63.8389 24.5084 63.8215 24.456 63.7916L0.501061 49.9987C0.348882 49.9113 0.222437 49.7853 0.134469 49.6334C0.0465019 49.4816 0.000120578 49.3092 0 49.1337L0 8.10652C0 8.01678 0.0124642 7.92953 0.0348998 7.84477C0.0423783 7.8161 0.0598282 7.78993 0.0697995 7.76126C0.0884958 7.70891 0.105946 7.65531 0.133367 7.6067C0.152063 7.5743 0.179485 7.54812 0.20192 7.51821C0.230588 7.47832 0.256763 7.43719 0.290416 7.40229C0.319084 7.37362 0.356476 7.35243 0.388883 7.32751C0.425029 7.29759 0.457436 7.26518 0.498568 7.2415L12.4779 0.345059C12.6296 0.257786 12.8015 0.211853 12.9765 0.211853C13.1515 0.211853 13.3234 0.257786 13.475 0.345059L25.4531 7.2415H25.4556C25.4955 7.26643 25.5292 7.29759 25.5653 7.32626C25.5977 7.35119 25.6339 7.37362 25.6625 7.40104C25.6974 7.43719 25.7224 7.47832 25.7523 7.51821C25.7735 7.54812 25.8021 7.5743 25.8196 7.6067C25.8483 7.65656 25.8645 7.70891 25.8844 7.76126C25.8944 7.78993 25.9118 7.8161 25.9193 7.84602C25.9423 7.93096 25.954 8.01853 25.9542 8.10652V33.7317L35.9355 27.9844V14.8846C35.9355 14.7973 35.948 14.7088 35.9704 14.6253C35.9792 14.5954 35.9954 14.5692 36.0053 14.5405C36.0253 14.4882 36.0427 14.4346 36.0702 14.386C36.0888 14.3536 36.1163 14.3274 36.1375 14.2975C36.1674 14.2576 36.1923 14.2165 36.2272 14.1816C36.2559 14.1529 36.292 14.1317 36.3244 14.1068C36.3618 14.0769 36.3942 14.0445 36.4341 14.0208L48.4147 7.12434C48.5663 7.03694 48.7383 6.99094 48.9133 6.99094C49.0883 6.99094 49.2602 7.03694 49.4118 7.12434L61.3899 14.0208C61.4323 14.0457 61.4647 14.0769 61.5021 14.1055C61.5333 14.1305 61.5694 14.1529 61.5981 14.1803C61.633 14.2165 61.6579 14.2576 61.6878 14.2975C61.7103 14.3274 61.7377 14.3536 61.7551 14.386C61.7838 14.4346 61.8 14.4882 61.8199 14.5405C61.8312 14.5692 61.8474 14.5954 61.8548 14.6253ZM59.893 27.9844V16.6121L55.7013 19.0252L49.9104 22.3593V33.7317L59.8942 27.9844H59.893ZM47.9149 48.5566V37.1768L42.2187 40.4299L25.953 49.7133V61.2003L47.9149 48.5566ZM1.99677 9.83281V48.5566L23.9562 61.199V49.7145L12.4841 43.2219L12.4804 43.2194L12.4754 43.2169C12.4368 43.1945 12.4044 43.1621 12.3682 43.1347C12.3371 43.1097 12.3009 43.0898 12.2735 43.0624L12.271 43.0586C12.2386 43.0275 12.2162 42.9888 12.1887 42.9539C12.1638 42.9203 12.1339 42.8916 12.114 42.8567L12.1127 42.853C12.0903 42.8156 12.0766 42.7707 12.0604 42.7283C12.0442 42.6909 12.023 42.656 12.013 42.6161C12.0005 42.5688 11.998 42.5177 11.9931 42.4691C11.9881 42.4317 11.9781 42.3943 11.9781 42.3569V15.5801L6.18848 12.2446L1.99677 9.83281ZM12.9777 2.36177L2.99764 8.10652L12.9752 13.8513L22.9541 8.10527L12.9752 2.36177H12.9777ZM18.1678 38.2138L23.9574 34.8809V9.83281L19.7657 12.2459L13.9749 15.5801V40.6281L18.1678 38.2138ZM48.9133 9.14105L38.9344 14.8858L48.9133 20.6305L58.8909 14.8846L48.9133 9.14105ZM47.9149 22.3593L42.124 19.0252L37.9323 16.6121V27.9844L43.7219 31.3174L47.9149 33.7317V22.3593ZM24.9533 47.987L39.59 39.631L46.9065 35.4555L36.9352 29.7145L25.4544 36.3242L14.9907 42.3482L24.9533 47.987Z" fill="#FF2D20"/>
-                </svg>
+                </div>
             </div>
+        </nav>
 
-            <div class="mt-16">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-                    <a href="https://laravel.com/docs" class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
-                        <div>
-                            <div class="h-16 w-16 bg-red-50 dark:bg-red-800/20 flex items-center justify-center rounded-full">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-7 h-7 stroke-red-500">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-                                </svg>
-                            </div>
+        <!-- Hero Section -->
+        <section class="relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
+                <div class="text-center">
+                    <div class="inline-flex items-center px-4 py-2 bg-indigo-100 dark:bg-indigo-900/30 rounded-full mb-8">
+                        <Sparkles class="h-4 w-4 text-indigo-600 dark:text-indigo-400 mr-2" />
+                        <span class="text-sm font-medium text-indigo-600 dark:text-indigo-400">Production-Ready Starter Kit</span>
+                    </div>
+                    <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 dark:text-white mb-6">
+                        Build Faster with
+                        <span class="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">VILT</span>
+                    </h1>
+                    <p class="text-xl md:text-2xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto mb-10 leading-relaxed">
+                        A powerful, modern starter kit combining <strong>Vue.js</strong>, <strong>Inertia.js</strong>, <strong>Laravel</strong>, and <strong>Tailwind CSS</strong> to accelerate your development workflow.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                        <Link v-if="canRegister && !$page.props.auth.user" 
+                            :href="route('register')" 
+                            class="px-8 py-4 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-all transform hover:scale-105 font-semibold text-lg shadow-lg shadow-indigo-500/50 flex items-center">
+                            <Rocket class="h-5 w-5 mr-2" />
+                            Start Building Now
+                        </Link>
+                        <a href="#features" 
+                            class="px-8 py-4 bg-white dark:bg-slate-800 text-slate-900 dark:text-white rounded-lg border-2 border-slate-200 dark:border-slate-700 hover:border-indigo-600 dark:hover:border-indigo-500 transition-all font-semibold text-lg">
+                            Explore Features
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-                            <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">Documentation</h2>
-
-                            <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                Laravel has wonderful documentation covering every aspect of the framework. Whether you are a newcomer or have prior experience with Laravel, we recommend reading our documentation from beginning to end.
-                            </p>
-                        </div>
-
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="self-center shrink-0 stroke-red-500 w-6 h-6 mx-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-                        </svg>
-                    </a>
-
-                    <a href="https://laracasts.com" class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
-                        <div>
-                            <div class="h-16 w-16 bg-red-50 dark:bg-red-800/20 flex items-center justify-center rounded-full">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-7 h-7 stroke-red-500">
-                                    <path stroke-linecap="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" />
-                                </svg>
-                            </div>
-
-                            <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">Laracasts</h2>
-
-                            <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                Laracasts offers thousands of video tutorials on Laravel, PHP, and JavaScript development. Check them out, see for yourself, and massively level up your development skills in the process.
-                            </p>
-                        </div>
-
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="self-center shrink-0 stroke-red-500 w-6 h-6 mx-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-                        </svg>
-                    </a>
-
-                    <a href="https://laravel-news.com" class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
-                        <div>
-                            <div class="h-16 w-16 bg-red-50 dark:bg-red-800/20 flex items-center justify-center rounded-full">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-7 h-7 stroke-red-500">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z" />
-                                </svg>
-                            </div>
-
-                            <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">Laravel News</h2>
-
-                            <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                Laravel News is a community driven portal and newsletter aggregating all of the latest and most important news in the Laravel ecosystem, including new package releases and tutorials.
-                            </p>
-                        </div>
-
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="self-center shrink-0 stroke-red-500 w-6 h-6 mx-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-                        </svg>
-                    </a>
-
-                    <div class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
-                        <div>
-                            <div class="h-16 w-16 bg-red-50 dark:bg-red-800/20 flex items-center justify-center rounded-full">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-7 h-7 stroke-red-500">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.115 5.19l.319 1.913A6 6 0 008.11 10.36L9.75 12l-.387.775c-.217.433-.132.956.21 1.298l1.348 1.348c.21.21.329.497.329.795v1.089c0 .426.24.815.622 1.006l.153.076c.433.217.956.132 1.298-.21l.723-.723a8.7 8.7 0 002.288-4.042 1.087 1.087 0 00-.358-1.099l-1.33-1.108c-.251-.21-.582-.299-.905-.245l-1.17.195a1.125 1.125 0 01-.98-.314l-.295-.295a1.125 1.125 0 010-1.591l.13-.132a1.125 1.125 0 011.3-.21l.603.302a.809.809 0 001.086-1.086L14.25 7.5l1.256-.837a4.5 4.5 0 001.528-1.732l.146-.292M6.115 5.19A9 9 0 1017.18 4.64M6.115 5.19A8.965 8.965 0 0112 3c1.929 0 3.716.607 5.18 1.64" />
-                                </svg>
-                            </div>
-
-                            <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">Vibrant Ecosystem</h2>
-
-                            <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                Laravel's robust library of first-party tools and libraries, such as <a href="https://forge.laravel.com" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Forge</a>, <a href="https://vapor.laravel.com" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Vapor</a>, <a href="https://nova.laravel.com" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Nova</a>, and <a href="https://envoyer.io" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Envoyer</a> help you take your projects to the next level. Pair them with powerful open source libraries like <a href="https://laravel.com/docs/billing" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Cashier</a>, <a href="https://laravel.com/docs/dusk" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dusk</a>, <a href="https://laravel.com/docs/broadcasting" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Echo</a>, <a href="https://laravel.com/docs/horizon" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Horizon</a>, <a href="https://laravel.com/docs/sanctum" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Sanctum</a>, <a href="https://laravel.com/docs/telescope" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Telescope</a>, and more.
-                            </p>
+        <!-- Dashboard Showcase Section -->
+        <section class="py-20 bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-800 relative overflow-hidden">
+            <!-- Glowing background effect -->
+            <div class="absolute inset-0 bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-pink-500/10 blur-3xl"></div>
+            
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold text-slate-900 dark:text-white mb-4">See It In Action</h2>
+                    <p class="text-xl text-slate-600 dark:text-slate-300">Experience the beautiful, ready-to-use dashboard</p>
+                </div>
+                
+                <div class="flex justify-center items-center">
+                    <div class="relative group">
+                        <!-- Glowing effect wrapper -->
+                        <div class="absolute -inset-4 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-3xl blur-2xl opacity-75 group-hover:opacity-100 transition-opacity duration-500 animate-pulse"></div>
+                        
+                        <!-- Image container with paint/fade borders -->
+                        <div class="relative dashboard-image-container">
+                            <img 
+                                src="/assets/samples/dashboard.png" 
+                                alt="VILT Starter Kit Dashboard" 
+                                class="relative z-10 rounded-2xl shadow-2xl transform group-hover:scale-[1.02] transition-transform duration-500"
+                            />
                         </div>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <div class="flex justify-center mt-16 px-6 sm:items-center sm:justify-between">
-                <div class="text-center text-sm sm:text-start">
-                    &nbsp;
+        <!-- Features Section -->
+        <section id="features" class="py-20 bg-white dark:bg-slate-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-slate-900 dark:text-white mb-4">Everything You Need to Build</h2>
+                    <p class="text-xl text-slate-600 dark:text-slate-300">Pre-configured, production-ready features that save you weeks of development time</p>
                 </div>
 
-                <div class="text-center text-sm text-gray-500 dark:text-gray-400 sm:text-end sm:ms-0">
-                    Laravel v{{ laravelVersion }} (PHP v{{ phpVersion }})
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Authentication -->
+                    <div class="group p-8 bg-gradient-to-br from-slate-50 to-white dark:from-slate-800 dark:to-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700 hover:border-indigo-500 dark:hover:border-indigo-500 transition-all hover:shadow-xl">
+                        <div class="h-14 w-14 bg-indigo-100 dark:bg-indigo-900/30 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <Shield class="h-7 w-7 text-indigo-600 dark:text-indigo-400" />
+                        </div>
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-3">Complete Authentication</h3>
+                        <p class="text-slate-600 dark:text-slate-300 mb-4 leading-relaxed">
+                            Built-in authentication system powered by Laravel Jetstream with email verification, password reset, two-factor authentication, and session management.
+                        </p>
+                        <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-300">
+                            <li class="flex items-center">
+                                <CheckCircle2 class="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
+                                Login & Registration
+                            </li>
+                            <li class="flex items-center">
+                                <CheckCircle2 class="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
+                                Email Verification
+                            </li>
+                            <li class="flex items-center">
+                                <CheckCircle2 class="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
+                                Password Reset
+                            </li>
+                            <li class="flex items-center">
+                                <CheckCircle2 class="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
+                                Role-Based Access Control
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Dashboard -->
+                    <div class="group p-8 bg-gradient-to-br from-slate-50 to-white dark:from-slate-800 dark:to-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700 hover:border-indigo-500 dark:hover:border-indigo-500 transition-all hover:shadow-xl">
+                        <div class="h-14 w-14 bg-purple-100 dark:bg-purple-900/30 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <LayoutDashboard class="h-7 w-7 text-purple-600 dark:text-purple-400" />
+                        </div>
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-3">Ready Dashboard</h3>
+                        <p class="text-slate-600 dark:text-slate-300 mb-4 leading-relaxed">
+                            Beautiful, responsive admin dashboard with analytics, user management, and customizable widgets. Start managing your application immediately.
+                        </p>
+                        <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-300">
+                            <li class="flex items-center">
+                                <CheckCircle2 class="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
+                                Analytics Dashboard
+                            </li>
+                            <li class="flex items-center">
+                                <CheckCircle2 class="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
+                                User Management
+                            </li>
+                            <li class="flex items-center">
+                                <CheckCircle2 class="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
+                                Responsive Design
+                            </li>
+                            <li class="flex items-center">
+                                <CheckCircle2 class="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
+                                Dark Mode Support
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Reusable Components -->
+                    <div class="group p-8 bg-gradient-to-br from-slate-50 to-white dark:from-slate-800 dark:to-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700 hover:border-indigo-500 dark:hover:border-indigo-500 transition-all hover:shadow-xl">
+                        <div class="h-14 w-14 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <Puzzle class="h-7 w-7 text-blue-600 dark:text-blue-400" />
+                        </div>
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-3">Reusable Components</h3>
+                        <p class="text-slate-600 dark:text-slate-300 mb-4 leading-relaxed">
+                            Extensive library of pre-built Vue components including forms, modals, tables, charts, and more. All styled with Tailwind CSS and fully customizable.
+                        </p>
+                        <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-300">
+                            <li class="flex items-center">
+                                <CheckCircle2 class="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
+                                Form Components
+                            </li>
+                            <li class="flex items-center">
+                                <CheckCircle2 class="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
+                                Data Tables
+                            </li>
+                            <li class="flex items-center">
+                                <CheckCircle2 class="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
+                                Charts & Graphs
+                            </li>
+                            <li class="flex items-center">
+                                <CheckCircle2 class="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
+                                UI Elements
+                            </li>
+                        </ul>
+            </div>
+
+                    <!-- Technology Stack -->
+                    <div class="group p-8 bg-gradient-to-br from-slate-50 to-white dark:from-slate-800 dark:to-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700 hover:border-indigo-500 dark:hover:border-indigo-500 transition-all hover:shadow-xl">
+                        <div class="h-14 w-14 bg-green-100 dark:bg-green-900/30 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <Layers class="h-7 w-7 text-green-600 dark:text-green-400" />
+                        </div>
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-3">Modern Tech Stack</h3>
+                        <p class="text-slate-600 dark:text-slate-300 mb-4 leading-relaxed">
+                            Built with the latest and greatest technologies. Laravel 10, Vue 3, Inertia.js, and Tailwind CSS for a seamless development experience.
+                        </p>
+                        <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-300">
+                            <li class="flex items-center">
+                                <CheckCircle2 class="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
+                                Laravel 10 Framework
+                            </li>
+                            <li class="flex items-center">
+                                <CheckCircle2 class="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
+                                Vue 3 Composition API
+                            </li>
+                            <li class="flex items-center">
+                                <CheckCircle2 class="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
+                                Inertia.js SPA
+                            </li>
+                            <li class="flex items-center">
+                                <CheckCircle2 class="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
+                                Tailwind CSS
+                            </li>
+                        </ul>
+                            </div>
+
+                    <!-- Adaptable Patterns -->
+                    <div class="group p-8 bg-gradient-to-br from-slate-50 to-white dark:from-slate-800 dark:to-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700 hover:border-indigo-500 dark:hover:border-indigo-500 transition-all hover:shadow-xl">
+                        <div class="h-14 w-14 bg-orange-100 dark:bg-orange-900/30 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <GitBranch class="h-7 w-7 text-orange-600 dark:text-orange-400" />
+                        </div>
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-3">Adaptable Patterns</h3>
+                        <p class="text-slate-600 dark:text-slate-300 mb-4 leading-relaxed">
+                            Clean, maintainable code architecture with proven patterns. Easy to extend, modify, and scale according to your project needs.
+                        </p>
+                        <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-300">
+                            <li class="flex items-center">
+                                <CheckCircle2 class="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
+                                MVC Architecture
+                            </li>
+                            <li class="flex items-center">
+                                <CheckCircle2 class="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
+                                Service Layer Pattern
+                            </li>
+                            <li class="flex items-center">
+                                <CheckCircle2 class="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
+                                Repository Pattern
+                            </li>
+                            <li class="flex items-center">
+                                <CheckCircle2 class="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
+                                Component-Based UI
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Development Benefits -->
+                    <div class="group p-8 bg-gradient-to-br from-slate-50 to-white dark:from-slate-800 dark:to-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700 hover:border-indigo-500 dark:hover:border-indigo-500 transition-all hover:shadow-xl">
+                        <div class="h-14 w-14 bg-red-100 dark:bg-red-900/30 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <Zap class="h-7 w-7 text-red-600 dark:text-red-400" />
+                        </div>
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-3">Faster Development</h3>
+                        <p class="text-slate-600 dark:text-slate-300 mb-4 leading-relaxed">
+                            Save weeks of development time. Focus on building features instead of setting up infrastructure, authentication, and common components.
+                        </p>
+                        <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-300">
+                            <li class="flex items-center">
+                                <CheckCircle2 class="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
+                                Pre-configured Setup
+                            </li>
+                            <li class="flex items-center">
+                                <CheckCircle2 class="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
+                                Best Practices Included
+                            </li>
+                            <li class="flex items-center">
+                                <CheckCircle2 class="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
+                                Comprehensive Documentation
+                            </li>
+                            <li class="flex items-center">
+                                <CheckCircle2 class="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
+                                Production Ready
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
+
+        <!-- Technology Stack Details -->
+        <section class="py-20 bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-slate-900 dark:to-slate-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-slate-900 dark:text-white mb-4">Powered by Modern Technologies</h2>
+                    <p class="text-xl text-slate-600 dark:text-slate-300">Built with industry-leading tools and frameworks</p>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8">
+                    <div class="text-center group">
+                        <div class="h-20 w-20 mx-auto bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-lg">
+                            <span class="text-3xl font-bold text-red-500">L</span>
+                        </div>
+                        <h4 class="font-semibold text-slate-900 dark:text-white">Laravel</h4>
+                        <p class="text-sm text-slate-600 dark:text-slate-400">v{{ laravelVersion }}</p>
+                    </div>
+                    <div class="text-center group">
+                        <div class="h-20 w-20 mx-auto bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-lg">
+                            <span class="text-3xl font-bold text-green-500">V</span>
+                        </div>
+                        <h4 class="font-semibold text-slate-900 dark:text-white">Vue 3</h4>
+                        <p class="text-sm text-slate-600 dark:text-slate-400">Composition API</p>
+                    </div>
+                    <div class="text-center group">
+                        <div class="h-20 w-20 mx-auto bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-lg">
+                            <Database class="h-10 w-10 text-indigo-500" />
+                        </div>
+                        <h4 class="font-semibold text-slate-900 dark:text-white">Inertia.js</h4>
+                        <p class="text-sm text-slate-600 dark:text-slate-400">SPA Experience</p>
+                    </div>
+                    <div class="text-center group">
+                        <div class="h-20 w-20 mx-auto bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-lg">
+                            <Palette class="h-10 w-10 text-cyan-500" />
+                        </div>
+                        <h4 class="font-semibold text-slate-900 dark:text-white">Tailwind CSS</h4>
+                        <p class="text-sm text-slate-600 dark:text-slate-400">Utility First</p>
+                    </div>
+                    <div class="text-center group">
+                        <div class="h-20 w-20 mx-auto bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-lg">
+                            <Lock class="h-10 w-10 text-purple-500" />
+                        </div>
+                        <h4 class="font-semibold text-slate-900 dark:text-white">Jetstream</h4>
+                        <p class="text-sm text-slate-600 dark:text-slate-400">Authentication</p>
+                    </div>
+                    <div class="text-center group">
+                        <div class="h-20 w-20 mx-auto bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-lg">
+                            <Users class="h-10 w-10 text-blue-500" />
+                        </div>
+                        <h4 class="font-semibold text-slate-900 dark:text-white">Laratrust</h4>
+                        <p class="text-sm text-slate-600 dark:text-slate-400">Roles & Permissions</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Benefits Section -->
+        <section class="py-20 bg-white dark:bg-slate-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-slate-900 dark:text-white mb-4">Why Choose VILT Starter Kit?</h2>
+                    <p class="text-xl text-slate-600 dark:text-slate-300">Accelerate your development process and deliver faster</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="p-6 bg-slate-50 dark:bg-slate-900 rounded-xl">
+                        <div class="text-4xl mb-4">⚡</div>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Save Time</h3>
+                        <p class="text-slate-600 dark:text-slate-300">Skip weeks of setup and boilerplate code. Start building features from day one.</p>
+                    </div>
+                    <div class="p-6 bg-slate-50 dark:bg-slate-900 rounded-xl">
+                        <div class="text-4xl mb-4">🛡️</div>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Production Ready</h3>
+                        <p class="text-slate-600 dark:text-slate-300">Built with security, performance, and scalability in mind. Deploy with confidence.</p>
+                    </div>
+                    <div class="p-6 bg-slate-50 dark:bg-slate-900 rounded-xl">
+                        <div class="text-4xl mb-4">🎨</div>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Beautiful UI</h3>
+                        <p class="text-slate-600 dark:text-slate-300">Modern, responsive design with dark mode support. Impress your users from the start.</p>
+                    </div>
+                    <div class="p-6 bg-slate-50 dark:bg-slate-900 rounded-xl">
+                        <div class="text-4xl mb-4">📚</div>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Well Documented</h3>
+                        <p class="text-slate-600 dark:text-slate-300">Comprehensive documentation to help you understand and extend the codebase.</p>
+                    </div>
+                    <div class="p-6 bg-slate-50 dark:bg-slate-900 rounded-xl">
+                        <div class="text-4xl mb-4">🔧</div>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Easy to Customize</h3>
+                        <p class="text-slate-600 dark:text-slate-300">Clean code architecture makes it easy to modify and extend according to your needs.</p>
+                    </div>
+                    <div class="p-6 bg-slate-50 dark:bg-slate-900 rounded-xl">
+                        <div class="text-4xl mb-4">🚀</div>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Fast Performance</h3>
+                        <p class="text-slate-600 dark:text-slate-300">Optimized for speed with modern best practices and efficient code patterns.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Documentation Section -->
+        <section id="documentation" class="py-20 bg-white dark:bg-slate-800">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <div class="inline-flex items-center px-4 py-2 bg-indigo-100 dark:bg-indigo-900/30 rounded-full mb-6">
+                        <BookOpen class="h-5 w-5 text-indigo-600 dark:text-indigo-400 mr-2" />
+                        <span class="text-sm font-medium text-indigo-600 dark:text-indigo-400">Getting Started</span>
+                    </div>
+                    <h2 class="text-4xl font-bold text-slate-900 dark:text-white mb-4">Documentation</h2>
+                    <p class="text-xl text-slate-600 dark:text-slate-300">Learn how to get started with VILT Starter Kit</p>
+                        </div>
+
+                <div class="space-y-8">
+                    <!-- GitHub Repository -->
+                    <div class="bg-gradient-to-br from-slate-50 to-white dark:from-slate-800 dark:to-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700 p-8">
+                        <div class="flex items-center mb-4">
+                            <Github class="h-6 w-6 text-slate-900 dark:text-white mr-3" />
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white">GitHub Repository</h3>
+                        </div>
+                        <p class="text-slate-600 dark:text-slate-300 mb-4">
+                            The complete source code is available on GitHub. Clone the repository to get started:
+                        </p>
+                        <div class="bg-slate-900 dark:bg-slate-950 rounded-lg p-4 mb-4">
+                            <code class="text-green-400 text-sm font-mono break-all">
+                                git clone https://github.com/CleoCTech/VILT-STARTER-KIT.git
+                            </code>
+                        </div>
+                        <a href="https://github.com/CleoCTech/VILT-STARTER-KIT" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            class="inline-flex items-center px-6 py-3 bg-slate-900 dark:bg-slate-700 text-white rounded-lg hover:bg-slate-800 dark:hover:bg-slate-600 transition-colors font-medium">
+                            <Github class="h-5 w-5 mr-2" />
+                            View on GitHub
+                        </a>
+                    </div>
+
+                    <!-- Quick Start -->
+                    <div class="bg-gradient-to-br from-slate-50 to-white dark:from-slate-800 dark:to-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700 p-8">
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Quick Start Guide</h3>
+                        
+                        <div class="space-y-6">
+                        <div>
+                                <h4 class="text-lg font-semibold text-slate-900 dark:text-white mb-3 flex items-center">
+                                    <span class="h-8 w-8 bg-indigo-600 text-white rounded-full flex items-center justify-center mr-3 text-sm font-bold">1</span>
+                                    Installation
+                                </h4>
+                                <div class="ml-11 space-y-2 text-slate-600 dark:text-slate-300">
+                                    <p>1. Clone the repository</p>
+                                    <p>2. Install dependencies: <code class="bg-slate-200 dark:bg-slate-700 px-2 py-1 rounded">composer install</code> and <code class="bg-slate-200 dark:bg-slate-700 px-2 py-1 rounded">npm install</code></p>
+                                    <p>3. Copy <code class="bg-slate-200 dark:bg-slate-700 px-2 py-1 rounded">.env.example</code> to <code class="bg-slate-200 dark:bg-slate-700 px-2 py-1 rounded">.env</code></p>
+                                    <p>4. Generate application key: <code class="bg-slate-200 dark:bg-slate-700 px-2 py-1 rounded">php artisan key:generate</code></p>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="text-lg font-semibold text-slate-900 dark:text-white mb-3 flex items-center">
+                                    <span class="h-8 w-8 bg-indigo-600 text-white rounded-full flex items-center justify-center mr-3 text-sm font-bold">2</span>
+                                    Database Setup
+                                </h4>
+                                <div class="ml-11 space-y-2 text-slate-600 dark:text-slate-300">
+                                    <p>1. Configure your database in <code class="bg-slate-200 dark:bg-slate-700 px-2 py-1 rounded">.env</code></p>
+                                    <p>2. Run migrations: <code class="bg-slate-200 dark:bg-slate-700 px-2 py-1 rounded">php artisan migrate</code></p>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="text-lg font-semibold text-slate-900 dark:text-white mb-3 flex items-center">
+                                    <span class="h-8 w-8 bg-indigo-600 text-white rounded-full flex items-center justify-center mr-3 text-sm font-bold">3</span>
+                                    <span class="text-red-600 dark:text-red-400">⚠️ Seed Database (IMPORTANT)</span>
+                                </h4>
+                                <div class="ml-11 space-y-3">
+                                    <div class="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-500 p-4 rounded">
+                                        <p class="text-slate-800 dark:text-slate-200 font-medium mb-2">⚠️ Important: Seed the database before accessing the dashboard!</p>
+                                        <p class="text-slate-600 dark:text-slate-300 text-sm mb-3">
+                                            The database must be seeded to create the default admin user and initial data. Run the following command:
+                                        </p>
+                                        <div class="bg-slate-900 dark:bg-slate-950 rounded-lg p-3 mb-3">
+                                            <code class="text-green-400 text-sm font-mono">php artisan db:seed</code>
+                                        </div>
+                                        <p class="text-slate-600 dark:text-slate-300 text-sm">
+                                            This will create the default admin user and populate the database with essential data.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="text-lg font-semibold text-slate-900 dark:text-white mb-3 flex items-center">
+                                    <span class="h-8 w-8 bg-indigo-600 text-white rounded-full flex items-center justify-center mr-3 text-sm font-bold">4</span>
+                                    Build Assets
+                                </h4>
+                                <div class="ml-11 space-y-2 text-slate-600 dark:text-slate-300">
+                                    <p>Build frontend assets: <code class="bg-slate-200 dark:bg-slate-700 px-2 py-1 rounded">npm run build</code> or <code class="bg-slate-200 dark:bg-slate-700 px-2 py-1 rounded">npm run dev</code></p>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+
+                    <!-- Default Credentials -->
+                    <div class="bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 rounded-2xl border-2 border-indigo-200 dark:border-indigo-800 p-8">
+                        <div class="flex items-center mb-4">
+                            <Key class="h-6 w-6 text-indigo-600 dark:text-indigo-400 mr-3" />
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white">Default Dashboard Credentials</h3>
+                        </div>
+                        <p class="text-slate-600 dark:text-slate-300 mb-6">
+                            After seeding the database, you can log in to the dashboard using these default credentials:
+                        </p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-white dark:bg-slate-800 rounded-lg p-4 border border-slate-200 dark:border-slate-700">
+                                <div class="flex items-center mb-2">
+                                    <Mail class="h-5 w-5 text-indigo-600 dark:text-indigo-400 mr-2" />
+                                    <span class="font-semibold text-slate-700 dark:text-slate-300">Email:</span>
+                                </div>
+                                <code class="text-indigo-600 dark:text-indigo-400 font-mono text-lg">admin@example.com</code>
+                            </div>
+                            <div class="bg-white dark:bg-slate-800 rounded-lg p-4 border border-slate-200 dark:border-slate-700">
+                                <div class="flex items-center mb-2">
+                                    <Key class="h-5 w-5 text-indigo-600 dark:text-indigo-400 mr-2" />
+                                    <span class="font-semibold text-slate-700 dark:text-slate-300">Password:</span>
+                                </div>
+                                <code class="text-indigo-600 dark:text-indigo-400 font-mono text-lg">password</code>
+                            </div>
+                        </div>
+                        <div class="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+                            <p class="text-sm text-blue-800 dark:text-blue-200">
+                                <strong>Note:</strong> Please change the default password after your first login for security purposes.
+                            </p>
+                        </div>
+                        </div>
+
+                    <!-- How It Works -->
+                    <div class="bg-gradient-to-br from-slate-50 to-white dark:from-slate-800 dark:to-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700 p-8">
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">How It Works</h3>
+                        
+                        <div class="space-y-6">
+                        <div>
+                                <h4 class="text-lg font-semibold text-slate-900 dark:text-white mb-2">Architecture Overview</h4>
+                                <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                                    VILT Starter Kit uses a modern stack combining <strong>Laravel</strong> as the backend framework, 
+                                    <strong>Vue 3</strong> with Composition API for the frontend, <strong>Inertia.js</strong> for seamless SPA-like experience 
+                                    without the complexity of a separate API, and <strong>Tailwind CSS</strong> for rapid UI development.
+                                </p>
+                            </div>
+
+                            <div>
+                                <h4 class="text-lg font-semibold text-slate-900 dark:text-white mb-2">Key Features</h4>
+                                <ul class="space-y-2 text-slate-600 dark:text-slate-300">
+                                    <li class="flex items-start">
+                                        <CheckCircle2 class="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                                        <span><strong>Authentication:</strong> Complete authentication system with Laravel Jetstream including login, registration, email verification, and password reset.</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <CheckCircle2 class="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                                        <span><strong>Role-Based Access Control:</strong> Built-in roles and permissions system using Laratrust for managing user access levels.</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <CheckCircle2 class="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                                        <span><strong>Admin Dashboard:</strong> Ready-to-use admin dashboard with analytics, user management, and customizable widgets.</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <CheckCircle2 class="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                                        <span><strong>Reusable Components:</strong> Extensive library of Vue components for forms, tables, modals, charts, and more.</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <CheckCircle2 class="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                                        <span><strong>Adaptable Patterns:</strong> Clean code architecture following MVC, Service Layer, and Repository patterns for easy customization.</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <h4 class="text-lg font-semibold text-slate-900 dark:text-white mb-2">Development Workflow</h4>
+                                <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                                    The starter kit follows Laravel conventions and best practices. Controllers handle HTTP requests, 
+                                    Services contain business logic, Models represent database entities, and Vue components handle 
+                                    the user interface. Inertia.js bridges the gap, allowing you to use Laravel routes and controllers 
+                                    while enjoying a modern SPA experience.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-20 bg-gradient-to-r from-indigo-600 to-purple-600">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">Ready to Build Something Amazing?</h2>
+                <p class="text-xl text-indigo-100 mb-8">
+                    Get started with VILT Starter Kit today and accelerate your development workflow. 
+                    Everything you need is already configured and ready to use.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <Link v-if="canRegister && !$page.props.auth.user" 
+                        :href="route('register')" 
+                        class="px-8 py-4 bg-white text-indigo-600 rounded-lg hover:bg-indigo-50 transition-all transform hover:scale-105 font-semibold text-lg shadow-xl">
+                        Get Started Free
+                    </Link>
+                    <Link v-if="$page.props.auth.user" 
+                        :href="route('dashboard')" 
+                        class="px-8 py-4 bg-white text-indigo-600 rounded-lg hover:bg-indigo-50 transition-all transform hover:scale-105 font-semibold text-lg shadow-xl">
+                        Go to Dashboard
+                    </Link>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-slate-900 text-slate-400 py-8 md:py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Mobile: Single Column, Desktop: 3 Columns -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-8 mb-6 md:mb-8">
+                    <!-- Brand Section -->
+                    <div class="text-center md:text-left">
+                        <div class="flex items-center justify-center md:justify-start space-x-2 mb-4">
+                            <div class="h-8 w-8 bg-indigo-600 rounded-lg flex items-center justify-center">
+                                <Code class="h-5 w-5 text-white" />
+                            </div>
+                            <span class="text-lg md:text-xl font-bold text-white">VILT Starter Kit</span>
+                        </div>
+                        <p class="text-xs md:text-sm mb-2 text-slate-500">Built with Laravel v{{ laravelVersion }} (PHP v{{ phpVersion }})</p>
+                        <p class="text-xs md:text-sm text-slate-500 mb-4">
+                            Powered by <a href="https://wenlasystems.com/" target="_blank" rel="noopener noreferrer" class="text-white font-semibold hover:text-indigo-400 transition-colors">Wenla Systems</a>
+                        </p>
+                        
+                        <!-- Social Media Links -->
+                        <div class="flex items-center justify-center md:justify-start space-x-3">
+                            <a href="https://x.com/cleo_hacker" target="_blank" rel="noopener noreferrer" 
+                                class="h-9 w-9 rounded-lg bg-slate-800 hover:bg-indigo-600 flex items-center justify-center text-slate-400 hover:text-white transition-all group"
+                                aria-label="Follow on X (Twitter)">
+                                <Twitter class="h-5 w-5 group-hover:scale-110 transition-transform" />
+                            </a>
+                            <a href="https://github.com/CleoCTech" target="_blank" rel="noopener noreferrer" 
+                                class="h-9 w-9 rounded-lg bg-slate-800 hover:bg-indigo-600 flex items-center justify-center text-slate-400 hover:text-white transition-all group"
+                                aria-label="GitHub Profile">
+                                <Github class="h-5 w-5 group-hover:scale-110 transition-transform" />
+                            </a>
+                            <a href="https://comwengas.com" target="_blank" rel="noopener noreferrer" 
+                                class="h-9 w-9 rounded-lg bg-slate-800 hover:bg-indigo-600 flex items-center justify-center text-slate-400 hover:text-white transition-all group"
+                                aria-label="Personal Website">
+                                <User class="h-5 w-5 group-hover:scale-110 transition-transform" />
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Support Section -->
+                    <div class="text-center md:text-left border-t md:border-t-0 border-slate-800 pt-6 md:pt-0">
+                        <h3 class="text-white font-semibold mb-4 text-base md:text-lg">Support</h3>
+                        <div class="space-y-3">
+                            <a href="mailto:cleoctech@gmail.com" class="flex items-center justify-center md:justify-start text-slate-400 hover:text-white transition-colors group py-2 md:py-0">
+                                <Mail class="h-5 w-5 md:h-4 md:w-4 mr-3 md:mr-2 group-hover:text-indigo-400 flex-shrink-0" />
+                                <span class="text-sm md:text-sm break-all">cleoctech@gmail.com</span>
+                            </a>
+                            <a href="tel:+254727057310" class="flex items-center justify-center md:justify-start text-slate-400 hover:text-white transition-colors group py-2 md:py-0">
+                                <Phone class="h-5 w-5 md:h-4 md:w-4 mr-3 md:mr-2 group-hover:text-indigo-400 flex-shrink-0" />
+                                <span class="text-sm md:text-sm">+254 727 057 310</span>
+                            </a>
+                            <a href="https://x.com/cleo_hacker" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center md:justify-start text-slate-400 hover:text-white transition-colors group py-2 md:py-0">
+                                <Twitter class="h-5 w-5 md:h-4 md:w-4 mr-3 md:mr-2 group-hover:text-indigo-400 flex-shrink-0" />
+                                <span class="text-sm md:text-sm">@cleo_hacker</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Quick Links -->
+                    <div class="text-center md:text-left border-t md:border-t-0 border-slate-800 pt-6 md:pt-0">
+                        <h3 class="text-white font-semibold mb-4 text-base md:text-lg">Quick Links</h3>
+                        <div class="space-y-3 md:space-y-2">
+                            <a href="#features" class="block text-slate-400 hover:text-white transition-colors text-sm py-2 md:py-1 hover:translate-x-1 md:hover:translate-x-0 transition-transform">Features</a>
+                            <a href="#documentation" class="block text-slate-400 hover:text-white transition-colors text-sm py-2 md:py-1 hover:translate-x-1 md:hover:translate-x-0 transition-transform">Documentation</a>
+                            <a href="https://github.com/CleoCTech/VILT-STARTER-KIT" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center md:justify-start text-slate-400 hover:text-white transition-colors text-sm py-2 md:py-1 group">
+                                <Github class="h-4 w-4 mr-2 group-hover:text-indigo-400 hidden md:inline" />
+                                <span>GitHub Repository</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Copyright Section -->
+                <div class="border-t border-slate-800 pt-6 md:pt-8">
+                    <p class="text-xs md:text-sm text-center text-slate-500">© {{ new Date().getFullYear() }} VILT Starter Kit. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
     </div>
 </template>
 
-<style>
-.bg-dots-darker {
-    background-image: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.22676 0C1.91374 0 2.45351 0.539773 2.45351 1.22676C2.45351 1.91374 1.91374 2.45351 1.22676 2.45351C0.539773 2.45351 0 1.91374 0 1.22676C0 0.539773 0.539773 0 1.22676 0Z' fill='rgba(0,0,0,0.07)'/%3E%3C/svg%3E");
+<style scoped>
+/* Smooth scroll behavior */
+html {
+    scroll-behavior: smooth;
 }
-@media (prefers-color-scheme: dark) {
-    .dark\:bg-dots-lighter {
-        background-image: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.22676 0C1.91374 0 2.45351 0.539773 2.45351 1.22676C2.45351 1.91374 1.91374 2.45351 1.22676 2.45351C0.539773 2.45351 0 1.91374 0 1.22676C0 0.539773 0.539773 0 1.22676 0Z' fill='rgba(255,255,255,0.07)'/%3E%3C/svg%3E");
+
+/* Dashboard image with paint/fade border effect */
+.dashboard-image-container {
+    position: relative;
+    padding: 12px;
+    background: 
+        radial-gradient(circle at 0% 0%, rgba(99, 102, 241, 0.4) 0%, transparent 50%),
+        radial-gradient(circle at 100% 0%, rgba(168, 85, 247, 0.4) 0%, transparent 50%),
+        radial-gradient(circle at 100% 100%, rgba(236, 72, 153, 0.4) 0%, transparent 50%),
+        radial-gradient(circle at 0% 100%, rgba(99, 102, 241, 0.4) 0%, transparent 50%);
+    border-radius: 24px;
+    background-size: 200% 200%;
+    animation: paintBorder 10s ease infinite;
+}
+
+.dashboard-image-container::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 28px;
+    background: 
+        radial-gradient(circle at 20% 30%, rgba(99, 102, 241, 0.8) 0%, transparent 40%),
+        radial-gradient(circle at 80% 20%, rgba(168, 85, 247, 0.8) 0%, transparent 40%),
+        radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.8) 0%, transparent 40%),
+        radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.8) 0%, transparent 40%);
+    background-size: 150% 150%;
+    animation: paintGlow 12s ease infinite;
+    z-index: -1;
+    filter: blur(20px);
+    opacity: 0.8;
+}
+
+.dashboard-image-container::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 24px;
+    padding: 12px;
+    background: linear-gradient(135deg, 
+        rgba(99, 102, 241, 0.2) 0%, 
+        rgba(168, 85, 247, 0.15) 30%,
+        rgba(236, 72, 153, 0.2) 60%,
+        rgba(168, 85, 247, 0.15) 100%
+    );
+    background-size: 300% 300%;
+    animation: paintBorder 8s ease infinite;
+    mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    -webkit-mask-composite: xor;
+    pointer-events: none;
+}
+
+.dashboard-image-container img {
+    display: block;
+    width: 100%;
+    max-width: 1200px;
+    height: auto;
+    border-radius: 16px;
+    box-shadow: 
+        0 25px 50px -12px rgba(0, 0, 0, 0.25),
+        0 0 0 1px rgba(99, 102, 241, 0.1),
+        0 0 120px -30px rgba(99, 102, 241, 0.4),
+        0 0 200px -50px rgba(168, 85, 247, 0.3);
+    position: relative;
+    z-index: 1;
+}
+
+@keyframes paintBorder {
+    0%, 100% {
+        background-position: 0% 0%, 100% 0%, 100% 100%, 0% 100%;
     }
+    25% {
+        background-position: 50% 0%, 100% 50%, 50% 100%, 0% 50%;
+    }
+    50% {
+        background-position: 100% 0%, 50% 100%, 0% 100%, 50% 0%;
+    }
+    75% {
+        background-position: 50% 100%, 0% 50%, 50% 0%, 100% 50%;
+    }
+}
+
+@keyframes paintGlow {
+    0%, 100% {
+        background-position: 0% 0%, 100% 0%, 100% 100%, 0% 100%;
+        opacity: 0.6;
+    }
+    50% {
+        background-position: 100% 100%, 0% 100%, 0% 0%, 100% 0%;
+        opacity: 1;
+    }
+}
+
+/* Enhanced glow on hover */
+.group:hover .dashboard-image-container::before {
+    opacity: 1;
+    filter: blur(25px);
+    animation-duration: 6s;
+}
+
+.group:hover .dashboard-image-container::after {
+    opacity: 0.4;
 }
 </style>

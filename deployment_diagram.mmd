@@ -1,5 +1,0 @@
-flowchart TD
-    A["Local Dev (Push)"] -->|"git push"| B["cPanel Git Repo"]
-    B -->|"post-receive hook"| C["deploy.sh"]
-    C --> D["Composer/NPM/Artisan"]
-    D --> E["Live Site Updated"] 

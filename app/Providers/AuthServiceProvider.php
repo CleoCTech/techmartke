@@ -4,14 +4,6 @@ namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
 
-use App\Models\DepartmentHead;
-use App\Models\Designation;
-use App\Models\FiscalPeriod;
-use App\Models\FiscalYear;
-use App\Policies\DepartmentHeadPolicy;
-use App\Policies\DesignationPolicy;
-use App\Policies\FiscalPeriodPolicy;
-use App\Policies\FiscalYearPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -23,11 +15,6 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
-
-        FiscalYear::class => FiscalYearPolicy::class,
-        FiscalPeriod::class => FiscalPeriodPolicy::class,
-        Designation::class => DesignationPolicy::class,
-        DepartmentHead::class => DepartmentHeadPolicy::class,
     ];
 
     /**

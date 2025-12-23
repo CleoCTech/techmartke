@@ -8,7 +8,6 @@
                         <ThCheckbox :selected-items="selected" @toggle-select-all="handleToggleSelectAll" />
                         <Th>Name</Th>
                         <Th>Email</Th>
-                        <Th>Church Branch</Th>
                         <Th>Date</Th>
                         <Th>Status</Th>
                     </tr>
@@ -20,7 +19,6 @@
                         <TdCheckbox :item="record.uuid+'#'+listData.data.indexOf(record)" @onCheck="onCheck"/>
                         <Td>{{record.name}} </Td> 
                         <Td>{{record.email}} </Td> 
-                        <Td>{{record.branch?.name}} </Td> 
                         <Td>{{record.created_at}} </Td>
                         <Td>
                             <Badge 

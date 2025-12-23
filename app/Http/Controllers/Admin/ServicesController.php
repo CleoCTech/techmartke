@@ -56,10 +56,6 @@ class ServicesController extends Controller
 
         if (!UserRoleService::hasRole(['administrator', 'superadmin'])) {
 
-            $this->extraConditions = [
-                // ['column' => 'status', 'operator' => '=', 'value' => 'active'], // Example: Only active records
-                ['column' => 'branch_id', 'operator' => '=', 'value' => $user->branch_id] // Restrict to user’s branch
-            ];
         }
         $this->def_index();
         return Inertia::render($this->settings['xFolder'].'/Index',$this->viewData);
@@ -89,7 +85,6 @@ class ServicesController extends Controller
             $this->pKey = $request->uuid == 'null'? null:$request->uuid;
             $record = [
                 'user_id' =>  Auth::user()->id,
-                'branch_id' => Auth::user()->branch_id,
                 'title' => $request->title,
                 'summary' => $request->summary,
                 'presiding_minister' => $request->presiding_minister,

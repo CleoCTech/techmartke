@@ -9,7 +9,6 @@ use App\Http\Controllers\System\CompanyInformationController as SystemCompanyInf
 use App\Http\Controllers\System\SocialMediasController as SystemSocialMediasController;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\System\UsersContoller;
-use App\Http\Controllers\System\CourseController;
 /***
  * Default System Routes
  */
@@ -85,18 +84,6 @@ Route::prefix('system')->group(function () {
     /***
      * Data Import
      */
-
-    // Courses Routes
-    Route::middleware(['auth', 'verified'])->group(function () {
-        Route::controller(CourseController::class)->group(function () {
-            Route::get('/courses', 'index')->name('system.courses.index');
-            Route::get('/courses/create', 'create')->name('system.courses.create');
-            Route::post('/courses/store', 'store')->name('system.courses.store');
-            Route::get('/courses/{uuid}', 'show')->name('system.courses.show');
-            Route::get('/courses/edit/{uuid}', 'edit')->name('system.courses.edit');
-            Route::delete('/courses/{uuid}', 'destroy')->name('system.courses.destroy');
-        });
-    });
 
 });
 /**

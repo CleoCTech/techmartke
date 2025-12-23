@@ -30,17 +30,6 @@
                         </x-form-group>
                     </x-grid-col>
                     <x-grid-col>
-                        <x-form-group>
-                            <template #label>Branch</template>
-                            <template #value>
-                                <x-select v-model="form.branch_id">
-                                    <option value="">--select branch--</option>
-                                    <option v-for="branch in branches" :key="branch.id" :value="branch.id">
-                                        {{ branch.name }}
-                                    </option>
-                                </x-select>
-                            </template>
-                        </x-form-group>
                     </x-grid-col>
                 </x-grid>
 
@@ -94,7 +83,6 @@ const props = defineProps({
     ...createEditProps,
     roles: Array,
     permissions: Array,
-    branches: Array,
 })
 
 
@@ -111,7 +99,6 @@ const form = reactive({
     name: null,
     email: null,
     status: null,
-    branch_id: null,
     user_category: null,
     roles: [], // Array of role IDs
     permissions: [] // Array of permission IDs
@@ -124,7 +111,6 @@ function setData() {
         form.name = props.cardData.name;
         form.email = props.cardData.email;
         form.status = props.cardData.status;
-        form.branch_id = props.cardData.branch_id;
 
         // Set roles and permissions from the user's existing assignments
         form.roles = props.cardData.roles.map(role => role.id);

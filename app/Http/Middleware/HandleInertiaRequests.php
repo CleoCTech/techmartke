@@ -91,11 +91,6 @@ class HandleInertiaRequests extends Middleware
                     'profile_category' => $request->user()->profile_category,
                     'user_category' => $request->user()->user_category,
                     'roles' => $request->user()->roles->pluck('name'),
-                    // Fix: Fetch department heads correctly with relationship and get designation names
-                    'departmentHead' => $request->user()->departmentHeads()->with('designation')->get()->pluck('designation.name'),
-
-                    // Fix: Fetch branch leadership correctly with relationship and get designation names
-                    //'branch' => $request->user()->churchBranchLeaderships()->with('branch')->get()->pluck('branch.name'),
                     'permissions' => $request->user()->permissions->pluck('name'),
                 ] : null,
                 'role' =>  fn () => $request->user() ? $role : 'default',

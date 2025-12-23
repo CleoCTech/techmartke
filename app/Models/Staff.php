@@ -4,38 +4,54 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Traits\Admin\SearchTrait;
-use App\Traits\Admin\ColumnsTrait;
 use Illuminate\Support\Str;
 
 class Staff extends Model
 {
     use HasFactory;
-    use SearchTrait;
-    use ColumnsTrait;
-    
-    protected $guarded = [];
-    protected $keyType = 'int';
-    public $incrementing = true;
 
+    protected $table = 'staff';
 
+    protected $fillable = [
+        'uuid',
+        'user_id',
+        'name',
+        'email',
+        'phone_no',
+        'title',
+        'cover_image',
+        'facebook_link',
+        'x_link',
+        'linkedin_link',
+        'youtube_link',
+        'whatsapp_link',
+        'sequence',
+        'status',
+        'publish_time',
+        'expertise',
+        'experience',
+        'education',
+        'achievements',
+        'quote',
+        'created_by',
+        'updated_by'
+    ];
 
     protected $casts = [
-        'created_at'  => 'date:d-M-Y',
-        'updated_at'  => 'date:d-M-Y',
-        'publish_time'  => 'datetime:d-M-Y h:m:s',
-        'expertise' => 'array',
-        'sequence' => 'integer',
-        'status' => 'integer',
         'publish_time' => 'datetime',
+        'expertise' => 'array',
     ];
+
     protected static function boot()
     {
         parent::boot();
         static::creating(function ($model) {
-            $model->uuid = (string) Str::uuid();
+            if (empty($model->uuid)) {
+                $model->uuid = (string) Str::uuid();
+            }
         });
     }
+
     public function getRouteKeyName()
     {
         return 'uuid';
@@ -46,27 +62,26 @@ class Staff extends Model
         return $this->uuid;
     }
 
-    public function resolveRouteBinding($value, $field = null)
+    public function user()
     {
-        return $this->where('uuid', $value)->firstOrFail();
+        return $this->belongsTo(User::class);
     }
-    
+
+    public static function options($column)
+    {
+        if ($column == 'status') {
+            return [
+                ['id' => 1, 'caption' => 'Draft', 'color' => 'bg-gray-400'],
+                ['id' => 2, 'caption' => 'Published', 'color' => 'bg-green-500'],
+                ['id' => 3, 'caption' => 'Scheduled', 'color' => 'bg-yellow-500'],
+            ];
+        }
+        return null;
+    }
+
     public static function getTableName()
     {
         return with(new static)->getTable();
     }
-    public static function options($column){
-        if($column == 'status'){
-            $options = [
-                ['id' => 1,'caption' => 'Save Only', 'color' => 'bg-gray-400'],
-                ['id' => 2,'caption' => 'Save & Publish', 'color' => 'bg-green-500'],
-                ['id' => 3,'caption' => 'Save & Publish Later', 'color' => 'bg-yellow-500'],
-            ];
-        }
-        if(isset($options)){
-            return $options;
-        }else{
-            return null;
-        }
-    }
 }
+

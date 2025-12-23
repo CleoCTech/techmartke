@@ -88,14 +88,14 @@ const props = defineProps({ ...indexProps });
 
 // Status mapping
 const statuses = ref([
-  { id: 1, caption: 'Published', color: 'bg-green-500 text-white' },
-  { id: 0, caption: 'Draft', color: 'bg-gray-500 text-white' },
+  { id: true, caption: 'Published', color: 'bg-green-500 text-white' },
+  { id: false, caption: 'Draft', color: 'bg-gray-500 text-white' },
 ]);
 
 // Featured mapping
 const featuredOptions = ref([
-  { id: 1, caption: 'Featured', color: 'bg-yellow-500 text-white' },
-  { id: 0, caption: 'Regular', color: 'bg-gray-400 text-white' },
+  { id: true, caption: 'Featured', color: 'bg-yellow-500 text-white' },
+  { id: false, caption: 'Regular', color: 'bg-gray-400 text-white' },
 ]);
 
 // Category mapping

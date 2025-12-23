@@ -1,0 +1,1 @@
+import{_ as t,o as e,c as o,z as a}from"./app-028284e4.js";/* empty css                  */const r={props:{colspan:{default:"2"}}},c={class:"px-1 py-1 sm:py-2"};function p(s,n,l,d,_,f){return e(),o("td",c,[a(s.$slots,"default")])}const u=t(r,[["render",p]]);export{u as default};

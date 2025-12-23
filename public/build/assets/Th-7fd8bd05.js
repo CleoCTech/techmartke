@@ -1,1 +1,0 @@
-import{_ as t,o as s,c as o,z as c}from"./app-84720138.js";/* empty css                  */const r={},a={class:"text-left px-1 py-1 sm:py-2"};function n(e,l){return s(),o("th",a,[c(e.$slots,"default")])}const p=t(r,[["render",n]]);export{p as default};

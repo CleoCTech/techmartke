@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Traits\Admin\SearchTrait;
 use App\Traits\Admin\ColumnsTrait;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class Video extends Model
 {
@@ -14,7 +15,23 @@ class Video extends Model
     use SearchTrait;
     use ColumnsTrait;
     
-    protected $guarded = [];
+    protected $fillable = [
+        'uuid',
+        'title',
+        'description',
+        'video_url',
+        'thumbnail_url',
+        'cover_image',
+        'category',
+        'duration',
+        'views',
+        'sequence',
+        'status',
+        'publish_time',
+        'created_by',
+        'updated_by'
+    ];
+
     protected $keyType = 'int';
     public $incrementing = true;
 
@@ -23,14 +40,21 @@ class Video extends Model
         'updated_at'  => 'date:d-M-Y',
         'publish_time'  => 'datetime:d-M-Y h:m:s',
     ];
+
+    protected $appends = [
+        'image_url'
+    ];
+
     protected static function boot()
     {
         parent::boot();
         static::creating(function ($model) {
-            $model->uuid = (string) Str::uuid();
+            if (empty($model->uuid)) {
+                $model->uuid = (string) Str::uuid();
+            }
         });
-       
     }
+
     public function getRouteKeyName()
     {
         return 'uuid';
@@ -50,18 +74,29 @@ class Video extends Model
     {
         return with(new static)->getTable();
     }
-    public static function options($column){
-        if($column == 'status'){
+
+    // Accessors
+    public function getImageUrlAttribute()
+    {
+        return $this->cover_image ? Storage::url($this->cover_image) : null;
+    }
+
+    public static function options($column)
+    {
+        if ($column == 'status') {
             $options = [
-                ['id' => 1,'caption' => 'Save Only', 'color' => 'bg-gray-400'],
-                ['id' => 2,'caption' => 'Save & Publish', 'color' => 'bg-green-500'],
-                ['id' => 3,'caption' => 'Save & Publish Later', 'color' => 'bg-yellow-500'],
+                ['id' => 1, 'caption' => 'Save Only', 'color' => 'bg-gray-400'],
+                ['id' => 2, 'caption' => 'Save & Publish', 'color' => 'bg-green-500'],
+                ['id' => 3, 'caption' => 'Save & Publish Later', 'color' => 'bg-yellow-500'],
             ];
         }
-        if(isset($options)){
+        if (isset($options)) {
             return $options;
-        }else{
+        } else {
             return null;
         }
     }
 }
+
+
+

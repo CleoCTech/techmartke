@@ -26,8 +26,12 @@
                         <Td>{{record.created_at}} </Td>
                         <Td>
                             <Badge 
-                                :class="setup.statuses[setup.statuses.findIndex(x => x.id === record.status)].color">
-                                {{ setup.statuses[setup.statuses.findIndex(x => x.id === record.status)].caption }}
+                                v-if="setup.statuses && Array.isArray(setup.statuses)"
+                                :class="getStatusColor(record.status)">
+                                {{ getStatusCaption(record.status) }}
+                            </Badge>
+                            <Badge v-else class="bg-gray-400">
+                                Unknown
                             </Badge>
                         </Td>
 
@@ -48,6 +52,22 @@
     
     // const props = defineProps(indexProps)
     const props = defineProps({...indexProps})
+    
+    const getStatusColor = (statusId) => {
+        if (!props.setup?.statuses || !Array.isArray(props.setup.statuses)) {
+            return 'bg-gray-400'
+        }
+        const status = props.setup.statuses.find(x => x.id === statusId)
+        return status?.color || 'bg-gray-400'
+    }
+    
+    const getStatusCaption = (statusId) => {
+        if (!props.setup?.statuses || !Array.isArray(props.setup.statuses)) {
+            return 'Unknown'
+        }
+        const status = props.setup.statuses.find(x => x.id === statusId)
+        return status?.caption || 'Unknown'
+    }
 
     const { 
         selected,
@@ -83,10 +103,13 @@
         }, 2000)
     }
     const truncateText = (text, length = 30) => {
-    if (text.length > length) {
-        return text.substring(0, length) + '...';
-    }
-    return text;
+        if (!text || typeof text !== 'string') {
+            return '';
+        }
+        if (text.length > length) {
+            return text.substring(0, length) + '...';
+        }
+        return text;
     };
     
     provide('onRowClick', onRowClick);

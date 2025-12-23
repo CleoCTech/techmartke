@@ -1,5 +1,5 @@
 <template>
-  <div class="relative inline-flex">
+  <div class="relative inline-flex z-50">
     <button
       ref="trigger"
       class="inline-flex justify-center items-center group"
@@ -23,13 +23,14 @@
       leave-from-class="opacity-100"
       leave-to-class="opacity-0"
     >
-      <div v-show="dropdownOpen" class="origin-top-right z-10 absolute top-full min-w-44 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 py-1.5 rounded shadow-lg overflow-hidden mt-1" :class="align === 'right' ? 'right-0' : 'left-0'">
+      <div v-show="dropdownOpen" class="origin-top-right z-50 absolute top-full min-w-44 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 py-1.5 rounded-lg shadow-xl overflow-visible mt-1" :class="align === 'right' ? 'right-0' : 'left-0'">
         <div class="pt-0.5 pb-2 px-3 mb-1 border-b border-slate-200 dark:border-slate-700">
           <div class="font-medium text-slate-800 dark:text-slate-100">{{$page.props.auth.user.name}}</div>
           <div class="text-xs text-slate-500 dark:text-slate-400 italic">{{$page.props.auth.user.role}}</div>
         </div>
         <ul
           ref="dropdown"
+          class="min-w-full"
           @focusin="dropdownOpen = true"
           @focusout="dropdownOpen = false"
         >
@@ -37,7 +38,7 @@
             <router-link class="font-medium text-sm text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center py-1 px-3" to="/settings/account" @click="dropdownOpen = false">Settings</router-link>
           </li> -->
           <li>
-            <SidebarLink class="cursor-pointer font-medium text-sm text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center py-1 px-3" :href="route('logout')" method="post" as="button"  @click="dropdownOpen = false">
+            <SidebarLink class="cursor-pointer font-medium text-sm text-slate-800 dark:text-slate-200 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center py-2 px-3 w-full transition-colors" :href="route('logout')" method="post" as="button"  @click="dropdownOpen = false">
               Sign Out
             </SidebarLink>
             <!-- <router-link class="font-medium text-sm text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center py-1 px-3" to="/signin" @click="dropdownOpen = false">Sign Out</router-link> -->
@@ -54,9 +55,13 @@ import UserAvatar from '../../../../public/assets/images/user-avatar-32.png';
 import SidebarLinkGroup from '@/Admin/Partials/SidebarLinkGroup.vue'
 import SidebarLink from '@/Components/SidebarLink.vue'
 
-// const props = defineProps({
-//   user:Object
-// });
+const props = defineProps({
+  align: {
+    type: String,
+    default: 'right'
+  }
+});
+
 const dropdownOpen = ref(false);
 const trigger = ref(null);
 const dropdown = ref(null);

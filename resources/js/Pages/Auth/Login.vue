@@ -14,7 +14,7 @@ defineProps({
 });
 
 const form = useForm({
-    email: '',
+    email: 'admin@example.com',
     password: '',
     remember: false,
 });

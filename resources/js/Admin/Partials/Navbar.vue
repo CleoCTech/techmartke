@@ -12,9 +12,9 @@ const searchModalOpen = ref(false)
 
 </script>
 <template>
-  <header class="sticky top-0 bg-white dark:bg-[#182235] border-b border-slate-200 dark:border-slate-700 z-30">
-    <div class="px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16 -mb-px">
+  <header class="sticky top-0 bg-white dark:bg-[#182235] border-b border-slate-200 dark:border-slate-700 z-30 overflow-visible">
+    <div class="px-4 sm:px-6 lg:px-8 overflow-visible">
+      <div class="flex items-center justify-between h-16 -mb-px overflow-visible">
 
         <!-- Header: Left side -->
         <div class="flex">
@@ -32,7 +32,7 @@ const searchModalOpen = ref(false)
         </div>
 
         <!-- Header: Right side -->
-        <div class="flex items-center space-x-3">
+        <div class="flex items-center space-x-3 relative z-50">
           <div>
             <SearchModal id="search-modal" searchId="search" :modalOpen="searchModalOpen" @open-modal="searchModalOpen = true" @close-modal="searchModalOpen = false" /> 
           </div>

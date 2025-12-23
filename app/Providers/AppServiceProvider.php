@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
         ini_set('memory_limit', env('PHP_MEMORY_LIMIT', '512M'));
         $platform = Schema::getConnection()->getDoctrineSchemaManager()->getDatabasePlatform();
         $platform->registerDoctrineTypeMapping('enum', 'string');
-        FiscalYear::observe(FiscalYearObserver::class);
+
     }
     
 }

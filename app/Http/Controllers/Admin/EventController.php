@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Branch;
 use App\Models\Event;
 use App\Services\UserRoleService;
 use Illuminate\Http\Request;

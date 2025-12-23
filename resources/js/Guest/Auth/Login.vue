@@ -16,8 +16,7 @@ defineProps({
 });
 
 const form = useForm({
-    email: 'admin@novustechhub.com', //admin@wenlasystems.com
-    // email: '', //admin@wenlasystems.com
+    email: 'admin@example.com',
     password: '',
     remember: false,
 });

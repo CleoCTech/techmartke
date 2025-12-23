@@ -1,1 +1,0 @@
-import{_ as t,o,c as s,z as r}from"./app-84720138.js";/* empty css                  */const a={props:{bgColor:{default:"bg-gray-300"}}},c={class:"rounded-md px-1 py-0 text-xs text-white"};function n(e,p,d,l,_,f){return o(),s("label",c,[r(e.$slots,"default")])}const x=t(a,[["render",n]]);export{x as default};

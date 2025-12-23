@@ -41,8 +41,12 @@
                         <Td>{{record.created_at}} </Td>
                         <Td>
                             <Badge 
-                                :class="setup.statuses[setup.statuses.findIndex(x => x.id === record.status)].color">
-                                {{ setup.statuses[setup.statuses.findIndex(x => x.id === record.status)].caption }}
+                                v-if="setup.statuses && Array.isArray(setup.statuses)"
+                                :class="getStatusColor(record.status)">
+                                {{ getStatusCaption(record.status) }}
+                            </Badge>
+                            <Badge v-else class="bg-gray-400">
+                                Unknown
                             </Badge>
                         </Td>
 
@@ -55,7 +59,7 @@
 </template>
 <script setup>
     // import IndexMixin from '@/System/Mixins/CRUD/IndexMixin.js'
-    import { provide, getCurrentInstance } from 'vue'
+    import { provide, getCurrentInstance, computed } from 'vue'
     import { indexProps, useIndex } from '@/Composables/useIndex'
     import Badge from '@/Components/Mosaic/Badge.vue'
 
@@ -63,6 +67,22 @@
     
     // const props = defineProps(indexProps)
     const props = defineProps({...indexProps})
+    
+    const getStatusColor = (statusId) => {
+        if (!props.setup?.statuses || !Array.isArray(props.setup.statuses)) {
+            return 'bg-gray-400'
+        }
+        const status = props.setup.statuses.find(x => x.id === statusId)
+        return status?.color || 'bg-gray-400'
+    }
+    
+    const getStatusCaption = (statusId) => {
+        if (!props.setup?.statuses || !Array.isArray(props.setup.statuses)) {
+            return 'Unknown'
+        }
+        const status = props.setup.statuses.find(x => x.id === statusId)
+        return status?.caption || 'Unknown'
+    }
 
     const { 
         selected,

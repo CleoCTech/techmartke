@@ -11,32 +11,9 @@ const props = defineProps({
 
 const page = usePage();
 const user = computed(() => page.props.auth.user);
-const hasDepartmentAccess = computed(() => {
-  return (
-    user.value.roles.includes('administrator') ||
-    user.value.roles.includes('superadmin') ||
-    user.value.permissions.includes('managedepartment')
-  );
-});
 const hasChurchManagementAccess = computed(() => {
   const permissions = [
-    'managechurchtestimonies',
-    'managechurchoffering',
-    'managechurchattendance',
-    'managechurchcourse',
-    'manageevents',
-    'managegallery'
-  ];
 
-  return (
-    user.value.roles.includes('administrator') ||
-    user.value.roles.includes('superadmin') ||
-    user.value.permissions.some(permission => permissions.includes(permission))
-  );
-});
-const hasDepartmentLeadershipAccess = computed(() => {
-  const permissions = [
-    'accessdepartmentleadership'
   ];
 
   return (
@@ -151,7 +128,7 @@ const closeSidebar = () => {
         </button>
         <!-- Logo -->
         <Link class="block" :href="route('admin.dashboard')">
-          <img src="/assets/images/novus-logo.png" alt="logo" class="h-10 w-10" />
+          <img src="/assets/images/WENLA.png" alt="logo" class="h-10 w-10" />
         </Link>
       </div>
 
@@ -213,35 +190,7 @@ const closeSidebar = () => {
                     </SidebarLink>
                   </template>
                   <template v-else-if="$page.props.auth.user.roles.includes('regular')">
-                    <SidebarLink v-if="$page.props.auth.user.permissions.includes('managedepartment')"
-                      :href="route('dept.dashboard')" :active="$page.url == '/dept-dashboard'">
-                      <li class="mb-1 last:mb-0">
-                        <a class="block transition duration-150 truncate"
-                          :class="isExactActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'"
-                          :href="href" @click="navigate">
-                          <span
-                            class="text-sm font-medium lg:opacity-100 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                            Analytics (Department)
-                          </span>
-                        </a>
-                      </li>
-                    </SidebarLink>
-
-                    <SidebarLink v-else-if="$page.props.auth.user.branch" :href="route('branch.dashboard')"
-                      :active="$page.url == '/branch-dashboard'">
-                      <li class="mb-1 last:mb-0">
-                        <a class="block transition duration-150 truncate"
-                          :class="isExactActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'"
-                          :href="href" @click="navigate">
-                          <span
-                            class="text-sm font-medium lg:opacity-100 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                            Analytics (Branch)
-                          </span>
-                        </a>
-                      </li>
-                    </SidebarLink>
-
-                    <SidebarLink v-else :href="route('guest.dashboard')" :active="$page.url == '/guest-dashboard'">
+                    <SidebarLink :href="route('guest.dashboard')" :active="$page.url == '/guest-dashboard'">
                       <li class="mb-1 last:mb-0">
                         <a class="block transition duration-150 truncate"
                           :class="isExactActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'"
@@ -276,8 +225,7 @@ const closeSidebar = () => {
               $page.url.includes('system/social-media') ||
               $page.url.includes('admin/fiscal') ||
               $page.url.includes('admin/fiscal-period') ||
-              $page.url.includes('admin/departments') ||
-              $page.url.includes('admin/designations')">
+              $page.url.includes('/admin/staff')" :autoExpand="false">
               <a class="block text-slate-200 hover:text-white truncate transition duration-150"
                 :class="parentLink.expanded && 'hover:text-slate-200'" href="#0"
                 @click.prevent="parentLink.handleClick(); sidebarExpanded = true">
@@ -324,32 +272,12 @@ const closeSidebar = () => {
                   </SidebarLink>
 
                   <!-- New items -->
-                 
 
-                  <SidebarLink :href="route('admin.departments')" :active="$page.url == '/admin/departments'">
+
+                  <SidebarLink :href="route('admin.staff')" :active="$page.url.includes('/admin/staff')">
                     <li class="mb-1 last:mb-0">
                       <a class="block transition duration-150 truncate"
-                        :class="$page.url.startsWith('/admin/departments') ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'"
-                        :href="href" @click="navigate">
-                        <span class="text-sm font-medium md:opacity-100 duration-200">Departments</span>
-                      </a>
-                    </li>
-                  </SidebarLink>
-
-                  <SidebarLink :href="route('admin.designations')" :active="$page.url == '/admin/designations'">
-                    <li class="mb-1 last:mb-0">
-                      <a class="block transition duration-150 truncate"
-                        :class="$page.url.startsWith('/admin/designations') ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'"
-                        :href="href" @click="navigate">
-                        <span class="text-sm font-medium md:opacity-100 duration-200">Designations</span>
-                      </a>
-                    </li>
-                  </SidebarLink>
-
-                  <SidebarLink :href="route('admin.staff')" :active="$page.url.startsWith('/staff')">
-                    <li class="mb-1 last:mb-0">
-                      <a class="block transition duration-150 truncate"
-                        :class="$page.url.startsWith('/staff') ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'"
+                        :class="$page.url.includes('/admin/staff') ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'"
                         :href="href" @click="navigate">
                         <span class="text-sm font-medium md:opacity-100 duration-200">Staff</span>
                       </a>
@@ -366,50 +294,6 @@ const closeSidebar = () => {
             <span class="md:block lg:sidebar-expanded:block 2xl:block">School Management</span>
           </h3>
           <ul class="mt-3">
-            <!-- Course Management  -->
-            <SidebarLinkGroup
-              
-              v-slot="parentLink" :activeCondition="$page.url.startsWith('/system/courses')">
-              <a class="block text-slate-200 hover:text-white truncate transition duration-150"
-                :class="$page.url.startsWith('/system/courses') ? 'hover:text-slate-200' : 'hover:text-white'" href="#0"
-                @click.prevent="parentLink.handleClick(); sidebarExpanded = true">
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center">
-                    <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
-                      <path class="fill-current text-slate-600"
-                        d="M4 4v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2H6c-1.1 0-2 .9-2 2zm14 16H6V4h12v16z" />
-                      <path class="fill-current text-slate-400"
-                        d="M12 5.5l-1.5 1.5H9v2H7.5V11H9v2h1.5l1.5 1.5 1.5-1.5H15V11h1.5V9H15V7h-1.5L12 5.5zM10.5 9H12v2h-1.5V9zm3 0H15v2h-1.5V9z" />
-                    </svg>
-                    <span class="text-sm font-medium ml-3 md:opacity-100  duration-200">Courses
-                    </span>
-                  </div>
-                  <div class="flex shrink-0 ml-2">
-                    <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400"
-                      :class="parentLink.expanded && 'rotate-180'" viewBox="0 0 12 12">
-                      <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
-                    </svg>
-                  </div>
-                </div>
-              </a>
-              <div class="md:block lg:sidebar-expanded:block 2xl:block">
-                <ul class="pl-9 mt-1" :class="!parentLink.expanded && 'hidden'">
-                  <SidebarLink :href="route('system.courses.index')" :active="$page.url.startsWith(route('system.courses.index'))">
-                    <li class="mb-1 last:mb-0">
-                      <a class="block transition duration-150 truncate"
-                        :class="isExactActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'" :href="href"
-                        @click="navigate">
-                        <span class="text-sm font-medium md:opacity-100  duration-200">Courses</span>
-                      </a>
-                    </li>
-                  </SidebarLink>
-
-
-                </ul>
-              </div>
-            </SidebarLinkGroup>
-           
-
             <!-- Testimonies -->
             <SidebarLinkGroup v-slot="parentLink" :activeCondition="$page.url.includes('testimony')">
               <a class="block text-slate-200 truncate transition duration-150"
@@ -464,296 +348,12 @@ const closeSidebar = () => {
               </div>
             </SidebarLinkGroup>
 
-            <!-- Success Stories -->
-            <SidebarLinkGroup v-slot="parentLink" :activeCondition="$page.url.includes('success-story')">
-              <a class="block text-slate-200 truncate transition duration-150"
-                :class="$page.url.includes('success-story') ? 'hover:text-slate-200' : 'hover:text-white'" href="#0"
-                @click.prevent="parentLink.handleClick(); sidebarExpanded = true">
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center">
-                    <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
-                      <path class="fill-current"
-                        :class="$page.url.includes('success-story') ? 'text-indigo-500' : 'text-slate-600'"
-                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
-                      <path class="fill-current"
-                        :class="$page.url.includes('success-story') ? 'text-indigo-300' : 'text-slate-400'"
-                        d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0 8c-1.65 0-3-1.35-3-3s1.35-3 3-3 3 1.35 3 3-1.35 3-3 3z" />
-                    </svg>
-                    <span
-                      class="text-sm font-medium ml-3 lg:opacity-100 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Success Stories</span>
-                  </div>
-                  <div class="flex shrink-0 ml-2">
-                    <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400"
-                      :class="parentLink.expanded && 'rotate-180'" viewBox="0 0 12 12">
-                      <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
-                    </svg>
-                  </div>
-                </div>
-              </a>
-              <div class="md:block lg:sidebar-expanded:block 2xl:block">
-                <ul class="pl-9 mt-1" :class="!parentLink.expanded && 'hidden'">
-                  <SidebarLink :href="route('admin.success-story')" :active="$page.url == '/admin/success-story'">
-                    <li class="mb-1 last:mb-0">
-                      <a class="block transition duration-150 truncate"
-                        :class="isExactActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'" :href="href"
-                        @click="navigate">
-                        <span
-                          class="text-sm font-medium lg:opacity-100 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">View
-                          Success Stories</span>
-                      </a>
-                    </li>
-                  </SidebarLink>
-                  <SidebarLink :href="route('admin.success-story') + '/create'" :active="$page.url == '/admin/success-story/create'">
-                    <li class="mb-1 last:mb-0">
-                      <a class="block transition duration-150 truncate"
-                        :class="isExactActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'" :href="href"
-                        @click="navigate">
-                        <span
-                          class="text-sm font-medium lg:opacity-100 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Add
-                          Success Story</span>
-                      </a>
-                    </li>
-                  </SidebarLink>
-                </ul>
-              </div>
-            </SidebarLinkGroup>
 
             <!-- Fee Management -->
-            <SidebarLinkGroup v-slot="parentLink" :activeCondition="$page.url.includes('training-module') || 
-              $page.url.includes('course-type') || 
-              $page.url.includes('fee-structure') || 
-              $page.url.includes('payment-option') || 
-              $page.url.includes('registration-fee')">
-              <a class="block text-slate-200 truncate transition duration-150"
-                :class="($page.url.includes('training-module') || $page.url.includes('course-type') || $page.url.includes('fee-structure') || $page.url.includes('payment-option') || $page.url.includes('registration-fee')) ? 'hover:text-slate-200' : 'hover:text-white'" href="#0"
-                @click.prevent="parentLink.handleClick(); sidebarExpanded = true">
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center">
-                    <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
-                      <path class="fill-current"
-                        :class="($page.url.includes('training-module') || $page.url.includes('course-type') || $page.url.includes('fee-structure') || $page.url.includes('payment-option') || $page.url.includes('registration-fee')) ? 'text-indigo-500' : 'text-slate-600'"
-                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
-                      <path class="fill-current"
-                        :class="($page.url.includes('training-module') || $page.url.includes('course-type') || $page.url.includes('fee-structure') || $page.url.includes('payment-option') || $page.url.includes('registration-fee')) ? 'text-indigo-300' : 'text-slate-400'"
-                        d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0 8c-1.65 0-3-1.35-3-3s1.35-3 3-3 3 1.35 3 3-1.35 3-3 3z" />
-                    </svg>
-                    <span
-                      class="text-sm font-medium ml-3 lg:opacity-100 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Fee Management</span>
-                  </div>
-                  <div class="flex shrink-0 ml-2">
-                    <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400"
-                      :class="parentLink.expanded && 'rotate-180'" viewBox="0 0 12 12">
-                      <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
-                    </svg>
-                  </div>
-                </div>
-              </a>
-              <div class="md:block lg:sidebar-expanded:block 2xl:block">
-                <ul class="pl-9 mt-1" :class="!parentLink.expanded && 'hidden'">
-                  <SidebarLink :href="route('admin.training-module')" :active="$page.url.startsWith('/admin/training-module')">
-                    <li class="mb-1 last:mb-0">
-                      <a class="block transition duration-150 truncate"
-                        :class="$page.url.startsWith('/admin/training-module') ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'" :href="href"
-                        @click="navigate">
-                        <span
-                          class="text-sm font-medium lg:opacity-100 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Training Modules</span>
-                      </a>
-                    </li>
-                  </SidebarLink>
-                  <SidebarLink :href="route('admin.course-type')" :active="$page.url.startsWith('/admin/course-type')">
-                    <li class="mb-1 last:mb-0">
-                      <a class="block transition duration-150 truncate"
-                        :class="$page.url.startsWith('/admin/course-type') ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'" :href="href"
-                        @click="navigate">
-                        <span
-                          class="text-sm font-medium lg:opacity-100 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Course Types</span>
-                      </a>
-                    </li>
-                  </SidebarLink>
-                  <SidebarLink :href="route('admin.fee-structure')" :active="$page.url.startsWith('/admin/fee-structure')">
-                    <li class="mb-1 last:mb-0">
-                      <a class="block transition duration-150 truncate"
-                        :class="$page.url.startsWith('/admin/fee-structure') ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'" :href="href"
-                        @click="navigate">
-                        <span
-                          class="text-sm font-medium lg:opacity-100 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Fee Structures</span>
-                      </a>
-                    </li>
-                  </SidebarLink>
-                  <SidebarLink :href="route('admin.payment-option')" :active="$page.url.startsWith('/admin/payment-option')">
-                    <li class="mb-1 last:mb-0">
-                      <a class="block transition duration-150 truncate"
-                        :class="$page.url.startsWith('/admin/payment-option') ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'" :href="href"
-                        @click="navigate">
-                        <span
-                          class="text-sm font-medium lg:opacity-100 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Payment Options</span>
-                      </a>
-                    </li>
-                  </SidebarLink>
-                  <SidebarLink :href="route('admin.registration-fee')" :active="$page.url.startsWith('/admin/registration-fee')">
-                    <li class="mb-1 last:mb-0">
-                      <a class="block transition duration-150 truncate"
-                        :class="$page.url.startsWith('/admin/registration-fee') ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'" :href="href"
-                        @click="navigate">
-                        <span
-                          class="text-sm font-medium lg:opacity-100 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Registration Fees</span>
-                      </a>
-                    </li>
-                  </SidebarLink>
-                </ul>
-              </div>
-            </SidebarLinkGroup>
           </ul>
         </div>
 
-        <!-- Applications Section -->
-        <div>
-          <h3 class="text-xs uppercase text-slate-500 font-semibold pl-3">
-            <span class="md:block lg:sidebar-expanded:block 2xl:block">Applications</span>
-          </h3>
-          <ul class="mt-3">
-            <!-- Applications -->
-            <SidebarLinkGroup v-slot="parentLink" :activeCondition="$page.url.includes('application') || $page.url.includes('scholarship-application')">
-              <a class="block text-slate-200 truncate transition duration-150"
-                :class="($page.url.includes('application') || $page.url.includes('scholarship-application')) ? 'hover:text-slate-200' : 'hover:text-white'" href="#0"
-                @click.prevent="parentLink.handleClick(); sidebarExpanded = true">
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center">
-                    <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
-                      <path class="fill-current"
-                        :class="($page.url.includes('application') || $page.url.includes('scholarship-application')) ? 'text-indigo-500' : 'text-slate-600'"
-                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
-                      <path class="fill-current"
-                        :class="($page.url.includes('application') || $page.url.includes('scholarship-application')) ? 'text-indigo-300' : 'text-slate-400'"
-                        d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0 8c-1.65 0-3-1.35-3-3s1.35-3 3-3 3 1.35 3 3-1.35 3-3 3z" />
-                    </svg>
-                    <span
-                      class="text-sm font-medium ml-3 lg:opacity-100 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Applications</span>
-                  </div>
-                  <div class="flex shrink-0 ml-2">
-                    <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400"
-                      :class="parentLink.expanded && 'rotate-180'" viewBox="0 0 12 12">
-                      <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
-                    </svg>
-                  </div>
-                </div>
-              </a>
-              <div class="md:block lg:sidebar-expanded:block 2xl:block">
-                <ul class="pl-9 mt-1" :class="!parentLink.expanded && 'hidden'">
-                  <SidebarLink :href="route('admin.application')" :active="$page.url.startsWith('/admin/application')">
-                    <li class="mb-1 last:mb-0">
-                      <a class="block transition duration-150 truncate"
-                        :class="$page.url.startsWith('/admin/application') ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'" :href="href"
-                        @click="navigate">
-                        <span
-                          class="text-sm font-medium lg:opacity-100 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">General Applications</span>
-                      </a>
-                    </li>
-                  </SidebarLink>
-                  <SidebarLink :href="route('admin.scholarship-application')" :active="$page.url.startsWith('/admin/scholarship-application')">
-                    <li class="mb-1 last:mb-0">
-                      <a class="block transition duration-150 truncate"
-                        :class="$page.url.startsWith('/admin/scholarship-application') ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'" :href="href"
-                        @click="navigate">
-                        <span
-                          class="text-sm font-medium lg:opacity-100 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Scholarship Applications</span>
-                      </a>
-                    </li>
-                  </SidebarLink>
-                </ul>
-              </div>
-            </SidebarLinkGroup>
-          </ul>
-        </div>
 
-        <div v-if="hasDepartmentAccess">
-          <h3 class="text-xs uppercase text-slate-500 font-semibold pl-3">
-            <span class="md:block lg:sidebar-expanded:block 2xl:block">Department Management</span>
-          </h3>
-          <ul class="mt-3">
-            <!-- Departments -->
-            <SidebarLinkGroup v-slot="parentLink" :activeCondition="$page.url.includes('department-head') ||
-              $page.url.includes('department-goal') ||
-              $page.url.includes('department-requests') ||
-              $page.url.includes('department-activity')">
-              <a class="block text-slate-200 truncate transition duration-150"
-                :class="parentLink.expanded ? 'hover:text-slate-200' : 'hover:text-white'" href="#0"
-                @click.prevent="parentLink.handleClick(); sidebarExpanded = true">
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center">
-                    <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
-                      <path class="fill-current text-slate-600"
-                        d="M4 4v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2H6c-1.1 0-2 .9-2 2zm14 16H6V4h12v16z" />
-                      <path class="fill-current text-slate-400"
-                        d="M12 5.5l-1.5 1.5H9v2H7.5V11H9v2h1.5l1.5 1.5 1.5-1.5H15V11h1.5V9H15V7h-1.5L12 5.5zM10.5 9H12v2h-1.5V9zm3 0H15v2h-1.5V9z" />
-                    </svg>
-                    <span
-                      class="text-sm font-medium ml-3 lg:opacity-100 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Departments</span>
-                  </div>
-                  <div class="flex shrink-0 ml-2">
-                    <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400"
-                      :class="parentLink.expanded && 'rotate-180'" viewBox="0 0 12 12">
-                      <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
-                    </svg>
-                  </div>
-                </div>
-              </a>
-              <div class="md:block lg:sidebar-expanded:block 2xl:block">
-                <ul class="pl-9 mt-1" :class="!parentLink.expanded && 'hidden'">
-                  <SidebarLink v-if="hasDepartmentLeadershipAccess" :href="route('admin.department-head')"
-                    :active="$page.url.startsWith('/admin/department-head')">
-                    <li class="mb-1 last:mb-0">
-                      <a class="block transition duration-150 truncate"
-                        :class="$page.url.startsWith('/admin/department-head') ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'"
-                        :href="href" @click="navigate">
-                        <span
-                          class="text-sm font-medium lg:opacity-100 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Department
-                          Leadership</span>
-                      </a>
-                    </li>
-                  </SidebarLink>
-                  <SidebarLink :href="route('admin.department-goal')"
-                    :active="$page.url.startsWith('/admin/department-goal')">
-                    <li class="mb-1 last:mb-0">
-                      <a class="block transition duration-150 truncate"
-                        :class="$page.url.startsWith('/admin/department-goal') ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'"
-                        :href="href" @click="navigate">
-                        <span
-                          class="text-sm font-medium lg:opacity-100 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Department
-                          Goals</span>
-                      </a>
-                    </li>
-                  </SidebarLink>
-                  <SidebarLink :href="route('admin.department-activity')"
-                    :active="$page.url.startsWith('/admin/department-activity')">
-                    <li class="mb-1 last:mb-0">
-                      <a class="block transition duration-150 truncate"
-                        :class="$page.url.startsWith('/admin/department-activity') ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'"
-                        :href="href" @click="navigate">
-                        <span
-                          class="text-sm font-medium lg:opacity-100 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Department
-                          Activities</span>
-                      </a>
-                    </li>
-                  </SidebarLink>
-
-                  <SidebarLink :href="route('admin.department-requests')"
-                    :active="$page.url.startsWith('/admin/department-requests')">
-                    <li class="mb-1 last:mb-0">
-                      <a class="block transition duration-150 truncate"
-                        :class="$page.url.startsWith('/admin/department-requests') ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'"
-                        :href="href" @click="navigate">
-                        <span
-                          class="text-sm font-medium lg:opacity-100 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Department
-                          Requests</span>
-                      </a>
-                    </li>
-                  </SidebarLink>
-                </ul>
-              </div>
-            </SidebarLinkGroup>
-          </ul>
-        </div>
 
 
         <div v-if="hasCMSAccess">

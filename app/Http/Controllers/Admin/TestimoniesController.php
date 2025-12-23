@@ -19,7 +19,7 @@ class TestimoniesController extends Controller
     use UploadFileTrait;
 
     public $settings = [
-        'model' => '\\App\\Models\\Testmony',
+        'model' => '\\App\\Models\\Testimonial',
         'caption' => "Testimony",
         'xFolder' => "Admin/Pages/Testimony",
         'indexRoute' => "/admin/testimony",
@@ -61,10 +61,6 @@ class TestimoniesController extends Controller
 
         if (!UserRoleService::hasRole(['administrator', 'superadmin'])) {
 
-            $this->extraConditions = [
-                // ['column' => 'status', 'operator' => '=', 'value' => 'active'], // Example: Only active records
-                ['column' => 'branch_id', 'operator' => '=', 'value' => $user->branch_id] // Restrict to user’s branch
-            ];
         }
         $this->def_index();
         return Inertia::render($this->settings['xFolder'] . '/Index', $this->viewData);
@@ -74,7 +70,7 @@ class TestimoniesController extends Controller
     {
         $this->def_create();
         // $services = Service::all();
-        $services = Service::where('branch_id', auth()->user()->branch_id)->get();
+        $services = Service::all();
 
         $this->viewData['services'] = $services;
         return Inertia::render($this->settings['xFolder'] . '/CreateEdit', $this->viewData);
@@ -95,7 +91,6 @@ class TestimoniesController extends Controller
             $record = [
                 'testifier_name' => $request->testifier_name,
                 'service_id' => $request->service_id,
-                'branch_id' => Auth::user()->branch_id,
                 'user_id' => Auth::user()->id,
                 'testimony' => $request->testimony,
                 'remarks' => $request->remarks,
@@ -129,7 +124,7 @@ class TestimoniesController extends Controller
     public function edit($uuid)
     {
         $this->def_edit($uuid);
-        $services = Service::where('branch_id', auth()->user()->branch_id)->get();
+        $services = Service::all();
 
         $this->viewData['services'] = $services;
         return Inertia::render($this->settings['xFolder'] . '/CreateEdit', $this->viewData);

@@ -86,8 +86,6 @@ class Event extends Model
         if($column == 'event_type'){
             $options = [
                 ['id' => 1,'caption' => 'Event'],
-                ['id' => 2,'caption' => 'Branch'],
-                ['id' => 3,'caption' => 'Departmental'],
                 ['id' => 4,'caption' => 'Group'],
                 ['id' => 5,'caption' => 'Evangelism'],
                 ['id' => 6,'caption' => 'Service'],
@@ -101,9 +99,5 @@ class Event extends Model
         }else{
             return null;
         }
-    }
-    public function branch()
-    {
-        return $this->belongsTo(Branch::class);
     }
 }

@@ -10,21 +10,22 @@ const {notification} = useNotify();
 
 const footerData = ref({});
 const isLoading = ref(true);
-const instituteName = 'Novus Institute of Technology'
-const instituteMission = 'Empowering the next generation of technology leaders through innovative education and practical training.'
+const instituteName = computed(() => $page.props.config?.appName || 'Your Organization')
+const instituteMission = 'Empowering the next generation through innovative education and practical training.'
 
-const contactInfo = {
-  address: '123 Technology Drive, Innovation City',
-  phone: '+1 (555) 123-4567',
-  email: 'info@novusinstitute.edu'
-}
+const contactInfo = computed(() => {
+  const companyInfo = $page.props.footerData?.companyInfo
+  return {
+    address: companyInfo?.address || 'Your Address',
+    phone: companyInfo?.phone_numbers || '+1 (555) 123-4567',
+    email: companyInfo?.emails || 'info@example.com'
+  }
+})
 
 const quickLinks = [
-  { href: '/about', label: 'About Us' },
-  { href: '/courses', label: 'Courses' },
-  { href: '/admissions', label: 'Admissions' },
+  { href: '/faq', label: 'FAQ' },
   { href: '/events', label: 'Events' },
-  { href: '/awards', label: 'Awards' }
+  { href: '/news', label: 'News' }
 ]
 
 const resources = [

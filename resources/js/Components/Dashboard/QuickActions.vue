@@ -51,27 +51,18 @@
         </div>
       </Link>
     </div>
-
-    <!-- Create Request Modal -->
-    <CreateRequestModal 
-      :isOpen="isCreateRequestModalOpen"
-      @close="closeCreateRequestModal"
-      @submit="handleRequestSubmit"
-    />
   </div>
 </template>
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { FileText, ClipboardList, Calendar, Upload, ChevronRight, ChevronDown } from 'lucide-vue-next'
-import CreateRequestModal from '@/Admin/Pages/CreateRequestModal.vue'
 import { useToast } from '@/Composables/useToast'
 import { Link, usePage } from '@inertiajs/vue3'
 
 const page = usePage();
 const user = computed(() => page.props.auth?.user || {});
 
-const isCreateRequestModalOpen = ref(false)
 const showReportDropdown = ref(false)
 const { showToast } = useToast()
 
@@ -100,32 +91,6 @@ onUnmounted(() => {
   document.removeEventListener('click', closeDropdown)
 })
 
-const openCreateRequestModal = () => {
-  // console.log('Opening Create Request Modal')
-  isCreateRequestModalOpen.value = true
-}
-
-const closeCreateRequestModal = () => {
-  // console.log('Closing Create Request Modal')
-  isCreateRequestModalOpen.value = false
-}
-
-const handleRequestSubmit = (formData) => {
-  console.log('Request submitted:', formData)
-  showToast('Request submitted successfully', 'success')
-}
-
-const canAccessCreatRequestTab = computed(() => {
-  const permissions = [
-    'managedepartment'
-  ];
-
-  return (
-    user.value.roles.includes('administrator') ||
-    user.value.roles.includes('superadmin') ||
-    user.value.permissions.some(permission => permissions.includes(permission))
-  );
-});
 const canSubmitRPTTab = computed(() => {
   const permissions = [
     'managechurchservice',
