@@ -1,177 +1,346 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# VILT Starter Kit
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+<div align="center">
 
-## About Laravel
+![VILT Starter Kit](https://img.shields.io/badge/VILT-Starter%20Kit-indigo?style=for-the-badge)
+![Laravel](https://img.shields.io/badge/Laravel-10.x-red?style=for-the-badge&logo=laravel)
+![Vue.js](https://img.shields.io/badge/Vue.js-3.x-green?style=for-the-badge&logo=vue.js)
+![Inertia.js](https://img.shields.io/badge/Inertia.js-1.x-purple?style=for-the-badge)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-3.x-cyan?style=for-the-badge&logo=tailwind-css)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+**A powerful, modern starter kit combining Vue.js, Inertia.js, Laravel, and Tailwind CSS to accelerate your development workflow.**
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+[Features](#features) • [Installation](#installation) • [Documentation](#documentation) • [Support](#support)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-
-## Intervention Image Package Requirements
-
- The `intervention/image` package, used for image processing including watermarking, requires the following PHP extensions:\n\n - **Mbstring PHP Extension**\n - **Image Processing PHP Extension**: You need at least one of GD, Imagick, or libvips installed. GD is commonly included with PHP, while Imagick is recommended for better performance. \n - **Exif PHP Extension**: Highly recommended for correct image orientation handling.\n\n Please ensure these extensions are enabled in your PHP installation if you encounter issues with image processing.\n\n ## Windows (XAMPP) Installation Notes for Imagick\n\n For users on Windows using XAMPP, the Imagick extension needs to be installed by downloading a pre-compiled DLL that matches your specific PHP version, architecture (x86/x64), and thread safety (TS/NTS). These DLLs can be found on the PECL website.\n\n The DLLs for version 3.8.0, which is compatible with various PHP versions including 7.2-8.4, can be downloaded from: [https://pecl.php.net/package/imagick/3.8.0/windows](https://pecl.php.net/package/imagick/3.8.0/windows)\n\n Make sure to select the download link that precisely matches your PHP environment details obtained from `phpinfo()`.\n
-
-## CI/CD Deployment on Shared Hosting (cPanel)
-
-This project is deployed on a shared hosting (cPanel) environment using a CI/CD pipeline that leverages Git (via cPanel's Git Version Control) and a post–receive hook (which runs a deploy script) to automate deployment. Below is a step–by–step guide on how we set up and link our cPanel Git repo (and then trigger deployment) so that pushing from your local machine (or GitHub) updates your live site.
+</div>
 
 ---
 
-### Step 1: Set Up Git Version Control in cPanel
+## 🚀 Overview
 
-1. **Log in to cPanel.**  
-2. In the cPanel dashboard, search for "Git Version Control" (or "Git™ Version Control").  
-3. Click "Create" (or "Create Repository").  
-4. **Repository Path:**  
-   - (Example: `/home/novuiroh/repos/novus.git`)  
-   - (Choose a path outside your web root (e.g., not inside `public_html`) for security.)  
-5. **Repository Name:**  
-   - (Example: "novus")  
-6. **Clone Repository:**  
-   - (You can initialize an empty repo or clone from an existing remote (e.g., GitHub).)  
-   - (If you initialize empty, you'll push from your local machine later.)  
-7. Click "Create" (or "Create Repository") to finish.
+VILT Starter Kit is a production-ready starter kit that combines the best of modern web development technologies. Built with **Laravel 10**, **Vue 3**, **Inertia.js**, and **Tailwind CSS**, it provides everything you need to build scalable, maintainable web applications without the hassle of setting up infrastructure from scratch.
+
+### Why Choose VILT Starter Kit?
+
+- ⚡ **Save Time** - Skip weeks of setup and boilerplate code. Start building features from day one.
+- 🛡️ **Production Ready** - Built with security, performance, and scalability in mind. Deploy with confidence.
+- 🎨 **Beautiful UI** - Modern, responsive design with dark mode support. Impress your users from the start.
+- 📚 **Well Documented** - Comprehensive documentation to help you understand and extend the codebase.
+- 🔧 **Easy to Customize** - Clean code architecture makes it easy to modify and extend according to your needs.
+- 🚀 **Fast Performance** - Optimized for speed with modern best practices and efficient code patterns.
 
 ---
 
-### Step 2: Link Your cPanel Git Repo to GitHub (Optional)
+## 🛠️ Technology Stack
 
-- **If you want to pull from GitHub (or push to GitHub and then pull on cPanel):**  
-  - In cPanel's Git Version Control, click "Clone" (or "Clone Repository") and paste your GitHub HTTPS URL (e.g., `https://github.com/yourusername/novus.git`).  
-  - (Note: Using HTTPS is recommended for shared hosting; SSH requires extra SSH key setup.)  
-- **If you're pushing directly to cPanel (automated deployment):**  
-  - You can skip this step (or use a bare repo on cPanel).
+VILT Starter Kit is built with industry-leading tools and frameworks:
 
----
-
-### Step 3: Clone (or Pull) Your Repo to Your Deployment Directory
-
-- **Clone (if you're starting fresh):**  
-  - In cPanel's Terminal (or via SSH), run:  
-    ```bash
-    cd ~/public_html
-    git clone /home/novuiroh/repos/novus.git novus
-    ```
-- **Pull (if you're updating an existing clone):**  
-  - In cPanel's Terminal (or via SSH), run:  
-    ```bash
-    cd ~/public_html/novus
-    git pull origin master
-    ```
-  (Adjust branch name if you're not on "master.")
+| Technology | Version | Purpose |
+|------------|---------|---------|
+| **Laravel** | 10.x | Backend framework |
+| **Vue.js** | 3.x | Frontend framework (Composition API) |
+| **Inertia.js** | 1.x | SPA-like experience without API complexity |
+| **Tailwind CSS** | 3.x | Utility-first CSS framework |
+| **Laravel Jetstream** | Latest | Authentication scaffolding |
+| **Laratrust** | Latest | Roles & permissions management |
 
 ---
 
-### Step 4: Set Up a Post–Receive Hook (for Automated Deployment)
+## ✨ Features
 
-- In your cPanel Git repo (e.g., `/home/novuiroh/repos/novus.git/.git/hooks/`), create (or edit) a file named `post–receive` with the following content:
-  ```bash
-  #!/bin/bash
-  sh /home/novuiroh/novus/deploy.sh
-  ```
-- **Make the hook executable:**  
-  (In cPanel's Terminal or via SSH, run:)
-  ```bash
-  chmod +x /home/novuiroh/repos/novus.git/.git/hooks/post–receive
-  ```
-- **Also, ensure that your deploy script (`deploy.sh`) is executable:**  
-  ```bash
-  chmod +x /home/novuiroh/novus/deploy.sh
-  ```
+### 🔐 Complete Authentication
+Built-in authentication system powered by Laravel Jetstream with:
+- ✅ Login & Registration
+- ✅ Email Verification
+- ✅ Password Reset
+- ✅ Role-Based Access Control
 
----
+### 📊 Ready Dashboard
+Beautiful, responsive admin dashboard with:
+- ✅ Analytics Dashboard
+- ✅ User Management
+- ✅ Responsive Design
+- ✅ Dark Mode Support
 
-### Step 5: (Optional) Build Assets Locally and Commit (and Push) Built Files
+### 🧩 Reusable Components
+Extensive library of pre-built Vue components:
+- ✅ Form Components
+- ✅ Data Tables
+- ✅ Charts & Graphs
+- ✅ UI Elements
 
-- **On your local machine (in your project's root folder), run:**  
-  ```bash
-  npm install
-  npm run build
-  ```
-- **Remove (or comment out) the built asset folders (e.g., "public/js", "public/css") from your `.gitignore`** so that they're committed.  
-- **Commit (and push) your changes (including the built files) to GitHub (or your cPanel remote):**  
-  ```bash
-  git add –all
-  git commit –m "Build assets (built locally)"
-  git push origin master
-  ```
-- **If you're pushing to your cPanel remote (for automated deployment), run:**  
-  ```bash
-  git push production master
-  ```
-  (where "production" is your cPanel remote.)
+### 🏗️ Adaptable Patterns
+Clean, maintainable code architecture:
+- ✅ MVC Architecture
+- ✅ Service Layer Pattern
+- ✅ Repository Pattern
+- ✅ Component-Based UI
 
 ---
 
-### Step 6: Trigger Deployment (via Post–Receive Hook)
+## 📦 Installation
 
-- **If you're pushing to your cPanel Git remote (or bare repo), your post–receive hook (which calls `deploy.sh`) will run automatically.**  
-- **If you're pushing to GitHub (and then pulling on cPanel), you'll need to manually pull (or set up a webhook) to trigger your deploy script.**
+### Prerequisites
+
+- PHP >= 8.1
+- Composer
+- Node.js >= 16.x and npm
+- MySQL/PostgreSQL/SQLite
+- Git
+
+### Step 1: Clone the Repository
+
+```bash
+git clone https://github.com/CleoCTech/VILT-STARTER-KIT.git
+cd VILT-STARTER-KIT
+```
+
+### Step 2: Install Dependencies
+
+```bash
+# Install PHP dependencies
+composer install
+
+# Install Node.js dependencies
+npm install
+```
+
+### Step 3: Environment Configuration
+
+```bash
+# Copy environment file
+cp .env.example .env
+
+# Generate application key
+php artisan key:generate
+```
+
+Configure your database settings in the `.env` file:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=your_database_name
+DB_USERNAME=your_database_user
+DB_PASSWORD=your_database_password
+```
+
+### Step 4: Database Setup
+
+```bash
+# Run migrations
+php artisan migrate
+```
+
+### Step 5: ⚠️ Seed Database (IMPORTANT)
+
+**⚠️ Important: Seed the database before accessing the dashboard!**
+
+The database must be seeded to create the default admin user and initial data:
+
+```bash
+php artisan db:seed
+```
+
+This will create:
+- Default admin user
+- Essential roles and permissions
+- Sample data for testing
+
+### Step 6: Build Frontend Assets
+
+```bash
+# For development (with hot reload)
+npm run dev
+
+# For production
+npm run build
+```
+
+### Step 7: Start Development Server
+
+```bash
+# Start Laravel development server
+php artisan serve
+
+# The application will be available at http://localhost:8000
+```
 
 ---
 
-### Additional Resources
+## 🔑 Default Credentials
 
-- For a video walk–through (and further details) on setting up Git (and linking to GitHub) in cPanel, see:  
-  [YouTube: Setting Up Git Version Control in cPanel (CI/CD for Shared Hosting)](https://www.youtube.com/watch?v=CUltSMH2EVU)
+After seeding the database, you can log in to the dashboard using these default credentials:
+
+| Field | Value |
+|-------|-------|
+| **Email** | `admin@example.com` |
+| **Password** | `password` |
+
+> ⚠️ **Security Note:** Please change the default password after your first login for security purposes.
 
 ---
 
+## 🏗️ Architecture Overview
+
+VILT Starter Kit uses a modern stack combining:
+
+- **Laravel** as the backend framework - handles HTTP requests, business logic, and database operations
+- **Vue 3** with Composition API for the frontend - provides reactive, component-based UI
+- **Inertia.js** for seamless SPA-like experience - bridges Laravel and Vue without the complexity of a separate API
+- **Tailwind CSS** for rapid UI development - utility-first CSS framework for quick styling
+
+### Development Workflow
+
+The starter kit follows Laravel conventions and best practices:
+
+- **Controllers** handle HTTP requests
+- **Services** contain business logic
+- **Models** represent database entities
+- **Vue Components** handle the user interface
+- **Inertia.js** bridges the gap, allowing you to use Laravel routes and controllers while enjoying a modern SPA experience
+
+### Key Features Explained
+
+1. **Authentication:** Complete authentication system with Laravel Jetstream including login, registration, email verification, and password reset.
+
+2. **Role-Based Access Control:** Built-in roles and permissions system using Laratrust for managing user access levels.
+
+3. **Admin Dashboard:** Ready-to-use admin dashboard with analytics, user management, and customizable widgets.
+
+4. **Reusable Components:** Extensive library of Vue components for forms, tables, modals, charts, and more.
+
+5. **Adaptable Patterns:** Clean code architecture following MVC, Service Layer, and Repository patterns for easy customization.
+
+---
+
+## 📁 Project Structure
+
+```
+VILT-STARTER-KIT/
+├── app/
+│   ├── Http/
+│   │   ├── Controllers/
+│   │   │   ├── Admin/          # Admin controllers
+│   │   │   └── GeneralController.php
+│   │   └── Middleware/
+│   ├── Models/                  # Eloquent models
+│   └── Traits/                  # Reusable traits
+├── database/
+│   ├── migrations/              # Database migrations
+│   └── seeders/                 # Database seeders
+├── resources/
+│   ├── js/
+│   │   ├── Admin/              # Admin Vue components
+│   │   ├── Components/         # Reusable Vue components
+│   │   ├── Guest/              # Guest/public components
+│   │   └── Pages/              # Page components
+│   └── views/                   # Blade templates
+├── routes/
+│   ├── web.php                  # Web routes
+│   └── system.php               # System routes
+└── public/                      # Public assets
+```
+
+---
+
+## 🧪 Development
+
+### Running Tests
+
+```bash
+php artisan test
+```
+
+### Code Style
+
+The project follows PSR-12 coding standards and Vue.js style guide.
+
+### Building Assets
+
+```bash
+# Development build with hot reload
+npm run dev
+
+# Production build
+npm run build
+```
+
+---
+
+## 📚 Additional Resources
+
+- [Laravel Documentation](https://laravel.com/docs)
+- [Vue.js Documentation](https://vuejs.org/)
+- [Inertia.js Documentation](https://inertiajs.com/)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+
+---
+
+## 🤝 Support
+
+Need help? We're here for you!
+
+- 📧 **Email:** [cleoctech@gmail.com](mailto:cleoctech@gmail.com)
+- 📱 **Phone:** [+254 727 057 310](tel:+254727057310)
+- 🐦 **X (Twitter):** [@cleo_hacker](https://x.com/cleo_hacker)
+- 🌐 **Website:** [comwengas.com](https://comwengas.com)
+- 💻 **GitHub:** [@CleoCTech](https://github.com/CleoCTech)
+
+---
+
+## 📄 License
+
+This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+---
+
+## 🙏 Credits
+
+**Powered by [Wenla Systems](https://wenlasystems.com/)**
+
+VILT Starter Kit is developed and maintained by [CleoCTech](https://github.com/CleoCTech).
+
+---
+
+## 🚀 Quick Start Summary
+
+```bash
+# 1. Clone repository
+git clone https://github.com/CleoCTech/VILT-STARTER-KIT.git
+cd VILT-STARTER-KIT
+
+# 2. Install dependencies
+composer install && npm install
+
+# 3. Setup environment
+cp .env.example .env
+php artisan key:generate
+
+# 4. Configure database in .env file
+
+# 5. Run migrations and seed
+php artisan migrate
+php artisan db:seed  # ⚠️ IMPORTANT!
+
+# 6. Build assets
+npm run build
+
+# 7. Start server
+php artisan serve
+
+# 8. Login with:
+# Email: admin@example.com
+# Password: password
+```
+
+---
+
+<div align="center">
+
+**Built with ❤️ by [CleoCTech](https://github.com/CleoCTech)**
+
+⭐ Star this repo if you find it helpful!
+
+</div>
