@@ -25,7 +25,7 @@ const selectedVariant = ref(null);
 const quantity = ref(1);
 
 const images = computed(() => {
-    return props.product.images?.length ? props.product.images : [{ url: props.product.image || '/assets/img/placeholder.jpg' }];
+    return props.product.images?.length ? props.product.images : [{ image_url: props.product.image || '/assets/img/placeholder.jpg' }];
 });
 
 const variants = computed(() => {
@@ -86,7 +86,7 @@ const addToCart = () => {
                 name: props.product.name,
                 variant: variantInfo?.label || variantInfo?.storage || null,
                 price: currentPrice.value,
-                image: images.value[0]?.url,
+                image: images.value[0]?.image_url || images.value[0]?.url,
                 condition: props.product.condition,
                 quantity: quantity.value,
             });
@@ -122,7 +122,7 @@ const addToCart = () => {
                 <div>
                     <div class="bg-gray-100 rounded-2xl overflow-hidden mb-4">
                         <img
-                            :src="images[selectedImage]?.url"
+                            :src="images[selectedImage]?.image_url || images[selectedImage]?.url"
                             :alt="product.name"
                             class="w-full h-96 object-cover"
                         />
@@ -138,7 +138,7 @@ const addToCart = () => {
                             ]"
                         >
                             <img
-                                :src="img.url"
+                                :src="img.image_url || img.url"
                                 :alt="`${product.name} thumbnail ${idx + 1}`"
                                 class="w-full h-full object-cover"
                             />
@@ -201,7 +201,7 @@ const addToCart = () => {
                                 class="flex items-center gap-2"
                             >
                                 <Check class="w-5 h-5 text-green-500 shrink-0" />
-                                <span class="text-sm text-gray-700">{{ advantage.text || advantage }}</span>
+                                <span class="text-sm text-gray-700">{{ advantage.advantage || advantage.text || advantage }}</span>
                             </div>
                         </div>
                     </div>
@@ -249,8 +249,8 @@ const addToCart = () => {
                                     :key="spec.id || spec.name"
                                     class="border-b border-gray-100 last:border-0"
                                 >
-                                    <td class="px-6 py-3 text-sm text-gray-500 w-1/3">{{ spec.name || spec.key }}</td>
-                                    <td class="px-6 py-3 text-sm font-medium">{{ spec.value }}</td>
+                                    <td class="px-6 py-3 text-sm text-gray-500 w-1/3">{{ spec.spec_name || spec.name || spec.key }}</td>
+                                    <td class="px-6 py-3 text-sm font-medium">{{ spec.spec_value || spec.value }}</td>
                                 </tr>
                             </tbody>
                         </table>
