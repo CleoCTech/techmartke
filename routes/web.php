@@ -6,6 +6,10 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\GeneralController as GuestGeneralContoller;
 use App\Http\Controllers\Admin\GeneralController as AdminGeneralController;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\ProductController as AdminProductController;
+use App\Http\Controllers\Admin\OrderController as AdminOrderController;
+use App\Http\Controllers\Admin\BulkUploadController as AdminBulkUploadController;
 use App\Http\Controllers\Admin\FaqController as AdminFaqController;
 use App\Http\Controllers\Admin\FeedbackController as AdminFeedbackController;
 use App\Http\Controllers\Admin\GalleryController;
@@ -21,6 +25,11 @@ use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\StaffController;
 use App\Http\Controllers\Admin\VideoController;
 use App\Http\Controllers\Admin\AlbumCollectionController;
+use App\Http\Controllers\Customer\HomeController;
+use App\Http\Controllers\Customer\ProductController as CustomerProductController;
+use App\Http\Controllers\Customer\ComparisonController;
+use App\Http\Controllers\Customer\CartController;
+use App\Http\Controllers\Customer\AIAssistantController;
 use App\Http\Controllers\System\AttachmentsController;
 
 /*
@@ -35,10 +44,24 @@ use App\Http\Controllers\System\AttachmentsController;
 */
 
 /**
- * Guest Routes
+ * Customer / Storefront Routes
  */
-Route::get('/', [GuestGeneralContoller::class, 'home'])->name('home');
-Route::get('/dashboard',[GuestGeneralContoller::class,'dashboard'])->name('dashboard');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/dashboard', [GuestGeneralContoller::class, 'dashboard'])->name('dashboard');
+
+// Products
+Route::get('/products', [CustomerProductController::class, 'index'])->name('products.index');
+Route::get('/products/{slug}', [CustomerProductController::class, 'show'])->name('products.show');
+
+// Budget Comparison
+Route::get('/compare', [ComparisonController::class, 'compare'])->name('compare');
+
+// Cart & Checkout
+Route::get('/cart', [CartController::class, 'index'])->name('cart');
+Route::post('/checkout', [CartController::class, 'checkout'])->name('checkout');
+
+// AI Assistant
+Route::post('/api/ai-chat', [AIAssistantController::class, 'chat'])->name('ai.chat');
 
 // Common data routes
 Route::get('/topbar-data', [GuestGeneralContoller::class, 'topBarData']);
@@ -50,78 +73,104 @@ Route::post('/customer-inquiry', [GuestGeneralContoller::class, 'sendMessage'])-
  * Admin Routes
  */
 Route::prefix('admin')->group(function () {
-    Route::get('/dashboard',[AdminGeneralController::class,'dashboard'])->name('admin.dashboard');
-    Route::get('/dashboard/statistics',[AdminGeneralController::class,'statistics'])->name('admin.dashboard.statistics');
-    Route::get('/dashboard/web-traffic',[AdminGeneralController::class,'webTraffic'])->name('admin.dashboard.web-traffic');
-    Route::get('/dashboard/media-gallery',[AdminGeneralController::class,'mediaGallery'])->name('admin.dashboard.media-gallery');
-    Route::get('/whatsapp-config',[AdminGeneralController::class,'whatsappConfig'])->name('admin.whatsapp.config');
+    // Dashboard
+    Route::get('/dashboard', [AdminDashboardController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/dashboard/statistics', [AdminGeneralController::class, 'statistics'])->name('admin.dashboard.statistics');
+    Route::get('/dashboard/web-traffic', [AdminGeneralController::class, 'webTraffic'])->name('admin.dashboard.web-traffic');
+    Route::get('/dashboard/media-gallery', [AdminGeneralController::class, 'mediaGallery'])->name('admin.dashboard.media-gallery');
+    Route::get('/whatsapp-config', [AdminGeneralController::class, 'whatsappConfig'])->name('admin.whatsapp.config');
+
+    /***
+     * Products (E-Commerce)
+     */
+    Route::get('/products', [AdminProductController::class, 'index'])->name('admin.products');
+    Route::get('/products/create', [AdminProductController::class, 'create'])->name('admin.products.create');
+    Route::post('/products/store', [AdminProductController::class, 'store'])->name('admin.products.store');
+    Route::get('/products/show/{id}', [AdminProductController::class, 'show'])->name('admin.products.show');
+    Route::get('/products/edit/{id}', [AdminProductController::class, 'edit'])->name('admin.products.edit');
+    Route::put('/products/update/{id}', [AdminProductController::class, 'update'])->name('admin.products.update');
+    Route::delete('/products/delete/{id}', [AdminProductController::class, 'destroy'])->name('admin.products.destroy');
+
+    /***
+     * Bulk Upload
+     */
+    Route::get('/products/bulk-upload', [AdminBulkUploadController::class, 'index'])->name('admin.bulk-upload');
+    Route::post('/products/bulk-upload/parse', [AdminBulkUploadController::class, 'parse'])->name('admin.bulk-upload.parse');
+    Route::post('/products/bulk-upload/store', [AdminBulkUploadController::class, 'store'])->name('admin.bulk-upload.store');
+
+    /***
+     * Orders (E-Commerce)
+     */
+    Route::get('/orders', [AdminOrderController::class, 'index'])->name('admin.orders');
+    Route::get('/orders/show/{id}', [AdminOrderController::class, 'show'])->name('admin.orders.show');
+    Route::put('/orders/status/{id}', [AdminOrderController::class, 'updateStatus'])->name('admin.orders.update-status');
 
     /***
      * FAQ
      */
-    Route::get('/faq',[AdminFaqController::class,'index'])->name('admin.faq');
-    Route::get('/faq/create',[AdminFaqController::class,'create']);
-    Route::get('/faq/show/{uuid}',[AdminFaqController::class,'show']);
-    Route::get('/faq/edit/{uuid}',[AdminFaqController::class,'edit']);
-    Route::post('/faq/store',[AdminFaqController::class,'store']);
-    Route::delete('/faq/delete/{uuid}',[AdminFaqController::class,'destroy']);
-    Route::get('/faq/report/{name}',[AdminFaqController::class,'report']);
+    Route::get('/faq', [AdminFaqController::class, 'index'])->name('admin.faq');
+    Route::get('/faq/create', [AdminFaqController::class, 'create']);
+    Route::get('/faq/show/{uuid}', [AdminFaqController::class, 'show']);
+    Route::get('/faq/edit/{uuid}', [AdminFaqController::class, 'edit']);
+    Route::post('/faq/store', [AdminFaqController::class, 'store']);
+    Route::delete('/faq/delete/{uuid}', [AdminFaqController::class, 'destroy']);
+    Route::get('/faq/report/{name}', [AdminFaqController::class, 'report']);
 
     /***
      * Events
      */
-    Route::get('/event',[EventController::class,'index'])->name('admin.event');
-    Route::get('/event/create',[EventController::class,'create']);
-    Route::get('/event/show/{uuid}',[EventController::class,'show']);
-    Route::get('/event/edit/{uuid}',[EventController::class,'edit']);
-    Route::post('/event/store',[EventController::class,'store']);
-    Route::delete('/event/delete/{uuid}',[EventController::class,'destroy']);
-    Route::get('/event/report/{name}',[EventController::class,'report']);
+    Route::get('/event', [EventController::class, 'index'])->name('admin.event');
+    Route::get('/event/create', [EventController::class, 'create']);
+    Route::get('/event/show/{uuid}', [EventController::class, 'show']);
+    Route::get('/event/edit/{uuid}', [EventController::class, 'edit']);
+    Route::post('/event/store', [EventController::class, 'store']);
+    Route::delete('/event/delete/{uuid}', [EventController::class, 'destroy']);
+    Route::get('/event/report/{name}', [EventController::class, 'report']);
     Route::get('/events/calendar', [EventController::class, 'calendar'])->name('admin.events.calendar');
 
     /***
      * Gallery
      */
-    Route::get('/gallery',[GalleryController::class,'index'])->name('admin.gallery');
-    Route::get('/gallery/create',[GalleryController::class,'create']);
-    Route::get('/gallery/show/{uuid}',[GalleryController::class,'show']);
-    Route::get('/gallery/edit/{uuid}',[GalleryController::class,'edit']);
-    Route::post('/gallery/store',[GalleryController::class,'store']);
-    Route::delete('/gallery/delete/{uuid}',[GalleryController::class,'destroy']);
-    Route::get('/gallery/report/{name}',[GalleryController::class,'report']);
+    Route::get('/gallery', [GalleryController::class, 'index'])->name('admin.gallery');
+    Route::get('/gallery/create', [GalleryController::class, 'create']);
+    Route::get('/gallery/show/{uuid}', [GalleryController::class, 'show']);
+    Route::get('/gallery/edit/{uuid}', [GalleryController::class, 'edit']);
+    Route::post('/gallery/store', [GalleryController::class, 'store']);
+    Route::delete('/gallery/delete/{uuid}', [GalleryController::class, 'destroy']);
+    Route::get('/gallery/report/{name}', [GalleryController::class, 'report']);
 
     /***
      * Feedback
      */
-    Route::get('/feedback',[AdminFeedbackController::class,'index'])->name('admin.feedback');
-    Route::get('/feedback/create',[AdminFeedbackController::class,'create']);
-    Route::get('/feedback/show/{uuid}',[AdminFeedbackController::class,'show']);
-    Route::get('/feedback/edit/{uuid}',[AdminFeedbackController::class,'edit']);
-    Route::post('/feedback/store',[AdminFeedbackController::class,'store']);
-    Route::delete('/feedback/delete/{uuid}',[AdminFeedbackController::class,'destroy']);
-    Route::get('/feedback/report/{name}',[AdminFeedbackController::class,'report']);
+    Route::get('/feedback', [AdminFeedbackController::class, 'index'])->name('admin.feedback');
+    Route::get('/feedback/create', [AdminFeedbackController::class, 'create']);
+    Route::get('/feedback/show/{uuid}', [AdminFeedbackController::class, 'show']);
+    Route::get('/feedback/edit/{uuid}', [AdminFeedbackController::class, 'edit']);
+    Route::post('/feedback/store', [AdminFeedbackController::class, 'store']);
+    Route::delete('/feedback/delete/{uuid}', [AdminFeedbackController::class, 'destroy']);
+    Route::get('/feedback/report/{name}', [AdminFeedbackController::class, 'report']);
 
     /***
      * Inquiries
      */
-    Route::get('/inquiry',[AdminInquiriesController::class,'index'])->name('admin.inquiry');
-    Route::get('/inquiry/create',[AdminInquiriesController::class,'create']);
-    Route::get('/inquiry/show/{uuid}',[AdminInquiriesController::class,'show']);
-    Route::get('/inquiry/edit/{uuid}',[AdminInquiriesController::class,'edit']);
-    Route::post('/inquiry/store',[AdminInquiriesController::class,'store']);
-    Route::delete('/inquiry/delete/{uuid}',[AdminInquiriesController::class,'destroy']);
-    Route::get('/inquiry/report/{name}',[AdminInquiriesController::class,'report']);
+    Route::get('/inquiry', [AdminInquiriesController::class, 'index'])->name('admin.inquiry');
+    Route::get('/inquiry/create', [AdminInquiriesController::class, 'create']);
+    Route::get('/inquiry/show/{uuid}', [AdminInquiriesController::class, 'show']);
+    Route::get('/inquiry/edit/{uuid}', [AdminInquiriesController::class, 'edit']);
+    Route::post('/inquiry/store', [AdminInquiriesController::class, 'store']);
+    Route::delete('/inquiry/delete/{uuid}', [AdminInquiriesController::class, 'destroy']);
+    Route::get('/inquiry/report/{name}', [AdminInquiriesController::class, 'report']);
 
     /***
      * News
      */
-    Route::get('/news',[NewsController::class,'index'])->name('admin.news');
-    Route::get('/news/create',[NewsController::class,'create']);
-    Route::get('/news/show/{uuid}',[NewsController::class,'show']);
-    Route::get('/news/edit/{uuid}',[NewsController::class,'edit']);
-    Route::post('/news/store',[NewsController::class,'store']);
-    Route::delete('/news/delete/{uuid}',[NewsController::class,'destroy']);
-    Route::get('/news/report/{name}',[NewsController::class,'report']);
+    Route::get('/news', [NewsController::class, 'index'])->name('admin.news');
+    Route::get('/news/create', [NewsController::class, 'create']);
+    Route::get('/news/show/{uuid}', [NewsController::class, 'show']);
+    Route::get('/news/edit/{uuid}', [NewsController::class, 'edit']);
+    Route::post('/news/store', [NewsController::class, 'store']);
+    Route::delete('/news/delete/{uuid}', [NewsController::class, 'destroy']);
+    Route::get('/news/report/{name}', [NewsController::class, 'report']);
 
     /***
      * Partners
@@ -159,13 +208,13 @@ Route::prefix('admin')->group(function () {
     /***
      * Services
      */
-    Route::get('/course',[AdminServicesController::class,'index'])->name('admin.course');
-    Route::get('/course/create',[AdminServicesController::class,'create']);
-    Route::get('/course/show/{uuid}',[AdminServicesController::class,'show']);
-    Route::get('/course/edit/{uuid}',[AdminServicesController::class,'edit']);
-    Route::post('/course/store',[AdminServicesController::class,'store']);
-    Route::delete('/course/delete/{uuid}',[AdminServicesController::class,'destroy']);
-    Route::get('/course/report/{name}',[AdminServicesController::class,'report']);
+    Route::get('/course', [AdminServicesController::class, 'index'])->name('admin.course');
+    Route::get('/course/create', [AdminServicesController::class, 'create']);
+    Route::get('/course/show/{uuid}', [AdminServicesController::class, 'show']);
+    Route::get('/course/edit/{uuid}', [AdminServicesController::class, 'edit']);
+    Route::post('/course/store', [AdminServicesController::class, 'store']);
+    Route::delete('/course/delete/{uuid}', [AdminServicesController::class, 'destroy']);
+    Route::get('/course/report/{name}', [AdminServicesController::class, 'report']);
 
     /***
      * Staff
