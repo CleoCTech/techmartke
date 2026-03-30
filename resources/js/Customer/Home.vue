@@ -126,41 +126,32 @@ const quickBudgets = [30000, 50000, 80000, 120000];
 <template>
     <CustomerLayout>
         <!-- Hero Section with Particle Background -->
-        <section class="relative overflow-hidden min-h-[85vh] md:min-h-[70vh] flex items-center">
+        <section class="relative overflow-hidden flex items-center pt-6 pb-10 md:pt-16 md:pb-20">
             <!-- Particle Canvas -->
             <canvas
                 ref="canvasRef"
                 class="absolute inset-0 pointer-events-none z-0"
             />
 
-            <!-- Gradient overlays -->
-            <div class="absolute inset-0 bg-gradient-to-br from-white/80 via-gray-50/60 to-gray-100/80 z-[1]" />
-            <div class="absolute top-0 right-0 w-96 h-96 bg-black/[0.02] rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 z-[1]" />
-            <div class="absolute bottom-0 left-0 w-80 h-80 bg-black/[0.03] rounded-full blur-3xl translate-y-1/3 -translate-x-1/4 z-[1]" />
-
-            <div class="container mx-auto px-4 py-12 md:py-20 relative z-10">
+            <div class="container mx-auto px-4 relative z-10">
                 <div class="max-w-4xl mx-auto text-center">
                     <!-- Badge -->
-                    <div class="inline-flex items-center gap-2 bg-black/5 backdrop-blur-sm rounded-full px-4 py-2 mb-6 text-sm font-medium text-gray-700 animate-fade-in-down">
+                    <div class="inline-flex items-center gap-2 bg-gray-100 rounded-full px-4 py-2 mb-5 md:mb-6 text-sm font-medium text-gray-700 animate-fade-in-down">
                         <Zap class="w-4 h-4 text-black" />
                         AI-Powered Smart Shopping
                     </div>
 
-                    <h2 class="text-4xl sm:text-5xl md:text-7xl font-extrabold mb-4 md:mb-6 tracking-tight animate-fade-in-up">
-                        <span class="bg-gradient-to-r from-black via-gray-700 to-gray-500 bg-clip-text text-transparent">
-                            Find Your
-                        </span>
-                        <br class="hidden sm:block" />
-                        <span class="bg-gradient-to-r from-gray-800 to-black bg-clip-text text-transparent">
-                            Perfect Device
-                        </span>
+                    <h2 class="text-3xl sm:text-5xl md:text-7xl font-extrabold mb-3 md:mb-5 tracking-tight animate-fade-in-up text-black leading-tight">
+                        Find Your
+                        <br />
+                        Perfect Device
                     </h2>
-                    <p class="text-base sm:text-lg md:text-xl mb-8 md:mb-10 text-gray-500 max-w-2xl mx-auto leading-relaxed animate-fade-in-up animation-delay-100 px-4">
+                    <p class="text-sm sm:text-base md:text-lg mb-6 md:mb-10 text-gray-600 max-w-lg mx-auto leading-relaxed animate-fade-in-up animation-delay-100 px-2">
                         Enter your budget and let our AI find the best phones and computers with smart side-by-side comparisons
                     </p>
 
                     <!-- Budget Search Card -->
-                    <div class="bg-white/90 backdrop-blur-md rounded-2xl md:rounded-3xl p-5 sm:p-6 md:p-8 shadow-2xl shadow-black/5 border border-gray-200/60 mx-2 sm:mx-0 animate-fade-in-up animation-delay-200">
+                    <div class="bg-white rounded-2xl md:rounded-3xl p-5 sm:p-6 md:p-8 shadow-xl border border-gray-100 animate-fade-in-up animation-delay-200">
                         <label class="block text-left font-semibold mb-3 text-gray-700 text-sm md:text-base">
                             Your Budget (KES)
                         </label>
@@ -246,7 +237,7 @@ const quickBudgets = [30000, 50000, 80000, 120000];
         </section>
 
         <!-- Category Quick Links -->
-        <section class="py-10 md:py-16">
+        <section class="py-10 md:py-16 bg-gray-50">
             <div class="container mx-auto px-4">
                 <div class="text-center mb-8 md:mb-10">
                     <h3 class="text-2xl md:text-3xl font-bold mb-2">Shop by Category</h3>
@@ -344,7 +335,7 @@ const quickBudgets = [30000, 50000, 80000, 120000];
         </section>
 
         <!-- CTA Banner -->
-        <section class="py-12 md:py-20">
+        <section class="py-10 md:py-20 bg-gray-50">
             <div class="container mx-auto px-4">
                 <div class="bg-black rounded-2xl md:rounded-3xl p-8 md:p-16 text-center text-white relative overflow-hidden">
                     <!-- Decorative elements -->
