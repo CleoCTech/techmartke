@@ -39,6 +39,7 @@ import TawkMessengerVue from '@tawk.to/tawk-messenger-vue-3';
 import GuestBlankLayout from '@/Guest/Layouts/Blank.vue'
 import GuestLayout from '@/Guest/Layouts/Guest.vue'
 import SystemLayout from '@/System/Layouts/AppLayout.vue'
+import CustomerLayout from '@/Layouts/CustomerLayout.vue'
 import WhatsAppButton from '@/Components/WhatsAppButton.vue'
 
 
@@ -103,6 +104,16 @@ createInertiaApp({
             }
     
             module.default.layout = SystemLayout;
+        } else if (name.startsWith('Customer/')) {
+            // Customer pages manage their own layout via <CustomerLayout> in template
+            const page = await resolvePage(name);
+
+            if (!page) {
+                console.error(`Page component '${name}' not found.`);
+                return;
+            }
+
+            return page;
         } else if(name.startsWith('Pages/Auth/')) {
             console.log('Pages/Auth/');
             const page = await resolvePage(name);
