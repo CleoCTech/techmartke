@@ -52,7 +52,7 @@ const handleAddToCart = (e) => {
                 id: props.product.id,
                 name: props.product.name,
                 price: props.product.base_price || props.product.price,
-                image: props.product.images?.[0]?.url || props.product.image,
+                image: props.product.images?.[0]?.image_url || props.product.images?.[0]?.url || props.product.image,
                 condition: props.product.condition,
                 quantity: 1,
             });
@@ -65,7 +65,7 @@ const handleAddToCart = (e) => {
 };
 
 const productImage = (product) => {
-    return product.images?.[0]?.url || product.image || '/assets/img/placeholder.jpg';
+    return product.images?.[0]?.image_url || product.images?.[0]?.url || product.image || '/assets/img/placeholder.jpg';
 };
 </script>
 
@@ -92,7 +92,7 @@ const productImage = (product) => {
             <p class="text-gray-600 text-sm mb-4">
                 <span v-if="product.condition">{{ conditionLabel(product.condition) }}</span>
                 <span v-if="product.condition && product.brand"> &bull; </span>
-                <span v-if="product.brand">{{ product.brand }}</span>
+                <span v-if="product.brand">{{ product.brand?.name || product.brand }}</span>
             </p>
             <div class="flex items-center justify-between">
                 <div>
