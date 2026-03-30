@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             PartnerSeeder::class,
             TestimonialSeeder::class,
             TechMartSeeder::class,
+            CommunitySeeder::class,
         ]);
     }
 }

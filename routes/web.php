@@ -30,6 +30,7 @@ use App\Http\Controllers\Customer\ProductController as CustomerProductController
 use App\Http\Controllers\Customer\ComparisonController;
 use App\Http\Controllers\Customer\CartController;
 use App\Http\Controllers\Customer\AIAssistantController;
+use App\Http\Controllers\Customer\CommunityController;
 use App\Http\Controllers\System\AttachmentsController;
 
 /*
@@ -62,6 +63,17 @@ Route::post('/checkout', [CartController::class, 'checkout'])->name('checkout');
 
 // AI Assistant
 Route::post('/api/ai-chat', [AIAssistantController::class, 'chat'])->name('ai.chat');
+
+// Community
+Route::get('/community', [CommunityController::class, 'index'])->name('community');
+Route::get('/community/photos', [CommunityController::class, 'photos'])->name('community.photos');
+Route::get('/community/stories', [CommunityController::class, 'stories'])->name('community.stories');
+Route::get('/community/stories/{id}', [CommunityController::class, 'showStory'])->name('community.stories.show');
+Route::get('/community/questions', [CommunityController::class, 'questions'])->name('community.questions');
+Route::post('/community/photos', [CommunityController::class, 'storePhoto'])->name('community.photos.store');
+Route::post('/community/stories', [CommunityController::class, 'storeStory'])->name('community.stories.store');
+Route::post('/community/questions', [CommunityController::class, 'storeQuestion'])->name('community.questions.store');
+Route::post('/community/questions/{questionId}/answers', [CommunityController::class, 'storeAnswer'])->name('community.answers.store');
 
 // Common data routes
 Route::get('/topbar-data', [GuestGeneralContoller::class, 'topBarData']);
