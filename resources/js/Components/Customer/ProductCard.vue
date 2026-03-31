@@ -1,6 +1,6 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
-import { ShoppingCart, Eye } from 'lucide-vue-next';
+import { ShoppingCart, Eye, MessageCircle } from 'lucide-vue-next';
 
 const props = defineProps({
     product: {
@@ -74,6 +74,12 @@ const handleAddToCart = (e) => {
 
 const productImage = (product) => {
     return product.images?.[0]?.image_url || product.images?.[0]?.url || product.image || '/assets/img/placeholder.jpg';
+};
+
+const whatsappUrl = (product) => {
+    const price = Number(product.base_price || product.price || 0).toLocaleString();
+    const msg = encodeURIComponent(`Hi TechMart KE! I'm interested in the *${product.name}* at KSh ${price}. Is it available?`);
+    return `https://wa.me/254700000000?text=${msg}`;
 };
 </script>
 
@@ -150,13 +156,25 @@ const productImage = (product) => {
                         {{ formatPrice(product.original_price) }}
                     </p>
                 </div>
-                <button
-                    @click="handleAddToCart"
-                    class="flex-shrink-0 w-10 h-10 sm:w-auto sm:h-auto sm:px-4 sm:py-2.5 bg-black text-white rounded-xl hover:bg-gray-800 active:scale-95 transition-all text-sm font-semibold cursor-pointer flex items-center justify-center gap-2 shadow-sm hover:shadow-md"
-                >
-                    <ShoppingCart class="w-4 h-4" />
-                    <span class="hidden sm:inline">Add</span>
-                </button>
+                <div class="flex gap-1.5 flex-shrink-0">
+                    <a
+                        :href="whatsappUrl(product)"
+                        target="_blank"
+                        rel="noopener"
+                        @click.stop
+                        class="w-10 h-10 bg-[#25D366] hover:bg-[#1fb855] text-white rounded-xl active:scale-95 transition-all cursor-pointer flex items-center justify-center shadow-sm"
+                        title="Ask on WhatsApp"
+                    >
+                        <MessageCircle class="w-4 h-4" />
+                    </a>
+                    <button
+                        @click="handleAddToCart"
+                        class="w-10 h-10 sm:w-auto sm:h-auto sm:px-4 sm:py-2.5 bg-black text-white rounded-xl hover:bg-gray-800 active:scale-95 transition-all text-sm font-semibold cursor-pointer flex items-center justify-center gap-2 shadow-sm hover:shadow-md"
+                    >
+                        <ShoppingCart class="w-4 h-4" />
+                        <span class="hidden sm:inline">Add</span>
+                    </button>
+                </div>
             </div>
         </div>
     </Link>

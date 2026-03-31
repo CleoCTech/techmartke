@@ -4,6 +4,7 @@ import { router } from '@inertiajs/vue3';
 import CustomerLayout from '@/Layouts/CustomerLayout.vue';
 import ProductCard from '@/Components/Customer/ProductCard.vue';
 import { Search, Zap, Shield, Truck, ArrowRight, Star, Smartphone, Monitor } from 'lucide-vue-next';
+import TrustActions from '@/Components/Customer/TrustActions.vue';
 
 defineProps({
     featuredProducts: {
@@ -334,8 +335,23 @@ const quickBudgets = [30000, 50000, 80000, 120000];
             </div>
         </section>
 
+        <!-- Trust / Contact Section -->
+        <section class="py-10 md:py-16 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-8 md:mb-10">
+                    <h3 class="text-2xl md:text-3xl font-bold mb-2">Ready to Buy?</h3>
+                    <p class="text-gray-600 text-sm md:text-base max-w-lg mx-auto">
+                        See it. Touch it. Trust it. Visit our shop, call us, or chat on WhatsApp — we're here for you
+                    </p>
+                </div>
+                <div class="max-w-3xl mx-auto">
+                    <TrustActions layout="cards" />
+                </div>
+            </div>
+        </section>
+
         <!-- CTA Banner -->
-        <section class="py-10 md:py-20 bg-gray-50">
+        <section class="py-10 md:py-20">
             <div class="container mx-auto px-4">
                 <div class="bg-black rounded-2xl md:rounded-3xl p-8 md:p-16 text-center text-white relative overflow-hidden">
                     <!-- Decorative elements -->

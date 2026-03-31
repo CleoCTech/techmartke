@@ -4,6 +4,7 @@ import { Link } from '@inertiajs/vue3';
 import CustomerLayout from '@/Layouts/CustomerLayout.vue';
 import ProductCard from '@/Components/Customer/ProductCard.vue';
 import { ChevronRight, Check, ShoppingCart, Minus, Plus } from 'lucide-vue-next';
+import TrustActions from '@/Components/Customer/TrustActions.vue';
 
 const props = defineProps({
     product: {
@@ -207,29 +208,42 @@ const addToCart = () => {
                     </div>
 
                     <!-- Quantity & Add to Cart -->
-                    <div class="flex items-center gap-4 mb-8">
+                    <div class="flex items-center gap-4 mb-6">
                         <div class="flex items-center border border-gray-300 rounded-lg">
                             <button
                                 @click="quantity = Math.max(1, quantity - 1)"
-                                class="px-3 py-2 hover:bg-gray-100 transition"
+                                class="px-3 py-2 hover:bg-gray-100 transition cursor-pointer"
                             >
                                 <Minus class="w-4 h-4" />
                             </button>
                             <span class="px-4 py-2 font-medium">{{ quantity }}</span>
                             <button
                                 @click="quantity++"
-                                class="px-3 py-2 hover:bg-gray-100 transition"
+                                class="px-3 py-2 hover:bg-gray-100 transition cursor-pointer"
                             >
                                 <Plus class="w-4 h-4" />
                             </button>
                         </div>
                         <button
                             @click="addToCart"
-                            class="flex-1 px-8 py-3 bg-black text-white rounded-xl hover:bg-gray-800 transition font-medium flex items-center justify-center gap-2"
+                            class="flex-1 px-8 py-3 bg-black text-white rounded-xl hover:bg-gray-800 transition font-medium flex items-center justify-center gap-2 cursor-pointer"
                         >
                             <ShoppingCart class="w-5 h-5" />
                             Add to Cart
                         </button>
+                    </div>
+
+                    <!-- Trust Actions: WhatsApp, Call, Visit -->
+                    <div class="mb-8 pt-5 border-t border-gray-100">
+                        <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Prefer to see it first?</p>
+                        <TrustActions
+                            :product="{
+                                name: product.name,
+                                base_price: currentPrice,
+                                selectedVariant: selectedVariant ? variants.find(v => v.id === selectedVariant)?.storage : null
+                            }"
+                            layout="buttons"
+                        />
                     </div>
                 </div>
             </div>

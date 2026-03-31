@@ -1,6 +1,7 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
 import { Zap, ShoppingCart, Menu, X, Phone, Mail, MapPin } from 'lucide-vue-next';
+import FloatingContactBar from '@/Components/Customer/FloatingContactBar.vue';
 import { ref, onMounted } from 'vue';
 
 const mobileMenuOpen = ref(false);
@@ -120,9 +121,12 @@ const navLinks = [
         </header>
 
         <!-- Main Content -->
-        <main>
+        <main class="pb-16 md:pb-0">
             <slot />
         </main>
+
+        <!-- Floating Contact Bar (mobile bottom bar + desktop side buttons) -->
+        <FloatingContactBar />
 
         <!-- Footer -->
         <footer class="bg-gradient-to-b from-gray-900 to-black text-white pt-12 md:pt-16 pb-6 mt-12 md:mt-16">
