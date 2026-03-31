@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             TestimonialSeeder::class,
             TechMartSeeder::class,
             CommunitySeeder::class,
+            VipSeeder::class,
         ]);
     }
 }

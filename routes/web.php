@@ -31,6 +31,8 @@ use App\Http\Controllers\Customer\ComparisonController;
 use App\Http\Controllers\Customer\CartController;
 use App\Http\Controllers\Customer\AIAssistantController;
 use App\Http\Controllers\Customer\CommunityController;
+use App\Http\Controllers\Customer\VipController;
+use App\Http\Controllers\Admin\VipController as AdminVipController;
 use App\Http\Controllers\System\AttachmentsController;
 
 /*
@@ -74,6 +76,13 @@ Route::post('/community/photos', [CommunityController::class, 'storePhoto'])->na
 Route::post('/community/stories', [CommunityController::class, 'storeStory'])->name('community.stories.store');
 Route::post('/community/questions', [CommunityController::class, 'storeQuestion'])->name('community.questions.store');
 Route::post('/community/questions/{questionId}/answers', [CommunityController::class, 'storeAnswer'])->name('community.answers.store');
+
+// VIP Early Access
+Route::get('/vip', [VipController::class, 'index'])->name('vip');
+Route::post('/vip/register', [VipController::class, 'register'])->name('vip.register');
+Route::post('/vip/activate', [VipController::class, 'activate'])->name('vip.activate');
+Route::post('/vip/check-status', [VipController::class, 'checkStatus'])->name('vip.check-status');
+Route::post('/vip/apply-promo', [VipController::class, 'applyPromo'])->name('vip.apply-promo');
 
 // Common data routes
 Route::get('/topbar-data', [GuestGeneralContoller::class, 'topBarData']);
@@ -262,6 +271,16 @@ Route::prefix('admin')->group(function () {
     Route::delete('/album-collections/delete/{uuid}', [AlbumCollectionController::class, 'destroy']);
     Route::delete('/album-collections/{albumUuid}/delete-image/{imageId}', [AlbumCollectionController::class, 'deleteImage'])->name('admin.album-collections.delete-image');
     Route::get('/album-collections/report/{name}', [AlbumCollectionController::class, 'report']);
+
+    /***
+     * VIP Management
+     */
+    Route::get('/vip', [AdminVipController::class, 'index'])->name('admin.vip');
+    Route::get('/vip/notifications', [AdminVipController::class, 'notifications'])->name('admin.vip.notifications');
+    Route::post('/vip/notifications/send', [AdminVipController::class, 'sendNotification'])->name('admin.vip.notifications.send');
+    Route::get('/vip/campaigns', [AdminVipController::class, 'campaigns'])->name('admin.vip.campaigns');
+    Route::post('/vip/campaigns', [AdminVipController::class, 'storeCampaign'])->name('admin.vip.campaigns.store');
+    Route::put('/vip/subscribers/{id}/toggle', [AdminVipController::class, 'toggleSubscriber'])->name('admin.vip.toggle');
 
     // Change Password Routes
     Route::get('/settings/change-password', [AdminPasswordController::class, 'edit'])->name('password.edit');

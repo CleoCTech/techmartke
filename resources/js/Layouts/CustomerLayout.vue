@@ -31,6 +31,7 @@ const navLinks = [
     { label: 'New', href: '/products?condition=new' },
     { label: 'Ex-UK', href: '/products?condition=ex-uk' },
     { label: 'Community', href: '/community' },
+    { label: 'VIP', href: '/vip' },
 ];
 </script>
 
