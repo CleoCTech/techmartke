@@ -1,28 +1,56 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
+import { router } from '@inertiajs/vue3';
 import { Zap } from 'lucide-vue-next';
 
 const props = defineProps({
-    minDuration: { type: Number, default: 800 }, // ms minimum so it doesn't flash
+    minDuration: { type: Number, default: 600 }, // ms minimum so it doesn't flash
 });
 
 const visible = ref(true);
+let navStartTime = 0;
+let safetyTimer = null;
+let removeStart = null;
+let removeFinish = null;
+
+const showLoader = () => {
+    visible.value = true;
+    navStartTime = Date.now();
+    if (safetyTimer) clearTimeout(safetyTimer);
+    // Hard cap so loader never gets stuck if a request hangs
+    safetyTimer = setTimeout(() => { visible.value = false; }, 4000);
+};
+
+const hideLoader = () => {
+    const elapsed = Date.now() - navStartTime;
+    const remaining = Math.max(0, props.minDuration - elapsed);
+    setTimeout(() => {
+        visible.value = false;
+        if (safetyTimer) { clearTimeout(safetyTimer); safetyTimer = null; }
+    }, remaining);
+};
 
 onMounted(() => {
-    const start = Date.now();
-    const finish = () => {
-        const elapsed = Date.now() - start;
-        const remaining = Math.max(0, props.minDuration - elapsed);
-        setTimeout(() => { visible.value = false; }, remaining);
-    };
+    // Initial page load
+    navStartTime = Date.now();
+    const finishInitial = () => hideLoader();
 
     if (document.readyState === 'complete') {
-        finish();
+        finishInitial();
     } else {
-        window.addEventListener('load', finish, { once: true });
-        // Safety net: never block UI more than 4s even if some asset hangs
-        setTimeout(finish, 4000);
+        window.addEventListener('load', finishInitial, { once: true });
+        safetyTimer = setTimeout(() => { visible.value = false; }, 4000);
     }
+
+    // Inertia navigation between pages
+    removeStart = router.on('start', () => showLoader());
+    removeFinish = router.on('finish', () => hideLoader());
+});
+
+onUnmounted(() => {
+    if (safetyTimer) clearTimeout(safetyTimer);
+    if (removeStart) removeStart();
+    if (removeFinish) removeFinish();
 });
 </script>
 

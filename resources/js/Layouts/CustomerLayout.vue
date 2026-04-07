@@ -2,6 +2,7 @@
 import { Link, usePage } from '@inertiajs/vue3';
 import { Zap, ShoppingCart, Menu, X, Phone, Mail, MapPin } from 'lucide-vue-next';
 import FloatingContactBar from '@/Components/Customer/FloatingContactBar.vue';
+import LogoLoader from '@/Components/Customer/LogoLoader.vue';
 import { ref, computed, onMounted } from 'vue';
 import { useCompanyInfo } from '@/Composables/useCompanyInfo';
 
@@ -52,6 +53,9 @@ const isActive = (link) => {
 
 <template>
     <div class="min-h-screen bg-white">
+        <!-- Animated logo loader (initial load + every Inertia navigation) -->
+        <LogoLoader />
+
         <!-- Header -->
         <header
             :class="[
