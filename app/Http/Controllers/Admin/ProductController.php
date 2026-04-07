@@ -11,6 +11,7 @@ use App\Models\ProductVariant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 use App\Services\ProductImageService;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
@@ -352,6 +353,46 @@ PROMPT;
             return response()->json($decoded);
         } catch (\Exception $e) {
             return response()->json(['error' => 'AI generation failed: ' . $e->getMessage()], 500);
+        }
+    }
+
+    /**
+     * Delete a single product image by its ID.
+     * Removes the file from storage if it lives in /storage/, then deletes the DB row.
+     * If the deleted image was primary, promotes the next remaining image to primary.
+     */
+    public function destroyImage($id)
+    {
+        $image = ProductImage::findOrFail($id);
+        $product = $image->product;
+        $wasPrimary = $image->is_primary;
+
+        DB::beginTransaction();
+        try {
+            // Best-effort: remove file from local storage if it's a /storage/... URL
+            $url = $image->image_url;
+            if ($url && str_starts_with($url, '/storage/')) {
+                $relative = ltrim(substr($url, strlen('/storage/')), '/');
+                if (Storage::disk('public')->exists($relative)) {
+                    Storage::disk('public')->delete($relative);
+                }
+            }
+
+            $image->delete();
+
+            // If we deleted the primary, promote the next remaining image
+            if ($wasPrimary && $product) {
+                $next = $product->images()->orderBy('sort_order')->orderBy('id')->first();
+                if ($next) {
+                    $next->update(['is_primary' => true]);
+                }
+            }
+
+            DB::commit();
+            return redirect()->back()->with('success', 'Image deleted successfully.');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Failed to delete image: ' . $th->getMessage());
         }
     }
 

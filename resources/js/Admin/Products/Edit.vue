@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
+import { Head, Link, useForm, usePage, router } from '@inertiajs/vue3';
 
 const page = usePage();
 import {
@@ -103,6 +103,25 @@ const createPreviewUrl = (file) => window.URL.createObjectURL(file);
 const removeNewImage = (index) => {
     newImageFiles.value.splice(index, 1);
     form.images = newImageFiles.value;
+};
+
+const deletingImageId = ref(null);
+const deleteExistingImage = (image) => {
+    if (!confirm('Delete this image? This cannot be undone.')) return;
+    deletingImageId.value = image.id;
+    router.delete(`/admin/products/images/${image.id}`, {
+        preserveScroll: true,
+        onSuccess: () => {
+            // Remove from local list so the UI updates immediately
+            if (props.product?.images) {
+                const idx = props.product.images.findIndex(i => i.id === image.id);
+                if (idx !== -1) props.product.images.splice(idx, 1);
+            }
+        },
+        onFinish: () => {
+            deletingImageId.value = null;
+        },
+    });
 };
 
 const isGenerating = ref(false);
@@ -417,9 +436,32 @@ const submit = () => {
                                 <div
                                     v-for="image in product.images"
                                     :key="image.id"
-                                    class="w-24 h-24 border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden"
+                                    class="relative group w-24 h-24 border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden bg-slate-50 dark:bg-slate-900"
                                 >
-                                    <img :src="image.image_url || image.url || image.path" class="w-full h-full object-cover" :alt="product.name" />
+                                    <img
+                                        :src="image.image_url || image.url || image.path"
+                                        class="w-full h-full object-cover"
+                                        :alt="product.name"
+                                        @error="(e) => { e.target.style.display = 'none'; e.target.nextElementSibling?.classList.remove('hidden'); }"
+                                    />
+                                    <div class="hidden absolute inset-0 flex items-center justify-center text-[10px] text-slate-400 text-center px-1">
+                                        Image failed to load
+                                    </div>
+                                    <button
+                                        type="button"
+                                        @click="deleteExistingImage(image)"
+                                        :disabled="deletingImageId === image.id"
+                                        class="absolute top-1 right-1 bg-red-500 hover:bg-red-600 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity disabled:opacity-50 cursor-pointer"
+                                        title="Delete image"
+                                    >
+                                        <Trash2 class="h-3 w-3" />
+                                    </button>
+                                    <span
+                                        v-if="image.is_primary"
+                                        class="absolute bottom-1 left-1 bg-blue-500 text-white text-[9px] font-semibold px-1.5 py-0.5 rounded"
+                                    >
+                                        PRIMARY
+                                    </span>
                                 </div>
                             </div>
                         </div>

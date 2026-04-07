@@ -29,9 +29,32 @@ const galleryRef = ref(null);
 let touchStartX = 0;
 let touchEndX = 0;
 
+// Filter out images with empty/blank URLs so the gallery never shows a broken slot
 const images = computed(() => {
-    return props.product.images?.length ? props.product.images : [{ image_url: props.product.image || '/assets/img/placeholder.jpg' }];
+    const raw = Array.isArray(props.product?.images) ? props.product.images : [];
+    const usable = raw.filter(img => {
+        const url = img?.image_url || img?.url || img?.path;
+        return url && String(url).trim() !== '';
+    });
+    if (usable.length) return usable;
+    return [{ image_url: props.product?.image || '/assets/img/placeholder.jpg' }];
 });
+
+// Runtime fallback when an image fails to load
+const handleImgError = (e) => {
+    const tried = e.target.dataset.tried ? JSON.parse(e.target.dataset.tried) : [];
+    tried.push(e.target.src);
+    for (const img of images.value) {
+        const url = img?.image_url || img?.url || img?.path;
+        if (url && !tried.some(t => t.endsWith(url))) {
+            e.target.dataset.tried = JSON.stringify(tried);
+            e.target.src = url;
+            return;
+        }
+    }
+    e.target.src = '/assets/img/placeholder.jpg';
+    e.target.onerror = null;
+};
 
 const nextImage = () => {
     selectedImage.value = (selectedImage.value + 1) % images.value.length;
@@ -168,6 +191,7 @@ const addToCart = () => {
                             :src="images[selectedImage]?.image_url || images[selectedImage]?.url"
                             :alt="product.name"
                             class="w-full h-80 sm:h-96 md:h-[480px] object-contain p-4 transition-transform duration-300"
+                            @error="handleImgError"
                         />
 
                         <!-- Zoom hint -->
@@ -212,6 +236,7 @@ const addToCart = () => {
                                 :src="img.image_url || img.url"
                                 :alt="`${product.name} ${idx + 1}`"
                                 class="w-full h-full object-cover"
+                                @error="handleImgError"
                             />
                         </button>
                     </div>
@@ -268,6 +293,7 @@ const addToCart = () => {
                                     :alt="product.name"
                                     class="max-w-[90vw] max-h-[85vh] object-contain select-none"
                                     draggable="false"
+                                    @error="handleImgError"
                                 />
                             </div>
                         </Transition>

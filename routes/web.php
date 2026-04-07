@@ -121,6 +121,7 @@ Route::prefix('admin')->group(function () {
     Route::put('/products/update/{uuid}', [AdminProductController::class, 'update'])->name('admin.products.update');
     Route::post('/products/update/{uuid}', [AdminProductController::class, 'update'])->name('admin.products.update.post');
     Route::delete('/products/delete/{uuid}', [AdminProductController::class, 'destroy'])->name('admin.products.destroy');
+    Route::delete('/products/images/{id}', [AdminProductController::class, 'destroyImage'])->name('admin.products.images.destroy');
 
     Route::post('/products/generate-content', [AdminProductController::class, 'generateContent'])->name('admin.products.generate-content');
 

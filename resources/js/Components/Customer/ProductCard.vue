@@ -78,8 +78,32 @@ const handleAddToCart = (e) => {
     } catch { /* silently fail */ }
 };
 
+// Pick the first image whose URL is non-empty (skip blanks like empty image_url)
 const productImage = (product) => {
-    return product.images?.[0]?.image_url || product.images?.[0]?.url || product.image || '/assets/img/placeholder.jpg';
+    const images = Array.isArray(product?.images) ? product.images : [];
+    for (const img of images) {
+        const url = img?.image_url || img?.url || img?.path;
+        if (url && String(url).trim() !== '') return url;
+    }
+    return product?.image || '/assets/img/placeholder.jpg';
+};
+
+// Runtime fallback: if a chosen URL fails to load (404, broken link), try the
+// next available image, then fall back to the placeholder.
+const handleImgError = (e, product) => {
+    const images = Array.isArray(product?.images) ? product.images : [];
+    const tried = e.target.dataset.tried ? JSON.parse(e.target.dataset.tried) : [];
+    tried.push(e.target.src);
+    for (const img of images) {
+        const url = img?.image_url || img?.url || img?.path;
+        if (url && !tried.includes(url) && !tried.some(t => t.endsWith(url))) {
+            e.target.dataset.tried = JSON.stringify(tried);
+            e.target.src = url;
+            return;
+        }
+    }
+    e.target.src = '/assets/img/placeholder.jpg';
+    e.target.onerror = null; // stop infinite loop if placeholder also fails
 };
 
 const shareSuccess = ref(false);
@@ -121,6 +145,7 @@ const whatsappUrl = (product) => {
                 class="w-full h-full object-contain transition-transform duration-500"
                 :class="isOutOfStock ? '' : 'group-hover:scale-105'"
                 loading="lazy"
+                @error="(e) => handleImgError(e, product)"
             />
 
             <!-- Badges -->
