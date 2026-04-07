@@ -130,12 +130,12 @@ class CommunityController extends Controller
     public function storePhoto(Request $request)
     {
         $request->validate([
-            'photo' => 'required|image|max:5120', // 5MB max
+            'photo' => 'required|file|mimetypes:image/jpeg,image/png,image/gif,image/webp,image/avif,image/heic,image/heif|max:5120',
             'caption' => 'nullable|string|max:500',
             'customer_name' => 'required|string|max:100',
         ], [
             'photo.max' => 'Photo must be less than 5MB.',
-            'photo.image' => 'Please upload a valid image (JPG, PNG, GIF, WebP).',
+            'photo.mimetypes' => 'Please upload a valid image (JPG, PNG, GIF, WebP, AVIF, HEIC).',
         ]);
 
         $path = $request->file('photo')->store('community/photos', 'public');

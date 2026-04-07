@@ -90,7 +90,7 @@ class ProductController extends Controller
             'variants.*.stock_quantity' => 'nullable|integer|min:0',
             'variants.*.sku' => 'nullable|string|max:100',
             'images' => 'nullable|array',
-            'images.*' => 'nullable|file|image|max:5120',
+            'images.*' => 'nullable|file|mimetypes:image/jpeg,image/png,image/gif,image/webp,image/avif,image/heic,image/heif|max:5120',
             'specifications' => 'nullable|array',
             'specifications.*.spec_group' => 'nullable|string|max:100',
             'specifications.*.spec_name' => 'nullable|string|max:100',
@@ -219,7 +219,7 @@ class ProductController extends Controller
             'advantages' => 'nullable|array',
             'advantages.*' => 'nullable|string|max:500',
             'images' => 'nullable|array',
-            'images.*' => 'nullable|file|image|max:5120',
+            'images.*' => 'nullable|file|mimetypes:image/jpeg,image/png,image/gif,image/webp,image/avif,image/heic,image/heif|max:5120',
         ]);
 
         $specs = $validated['specifications'] ?? null;

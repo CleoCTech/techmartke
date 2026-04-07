@@ -324,3 +324,6 @@ Route::group([], __DIR__.'/system.php');
 
 
 //php artisan products:fetch-images --force --limit=55
+
+//cd /var/www/techmartke
+//sudo bash /var/www/deploy-techmartke.sh
