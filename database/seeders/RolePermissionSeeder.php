@@ -74,7 +74,7 @@ class RolePermissionSeeder extends Seeder
         $superadmin->permissions()->sync($allPermissions->pluck('id'));
 
         // Assign administrator role to admin user
-        $adminUser = User::where('email', 'admin@example.com')->first();
+        $adminUser = User::where('email', 'admin@techmartke.com')->first();
         if ($adminUser && !$adminUser->hasRole('administrator')) {
             $adminUser->addRole($administrator);
         }

@@ -18,11 +18,11 @@ class UserSeeder extends Seeder
     {
         // Create default admin user
         $adminUser = User::firstOrCreate(
-            ['email' => 'admin@example.com'],
+            ['email' => 'admin@techmartke.com'],
             [
                 'uuid' => Str::uuid(),
                 'name' => 'Administrator',
-                'email' => 'admin@example.com',
+                'email' => 'admin@techmartke.com',
                 'password' => Hash::make('password'),
                 'user_category' => 100,
                 'status' => 2, // Active
@@ -32,12 +32,12 @@ class UserSeeder extends Seeder
 
         // Add admin user to admin_users table
         AdminUser::firstOrCreate(
-            ['email' => 'admin@example.com'],
+            ['email' => 'admin@techmartke.com'],
             [
                 'uuid' => Str::uuid(),
                 'user_id' => $adminUser->id,
                 'name' => 'Administrator',
-                'email' => 'admin@example.com',
+                'email' => 'admin@techmartke.com',
                 'role' => 1, // Super Admin
                 'is_approver' => 1,
                 'status' => 1, // Active
@@ -48,13 +48,13 @@ class UserSeeder extends Seeder
 
         // Add admin user to staff table
         DB::table('staff')->updateOrInsert(
-            ['email' => 'admin@example.com'],
+            ['email' => 'admin@techmartke.com'],
             [
                 'uuid' => Str::uuid(),
                 'user_id' => $adminUser->id,
                 'name' => 'Administrator',
-                'email' => 'admin@example.com',
-                'phone_no' => '+1234567890', // Default phone number
+                'email' => 'admin@techmartke.com',
+                'phone_no' => '254700000000', // Default — update in admin
                 'title' => 'Administrator',
                 'status' => 2, // Active (assuming 2 is active based on other models)
                 'created_by' => 'system',

@@ -38,6 +38,11 @@ class TechMartSeeder extends Seeder
         Category::firstOrCreate(['slug' => 'macbooks'], ['name' => 'MacBooks', 'slug' => 'macbooks', 'parent_id' => $computers->id, 'is_active' => true, 'sort_order' => 1]);
         Category::firstOrCreate(['slug' => 'windows-laptops'], ['name' => 'Windows Laptops', 'slug' => 'windows-laptops', 'parent_id' => $computers->id, 'is_active' => true, 'sort_order' => 2]);
 
+        // Skip sample products in production — only seed brands/categories
+        if (env('SEED_SAMPLE_PRODUCTS', false) === false) {
+            return;
+        }
+
         $apple = Brand::where('slug', 'apple')->first();
         $samsung = Brand::where('slug', 'samsung')->first();
 
