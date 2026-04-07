@@ -351,8 +351,8 @@ const quickBudgets = [30000, 50000, 80000, 120000]; // kept for quick budget but
             </div>
         </div>
 
-        <!-- Hero Section with Particle Background -->
-        <section class="relative overflow-hidden flex items-center pt-6 pb-10 md:pt-16 md:pb-20">
+        <!-- Compact Hero with Inline Search -->
+        <section class="relative overflow-hidden pt-4 pb-3 md:pt-6 md:pb-4">
             <!-- Particle Canvas -->
             <canvas
                 ref="canvasRef"
@@ -360,33 +360,27 @@ const quickBudgets = [30000, 50000, 80000, 120000]; // kept for quick budget but
             />
 
             <div class="container mx-auto px-4 relative z-10">
-                <div class="max-w-4xl mx-auto text-center">
-                    <!-- Badge -->
-                    <div class="inline-flex items-center gap-2 bg-gray-100 rounded-full px-4 py-2 mb-5 md:mb-6 text-sm font-medium text-gray-700 animate-fade-in-down">
-                        <Zap class="w-4 h-4 text-black" />
-                        AI-Powered Smart Shopping
+                <div class="max-w-3xl mx-auto">
+                    <!-- Compact heading with inline AI badge -->
+                    <div class="text-center mb-3 md:mb-4 animate-fade-in-up">
+                        <h1 class="text-xl sm:text-2xl md:text-3xl font-extrabold text-black tracking-tight leading-tight inline-flex items-center gap-2 flex-wrap justify-center">
+                            <Sparkles class="w-5 h-5 md:w-6 md:h-6 text-amber-500" />
+                            Find Your Perfect Device
+                        </h1>
+                        <p class="text-xs sm:text-sm text-gray-500 mt-1">AI-powered search · Best prices · Quality verified</p>
                     </div>
 
-                    <h2 class="text-3xl sm:text-5xl md:text-7xl font-extrabold mb-3 md:mb-5 tracking-tight animate-fade-in-up text-black leading-tight">
-                        Find Your
-                        <br />
-                        Perfect Device
-                    </h2>
-                    <p class="text-sm sm:text-base md:text-lg mb-6 md:mb-10 text-gray-600 max-w-lg mx-auto leading-relaxed animate-fade-in-up animation-delay-100 px-2">
-                        Enter your budget and let our AI find the best phones and computers with smart side-by-side comparisons
-                    </p>
-
-                    <!-- Smart Search Card -->
-                    <div class="bg-white rounded-2xl md:rounded-3xl p-5 sm:p-6 md:p-8 shadow-xl border border-gray-100 animate-fade-in-up animation-delay-200 relative z-20">
+                    <!-- Compact Inline Search (no big card) -->
+                    <div class="animate-fade-in-up animation-delay-100 relative z-20">
                         <!-- Search Input with Autocomplete -->
                         <div class="relative">
-                            <div class="absolute left-4 top-1/2 -translate-y-1/2 flex items-center gap-1.5 z-10">
-                                <Sparkles class="w-5 h-5 text-gray-400" />
+                            <div class="absolute left-3.5 top-1/2 -translate-y-1/2 z-10">
+                                <Search class="w-4 h-4 text-gray-400" />
                             </div>
                             <input
                                 v-model="query"
                                 type="text"
-                                class="w-full pl-12 pr-28 sm:pr-36 py-4 sm:py-5 text-base sm:text-lg border-2 border-gray-200 rounded-2xl focus:border-black focus:outline-none focus:ring-4 focus:ring-black/5 transition-all cursor-text relative z-10"
+                                class="w-full pl-10 pr-20 sm:pr-24 py-3 text-sm sm:text-base bg-white border border-gray-200 rounded-full shadow-sm focus:border-black focus:outline-none focus:ring-2 focus:ring-black/5 transition-all cursor-text relative z-10"
                                 :placeholder="currentPlaceholder"
                                 @input="onInput"
                                 @keydown="onKeydown"
@@ -397,10 +391,10 @@ const quickBudgets = [30000, 50000, 80000, 120000]; // kept for quick budget but
                             <button
                                 @click="showSuggestions = false; smartSearch()"
                                 :disabled="!query.trim()"
-                                class="absolute right-2 top-1/2 -translate-y-1/2 px-4 sm:px-6 py-2.5 sm:py-3 bg-black text-white rounded-xl hover:bg-gray-800 active:scale-[0.97] transition-all font-semibold flex items-center gap-2 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed text-sm sm:text-base z-10"
+                                class="absolute right-1.5 top-1/2 -translate-y-1/2 px-3 sm:px-4 py-2 bg-black text-white rounded-full hover:bg-gray-800 active:scale-[0.97] transition-all font-semibold flex items-center gap-1.5 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed text-xs sm:text-sm z-10"
                             >
-                                <Search class="w-4 h-4" />
-                                <span class="hidden sm:inline">Search</span>
+                                <Sparkles class="w-3.5 h-3.5" />
+                                <span>Ask AI</span>
                             </button>
 
                             <!-- Suggestions Dropdown -->
@@ -438,211 +432,158 @@ const quickBudgets = [30000, 50000, 80000, 120000]; // kept for quick budget but
                             </div>
                         </div>
 
-                        <!-- Quick Actions -->
-                        <div class="mt-4 flex flex-col gap-3">
-                            <!-- Budget shortcuts -->
-                            <div class="flex flex-wrap items-center gap-2">
-                                <span class="text-xs text-gray-400">Budget:</span>
-                                <button
-                                    v-for="b in quickBudgets"
-                                    :key="b"
-                                    @click="query = `Best phone under ${(b/1000)}K`; smartSearch()"
-                                    class="px-3 py-1.5 text-xs font-medium bg-gray-50 hover:bg-gray-100 active:bg-gray-200 rounded-lg transition-all cursor-pointer border border-gray-200 hover:border-gray-300"
-                                >
-                                    Under {{ (b/1000) }}K
-                                </button>
-                            </div>
-                            <!-- Try asking -->
-                            <div class="flex flex-wrap items-center gap-2">
-                                <span class="text-xs text-gray-400">Try:</span>
-                                <button
-                                    @click="quickSearch('Best Samsung under 25K')"
-                                    class="px-3 py-1.5 text-xs font-medium text-gray-600 hover:text-black bg-gray-50 hover:bg-gray-100 rounded-lg transition-all cursor-pointer border border-gray-100"
-                                >
-                                    Best Samsung under 25K
-                                </button>
-                                <button
-                                    @click="quickSearch('iPhone with good camera')"
-                                    class="px-3 py-1.5 text-xs font-medium text-gray-600 hover:text-black bg-gray-50 hover:bg-gray-100 rounded-lg transition-all cursor-pointer border border-gray-100"
-                                >
-                                    iPhone with good camera
-                                </button>
-                                <button
-                                    @click="quickSearch('Laptop for school work')"
-                                    class="hidden sm:inline-block px-3 py-1.5 text-xs font-medium text-gray-600 hover:text-black bg-gray-50 hover:bg-gray-100 rounded-lg transition-all cursor-pointer border border-gray-100"
-                                >
-                                    Laptop for school work
-                                </button>
-                            </div>
-                            <!-- Trade-In CTA -->
-                            <div class="pt-2 border-t border-gray-100">
-                                <Link href="/trade-in" class="inline-flex items-center gap-1.5 text-xs font-medium text-green-700 hover:text-green-800 transition">
-                                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 014-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
-                                    Have a phone to trade in? <span class="underline">Get its value</span>
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Hot Flash Deals (horizontal scroll) -->
-                    <div v-if="flashSaleProducts.length" class="mt-8 md:mt-10 animate-fade-in-up animation-delay-200">
-                        <h3 class="text-lg md:text-xl font-bold mb-4 text-left">Hot Flash Deals</h3>
-                        <div class="flex gap-3 overflow-x-auto pb-3 -mx-1 px-1 snap-x snap-mandatory scrollbar-hide">
-                            <Link
-                                v-for="product in flashSaleProducts"
-                                :key="product.id"
-                                :href="`/products/${product.slug || product.id}`"
-                                class="group flex-shrink-0 w-[140px] sm:w-[160px] bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all snap-start block overflow-hidden"
+                        <!-- Inline chip row (horizontal scroll on mobile) -->
+                        <div class="mt-2.5 flex gap-1.5 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-hide">
+                            <button
+                                v-for="b in quickBudgets"
+                                :key="b"
+                                @click="query = `Best phone under ${(b/1000)}K`; smartSearch()"
+                                class="flex-shrink-0 px-2.5 py-1 text-[11px] font-medium bg-gray-100 hover:bg-gray-200 active:bg-gray-300 rounded-full transition-all cursor-pointer text-gray-700"
                             >
-                                <!-- Image -->
-                                <div class="relative aspect-square bg-gray-50 p-3">
-                                    <img
-                                        :src="product.images?.[0]?.image_url || product.images?.[0]?.url || product.image || '/assets/img/placeholder.jpg'"
-                                        :alt="product.name"
-                                        class="w-full h-full object-contain"
-                                        loading="lazy"
-                                    />
-                                    <!-- Limited Time badge -->
-                                    <div
-                                        v-if="product.flash_sale_price && product.base_price > product.flash_sale_price"
-                                        class="absolute bottom-1.5 right-1.5 bg-red-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded"
-                                    >
-                                        Limited Time
-                                    </div>
-                                </div>
-                                <!-- Price + Add -->
-                                <div class="px-2.5 pb-2.5 pt-2">
-                                    <p class="text-xs font-bold text-gray-900 truncate mb-1">{{ formatFlashPrice(product.flash_sale_price || product.base_price) }}</p>
-                                    <button
-                                        @click="addFlashToCart($event, product)"
-                                        class="w-full flex items-center justify-center gap-1 bg-black text-white text-[10px] font-semibold py-1.5 rounded-md hover:bg-gray-800 transition-colors"
-                                    >
-                                        <ShoppingCart class="w-3 h-3" />
-                                        Add to Cart
-                                    </button>
-                                </div>
+                                Under {{ (b/1000) }}K
+                            </button>
+                            <button
+                                @click="quickSearch('Best Samsung under 25K')"
+                                class="flex-shrink-0 px-2.5 py-1 text-[11px] font-medium bg-gray-100 hover:bg-gray-200 rounded-full transition-all cursor-pointer text-gray-700"
+                            >
+                                Samsung under 25K
+                            </button>
+                            <button
+                                @click="quickSearch('iPhone with good camera')"
+                                class="flex-shrink-0 px-2.5 py-1 text-[11px] font-medium bg-gray-100 hover:bg-gray-200 rounded-full transition-all cursor-pointer text-gray-700"
+                            >
+                                Best iPhone camera
+                            </button>
+                            <Link
+                                href="/trade-in"
+                                class="flex-shrink-0 inline-flex items-center gap-1 px-2.5 py-1 text-[11px] font-semibold bg-green-50 hover:bg-green-100 rounded-full transition cursor-pointer text-green-700 border border-green-200"
+                            >
+                                <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 014-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
+                                Trade-in
                             </Link>
                         </div>
                     </div>
 
-                    <!-- Popular Categories -->
-                    <div class="mt-10 md:mt-14 animate-fade-in-up animation-delay-200">
-                        <h3 class="text-xl md:text-2xl font-bold mb-6">Popular Categories</h3>
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5">
-                            <Link
-                                href="/products?category=phones"
-                                class="group bg-white rounded-2xl p-5 md:p-6 text-center shadow-sm hover:shadow-lg border border-gray-100 hover:border-gray-200 transition-all duration-300 cursor-pointer hover:-translate-y-1"
-                            >
-                                <div class="w-12 h-12 md:w-14 md:h-14 bg-gray-50 group-hover:bg-black/5 rounded-xl flex items-center justify-center mx-auto mb-3 transition-colors duration-300">
-                                    <Smartphone class="w-6 h-6 md:w-7 md:h-7 text-gray-500 group-hover:text-black transition-colors duration-300" />
-                                </div>
-                                <h4 class="font-bold text-sm md:text-base mb-1">Phones</h4>
-                                <p class="text-[11px] md:text-xs text-gray-400 mb-3 leading-snug">Navigate on phones and mobile phones.</p>
-                                <span class="text-xs font-semibold text-gray-500 group-hover:text-black transition-colors">Explore</span>
-                            </Link>
-                            <Link
-                                href="/products?category=computers"
-                                class="group bg-white rounded-2xl p-5 md:p-6 text-center shadow-sm hover:shadow-lg border border-gray-100 hover:border-gray-200 transition-all duration-300 cursor-pointer hover:-translate-y-1"
-                            >
-                                <div class="w-12 h-12 md:w-14 md:h-14 bg-gray-50 group-hover:bg-black/5 rounded-xl flex items-center justify-center mx-auto mb-3 transition-colors duration-300">
-                                    <Laptop class="w-6 h-6 md:w-7 md:h-7 text-gray-500 group-hover:text-black transition-colors duration-300" />
-                                </div>
-                                <h4 class="font-bold text-sm md:text-base mb-1">Laptops</h4>
-                                <p class="text-[11px] md:text-xs text-gray-400 mb-3 leading-snug">Browse smart laptops, and track your laptops.</p>
-                                <span class="text-xs font-semibold text-gray-500 group-hover:text-black transition-colors">Explore</span>
-                            </Link>
-                            <Link
-                                href="/products?category=tablets"
-                                class="group bg-white rounded-2xl p-5 md:p-6 text-center shadow-sm hover:shadow-lg border border-gray-100 hover:border-gray-200 transition-all duration-300 cursor-pointer hover:-translate-y-1"
-                            >
-                                <div class="w-12 h-12 md:w-14 md:h-14 bg-gray-50 group-hover:bg-black/5 rounded-xl flex items-center justify-center mx-auto mb-3 transition-colors duration-300">
-                                    <Tablet class="w-6 h-6 md:w-7 md:h-7 text-gray-500 group-hover:text-black transition-colors duration-300" />
-                                </div>
-                                <h4 class="font-bold text-sm md:text-base mb-1">Tablets</h4>
-                                <p class="text-[11px] md:text-xs text-gray-400 mb-3 leading-snug">Deliver screen with tablets and tablets.</p>
-                                <span class="text-xs font-semibold text-gray-500 group-hover:text-black transition-colors">Explore</span>
-                            </Link>
-                            <Link
-                                href="/products?category=accessories"
-                                class="group bg-white rounded-2xl p-5 md:p-6 text-center shadow-sm hover:shadow-lg border border-gray-100 hover:border-gray-200 transition-all duration-300 cursor-pointer hover:-translate-y-1"
-                            >
-                                <div class="w-12 h-12 md:w-14 md:h-14 bg-gray-50 group-hover:bg-black/5 rounded-xl flex items-center justify-center mx-auto mb-3 transition-colors duration-300">
-                                    <Headphones class="w-6 h-6 md:w-7 md:h-7 text-gray-500 group-hover:text-black transition-colors duration-300" />
-                                </div>
-                                <h4 class="font-bold text-sm md:text-base mb-1">Accessories</h4>
-                                <p class="text-[11px] md:text-xs text-gray-400 mb-3 leading-snug">Scenecats new phones and technicians accessories.</p>
-                                <span class="text-xs font-semibold text-gray-500 group-hover:text-black transition-colors">Explore</span>
-                            </Link>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Trust Badges -->
-        <section class="py-8 md:py-12 border-b border-gray-200 bg-white">
-            <div class="container mx-auto px-4">
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
-                    <div class="flex items-center gap-3 justify-center p-3 md:p-0">
-                        <div class="w-10 h-10 md:w-12 md:h-12 bg-black/5 rounded-xl flex items-center justify-center flex-shrink-0">
-                            <Shield class="w-5 h-5 md:w-6 md:h-6 text-black" />
-                        </div>
-                        <div>
-                            <p class="font-bold text-xs md:text-sm text-gray-900">Verified Devices</p>
-                            <p class="text-[10px] md:text-xs text-gray-500">Quality tested</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-3 justify-center p-3 md:p-0">
-                        <div class="w-10 h-10 md:w-12 md:h-12 bg-black/5 rounded-xl flex items-center justify-center flex-shrink-0">
-                            <Truck class="w-5 h-5 md:w-6 md:h-6 text-black" />
-                        </div>
-                        <div>
-                            <p class="font-bold text-xs md:text-sm text-gray-900">Fast Delivery</p>
-                            <p class="text-[10px] md:text-xs text-gray-500">Nairobi & beyond</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-3 justify-center p-3 md:p-0">
-                        <div class="w-10 h-10 md:w-12 md:h-12 bg-black/5 rounded-xl flex items-center justify-center flex-shrink-0">
-                            <Star class="w-5 h-5 md:w-6 md:h-6 text-black" />
-                        </div>
-                        <div>
-                            <p class="font-bold text-xs md:text-sm text-gray-900">3-Month Warranty</p>
-                            <p class="text-[10px] md:text-xs text-gray-500">On all devices</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-3 justify-center p-3 md:p-0">
-                        <div class="w-10 h-10 md:w-12 md:h-12 bg-black/5 rounded-xl flex items-center justify-center flex-shrink-0">
-                            <Zap class="w-5 h-5 md:w-6 md:h-6 text-black" />
-                        </div>
-                        <div>
-                            <p class="font-bold text-xs md:text-sm text-gray-900">M-Pesa Ready</p>
-                            <p class="text-[10px] md:text-xs text-gray-500">Pay instantly</p>
-                        </div>
-                    </div>
+        <!-- Compact Category Strip (horizontal pills) -->
+        <section class="border-y border-gray-100 bg-gray-50/50">
+            <div class="container mx-auto px-4 py-3">
+                <div class="flex gap-2 overflow-x-auto scrollbar-hide -mx-1 px-1">
+                    <Link
+                        href="/products?category=phones"
+                        class="flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-gray-200 hover:border-black rounded-full text-xs font-semibold text-gray-700 hover:text-black transition cursor-pointer"
+                    >
+                        <Smartphone class="w-3.5 h-3.5" />
+                        Phones
+                    </Link>
+                    <Link
+                        href="/products?category=computers"
+                        class="flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-gray-200 hover:border-black rounded-full text-xs font-semibold text-gray-700 hover:text-black transition cursor-pointer"
+                    >
+                        <Laptop class="w-3.5 h-3.5" />
+                        Laptops
+                    </Link>
+                    <Link
+                        href="/products?category=tablets"
+                        class="flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-gray-200 hover:border-black rounded-full text-xs font-semibold text-gray-700 hover:text-black transition cursor-pointer"
+                    >
+                        <Tablet class="w-3.5 h-3.5" />
+                        Tablets
+                    </Link>
+                    <Link
+                        href="/products?category=accessories"
+                        class="flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-gray-200 hover:border-black rounded-full text-xs font-semibold text-gray-700 hover:text-black transition cursor-pointer"
+                    >
+                        <Headphones class="w-3.5 h-3.5" />
+                        Accessories
+                    </Link>
+                    <Link
+                        href="/products?condition=new"
+                        class="flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-gray-200 hover:border-black rounded-full text-xs font-semibold text-gray-700 hover:text-black transition cursor-pointer"
+                    >
+                        <Star class="w-3.5 h-3.5" />
+                        Brand New
+                    </Link>
+                    <Link
+                        href="/products?condition=ex-uk"
+                        class="flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-gray-200 hover:border-black rounded-full text-xs font-semibold text-gray-700 hover:text-black transition cursor-pointer"
+                    >
+                        <Shield class="w-3.5 h-3.5" />
+                        Ex-UK
+                    </Link>
                 </div>
             </div>
         </section>
 
-        <!-- Featured Products -->
-        <section class="py-10 md:py-16 bg-white">
+        <!-- Hot Deals (compact horizontal scroll, immediately above the fold) -->
+        <section v-if="flashSaleProducts.length" class="pt-4 pb-2 bg-white">
             <div class="container mx-auto px-4">
-                <div class="flex items-center justify-between mb-8 md:mb-10">
-                    <div>
-                        <h3 class="text-2xl md:text-3xl font-bold">Featured Products</h3>
-                        <p class="text-gray-500 text-sm md:text-base mt-1">Handpicked deals for you</p>
-                    </div>
+                <div class="flex items-center justify-between mb-3">
+                    <h3 class="text-base md:text-lg font-bold flex items-center gap-1.5">
+                        <Flame class="w-4 h-4 text-red-500" />
+                        Hot Deals
+                    </h3>
+                    <span v-if="countdown" class="text-[11px] font-mono text-red-500 font-bold">
+                        Ends in {{ countdown.days > 0 ? countdown.days + 'd ' : '' }}{{ pad(countdown.hours) }}h:{{ pad(countdown.minutes) }}m
+                    </span>
+                </div>
+                <div class="flex gap-2.5 overflow-x-auto pb-2 -mx-1 px-1 snap-x snap-mandatory scrollbar-hide">
+                    <Link
+                        v-for="product in flashSaleProducts"
+                        :key="product.id"
+                        :href="`/products/${product.slug || product.id}`"
+                        class="group flex-shrink-0 w-[130px] sm:w-[150px] bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all snap-start block overflow-hidden"
+                    >
+                        <div class="relative aspect-square bg-gray-50 p-2.5">
+                            <img
+                                :src="product.images?.[0]?.image_url || product.images?.[0]?.url || product.image || '/assets/img/placeholder.jpg'"
+                                :alt="product.name"
+                                class="w-full h-full object-contain"
+                                loading="lazy"
+                            />
+                            <div
+                                v-if="product.flash_sale_price && product.base_price > product.flash_sale_price"
+                                class="absolute top-1.5 left-1.5 bg-red-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded"
+                            >
+                                LIMITED
+                            </div>
+                        </div>
+                        <div class="px-2 pb-2 pt-1">
+                            <p class="text-[11px] text-gray-600 truncate">{{ product.name }}</p>
+                            <p class="text-xs font-bold text-gray-900 truncate">{{ formatFlashPrice(product.flash_sale_price || product.base_price) }}</p>
+                            <button
+                                @click="addFlashToCart($event, product)"
+                                class="mt-1.5 w-full flex items-center justify-center gap-1 bg-black text-white text-[10px] font-semibold py-1 rounded hover:bg-gray-800 transition-colors"
+                            >
+                                <ShoppingCart class="w-2.5 h-2.5" />
+                                Add
+                            </button>
+                        </div>
+                    </Link>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Products (right above the fold for mobile) -->
+        <section class="py-4 md:py-6 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="flex items-center justify-between mb-3 md:mb-4">
+                    <h3 class="text-base md:text-lg font-bold">Featured Products</h3>
                     <Link
                         href="/products"
-                        class="hidden sm:flex items-center gap-1 text-sm font-semibold text-gray-600 hover:text-black transition cursor-pointer group"
+                        class="flex items-center gap-1 text-xs font-semibold text-gray-500 hover:text-black transition cursor-pointer group"
                     >
                         View All
-                        <ArrowRight class="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        <ArrowRight class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                     </Link>
                 </div>
 
                 <div
                     v-if="featuredProducts.length"
-                    class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5"
+                    class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5"
                 >
                     <ProductCard
                         v-for="product in featuredProducts"
@@ -650,17 +591,15 @@ const quickBudgets = [30000, 50000, 80000, 120000]; // kept for quick budget but
                         :product="product"
                     />
                 </div>
-                <div v-else class="text-center py-16 text-gray-400">
-                    <Smartphone class="w-16 h-16 mx-auto mb-4 opacity-30" />
-                    <p class="text-lg font-medium">No featured products yet</p>
-                    <p class="text-sm mt-1">Check back soon for amazing deals!</p>
+                <div v-else class="text-center py-10 text-gray-400">
+                    <Smartphone class="w-12 h-12 mx-auto mb-3 opacity-30" />
+                    <p class="text-sm font-medium">No featured products yet</p>
                 </div>
 
-                <!-- Mobile "View All" -->
-                <div class="sm:hidden mt-6 text-center">
+                <div class="sm:hidden mt-4 text-center">
                     <Link
                         href="/products"
-                        class="inline-flex items-center gap-2 px-6 py-3 bg-black text-white rounded-xl font-semibold cursor-pointer hover:bg-gray-800 transition-all active:scale-[0.98]"
+                        class="inline-flex items-center gap-2 px-5 py-2.5 bg-black text-white rounded-xl text-sm font-semibold cursor-pointer hover:bg-gray-800 transition-all active:scale-[0.98]"
                     >
                         View All Products
                         <ArrowRight class="w-4 h-4" />
@@ -669,46 +608,41 @@ const quickBudgets = [30000, 50000, 80000, 120000]; // kept for quick budget but
             </div>
         </section>
 
-        <!-- Trust / Contact Section -->
-        <section class="py-10 md:py-16 bg-gray-50">
+        <!-- Compact Trust Strip (single thin row) -->
+        <section class="py-3 md:py-4 border-y border-gray-100 bg-gray-50/50">
             <div class="container mx-auto px-4">
-                <div class="text-center mb-8 md:mb-10">
-                    <h3 class="text-2xl md:text-3xl font-bold mb-2">Ready to Buy?</h3>
-                    <p class="text-gray-600 text-sm md:text-base max-w-lg mx-auto">
-                        See it. Touch it. Trust it. Visit our shop, call us, or chat on WhatsApp — we're here for you
-                    </p>
-                </div>
-                <div class="max-w-3xl mx-auto">
-                    <TrustActions layout="cards" />
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 text-center">
+                    <div class="flex items-center justify-center gap-1.5 text-[11px] md:text-xs">
+                        <Shield class="w-3.5 h-3.5 text-gray-500 flex-shrink-0" />
+                        <span class="font-semibold text-gray-700">Verified Devices</span>
+                    </div>
+                    <div class="flex items-center justify-center gap-1.5 text-[11px] md:text-xs">
+                        <Truck class="w-3.5 h-3.5 text-gray-500 flex-shrink-0" />
+                        <span class="font-semibold text-gray-700">Fast Delivery</span>
+                    </div>
+                    <div class="flex items-center justify-center gap-1.5 text-[11px] md:text-xs">
+                        <Star class="w-3.5 h-3.5 text-gray-500 flex-shrink-0" />
+                        <span class="font-semibold text-gray-700">3-Month Warranty</span>
+                    </div>
+                    <div class="flex items-center justify-center gap-1.5 text-[11px] md:text-xs">
+                        <Zap class="w-3.5 h-3.5 text-gray-500 flex-shrink-0" />
+                        <span class="font-semibold text-gray-700">M-Pesa Ready</span>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- CTA Banner -->
-        <section class="py-10 md:py-20">
+        <!-- Trust / Contact Section (compact) -->
+        <section class="py-6 md:py-10 bg-gray-50">
             <div class="container mx-auto px-4">
-                <div class="bg-black rounded-2xl md:rounded-3xl p-8 md:p-16 text-center text-white relative overflow-hidden">
-                    <!-- Decorative elements -->
-                    <div class="absolute top-0 left-0 w-40 h-40 bg-white/5 rounded-full -translate-x-1/2 -translate-y-1/2" />
-                    <div class="absolute bottom-0 right-0 w-60 h-60 bg-white/5 rounded-full translate-x-1/3 translate-y-1/3" />
-                    <div class="absolute top-1/2 left-1/4 w-2 h-2 bg-white/20 rounded-full" />
-                    <div class="absolute top-1/3 right-1/3 w-3 h-3 bg-white/10 rounded-full" />
-
-                    <div class="relative z-10">
-                        <h3 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 md:mb-4">
-                            Not sure which device to pick?
-                        </h3>
-                        <p class="text-gray-400 text-sm md:text-lg mb-6 md:mb-8 max-w-xl mx-auto">
-                            Our AI assistant will help you find the perfect match based on your budget and needs
-                        </p>
-                        <button
-                            @click="document.querySelector('input[placeholder]')?.focus(); window.scrollTo({ top: 0, behavior: 'smooth' })"
-                            class="inline-flex items-center gap-2 px-6 md:px-8 py-3 md:py-4 bg-white text-black rounded-xl font-bold hover:bg-gray-100 transition-all cursor-pointer active:scale-[0.98] shadow-lg"
-                        >
-                            <Sparkles class="w-5 h-5" />
-                            Try AI Smart Search
-                        </button>
-                    </div>
+                <div class="text-center mb-4 md:mb-6">
+                    <h3 class="text-lg md:text-2xl font-bold mb-1">Ready to Buy?</h3>
+                    <p class="text-gray-600 text-xs md:text-sm max-w-md mx-auto">
+                        See it. Touch it. Trust it. Visit, call, or chat with us
+                    </p>
+                </div>
+                <div class="max-w-3xl mx-auto">
+                    <TrustActions layout="cards" />
                 </div>
             </div>
         </section>
