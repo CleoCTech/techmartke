@@ -332,3 +332,7 @@ Route::group([], __DIR__.'/system.php');
 
 //cd /var/www/techmartke
 // sudo bash /var/www/deploy-techmartke.sh
+
+// cd /var/www/techmartke
+// npm run build
+// sudo bash /var/www/deploy-techmartke.sh
