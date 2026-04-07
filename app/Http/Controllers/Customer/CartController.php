@@ -20,6 +20,16 @@ class CartController extends Controller
         return Inertia::render('Customer/Cart');
     }
 
+    /**
+     * GET /checkout — show the checkout form.
+     * Cart contents live in browser localStorage, so the page loads them
+     * client-side. We just render the empty form.
+     */
+    public function showCheckout()
+    {
+        return Inertia::render('Customer/Checkout');
+    }
+
     public function checkout(Request $request)
     {
         $validated = $request->validate([

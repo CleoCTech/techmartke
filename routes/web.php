@@ -70,7 +70,8 @@ Route::post('/trade-in', [TradeInController::class, 'store'])->name('trade-in.st
 
 // Cart & Checkout
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
-Route::post('/checkout', [CartController::class, 'checkout'])->name('checkout');
+Route::get('/checkout', [CartController::class, 'showCheckout'])->name('checkout');
+Route::post('/checkout', [CartController::class, 'checkout'])->name('checkout.process');
 
 // AI Assistant
 Route::post('/api/ai-chat', [AIAssistantController::class, 'chat'])->name('ai.chat');
