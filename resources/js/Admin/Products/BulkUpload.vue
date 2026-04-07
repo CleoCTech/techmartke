@@ -22,6 +22,8 @@ const items = ref([]);
 const skipped = ref([]);
 const summary = ref(null);
 const error = ref('');
+const notice = ref('');
+const source = ref('');
 const isParsing = ref(false);
 const isUploading = ref(false);
 const showResults = ref(false);
@@ -41,6 +43,8 @@ const parseText = async () => {
     skipped.value = [];
     summary.value = null;
     error.value = '';
+    notice.value = '';
+    source.value = '';
 
     try {
         const response = await fetch('/admin/products/bulk-upload/parse', {
@@ -67,6 +71,8 @@ const parseText = async () => {
         }));
         skipped.value = data.skipped || [];
         summary.value = data.summary || null;
+        source.value = data.source || '';
+        notice.value = data.notice || '';
         showResults.value = true;
     } catch (e) {
         error.value = 'Failed to connect to AI service. Please check your API key and try again.';
@@ -201,6 +207,26 @@ const reset = () => {
                 <p class="text-sm font-medium text-red-700 dark:text-red-400">Analysis Failed</p>
                 <p class="text-sm text-red-600 dark:text-red-400/80 mt-1">{{ error }}</p>
             </div>
+        </div>
+
+        <!-- AI Fallback Notice -->
+        <div v-if="notice && source === 'regex'" class="flex items-start gap-3 p-4 rounded-xl bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20">
+            <AlertCircle class="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
+            <div class="flex-1">
+                <p class="text-sm font-semibold text-amber-800 dark:text-amber-300">
+                    AI Parser Unavailable — Using Regex Fallback
+                </p>
+                <p class="text-sm text-amber-700 dark:text-amber-400/80 mt-1">{{ notice }}</p>
+                <p class="text-xs text-amber-600 dark:text-amber-400/70 mt-1">
+                    Results below were parsed using the regex fallback. Please review carefully — accuracy may be lower than AI parsing.
+                </p>
+            </div>
+        </div>
+
+        <!-- AI Success Indicator (subtle) -->
+        <div v-if="source === 'ai' && showResults && items.length > 0" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20">
+            <Sparkles class="w-4 h-4 text-blue-500" />
+            <p class="text-xs text-blue-700 dark:text-blue-400 font-medium">Parsed by AI</p>
         </div>
 
         <!-- Summary Cards -->

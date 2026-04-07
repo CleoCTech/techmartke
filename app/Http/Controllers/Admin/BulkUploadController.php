@@ -36,17 +36,20 @@ class BulkUploadController extends Controller
             'raw_text' => 'required|string|max:10000',
         ]);
 
-        $apiKey = config('anthropic.api_key') ?: env('ANTHROPIC_API_KEY');
-        if (empty($apiKey)) {
-            return response()->json([
-                'error' => 'Anthropic API key is not configured. Add ANTHROPIC_API_KEY to your .env file.',
-            ], 422);
-        }
-
         // Get existing products with variants for context
         $existingProducts = Product::with(['variants', 'brand'])->get();
         $brands = Brand::all();
         $categories = Category::all();
+
+        $apiKey = config('anthropic.api_key') ?: env('ANTHROPIC_API_KEY');
+
+        // If no API key, use the regex fallback parser
+        if (empty($apiKey)) {
+            $fallback = $this->fallbackParse($validated['raw_text'], $existingProducts, $brands);
+            $fallback['source'] = 'regex';
+            $fallback['notice'] = 'AI parser unavailable (no API key). Used regex fallback parser.';
+            return response()->json($fallback);
+        }
 
         $productContext = $existingProducts->map(function ($p) {
             $variants = $p->variants->map(fn($v) => [
@@ -76,6 +79,8 @@ class BulkUploadController extends Controller
 
         $prompt = $this->buildPrompt($validated['raw_text'], $productContext, $brandList, $categoryList);
 
+        $aiFailureReason = null;
+
         try {
             $response = Http::withHeaders([
                 'x-api-key' => $apiKey,
@@ -90,28 +95,40 @@ class BulkUploadController extends Controller
             ]);
 
             if (!$response->successful()) {
-                return response()->json([
-                    'error' => 'AI service error: ' . ($response->json('error.message') ?? 'Unknown error'),
-                ], 422);
+                $aiFailureReason = 'AI service error: ' . ($response->json('error.message') ?? 'Unknown error');
+            } else {
+                $aiText = $response->json('content.0.text', '');
+                $parsed = $this->extractJson($aiText);
+
+                if ($parsed === null) {
+                    $aiFailureReason = 'Failed to parse AI response (invalid JSON returned).';
+                } elseif (empty($parsed['items'] ?? [])) {
+                    $aiFailureReason = 'AI returned no parseable products from the text.';
+                } else {
+                    // SUCCESS: AI returned valid parsed items
+                    $parsed['source'] = 'ai';
+                    return response()->json($parsed);
+                }
             }
-
-            $aiText = $response->json('content.0.text', '');
-            $parsed = $this->extractJson($aiText);
-
-            if ($parsed === null) {
-                return response()->json([
-                    'error' => 'Failed to parse AI response. Please try again.',
-                    'raw_response' => $aiText,
-                ], 422);
-            }
-
-            return response()->json($parsed);
-
         } catch (\Exception $e) {
-            return response()->json([
-                'error' => 'AI analysis failed: ' . $e->getMessage(),
-            ], 500);
+            $aiFailureReason = 'AI analysis failed: ' . $e->getMessage();
         }
+
+        // AI failed for some reason — fall back to regex parser
+        $fallback = $this->fallbackParse($validated['raw_text'], $existingProducts, $brands);
+        $fallback['source'] = 'regex';
+        $fallback['notice'] = 'AI parser failed — used regex fallback. ' . $aiFailureReason;
+
+        // If even fallback found nothing, return the AI error so user can debug
+        if (empty($fallback['items'])) {
+            return response()->json([
+                'error' => $aiFailureReason . ' Fallback regex parser also found no products. Try a different format.',
+                'items' => [],
+                'skipped' => $fallback['skipped'] ?? [],
+            ], 422);
+        }
+
+        return response()->json($fallback);
     }
 
     private function buildPrompt(string $rawText, array $existingProducts, array $brands, array $categories): string
@@ -199,6 +216,236 @@ Respond with ONLY a JSON object (no markdown, no explanation):
   }
 }
 PROMPT;
+    }
+
+    /**
+     * Markup rules — same as the AI prompt — applied to raw cost prices.
+     */
+    private function applyMarkup(int $rawPrice): array
+    {
+        $markup = 0;
+        if ($rawPrice >= 89000) {
+            $markup = 6000;
+        } elseif ($rawPrice >= 55000) {
+            $markup = 5000;
+        } elseif ($rawPrice >= 50000) {
+            $markup = 4500;
+        } elseif ($rawPrice >= 40000) {
+            $markup = 4000;
+        } elseif ($rawPrice >= 30000) {
+            $markup = 3000;
+        } elseif ($rawPrice >= 20000) {
+            $markup = 2500;
+        } elseif ($rawPrice >= 15000) {
+            $markup = 1500;
+        }
+        return ['price' => $rawPrice + $markup, 'markup' => $markup];
+    }
+
+    /**
+     * Regex-based fallback parser for common Kenyan-style price lists.
+     * Handles section headers (Brand New, Ex US iPhones, Ex US SAMSUNG)
+     * and item lines for iPhones (X, Xr, Xs, 11, 11 Pro, 11 Pro Max, ...)
+     * and Samsung (S10, S10+, S24U, Flip 3, Fold 5, Note 20, ...).
+     */
+    private function fallbackParse(string $rawText, $existingProducts, $brands): array
+    {
+        $lines = preg_split('/\r?\n/', $rawText);
+        $items = [];
+        $skipped = [];
+
+        // Build brand lookup
+        $brandLookup = [];
+        foreach ($brands as $b) {
+            $brandLookup[strtolower($b->name)] = $b->id;
+        }
+        $appleBrandId = $brandLookup['apple'] ?? null;
+        $samsungBrandId = $brandLookup['samsung'] ?? null;
+
+        // Build existing-product lookup by lowercased name (and slug)
+        $productLookup = [];
+        foreach ($existingProducts as $p) {
+            $key = strtolower(trim($p->name));
+            $productLookup[$key] = $p;
+        }
+
+        // Track parsing context (set by header lines)
+        $context = [
+            'brand' => null,        // 'apple' | 'samsung' | null
+            'condition' => 'new',   // 'new' | 'ex-uk' | 'refurbished'
+        ];
+
+        // Patterns for headers
+        $isHeader = function ($line) use (&$context, &$skipped) {
+            $lower = strtolower(trim($line));
+            if ($lower === '') return true; // empty lines are skipped silently
+
+            // Condition header
+            if (preg_match('/^(brand\s*new|new\s*stock|new)$/i', $lower)) {
+                $context['condition'] = 'new';
+                $skipped[] = ['line' => $line, 'reason' => 'Section header (condition: new)'];
+                return true;
+            }
+            if (preg_match('/(ex[\s\-]?(uk|us|usa))/i', $lower)) {
+                $context['condition'] = 'ex-uk';
+                // Detect brand if mentioned in the same line
+                if (preg_match('/iphone/i', $lower)) $context['brand'] = 'apple';
+                if (preg_match('/samsung/i', $lower)) $context['brand'] = 'samsung';
+                $skipped[] = ['line' => $line, 'reason' => 'Section header (Ex-UK/US)'];
+                return true;
+            }
+            if (preg_match('/refurb/i', $lower)) {
+                $context['condition'] = 'refurbished';
+                $skipped[] = ['line' => $line, 'reason' => 'Section header (refurbished)'];
+                return true;
+            }
+            // Brand-only header
+            if (preg_match('/^iphones?$/i', $lower)) {
+                $context['brand'] = 'apple';
+                $skipped[] = ['line' => $line, 'reason' => 'Brand header (iPhone)'];
+                return true;
+            }
+            if (preg_match('/^samsung$/i', $lower)) {
+                $context['brand'] = 'samsung';
+                $skipped[] = ['line' => $line, 'reason' => 'Brand header (Samsung)'];
+                return true;
+            }
+            return false;
+        };
+
+        // Match: <model_part> <storage> [sim] - <price> [(color)]
+        // Examples:
+        //  17 Pro 256GB eSIM - 162,000 (Silver)
+        //  X 64GB - 14,000/-
+        //  Xr 64GB - 17,000/-
+        //  11 Pro Max 256GB - 37,000/-
+        //  S10e 128GB - 15,000/-
+        //  S24U 512GB - 83,000/-
+        //  Flip 3 128GB - 22,000/-
+        //  Fold 5 256GB - 63,000/-
+        $linePattern = '/^([A-Za-z0-9][A-Za-z0-9\+\s]*?)\s+(\d+(?:GB|TB))\s*(eSIM|Physical|Dual\s*SIM|Dual)?\s*[-–—]\s*([\d,]+)(?:[\/=\-]*)?\s*(?:\(([^)]+)\))?\s*$/i';
+
+        foreach ($lines as $line) {
+            $line = trim($line);
+            if ($line === '') continue;
+
+            if ($isHeader($line)) continue;
+
+            if (!preg_match($linePattern, $line, $m)) {
+                $skipped[] = ['line' => $line, 'reason' => 'Could not parse format'];
+                continue;
+            }
+
+            $modelPart = trim($m[1]);
+            $storage = strtoupper($m[2]);
+            $simType = !empty($m[3]) ? trim($m[3]) : null;
+            $rawPriceStr = str_replace(',', '', $m[4]);
+            $rawPrice = (int) $rawPriceStr;
+            $color = !empty($m[5]) ? trim($m[5]) : null;
+
+            if ($rawPrice <= 0) {
+                $skipped[] = ['line' => $line, 'reason' => 'Invalid price'];
+                continue;
+            }
+
+            // Determine brand from context or model part
+            $brand = $context['brand'];
+            $brandId = null;
+            $brandName = null;
+
+            // Auto-detect brand from model name keywords if context not set
+            $modelLower = strtolower($modelPart);
+            if (!$brand) {
+                if (preg_match('/^(s\d+|note|flip|fold|galaxy)/i', $modelLower)) {
+                    $brand = 'samsung';
+                } elseif (preg_match('/^(\d+|x[rs]?|se|pro|max)/i', $modelLower)) {
+                    // Default to apple for purely numeric or X-series models
+                    $brand = 'apple';
+                }
+            }
+
+            // Build full product name
+            $productName = $modelPart;
+            if ($brand === 'apple') {
+                $brandName = 'Apple';
+                $brandId = $appleBrandId;
+                // Prefix iPhone if not already there
+                if (!preg_match('/^iphone/i', $productName)) {
+                    $productName = 'iPhone ' . $productName;
+                }
+            } elseif ($brand === 'samsung') {
+                $brandName = 'Samsung';
+                $brandId = $samsungBrandId;
+                // Map common shortcuts
+                if (preg_match('/^s\d+u$/i', $modelPart)) {
+                    // S24U -> Galaxy S24 Ultra
+                    $num = preg_replace('/[^\d]/', '', $modelPart);
+                    $productName = "Galaxy S{$num} Ultra";
+                } elseif (preg_match('/^flip\s*(\d+)$/i', $modelPart, $fm)) {
+                    $productName = "Galaxy Z Flip {$fm[1]}";
+                } elseif (preg_match('/^fold\s*(\d+)$/i', $modelPart, $fm)) {
+                    $productName = "Galaxy Z Fold {$fm[1]}";
+                } elseif (!preg_match('/^galaxy/i', $productName)) {
+                    $productName = 'Galaxy ' . $productName;
+                }
+            }
+
+            // Apply markup
+            $markupResult = $this->applyMarkup($rawPrice);
+
+            // Try matching against existing products
+            $matchKey = strtolower(trim($productName));
+            $existing = $productLookup[$matchKey] ?? null;
+            $action = 'create';
+            $existingProductId = null;
+            $existingVariantId = null;
+            $existingPrice = null;
+
+            if ($existing) {
+                $existingProductId = $existing->id;
+                // Check for variant with same storage
+                $existingVariant = $existing->variants->firstWhere('storage', $storage);
+                if ($existingVariant) {
+                    $action = 'update';
+                    $existingVariantId = $existingVariant->id;
+                    $existingPrice = (float) $existingVariant->price;
+                } else {
+                    $action = 'new_variant';
+                }
+            }
+
+            $items[] = [
+                'action' => $action,
+                'product_name' => $productName,
+                'storage' => $storage,
+                'sim_type' => $simType,
+                'color' => $color,
+                'raw_price' => $rawPrice,
+                'price' => $markupResult['price'],
+                'markup_applied' => $markupResult['markup'],
+                'condition' => $context['condition'],
+                'brand_name' => $brandName,
+                'brand_id' => $brandId,
+                'category_id' => null,
+                'existing_product_id' => $existingProductId,
+                'existing_variant_id' => $existingVariantId,
+                'existing_price' => $existingPrice,
+                'confidence' => $existing ? 'high' : 'medium',
+                'notes' => null,
+            ];
+        }
+
+        return [
+            'items' => $items,
+            'skipped' => $skipped,
+            'summary' => [
+                'total_parsed' => count($items),
+                'updates' => count(array_filter($items, fn($i) => $i['action'] === 'update')),
+                'new_variants' => count(array_filter($items, fn($i) => $i['action'] === 'new_variant')),
+                'creates' => count(array_filter($items, fn($i) => $i['action'] === 'create')),
+                'skipped' => count($skipped),
+            ],
+        ];
     }
 
     private function extractJson(string $text): ?array
