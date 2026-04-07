@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
+use App\Mail\TradeInRequestNotification;
 use App\Models\Product;
 use App\Models\TradeInRequest;
 use App\Services\TradeInValuationService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
 class TradeInController extends Controller
@@ -82,6 +85,14 @@ class TradeInController extends Controller
         ]);
 
         $tradeIn = TradeInRequest::create($validated);
+
+        // Send admin notification
+        try {
+            $adminEmail = config('app.admin_notification_email', env('ADMIN_NOTIFICATION_EMAIL', 'dsldev00@gmail.com'));
+            Mail::to($adminEmail)->send(new TradeInRequestNotification($tradeIn));
+        } catch (\Throwable $e) {
+            Log::error('Failed to send trade-in notification: ' . $e->getMessage());
+        }
 
         return redirect()->back()->with('success', 'Trade-in request submitted! We\'ll contact you within 24 hours on ' . $validated['customer_phone']);
     }

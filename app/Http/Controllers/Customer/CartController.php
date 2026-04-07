@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
+use App\Mail\OrderPlacedNotification;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\ProductVariant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
 class CartController extends Controller
@@ -73,6 +76,14 @@ class CartController extends Controller
             }
 
             DB::commit();
+
+            // Send admin notification (after commit so all data is persisted)
+            try {
+                $adminEmail = config('app.admin_notification_email', env('ADMIN_NOTIFICATION_EMAIL', 'dsldev00@gmail.com'));
+                Mail::to($adminEmail)->send(new OrderPlacedNotification($order->load('items')));
+            } catch (\Throwable $e) {
+                Log::error('Failed to send order notification: ' . $e->getMessage());
+            }
 
             return Inertia::render('Customer/Checkout', [
                 'order' => $order->load('items'),

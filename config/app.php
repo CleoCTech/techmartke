@@ -126,6 +126,7 @@ return [
     'metaAuthor' => env('COMPANY_NAME', 'TechMart Kenya'),
     'metaPublisher' => env('COMPANY_NAME', 'TechMart Kenya'),
     'metaRobots' => 'index, follow',
+    'admin_notification_email' => env('ADMIN_NOTIFICATION_EMAIL', 'dsldev00@gmail.com'),
     'serverType' => env('SERVER_TYPE'),
 
     /*
