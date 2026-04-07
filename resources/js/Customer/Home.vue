@@ -6,6 +6,7 @@ import CustomerLayout from '@/Layouts/CustomerLayout.vue';
 import ProductCard from '@/Components/Customer/ProductCard.vue';
 import { Search, Zap, Shield, Truck, ArrowRight, Star, Smartphone, Monitor, Laptop, Tablet, Headphones, Flame, Clock, ShoppingCart, Sparkles, MessageCircle } from 'lucide-vue-next';
 import TrustActions from '@/Components/Customer/TrustActions.vue';
+import LogoLoader from '@/Components/Customer/LogoLoader.vue';
 
 const props = defineProps({
     featuredProducts: {
@@ -319,6 +320,7 @@ const quickBudgets = [30000, 50000, 80000, 120000]; // kept for quick budget but
 
 <template>
     <Head title="Buy Phones, Laptops & Accessories | AI-Powered Smart Shopping" />
+    <LogoLoader />
     <CustomerLayout>
         <!-- Flash Sale Sticky Banner -->
         <div
