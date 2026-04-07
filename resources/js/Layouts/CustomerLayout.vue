@@ -38,6 +38,7 @@ const navLinks = [
     { label: 'Computers', href: '/products?category=computers', match: 'category=computers' },
     { label: 'New', href: '/products?condition=new', match: 'condition=new' },
     { label: 'Ex-UK', href: '/products?condition=ex-uk', match: 'condition=ex-uk' },
+    { label: 'Trade-In', href: '/trade-in', match: '/trade-in', highlight: true },
     { label: 'Community', href: '/community', match: '/community' },
     { label: 'VIP', href: '/vip', match: '/vip' },
 ];
@@ -76,15 +77,19 @@ const isActive = (link) => {
                     </Link>
 
                     <!-- Desktop Nav -->
-                    <nav class="hidden md:flex gap-1">
+                    <nav class="hidden md:flex gap-1 items-center">
                         <Link
                             v-for="link in navLinks"
                             :key="link.label"
                             :href="link.href"
                             class="px-4 py-2 text-sm font-medium rounded-lg transition-all cursor-pointer"
-                            :class="isActive(link)
-                                ? 'text-black bg-gray-100 font-semibold'
-                                : 'text-gray-600 hover:text-black hover:bg-gray-50'"
+                            :class="link.highlight
+                                ? (isActive(link)
+                                    ? 'bg-gradient-to-r from-green-600 to-emerald-700 text-white shadow-md shadow-green-500/30 font-bold'
+                                    : 'bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white shadow-sm hover:shadow-md font-bold')
+                                : (isActive(link)
+                                    ? 'text-black bg-gray-100 font-semibold'
+                                    : 'text-gray-600 hover:text-black hover:bg-gray-50')"
                         >
                             {{ link.label }}
                         </Link>
@@ -132,10 +137,12 @@ const isActive = (link) => {
                                 v-for="link in navLinks"
                                 :key="link.label"
                                 :href="link.href"
-                                class="px-4 py-3 text-sm font-medium rounded-xl transition-all cursor-pointer text-center border"
-                                :class="isActive(link)
-                                    ? 'text-black bg-gray-100 border-gray-300 font-semibold'
-                                    : 'text-gray-700 hover:text-black hover:bg-gray-50 border-gray-100'"
+                                class="px-4 py-3 text-sm rounded-xl transition-all cursor-pointer text-center border"
+                                :class="link.highlight
+                                    ? 'col-span-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white border-transparent font-bold shadow-md shadow-green-500/30'
+                                    : (isActive(link)
+                                        ? 'text-black bg-gray-100 border-gray-300 font-semibold'
+                                        : 'text-gray-700 hover:text-black hover:bg-gray-50 border-gray-100 font-medium')"
                                 @click="mobileMenuOpen = false"
                             >
                                 {{ link.label }}
