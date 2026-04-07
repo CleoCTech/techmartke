@@ -2,7 +2,10 @@
 import { ref, computed, onMounted } from 'vue';
 import { Head, router, Link } from '@inertiajs/vue3';
 import CustomerLayout from '@/Layouts/CustomerLayout.vue';
-import { CheckCircle, CreditCard, Smartphone, Truck } from 'lucide-vue-next';
+import { CheckCircle, CreditCard, Smartphone, Truck, MessageCircle } from 'lucide-vue-next';
+import { useCompanyInfo } from '@/Composables/useCompanyInfo';
+
+const { whatsappUrl: companyWhatsappUrl } = useCompanyInfo();
 
 const props = defineProps({
     order: {
@@ -60,6 +63,43 @@ const placeOrder = () => {
             processing.value = false;
         },
     });
+};
+
+// Build a clean WhatsApp message containing the full order summary
+const buildWhatsappMessage = () => {
+    const lines = [];
+    lines.push('*New Order — TechMart KE*');
+    lines.push('');
+
+    if (form.value.name) lines.push(`*Customer:* ${form.value.name}`);
+    if (form.value.phone) lines.push(`*Phone:* ${form.value.phone}`);
+    if (form.value.email) lines.push(`*Email:* ${form.value.email}`);
+    if (form.value.address) lines.push(`*Delivery:* ${form.value.address}`);
+    if (form.value.payment_method) {
+        const labelMap = { mpesa: 'M-Pesa', card: 'Card', cod: 'Cash on Delivery' };
+        lines.push(`*Payment:* ${labelMap[form.value.payment_method] || form.value.payment_method}`);
+    }
+
+    lines.push('');
+    lines.push('*Items:*');
+    cartItems.value.forEach((item, idx) => {
+        const variant = item.variant ? ` (${item.variant})` : '';
+        const lineTotal = (Number(item.price) * item.quantity).toLocaleString();
+        lines.push(`${idx + 1}. ${item.name}${variant} — KSh ${Number(item.price).toLocaleString()} x ${item.quantity} = KSh ${lineTotal}`);
+    });
+
+    lines.push('');
+    lines.push(`*Total: KSh ${Number(total.value).toLocaleString()}*`);
+    lines.push('');
+    lines.push('Please confirm availability and delivery details. Thank you!');
+
+    return lines.join('\n');
+};
+
+const orderViaWhatsapp = () => {
+    if (!cartItems.value.length) return;
+    const url = companyWhatsappUrl(buildWhatsappMessage());
+    window.open(url, '_blank', 'noopener');
 };
 
 onMounted(() => {
@@ -189,10 +229,31 @@ onMounted(() => {
                             <button
                                 type="submit"
                                 :disabled="processing || !cartItems.length"
-                                class="w-full px-8 py-4 bg-black text-white rounded-xl hover:bg-gray-800 transition font-medium text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                                class="w-full px-8 py-4 bg-black text-white rounded-xl hover:bg-gray-800 transition font-medium text-lg disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                             >
                                 {{ processing ? 'Processing...' : 'Place Order' }}
                             </button>
+
+                            <!-- OR Divider -->
+                            <div class="relative flex items-center py-1">
+                                <div class="flex-grow border-t border-gray-200"></div>
+                                <span class="flex-shrink mx-4 text-xs text-gray-400 uppercase tracking-wider font-semibold">Or</span>
+                                <div class="flex-grow border-t border-gray-200"></div>
+                            </div>
+
+                            <!-- Order via WhatsApp -->
+                            <button
+                                type="button"
+                                @click="orderViaWhatsapp"
+                                :disabled="!cartItems.length"
+                                class="w-full px-8 py-4 bg-[#25D366] hover:bg-[#1fb855] text-white rounded-xl transition font-bold text-base flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer shadow-md shadow-green-500/30 hover:shadow-lg hover:shadow-green-500/40 active:scale-[0.98]"
+                            >
+                                <MessageCircle class="w-5 h-5" />
+                                Order via WhatsApp
+                            </button>
+                            <p class="text-center text-xs text-gray-500 -mt-3">
+                                Fastest way — chat with us instantly to confirm and pay
+                            </p>
                         </form>
                     </div>
 
