@@ -148,3 +148,30 @@ Stack trace:
 [stacktrace]
 #0 {main}
 "} 
+[2026-04-07 16:25:34] local.ERROR: SQLSTATE[HY000] [1045] Access denied for user 'wenla'@'localhost' (using password: YES) {"exception":"[object] (PDOException(code: 1045): SQLSTATE[HY000] [1045] Access denied for user 'wenla'@'localhost' (using password: YES) at /Users/ceo/Code/TechMartKe/vendor/laravel/framework/src/Illuminate/Database/Connectors/Connector.php:65)
+[stacktrace]
+#0 /Users/ceo/Code/TechMartKe/vendor/laravel/framework/src/Illuminate/Database/Connectors/Connector.php(65): PDO->__construct('mysql:host=127....', 'wenla', Object(SensitiveParameterValue), Array)
+#1 /Users/ceo/Code/TechMartKe/vendor/laravel/framework/src/Illuminate/Database/Connectors/Connector.php(44): Illuminate\\Database\\Connectors\\Connector->createPdoConnection('mysql:host=127....', 'wenla', 'LeonLeo93@Stron...', Array)
+#2 /Users/ceo/Code/TechMartKe/vendor/laravel/framework/src/Illuminate/Database/Connectors/MySqlConnector.php(24): Illuminate\\Database\\Connectors\\Connector->createConnection('mysql:host=127....', Array, Array)
+#3 /Users/ceo/Code/TechMartKe/vendor/laravel/framework/src/Illuminate/Database/Connectors/ConnectionFactory.php(184): Illuminate\\Database\\Connectors\\MySqlConnector->connect(Array)
+#4 [internal function]: Illuminate\\Database\\Connectors\\ConnectionFactory->Illuminate\\Database\\Connectors\\{closure}()
+#5 /Users/ceo/Code/TechMartKe/vendor/laravel/framework/src/Illuminate/Database/Connection.php(1339): call_user_func(Object(Closure))
+#6 /Users/ceo/Code/TechMartKe/vendor/laravel/framework/src/Illuminate/Database/Connection.php(1288): Illuminate\\Database\\Connection->getPdo()
+#7 /Users/ceo/Code/TechMartKe/vendor/laravel/framework/src/Illuminate/Database/Connection.php(1272): Illuminate\\Database\\Connection->getDoctrineConnection()
+#8 /Users/ceo/Code/TechMartKe/app/Providers/AppServiceProvider.php(29): Illuminate\\Database\\Connection->getDoctrineSchemaManager()
+#9 /Users/ceo/Code/TechMartKe/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): App\\Providers\\AppServiceProvider->boot()
+#10 /Users/ceo/Code/TechMartKe/vendor/laravel/framework/src/Illuminate/Container/Util.php(41): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#11 /Users/ceo/Code/TechMartKe/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(93): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#12 /Users/ceo/Code/TechMartKe/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#13 /Users/ceo/Code/TechMartKe/vendor/laravel/framework/src/Illuminate/Container/Container.php(662): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#14 /Users/ceo/Code/TechMartKe/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1034): Illuminate\\Container\\Container->call(Array)
+#15 /Users/ceo/Code/TechMartKe/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1015): Illuminate\\Foundation\\Application->bootProvider(Object(App\\Providers\\AppServiceProvider))
+#16 [internal function]: Illuminate\\Foundation\\Application->Illuminate\\Foundation\\{closure}(Object(App\\Providers\\AppServiceProvider), 25)
+#17 /Users/ceo/Code/TechMartKe/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1014): array_walk(Array, Object(Closure))
+#18 /Users/ceo/Code/TechMartKe/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/BootProviders.php(17): Illuminate\\Foundation\\Application->boot()
+#19 /Users/ceo/Code/TechMartKe/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(263): Illuminate\\Foundation\\Bootstrap\\BootProviders->bootstrap(Object(Illuminate\\Foundation\\Application))
+#20 /Users/ceo/Code/TechMartKe/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(447): Illuminate\\Foundation\\Application->bootstrapWith(Array)
+#21 /Users/ceo/Code/TechMartKe/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#22 /Users/ceo/Code/TechMartKe/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#23 {main}
+"} 
