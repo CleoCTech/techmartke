@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use App\Services\ProductImageService;
 use App\Services\ProductContentService;
+use App\Jobs\EnrichProductsJob;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 
@@ -636,25 +637,21 @@ PROMPT;
 
             DB::commit();
 
-            // Fetch AI images for products without images (after commit)
-            $imagesAdded = 0;
-            if (!empty($touchedProductIds)) {
-                $imagesAdded = ProductImageService::fetchMissingImages(array_unique($touchedProductIds));
-            }
-
-            // Generate AI content (descriptions, specs, advantages) for products missing them
-            $contentGenerated = 0;
-            if (!empty($touchedProductIds)) {
-                $contentGenerated = ProductContentService::generateMissingContent(array_unique($touchedProductIds));
-            }
-
+            // Build the success message from DB stats
             $msg = [];
             if ($stats['updated'] > 0) $msg[] = "{$stats['updated']} prices updated";
             if ($stats['new_variants'] > 0) $msg[] = "{$stats['new_variants']} new variants added";
             if ($stats['created'] > 0) $msg[] = "{$stats['created']} new products created";
             if ($stats['marked_out'] > 0) $msg[] = "{$stats['marked_out']} products marked out of stock";
-            if ($imagesAdded > 0) $msg[] = "{$imagesAdded} product images added";
-            if ($contentGenerated > 0) $msg[] = "{$contentGenerated} products enriched with AI content";
+
+            // Dispatch image fetching + AI content generation as a background job
+            // (runs AFTER the HTTP response is sent, so nginx never sees a 504).
+            // This is critical: with 30+ products, the synchronous version was
+            // making 60+ external API calls inline and timing out.
+            if (!empty($touchedProductIds)) {
+                EnrichProductsJob::dispatchAfterResponse(array_unique($touchedProductIds));
+                $msg[] = count(array_unique($touchedProductIds)) . ' products queued for image & AI content enrichment (processing in background)';
+            }
 
             return redirect()->back()->with('success', 'Bulk upload completed: ' . implode(', ', $msg) . '.');
         } catch (\Throwable $th) {
