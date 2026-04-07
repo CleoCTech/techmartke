@@ -24,7 +24,7 @@ import { ref, onMounted } from 'vue'
 import LineChart from '@/Components/Charts/LineChart.vue'
 import EditMenu from '@/Components/Mosaic/DropdownEditMenu.vue'
 
-import SVG1 from '../../../../public/assets/images/icon-01.svg'
+
 // Import utilities
 import { tailwindConfig, hexToRGB } from '@/Utils/Utils.js'
 

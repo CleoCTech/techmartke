@@ -8,30 +8,25 @@ use Illuminate\Support\Str;
 
 class CompanyInformationSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        CompanyInformation::firstOrCreate(
+        CompanyInformation::updateOrCreate(
             ['id' => 1],
             [
                 'uuid' => Str::uuid(),
-                'company_name' => 'Your Company Name',
-                'short_name' => 'YCN',
-                'emails' => 'info@example.co.ke',
-                'phone_numbers' => '+254 700 000 000',
-                'address' => 'Nairobi, Kenya',
+                'company_name' => 'TechMart Kenya',
+                'short_name' => 'TechMartKE',
+                'emails' => 'info@techmart.ke',
+                'phone_numbers' => '254700000000',
+                'address' => 'Moi Avenue, Nairobi CBD',
                 'location' => 'Nairobi, Kenya',
                 'logo' => null,
-                'about_short' => 'A leading company based in Kenya, providing quality services and solutions.',
-                'about' => 'We are a reputable organization operating in Kenya, committed to delivering excellence in all our endeavors. Our team is dedicated to providing innovative solutions and exceptional service to our clients.',
-                'mission' => 'To deliver exceptional value and service excellence to our clients across Kenya and beyond.',
-                'vision' => 'To be the premier service provider in Kenya, recognized for innovation, integrity, and excellence.',
-                'core_values' => 'Integrity, Excellence, Innovation, Customer Focus, Community Impact',
-                'motto' => 'Excellence in Service',
-                'total_members' => '1000+',
-                'branches' => '5',
+                'about_short' => 'Kenya\'s trusted marketplace for phones, laptops & accessories.',
+                'about' => 'TechMart Kenya is a leading electronics retailer in Nairobi, specializing in new and quality-tested Ex-UK phones, laptops, tablets, and accessories. We use AI-powered tools to help customers find the perfect device within their budget. With M-Pesa payment, fast delivery across Kenya, and a 3-month warranty on all devices, we make tech shopping smart and simple.',
+                'mission' => 'To make quality technology accessible and affordable for every Kenyan through honest pricing, genuine products, and exceptional customer service.',
+                'vision' => 'To be East Africa\'s most trusted tech marketplace — where every customer finds the right device at the right price.',
+                'core_values' => 'Trust, Quality, Affordability, Customer Care, Innovation',
+                'motto' => 'Smart Shopping, Better Decisions',
                 'status' => 2,
             ]
         );

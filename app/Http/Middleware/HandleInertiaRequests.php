@@ -108,7 +108,8 @@ class HandleInertiaRequests extends Middleware
                     'website' => 'http://wenlasystems.com',
                 ]
             ],
-            'storagePaths' => config('app.storagePaths')
+            'storagePaths' => config('app.storagePaths'),
+            'companyInfo' => fn () => \App\Models\System\CompanyInformation::first(['company_name', 'short_name', 'phone_numbers', 'emails', 'address', 'location', 'about_short', 'motto']),
         ]);
     }
 }

@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import { Link } from '@inertiajs/vue3';
+import { Head, Link } from '@inertiajs/vue3';
 import CustomerLayout from '@/Layouts/CustomerLayout.vue';
 import {
     Camera, BookOpen, MessageCircle, Star, Heart,
@@ -43,6 +43,7 @@ const allPhotos = [...(props.featuredPhotos || []), ...(props.recentPhotos || []
 </script>
 
 <template>
+    <Head title="Community — Photos, Stories & Q&A" />
     <CustomerLayout>
         <!-- Hero Banner -->
         <section class="bg-white py-8 md:py-12 border-b border-gray-100">

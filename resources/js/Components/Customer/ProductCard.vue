@@ -1,46 +1,53 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
-import { ShoppingCart, Eye, MessageCircle } from 'lucide-vue-next';
+import { ShoppingCart, MessageCircle, Clock, Share2 } from 'lucide-vue-next';
+import { ref } from 'vue';
+import { useCompanyInfo } from '@/Composables/useCompanyInfo';
+
+const { whatsappUrl: companyWhatsappUrl } = useCompanyInfo();
+import { computed } from 'vue';
 
 const props = defineProps({
-    product: {
-        type: Object,
-        required: true,
-    },
+    product: { type: Object, required: true },
 });
 
 const emit = defineEmits(['addToCart']);
 
-const formatPrice = (price) => {
-    return 'KSh ' + Number(price).toLocaleString();
-};
+const isOutOfStock = computed(() => {
+    if (props.product.stock_status === 'in_stock') return false;
+    if (props.product.stock_status === 'out_of_stock' || props.product.stock_status === 'out of stock') return true;
+    // Check variants
+    const variants = props.product.variants || [];
+    if (variants.length > 0) {
+        return variants.every(v => (v.stock_quantity || 0) <= 0);
+    }
+    return true;
+});
+
+const formatPrice = (price) => 'KSh ' + Number(price).toLocaleString();
 
 const stockBadge = (status) => {
+    if (isOutOfStock.value) return { label: 'Sold Out', class: 'bg-red-500' };
     const map = {
         in_stock: { label: 'In Stock', class: 'bg-emerald-500' },
-        in_Stock: { label: 'In Stock', class: 'bg-emerald-500' },
-        'in stock': { label: 'In Stock', class: 'bg-emerald-500' },
-        out_of_stock: { label: 'Sold Out', class: 'bg-red-500' },
-        'out of stock': { label: 'Sold Out', class: 'bg-red-500' },
         pre_order: { label: 'Pre Order', class: 'bg-amber-500' },
-        'pre order': { label: 'Pre Order', class: 'bg-amber-500' },
     };
-    return map[status?.toLowerCase()] || { label: status || 'In Stock', class: 'bg-emerald-500' };
+    return map[status?.toLowerCase()] || { label: 'In Stock', class: 'bg-emerald-500' };
 };
 
 const conditionBadge = (condition) => {
     const map = {
-        new: { label: 'New', class: 'bg-blue-50 text-blue-700 border-blue-200' },
-        'ex-uk': { label: 'Ex-UK', class: 'bg-orange-50 text-orange-700 border-orange-200' },
-        'ex_uk': { label: 'Ex-UK', class: 'bg-orange-50 text-orange-700 border-orange-200' },
-        refurbished: { label: 'Refurbished', class: 'bg-gray-50 text-gray-700 border-gray-200' },
+        new: { label: 'New', class: 'bg-blue-50 text-blue-700 border-blue-200', icon: '' },
+        'ex-uk': { label: 'Ex-UK', class: 'bg-orange-50 text-orange-700 border-orange-200', icon: '✧ ' },
+        'ex_uk': { label: 'Ex-UK', class: 'bg-orange-50 text-orange-700 border-orange-200', icon: '✧ ' },
+        refurbished: { label: 'Refurbished', class: 'bg-gray-50 text-gray-700 border-gray-200', icon: '' },
     };
-    return map[condition?.toLowerCase()] || { label: condition || '', class: 'bg-gray-50 text-gray-600 border-gray-200' };
+    return map[condition?.toLowerCase()] || { label: condition || '', class: 'bg-gray-50 text-gray-600 border-gray-200', icon: '' };
 };
 
-const discount = (product) => {
+const savingsAmount = (product) => {
     if (product.original_price && product.original_price > (product.base_price || product.price)) {
-        return Math.round((1 - (product.base_price || product.price) / product.original_price) * 100);
+        return product.original_price - (product.base_price || product.price);
     }
     return 0;
 };
@@ -48,6 +55,7 @@ const discount = (product) => {
 const handleAddToCart = (e) => {
     e.preventDefault();
     e.stopPropagation();
+    if (isOutOfStock.value) return;
     emit('addToCart', props.product);
     try {
         const cart = JSON.parse(localStorage.getItem('techmart_cart') || '[]');
@@ -60,120 +68,143 @@ const handleAddToCart = (e) => {
                 name: props.product.name,
                 price: props.product.base_price || props.product.price,
                 slug: props.product.slug,
-                image: props.product.images?.[0]?.image_url || props.product.images?.[0]?.url || props.product.image,
+                image: props.product.images?.[0]?.image_url || props.product.image,
                 condition: props.product.condition,
                 quantity: 1,
             });
         }
         localStorage.setItem('techmart_cart', JSON.stringify(cart));
         window.dispatchEvent(new Event('cart-updated'));
-    } catch {
-        // silently fail
-    }
+    } catch { /* silently fail */ }
 };
 
 const productImage = (product) => {
     return product.images?.[0]?.image_url || product.images?.[0]?.url || product.image || '/assets/img/placeholder.jpg';
 };
 
+const shareSuccess = ref(false);
+const shareProduct = async (e, product) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const url = `${window.location.origin}/products/${product.slug || product.id}`;
+    const price = Number(product.base_price || product.price || 0).toLocaleString();
+    const text = `Check out ${product.name} at KSh ${price} on TechMart KE!`;
+    if (navigator.share) {
+        try { await navigator.share({ title: product.name, text, url }); } catch {}
+    } else {
+        try { await navigator.clipboard.writeText(`${text}\n${url}`); } catch {}
+    }
+    shareSuccess.value = true;
+    setTimeout(() => { shareSuccess.value = false; }, 2000);
+};
+
 const whatsappUrl = (product) => {
     const price = Number(product.base_price || product.price || 0).toLocaleString();
-    const msg = encodeURIComponent(`Hi TechMart KE! I'm interested in the *${product.name}* at KSh ${price}. Is it available?`);
-    return `https://wa.me/254700000000?text=${msg}`;
+    const msg = `Hi TechMart KE! I'm interested in the *${product.name}* at KSh ${price}. Is it available?`;
+    return companyWhatsappUrl(msg);
 };
 </script>
 
 <template>
     <Link
         :href="`/products/${product.slug || product.id}`"
-        class="product-card group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl block transition-all duration-300 hover:-translate-y-1.5 cursor-pointer border border-gray-100 hover:border-gray-200"
+        class="product-card group bg-white rounded-2xl overflow-hidden shadow-sm block transition-all duration-300 cursor-pointer border border-gray-100"
+        :class="isOutOfStock
+            ? 'opacity-60 grayscale-[40%] hover:opacity-80 hover:grayscale-[20%] hover:shadow-md'
+            : 'hover:shadow-xl hover:-translate-y-1 hover:border-gray-200'"
     >
         <!-- Image -->
-        <div class="relative aspect-[4/3] sm:h-56 md:h-64 bg-gray-50 overflow-hidden">
+        <div class="relative aspect-square bg-gray-50/50 overflow-hidden p-4 sm:p-6">
             <img
                 :src="productImage(product)"
                 :alt="product.name"
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                class="w-full h-full object-contain transition-transform duration-500"
+                :class="isOutOfStock ? '' : 'group-hover:scale-105'"
                 loading="lazy"
             />
 
-            <!-- Overlay on hover -->
-            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300 flex items-center justify-center">
-                <span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/90 backdrop-blur-sm text-black px-4 py-2 rounded-full text-xs font-semibold flex items-center gap-1.5 shadow-lg">
-                    <Eye class="w-3.5 h-3.5" />
-                    Quick View
-                </span>
-            </div>
-
             <!-- Badges -->
             <div class="absolute top-3 left-3 right-3 flex items-start justify-between">
-                <div class="flex flex-col gap-1.5">
-                    <span
-                        v-if="product.condition"
-                        :class="conditionBadge(product.condition).class"
-                        class="px-2.5 py-0.5 rounded-md text-[11px] font-semibold border inline-block"
-                    >
-                        {{ conditionBadge(product.condition).label }}
-                    </span>
-                    <span
-                        v-if="discount(product)"
-                        class="bg-red-500 text-white px-2.5 py-0.5 rounded-md text-[11px] font-bold inline-block"
-                    >
-                        -{{ discount(product) }}%
-                    </span>
-                </div>
+                <span v-if="product.condition"
+                    :class="conditionBadge(product.condition).class"
+                    class="px-2.5 py-1 rounded-lg text-[11px] font-semibold border inline-flex items-center gap-0.5">
+                    {{ conditionBadge(product.condition).icon }}{{ conditionBadge(product.condition).label }}
+                </span>
                 <span
+                    v-if="product.stock_status && product.stock_status !== 'in_stock'"
                     :class="stockBadge(product.stock_status).class"
-                    class="text-white px-2.5 py-1 rounded-full text-[11px] font-semibold shadow-sm"
+                    class="text-white px-2.5 py-1 rounded-lg text-[11px] font-semibold shadow-sm"
                 >
                     {{ stockBadge(product.stock_status).label }}
                 </span>
             </div>
+
+            <!-- Share button -->
+            <button
+                @click="shareProduct($event, product)"
+                class="absolute bottom-3 right-3 w-8 h-8 bg-white/80 hover:bg-white backdrop-blur-sm rounded-full flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 shadow-sm z-10"
+                :class="shareSuccess ? 'bg-green-50 text-green-600' : 'text-gray-500 hover:text-black'"
+                title="Share"
+            >
+                <Share2 class="w-3.5 h-3.5" />
+            </button>
+
+            <!-- Out of stock overlay -->
+            <div v-if="isOutOfStock"
+                class="absolute inset-0 flex items-center justify-center">
+                <div class="bg-white/90 backdrop-blur-sm rounded-xl px-4 py-2 text-center shadow-sm">
+                    <Clock class="w-5 h-5 text-gray-400 mx-auto mb-1" />
+                    <p class="text-xs font-semibold text-gray-600">Coming Soon</p>
+                    <p class="text-[10px] text-gray-400">Check back shortly</p>
+                </div>
+            </div>
         </div>
 
         <!-- Content -->
-        <div class="p-4 sm:p-5 md:p-6">
-            <!-- Brand -->
-            <p v-if="product.brand" class="text-[11px] sm:text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">
-                {{ product.brand?.name || product.brand }}
-            </p>
+        <div class="px-4 pb-4 pt-2 sm:px-5 sm:pb-5">
+            <div class="flex items-center gap-2 mb-1">
+                <span v-if="product.brand" class="text-[11px] sm:text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                    {{ product.brand?.name || product.brand }}
+                </span>
+                <span v-if="product.condition"
+                    :class="conditionBadge(product.condition).class"
+                    class="px-2 py-0.5 rounded text-[10px] font-semibold border">
+                    {{ conditionBadge(product.condition).label }}
+                </span>
+            </div>
 
-            <!-- Name -->
-            <h4 class="text-base sm:text-lg font-bold text-gray-900 mb-3 leading-snug group-hover:text-black transition-colors line-clamp-2">
+            <h4 class="text-sm sm:text-base font-bold mb-2 leading-snug line-clamp-1 transition-colors"
+                :class="isOutOfStock ? 'text-gray-500' : 'text-gray-900 group-hover:text-black'">
                 {{ product.name }}
             </h4>
 
-            <!-- Price -->
             <div class="flex items-end justify-between gap-2">
                 <div>
-                    <p class="text-xl sm:text-2xl md:text-3xl font-extrabold text-gray-900">
+                    <p class="text-lg sm:text-xl md:text-2xl font-extrabold"
+                        :class="isOutOfStock ? 'text-gray-400' : 'text-gray-900'">
                         {{ formatPrice(product.base_price || product.price) }}
                     </p>
-                    <p
-                        v-if="product.original_price && product.original_price > (product.base_price || product.price)"
-                        class="text-xs sm:text-sm text-gray-400 line-through mt-0.5"
-                    >
-                        {{ formatPrice(product.original_price) }}
+                    <p v-if="savingsAmount(product) && !isOutOfStock" class="text-xs text-gray-400 mt-0.5">
+                        Save {{ formatPrice(savingsAmount(product)) }}
                     </p>
                 </div>
                 <div class="flex gap-1.5 flex-shrink-0">
-                    <a
-                        :href="whatsappUrl(product)"
-                        target="_blank"
-                        rel="noopener"
-                        @click.stop
-                        class="w-10 h-10 bg-[#25D366] hover:bg-[#1fb855] text-white rounded-xl active:scale-95 transition-all cursor-pointer flex items-center justify-center shadow-sm"
-                        title="Ask on WhatsApp"
-                    >
+                    <!-- WhatsApp - always available -->
+                    <a :href="whatsappUrl(product)" target="_blank" rel="noopener" @click.stop
+                        class="w-9 h-9 sm:w-10 sm:h-10 bg-[#25D366] hover:bg-[#1fb855] text-white rounded-full active:scale-95 transition-all cursor-pointer flex items-center justify-center shadow-sm"
+                        title="Ask on WhatsApp">
                         <MessageCircle class="w-4 h-4" />
                     </a>
-                    <button
+                    <!-- Add to cart - disabled when out of stock -->
+                    <button v-if="!isOutOfStock"
                         @click="handleAddToCart"
-                        class="w-10 h-10 sm:w-auto sm:h-auto sm:px-4 sm:py-2.5 bg-black text-white rounded-xl hover:bg-gray-800 active:scale-95 transition-all text-sm font-semibold cursor-pointer flex items-center justify-center gap-2 shadow-sm hover:shadow-md"
-                    >
-                        <ShoppingCart class="w-4 h-4" />
-                        <span class="hidden sm:inline">Add</span>
+                        class="h-9 sm:h-10 px-3 sm:px-4 bg-black text-white rounded-full hover:bg-gray-800 active:scale-95 transition-all text-xs sm:text-sm font-semibold cursor-pointer flex items-center justify-center gap-1.5 shadow-sm hover:shadow-md">
+                        <ShoppingCart class="w-3.5 h-3.5" /> Add
                     </button>
+                    <span v-else
+                        class="h-9 sm:h-10 px-3 sm:px-4 bg-gray-200 text-gray-400 rounded-full text-xs sm:text-sm font-semibold flex items-center justify-center gap-1.5 cursor-not-allowed">
+                        <Clock class="w-3.5 h-3.5" /> Soon
+                    </span>
                 </div>
             </div>
         </div>
@@ -181,9 +212,9 @@ const whatsappUrl = (product) => {
 </template>
 
 <style scoped>
-.line-clamp-2 {
+.line-clamp-1 {
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }

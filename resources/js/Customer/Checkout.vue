@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
-import { router, Link } from '@inertiajs/vue3';
+import { Head, router, Link } from '@inertiajs/vue3';
 import CustomerLayout from '@/Layouts/CustomerLayout.vue';
 import { CheckCircle, CreditCard, Smartphone, Truck } from 'lucide-vue-next';
 
@@ -68,6 +68,7 @@ onMounted(() => {
 </script>
 
 <template>
+    <Head title="Checkout" />
     <CustomerLayout>
         <div class="container mx-auto px-4 py-8">
             <!-- Order Confirmation -->

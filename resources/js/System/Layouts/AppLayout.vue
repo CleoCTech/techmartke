@@ -42,7 +42,7 @@ onMounted(() => {
         <loading v-model:active="isLoading" :can-cancel="false" :is-full-page="fullPage" />
         <div class="flex h-[100dvh] overflow-hidden">
             <Sidebar :sidebarOpen="sidebarOpen" @close-sidebar="sidebarOpen = false" />
-            <div class="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
+            <div class="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden bg-slate-100 dark:bg-slate-900">
                 <Header :sidebarOpen="sidebarOpen" @toggle-sidebar="toggleSidebar" />
 
                 <main class="grow">
@@ -50,7 +50,5 @@ onMounted(() => {
                 </main>
             </div>
         </div>
-        <!-- WhatsApp Floating Button -->
-        <WhatsAppButton />
     </div>
 </template>

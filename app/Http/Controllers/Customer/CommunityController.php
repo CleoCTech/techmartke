@@ -75,8 +75,14 @@ class CommunityController extends Controller
             ->latest()
             ->paginate(9);
 
+        $products = \App\Models\Product::where('is_active', true)
+            ->select('id', 'name', 'slug')
+            ->orderBy('name')
+            ->get();
+
         return Inertia::render('Customer/Community/Stories', [
             'stories' => $stories,
+            'products' => $products,
         ]);
     }
 
@@ -93,33 +99,49 @@ class CommunityController extends Controller
 
     public function questions(Request $request)
     {
-        $query = CommunityQuestion::with(['answers', 'product']);
+        $query = CommunityQuestion::with(['answers', 'product'])
+            ->where('is_published', true);
 
-        if ($request->has('product_id')) {
-            $query->where('product_id', $request->product_id);
+        if ($request->has('product') && $request->product) {
+            $product = \App\Models\Product::where('slug', $request->product)->first();
+            if ($product) {
+                $query->where('product_id', $product->id);
+            }
         }
 
-        if ($request->has('search')) {
+        if ($request->has('search') && $request->search) {
             $query->where('question', 'like', '%' . $request->search . '%');
         }
 
         $questions = $query->latest()->paginate(15);
 
+        $products = \App\Models\Product::where('is_active', true)
+            ->select('id', 'name', 'slug')
+            ->orderBy('name')
+            ->get();
+
         return Inertia::render('Customer/Community/Questions', [
             'questions' => $questions,
+            'products' => $products,
+            'filters' => $request->only(['search', 'product']),
         ]);
     }
 
     public function storePhoto(Request $request)
     {
         $request->validate([
-            'image_url' => 'required|url',
-            'caption' => 'nullable|string',
-            'customer_name' => 'required|string',
+            'photo' => 'required|image|max:5120', // 5MB max
+            'caption' => 'nullable|string|max:500',
+            'customer_name' => 'required|string|max:100',
+        ], [
+            'photo.max' => 'Photo must be less than 5MB.',
+            'photo.image' => 'Please upload a valid image (JPG, PNG, GIF, WebP).',
         ]);
 
+        $path = $request->file('photo')->store('community/photos', 'public');
+
         CommunityPhoto::create([
-            'image_url' => $request->image_url,
+            'image_url' => '/storage/' . $path,
             'caption' => $request->caption,
             'customer_name' => $request->customer_name,
             'is_approved' => false,
@@ -162,9 +184,10 @@ class CommunityController extends Controller
             'question' => $request->question,
             'asked_by' => $request->asked_by,
             'product_id' => $request->product_id,
+            'is_published' => false,
         ]);
 
-        return redirect()->back()->with('success', 'Question submitted successfully!');
+        return redirect()->back()->with('success', 'Question submitted! It will appear after review and our team responds.');
     }
 
     public function storeAnswer(Request $request, $questionId)

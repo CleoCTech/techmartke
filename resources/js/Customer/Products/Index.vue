@@ -1,6 +1,6 @@
 <script setup>
 import { ref, watch } from 'vue';
-import { router } from '@inertiajs/vue3';
+import { Head, router } from '@inertiajs/vue3';
 import CustomerLayout from '@/Layouts/CustomerLayout.vue';
 import ProductCard from '@/Components/Customer/ProductCard.vue';
 import Pagination from '@/Components/Pagination.vue';
@@ -90,6 +90,7 @@ const productList = ref(props.products?.data || props.products || []);
 </script>
 
 <template>
+    <Head title="Browse Phones, Laptops & Accessories" />
     <CustomerLayout>
         <div class="container mx-auto px-4 py-8">
             <!-- Search Bar -->

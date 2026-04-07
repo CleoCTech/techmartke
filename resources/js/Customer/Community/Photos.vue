@@ -1,9 +1,9 @@
 <script setup>
 import { ref } from 'vue';
-import { Link, useForm, router } from '@inertiajs/vue3';
+import { Head, Link, useForm, router } from '@inertiajs/vue3';
 import CustomerLayout from '@/Layouts/CustomerLayout.vue';
 import {
-    Camera, Heart, ChevronRight, Plus, Send, User, X
+    Camera, Heart, ChevronRight, Plus, Send, User, X, Upload, Image as ImageIcon
 } from 'lucide-vue-next';
 
 const props = defineProps({
@@ -12,18 +12,54 @@ const props = defineProps({
 
 const showForm = ref(false);
 const showFlash = ref(false);
+const photoPreview = ref(null);
+const fileError = ref('');
 
 const form = useForm({
-    image_url: '',
+    photo: null,
     caption: '',
     customer_name: '',
 });
 
+const handleFileSelect = (e) => {
+    const file = e.target.files[0];
+    fileError.value = '';
+    if (!file) return;
+
+    // Validate type
+    if (!file.type.startsWith('image/')) {
+        fileError.value = 'Please select a valid image file.';
+        e.target.value = '';
+        return;
+    }
+    // Validate size (5MB)
+    if (file.size > 5 * 1024 * 1024) {
+        fileError.value = `File is too large (${(file.size / 1024 / 1024).toFixed(1)}MB). Maximum size is 5MB.`;
+        e.target.value = '';
+        return;
+    }
+
+    form.photo = file;
+    photoPreview.value = URL.createObjectURL(file);
+};
+
+const removePhoto = () => {
+    form.photo = null;
+    photoPreview.value = null;
+    fileError.value = '';
+};
+
 const submitPhoto = () => {
+    if (!form.photo) {
+        fileError.value = 'Please select a photo to upload.';
+        return;
+    }
     form.post('/community/photos', {
+        forceFormData: true,
         preserveScroll: true,
         onSuccess: () => {
             form.reset();
+            photoPreview.value = null;
             showForm.value = false;
             showFlash.value = true;
             setTimeout(() => (showFlash.value = false), 4000);
@@ -33,6 +69,7 @@ const submitPhoto = () => {
 </script>
 
 <template>
+    <Head title="Photo Gallery — TechMart Community" />
     <CustomerLayout>
         <!-- Breadcrumb -->
         <section class="bg-white border-b border-gray-100">
@@ -84,17 +121,36 @@ const submitPhoto = () => {
                     <div v-if="showForm" class="bg-gray-50 rounded-2xl border border-gray-200 p-6 mb-8">
                         <h3 class="font-bold text-black mb-4">Share Your Photo</h3>
                         <form @submit.prevent="submitPhoto" class="space-y-4">
+                            <!-- Photo Upload -->
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Image URL</label>
-                                <input
-                                    v-model="form.image_url"
-                                    type="url"
-                                    placeholder="https://example.com/photo.jpg"
-                                    class="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:border-black focus:outline-none focus:ring-2 focus:ring-black/5 transition cursor-text"
-                                    required
-                                />
-                                <p v-if="form.errors.image_url" class="text-red-500 text-xs mt-1">{{ form.errors.image_url }}</p>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Photo</label>
+                                <div v-if="!photoPreview" class="relative">
+                                    <label class="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-gray-300 rounded-xl cursor-pointer hover:border-black hover:bg-gray-100 transition-all">
+                                        <Upload class="w-8 h-8 text-gray-400 mb-2" />
+                                        <span class="text-sm font-medium text-gray-600">Click to upload photo</span>
+                                        <span class="text-xs text-gray-400 mt-1">JPG, PNG, GIF, WebP — max 5MB</span>
+                                        <input
+                                            type="file"
+                                            accept="image/*"
+                                            @change="handleFileSelect"
+                                            class="hidden"
+                                        />
+                                    </label>
+                                </div>
+                                <div v-else class="relative w-40 h-40 rounded-xl overflow-hidden border-2 border-gray-200">
+                                    <img :src="photoPreview" class="w-full h-full object-cover" alt="Preview" />
+                                    <button
+                                        type="button"
+                                        @click="removePhoto"
+                                        class="absolute top-1.5 right-1.5 w-7 h-7 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center transition"
+                                    >
+                                        <X class="w-4 h-4" />
+                                    </button>
+                                </div>
+                                <p v-if="fileError" class="text-red-500 text-xs mt-1">{{ fileError }}</p>
+                                <p v-if="form.errors.photo" class="text-red-500 text-xs mt-1">{{ form.errors.photo }}</p>
                             </div>
+
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Caption</label>
                                 <textarea
@@ -119,15 +175,15 @@ const submitPhoto = () => {
                             <div class="flex items-center gap-3">
                                 <button
                                     type="submit"
-                                    :disabled="form.processing"
+                                    :disabled="form.processing || !form.photo"
                                     class="px-6 py-2.5 bg-black text-white rounded-xl text-sm font-semibold hover:bg-gray-800 transition cursor-pointer active:scale-[0.97] disabled:opacity-50 flex items-center gap-2"
                                 >
                                     <Send class="w-4 h-4" />
-                                    {{ form.processing ? 'Submitting...' : 'Submit Photo' }}
+                                    {{ form.processing ? 'Uploading...' : 'Submit Photo' }}
                                 </button>
                                 <button
                                     type="button"
-                                    @click="showForm = false"
+                                    @click="showForm = false; removePhoto()"
                                     class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-xl text-sm font-semibold hover:bg-gray-300 transition cursor-pointer"
                                 >
                                     Cancel

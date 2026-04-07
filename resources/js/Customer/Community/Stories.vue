@@ -1,6 +1,6 @@
 <script setup>
-import { ref } from 'vue';
-import { Link, useForm } from '@inertiajs/vue3';
+import { ref, computed } from 'vue';
+import { Head, Link, useForm } from '@inertiajs/vue3';
 import CustomerLayout from '@/Layouts/CustomerLayout.vue';
 import {
     BookOpen, Star, ChevronRight, Plus, Send, User, Calendar, X
@@ -25,6 +25,27 @@ const setRating = (val) => {
     form.rating = val;
 };
 
+// Searchable product select
+const productSearch = ref('');
+const showProductDropdown = ref(false);
+
+const filteredProducts = computed(() => {
+    const q = productSearch.value.toLowerCase();
+    if (!q) return props.products.slice(0, 10);
+    return props.products.filter(p => p.name.toLowerCase().includes(q)).slice(0, 10);
+});
+
+const selectProduct = (product) => {
+    form.product_id = product.id;
+    productSearch.value = product.name;
+    showProductDropdown.value = false;
+};
+
+const clearProduct = () => {
+    form.product_id = '';
+    productSearch.value = '';
+};
+
 const submitStory = () => {
     form.post('/community/stories', {
         preserveScroll: true,
@@ -46,6 +67,7 @@ const formatDate = (date) => {
 </script>
 
 <template>
+    <Head title="Success Stories — TechMart Community" />
     <CustomerLayout>
         <!-- Breadcrumb -->
         <section class="bg-white border-b border-gray-100">
@@ -120,17 +142,38 @@ const formatDate = (date) => {
                                     />
                                     <p v-if="form.errors.customer_name" class="text-red-500 text-xs mt-1">{{ form.errors.customer_name }}</p>
                                 </div>
-                                <div>
+                                <div class="relative">
                                     <label class="block text-sm font-medium text-gray-700 mb-1">Product (Optional)</label>
-                                    <select
-                                        v-model="form.product_id"
-                                        class="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:border-black focus:outline-none focus:ring-2 focus:ring-black/5 transition cursor-pointer bg-white"
+                                    <div class="relative">
+                                        <input
+                                            v-model="productSearch"
+                                            type="text"
+                                            placeholder="Search products..."
+                                            class="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:border-black focus:outline-none focus:ring-2 focus:ring-black/5 transition cursor-text"
+                                            @focus="showProductDropdown = true"
+                                            @input="showProductDropdown = true"
+                                            autocomplete="off"
+                                        />
+                                        <button v-if="form.product_id" @click="clearProduct" type="button"
+                                            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                                            <X class="w-4 h-4" />
+                                        </button>
+                                    </div>
+                                    <div
+                                        v-if="showProductDropdown && filteredProducts.length"
+                                        class="absolute z-30 left-0 right-0 top-full mt-1 bg-white rounded-xl shadow-lg border border-gray-200 max-h-48 overflow-y-auto"
                                     >
-                                        <option value="">Select a product</option>
-                                        <option v-for="product in products" :key="product.id" :value="product.id">
-                                            {{ product.name }}
-                                        </option>
-                                    </select>
+                                        <button
+                                            v-for="p in filteredProducts"
+                                            :key="p.id"
+                                            type="button"
+                                            @mousedown.prevent="selectProduct(p)"
+                                            class="w-full text-left px-4 py-2.5 text-sm hover:bg-gray-50 transition border-b border-gray-50 last:border-0"
+                                            :class="form.product_id === p.id ? 'bg-gray-50 font-medium' : ''"
+                                        >
+                                            {{ p.name }}
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                             <div>

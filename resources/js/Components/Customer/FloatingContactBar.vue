@@ -1,17 +1,15 @@
 <script setup>
 import { MessageCircle, Phone, MapPin } from 'lucide-vue-next';
 import { computed } from 'vue';
+import { useCompanyInfo } from '@/Composables/useCompanyInfo';
 
 const props = defineProps({
-    phoneNumber: { type: String, default: '254700000000' },
-    shopMapUrl: { type: String, default: 'https://maps.google.com/?q=TechMart+KE+Luthuli+Avenue+Nairobi' },
+    shopMapUrl: { type: String, default: 'https://www.google.com/maps/search/?api=1&query=Sawa+Mall+Moi+Avenue+Nairobi' },
 });
 
-const whatsappUrl = computed(() => {
-    const msg = encodeURIComponent("Hi TechMart KE! I'm interested in buying a device. Can you help?");
-    return `https://wa.me/${props.phoneNumber}?text=${msg}`;
-});
-const callUrl = computed(() => `tel:+${props.phoneNumber}`);
+const { whatsappUrl: companyWhatsappUrl, callUrl } = useCompanyInfo();
+
+const whatsappUrl = computed(() => companyWhatsappUrl("Hi TechMart KE! I'm interested in buying a device. Can you help?"));
 </script>
 
 <template>

@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue';
-import { useForm } from '@inertiajs/vue3';
+import { Head, useForm } from '@inertiajs/vue3';
 import CustomerLayout from '@/Layouts/CustomerLayout.vue';
 import {
     Crown,
@@ -122,6 +122,7 @@ const statusBadgeClass = (status) => {
 </script>
 
 <template>
+    <Head title="VIP Early Access — Exclusive Deals & Priority Restocking" />
     <CustomerLayout>
         <!-- Hero Section -->
         <section class="pt-8 pb-6 md:pt-12 md:pb-10">

@@ -11,6 +11,7 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
+        'uuid',
         'brand_id',
         'category_id',
         'name',
@@ -24,6 +25,9 @@ class Product extends Model
         'cost_price',
         'is_active',
         'featured',
+        'is_flash_sale',
+        'flash_sale_price',
+        'flash_sale_ends_at',
         'stock_status',
         'meta_title',
         'meta_description',
@@ -33,18 +37,39 @@ class Product extends Model
         'base_price' => 'decimal:2',
         'original_price' => 'decimal:2',
         'cost_price' => 'decimal:2',
+        'flash_sale_price' => 'decimal:2',
         'is_active' => 'boolean',
         'featured' => 'boolean',
+        'is_flash_sale' => 'boolean',
+        'flash_sale_ends_at' => 'datetime',
     ];
 
     protected static function boot()
     {
         parent::boot();
         static::creating(function ($model) {
+            if (empty($model->uuid)) {
+                $model->uuid = (string) Str::uuid();
+            }
             if (empty($model->slug)) {
                 $model->slug = Str::slug($model->name);
             }
         });
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'uuid';
+    }
+
+    public function getRouteKey()
+    {
+        return $this->uuid;
+    }
+
+    public function resolveRouteBinding($value, $field = null)
+    {
+        return $this->where('uuid', $value)->firstOrFail();
     }
 
     public function brand()
@@ -90,5 +115,14 @@ class Product extends Model
     public function scopeInBudget($query, $min, $max)
     {
         return $query->whereBetween('base_price', [$min, $max]);
+    }
+
+    public function scopeFlashSale($query)
+    {
+        return $query->where('is_flash_sale', true)
+            ->where(function ($q) {
+                $q->whereNull('flash_sale_ends_at')
+                  ->orWhere('flash_sale_ends_at', '>', now());
+            });
     }
 }

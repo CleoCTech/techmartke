@@ -1,29 +1,46 @@
 <script setup>
-import { ref } from 'vue';
-import AppLayout from '@/Layouts/AppLayout.vue';
-import { Link, router } from '@inertiajs/vue3';
+import { ref, computed } from 'vue';
+import { Head, router, usePage } from '@inertiajs/vue3';
 import {
-    ArrowLeft,
     Upload,
     CheckCircle,
     AlertCircle,
     Loader2,
+    RefreshCw,
+    ArrowUpDown,
+    Plus,
+    Pencil,
+    Sparkles,
+    X,
+    Check,
 } from 'lucide-vue-next';
+import ProductMenuBar from '@/Components/Admin/ProductMenuBar.vue';
 
+const page = usePage();
 const priceText = ref('');
-const parsedProducts = ref([]);
-const parseErrors = ref([]);
+const items = ref([]);
+const skipped = ref([]);
+const summary = ref(null);
+const error = ref('');
 const isParsing = ref(false);
-const showPreview = ref(false);
 const isUploading = ref(false);
+const showResults = ref(false);
+const markOthersOutOfStock = ref(true); // Default: mark unlisted products as out of stock
+
+const selectedCount = computed(() => items.value.filter(i => i.selected).length);
+const updateCount = computed(() => items.value.filter(i => i.selected && i.action === 'update').length);
+const newVariantCount = computed(() => items.value.filter(i => i.selected && i.action === 'new_variant').length);
+const createCount = computed(() => items.value.filter(i => i.selected && i.action === 'create').length);
 
 const parseText = async () => {
     if (!priceText.value.trim()) return;
 
     isParsing.value = true;
-    showPreview.value = false;
-    parsedProducts.value = [];
-    parseErrors.value = [];
+    showResults.value = false;
+    items.value = [];
+    skipped.value = [];
+    summary.value = null;
+    error.value = '';
 
     try {
         const response = await fetch('/admin/products/bulk-upload/parse', {
@@ -33,145 +50,299 @@ const parseText = async () => {
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '',
                 'Accept': 'application/json',
             },
-            body: JSON.stringify({ text: priceText.value }),
+            body: JSON.stringify({ raw_text: priceText.value }),
         });
 
         const data = await response.json();
-        parsedProducts.value = data.products || [];
-        parseErrors.value = data.errors || [];
-        showPreview.value = true;
-    } catch (error) {
-        parseErrors.value = [{ line: 0, message: 'Failed to parse text. Please try again.' }];
-        showPreview.value = true;
+
+        if (data.error) {
+            error.value = data.error;
+            showResults.value = true;
+            return;
+        }
+
+        items.value = (data.items || []).map(item => ({
+            ...item,
+            selected: true,
+        }));
+        skipped.value = data.skipped || [];
+        summary.value = data.summary || null;
+        showResults.value = true;
+    } catch (e) {
+        error.value = 'Failed to connect to AI service. Please check your API key and try again.';
+        showResults.value = true;
     } finally {
         isParsing.value = false;
     }
 };
 
+const toggleAll = (checked) => {
+    items.value.forEach(i => i.selected = checked);
+};
+
 const confirmUpload = () => {
-    if (parsedProducts.value.length === 0) return;
+    const selectedItems = items.value.filter(i => i.selected);
+    if (selectedItems.length === 0) return;
 
     isUploading.value = true;
-    router.post('/admin/products/bulk-upload', {
-        text: priceText.value,
-        products: parsedProducts.value,
+    router.post('/admin/products/bulk-upload/store', {
+        raw_text: priceText.value,
+        items: selectedItems,
+        mark_others_out_of_stock: markOthersOutOfStock.value,
     }, {
         onFinish: () => {
             isUploading.value = false;
         },
+        onSuccess: () => {
+            items.value = [];
+            skipped.value = [];
+            summary.value = null;
+            showResults.value = false;
+            priceText.value = '';
+        },
     });
+};
+
+const actionLabel = (action) => {
+    return { update: 'Update Price', new_variant: 'New Variant', create: 'New Product' }[action] || action;
+};
+
+const actionClass = (action) => {
+    return {
+        update: 'bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-400',
+        new_variant: 'bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-400',
+        create: 'bg-green-100 text-green-700 dark:bg-green-500/20 dark:text-green-400',
+    }[action] || 'bg-slate-100 text-slate-700 dark:bg-slate-600 dark:text-slate-300';
+};
+
+const confidenceClass = (confidence) => {
+    return {
+        high: 'text-green-600 dark:text-green-400',
+        medium: 'text-amber-600 dark:text-amber-400',
+        low: 'text-red-600 dark:text-red-400',
+    }[confidence] || 'text-slate-500';
+};
+
+const formatPrice = (price) => {
+    if (!price) return '-';
+    return 'KSh ' + Number(price).toLocaleString('en-KE');
+};
+
+const reset = () => {
+    items.value = [];
+    skipped.value = [];
+    summary.value = null;
+    showResults.value = false;
+    error.value = '';
 };
 </script>
 
 <template>
-    <AppLayout title="Bulk Price Upload">
-        <template #header>
-            <div class="flex items-center">
-                <Link href="/admin/products" class="mr-4 text-gray-500 hover:text-gray-700">
-                    <ArrowLeft class="h-5 w-5" />
-                </Link>
-                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                    Bulk Price Upload
-                </h2>
+    <Head title="AI Bulk Upload" />
+    <ProductMenuBar active="bulk" />
+    <div class="px-4 sm:px-6 lg:px-8 py-6 w-full max-w-6xl mx-auto space-y-6">
+
+        <!-- Header -->
+        <div class="flex items-center justify-between">
+            <div>
+                <h1 class="text-xl font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
+                    <Sparkles class="w-5 h-5 text-ablue" />
+                    AI Bulk Price Upload
+                </h1>
+                <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">
+                    Paste a price list and AI will match products, detect updates vs new items
+                </p>
             </div>
-        </template>
+        </div>
 
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-                <!-- Input Section -->
-                <div class="bg-white overflow-hidden shadow-sm rounded-lg p-6">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Paste Price Text</h3>
-                    <p class="text-sm text-gray-500 mb-4">
-                        Paste the price list text below. Each line should contain a product name followed by its price information.
-                    </p>
-                    <textarea
-                        v-model="priceText"
-                        rows="12"
-                        placeholder="Paste your price list here...&#10;&#10;Example:&#10;iPhone 15 128GB Single Sim 85,000&#10;iPhone 15 256GB Single Sim 95,000&#10;Samsung Galaxy S24 128GB Dual Sim 72,000"
-                        class="w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-sm font-mono"
-                    ></textarea>
-                    <div class="mt-4 flex justify-end">
-                        <button
-                            @click="parseText"
-                            :disabled="isParsing || !priceText.trim()"
-                            class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700 focus:bg-indigo-700 active:bg-indigo-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 transition ease-in-out duration-150"
-                        >
-                            <Loader2 v-if="isParsing" class="h-4 w-4 mr-2 animate-spin" />
-                            <Upload v-else class="h-4 w-4 mr-2" />
-                            {{ isParsing ? 'Parsing...' : 'Parse & Preview' }}
-                        </button>
-                    </div>
+        <!-- Flash Messages -->
+        <div v-if="page.props.flash?.success" class="flex items-center gap-2 p-4 rounded-xl bg-green-50 dark:bg-green-500/10 border border-green-200 dark:border-green-500/20">
+            <CheckCircle class="w-5 h-5 text-green-600 dark:text-green-400 shrink-0" />
+            <p class="text-sm text-green-700 dark:text-green-400">{{ page.props.flash.success }}</p>
+        </div>
+        <div v-if="page.props.flash?.error" class="flex items-center gap-2 p-4 rounded-xl bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/20">
+            <AlertCircle class="w-5 h-5 text-red-600 dark:text-red-400 shrink-0" />
+            <p class="text-sm text-red-700 dark:text-red-400">{{ page.props.flash.error }}</p>
+        </div>
+
+        <!-- Input Section -->
+        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-5 sm:p-6">
+            <div class="flex items-center justify-between mb-3">
+                <h3 class="text-base font-semibold text-slate-800 dark:text-slate-100">Paste Price List</h3>
+                <button v-if="showResults" @click="reset"
+                    class="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 flex items-center gap-1">
+                    <RefreshCw class="w-3.5 h-3.5" /> Start Over
+                </button>
+            </div>
+            <p class="text-sm text-slate-500 dark:text-slate-400 mb-3">
+                Paste any format - price lists, WhatsApp messages, spreadsheet data. AI will parse it intelligently.
+            </p>
+            <textarea
+                v-model="priceText"
+                rows="10"
+                :disabled="isParsing"
+                placeholder="Paste your price list here...&#10;&#10;Examples of supported formats:&#10;Ex US SAMSUNG&#10;S10e 128GB - 15,000/-&#10;S10 128GB - 19,000/-&#10;&#10;IPHONES&#10;iPhone 15 128GB Single Sim 85,000&#10;iPhone 15 Pro 256GB eSIM 125,000"
+                class="w-full rounded-lg border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 text-sm focus:ring-ablue focus:border-ablue font-mono disabled:opacity-50"
+            ></textarea>
+            <div class="mt-4 flex justify-end">
+                <button @click="parseText" :disabled="isParsing || !priceText.trim()"
+                    class="inline-flex items-center px-5 py-2.5 bg-ablue rounded-lg font-semibold text-sm text-white hover:bg-blue-700 focus:ring-2 focus:ring-ablue focus:ring-offset-2 dark:focus:ring-offset-slate-800 disabled:opacity-50 transition">
+                    <Loader2 v-if="isParsing" class="h-4 w-4 mr-2 animate-spin" />
+                    <Sparkles v-else class="h-4 w-4 mr-2" />
+                    {{ isParsing ? 'AI is analyzing...' : 'Analyze with AI' }}
+                </button>
+            </div>
+        </div>
+
+        <!-- Error -->
+        <div v-if="error" class="flex items-start gap-3 p-4 rounded-xl bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/20">
+            <AlertCircle class="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
+            <div>
+                <p class="text-sm font-medium text-red-700 dark:text-red-400">Analysis Failed</p>
+                <p class="text-sm text-red-600 dark:text-red-400/80 mt-1">{{ error }}</p>
+            </div>
+        </div>
+
+        <!-- Summary Cards -->
+        <div v-if="showResults && items.length > 0" class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-4 text-center">
+                <div class="text-2xl font-bold text-slate-800 dark:text-slate-100">{{ items.length }}</div>
+                <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">Total Parsed</div>
+            </div>
+            <div class="bg-white dark:bg-slate-800 rounded-xl border border-blue-200 dark:border-blue-500/30 p-4 text-center">
+                <div class="text-2xl font-bold text-blue-600 dark:text-blue-400">{{ summary?.updates || 0 }}</div>
+                <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">Price Updates</div>
+            </div>
+            <div class="bg-white dark:bg-slate-800 rounded-xl border border-amber-200 dark:border-amber-500/30 p-4 text-center">
+                <div class="text-2xl font-bold text-amber-600 dark:text-amber-400">{{ summary?.new_variants || 0 }}</div>
+                <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">New Variants</div>
+            </div>
+            <div class="bg-white dark:bg-slate-800 rounded-xl border border-green-200 dark:border-green-500/30 p-4 text-center">
+                <div class="text-2xl font-bold text-green-600 dark:text-green-400">{{ summary?.creates || 0 }}</div>
+                <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">New Products</div>
+            </div>
+        </div>
+
+        <!-- Results Table -->
+        <div v-if="showResults && items.length > 0"
+            class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700">
+
+            <!-- Table Header -->
+            <div class="px-5 py-4 border-b border-slate-200 dark:border-slate-700 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div class="flex items-center gap-2">
+                    <CheckCircle class="h-5 w-5 text-green-500" />
+                    <h3 class="font-semibold text-slate-800 dark:text-slate-100">
+                        AI Analysis Results
+                    </h3>
+                    <span class="text-sm text-slate-500 dark:text-slate-400">({{ selectedCount }} selected)</span>
                 </div>
-
-                <!-- Parse Errors -->
-                <div v-if="showPreview && parseErrors.length > 0" class="bg-red-50 border border-red-200 rounded-lg p-6">
-                    <div class="flex items-center mb-3">
-                        <AlertCircle class="h-5 w-5 text-red-500 mr-2" />
-                        <h3 class="text-sm font-semibold text-red-800">Unparsed Lines ({{ parseErrors.length }})</h3>
-                    </div>
-                    <ul class="space-y-1">
-                        <li v-for="(error, index) in parseErrors" :key="index" class="text-sm text-red-700">
-                            <span v-if="error.line" class="font-medium">Line {{ error.line }}:</span>
-                            {{ error.message || error.text || error }}
-                        </li>
-                    </ul>
+                <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                    <label class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 cursor-pointer">
+                        <input type="checkbox" :checked="selectedCount === items.length"
+                            @change="toggleAll($event.target.checked)"
+                            class="rounded border-slate-300 dark:border-slate-600 text-ablue focus:ring-ablue" />
+                        Select All
+                    </label>
+                    <label class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 cursor-pointer">
+                        <input type="checkbox" v-model="markOthersOutOfStock"
+                            class="rounded border-slate-300 dark:border-slate-600 text-amber-500 focus:ring-amber-500" />
+                        Mark unlisted as out of stock
+                    </label>
+                    <button @click="confirmUpload" :disabled="isUploading || selectedCount === 0"
+                        class="inline-flex items-center px-4 py-2 bg-green-600 rounded-lg font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-700 disabled:opacity-50 transition">
+                        <Loader2 v-if="isUploading" class="h-4 w-4 mr-2 animate-spin" />
+                        <Check v-else class="h-4 w-4 mr-2" />
+                        {{ isUploading ? 'Processing...' : `Apply ${selectedCount} Changes` }}
+                    </button>
                 </div>
+            </div>
 
-                <!-- Preview Table -->
-                <div v-if="showPreview && parsedProducts.length > 0" class="bg-white overflow-hidden shadow-sm rounded-lg">
-                    <div class="p-6 border-b border-gray-200">
-                        <div class="flex justify-between items-center">
-                            <div class="flex items-center">
-                                <CheckCircle class="h-5 w-5 text-green-500 mr-2" />
-                                <h3 class="text-lg font-semibold text-gray-900">
-                                    Parsed Products ({{ parsedProducts.length }})
-                                </h3>
-                            </div>
-                            <button
-                                @click="confirmUpload"
-                                :disabled="isUploading"
-                                class="inline-flex items-center px-4 py-2 bg-green-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-700 focus:bg-green-700 active:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:opacity-50 transition ease-in-out duration-150"
-                            >
-                                <Loader2 v-if="isUploading" class="h-4 w-4 mr-2 animate-spin" />
-                                {{ isUploading ? 'Uploading...' : 'Confirm Upload' }}
-                            </button>
-                        </div>
-                    </div>
-                    <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50">
-                                <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">#</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Product Name</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Storage</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">SIM Type</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price (KSh)</th>
-                                    <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Valid</th>
-                                </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
-                                <tr v-for="(product, index) in parsedProducts" :key="index" class="hover:bg-gray-50">
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ index + 1 }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ product.name }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ product.storage || '-' }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ product.sim_type || '-' }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                        {{ product.price ? 'KSh ' + Number(product.price).toLocaleString('en-KE') : '-' }}
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-center">
-                                        <CheckCircle class="h-5 w-5 text-green-500 inline-block" />
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+            <!-- Table -->
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm">
+                    <thead>
+                        <tr class="border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700/50">
+                            <th class="px-4 py-3 text-left w-10"></th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase">Action</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase">Product</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase hidden sm:table-cell">Storage</th>
+                            <th class="px-4 py-3 text-right text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase hidden md:table-cell">Cost Price</th>
+                            <th class="px-4 py-3 text-right text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase">Sell Price</th>
+                            <th class="px-4 py-3 text-right text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase hidden md:table-cell">Current</th>
+                            <th class="px-4 py-3 text-center text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase hidden lg:table-cell">Confidence</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(item, index) in items" :key="index"
+                            class="border-b border-slate-100 dark:border-slate-700/50 last:border-0 transition"
+                            :class="item.selected ? 'hover:bg-slate-50 dark:hover:bg-slate-700/30' : 'opacity-40'">
+                            <td class="px-4 py-3">
+                                <input type="checkbox" v-model="item.selected"
+                                    class="rounded border-slate-300 dark:border-slate-600 text-ablue focus:ring-ablue" />
+                            </td>
+                            <td class="px-4 py-3">
+                                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium" :class="actionClass(item.action)">
+                                    <Pencil v-if="item.action === 'update'" class="w-3 h-3" />
+                                    <ArrowUpDown v-else-if="item.action === 'new_variant'" class="w-3 h-3" />
+                                    <Plus v-else class="w-3 h-3" />
+                                    {{ actionLabel(item.action) }}
+                                </span>
+                            </td>
+                            <td class="px-4 py-3">
+                                <div class="font-medium text-slate-800 dark:text-slate-100">{{ item.product_name }}</div>
+                                <div v-if="item.notes" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{{ item.notes }}</div>
+                                <div v-if="item.condition && item.condition !== 'new'" class="text-xs text-amber-600 dark:text-amber-400 mt-0.5">{{ item.condition }}</div>
+                            </td>
+                            <td class="px-4 py-3 text-slate-600 dark:text-slate-300 hidden sm:table-cell">{{ item.storage || '-' }}</td>
+                            <td class="px-4 py-3 text-right hidden md:table-cell">
+                                <span class="text-slate-500 dark:text-slate-400">{{ formatPrice(item.raw_price) }}</span>
+                                <span v-if="item.markup_applied" class="block text-[10px] text-green-600 dark:text-green-400">+{{ formatPrice(item.markup_applied) }}</span>
+                            </td>
+                            <td class="px-4 py-3 text-right font-semibold text-slate-800 dark:text-slate-100">{{ formatPrice(item.price) }}</td>
+                            <td class="px-4 py-3 text-right hidden md:table-cell">
+                                <template v-if="item.existing_price">
+                                    <span :class="item.price < item.existing_price ? 'text-green-600 dark:text-green-400' : item.price > item.existing_price ? 'text-red-600 dark:text-red-400' : 'text-slate-500 dark:text-slate-400'">
+                                        {{ formatPrice(item.existing_price) }}
+                                    </span>
+                                </template>
+                                <span v-else class="text-slate-400 dark:text-slate-500">-</span>
+                            </td>
+                            <td class="px-4 py-3 text-center hidden lg:table-cell">
+                                <span class="text-xs font-medium capitalize" :class="confidenceClass(item.confidence)">
+                                    {{ item.confidence || '-' }}
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-                <!-- No Results -->
-                <div v-if="showPreview && parsedProducts.length === 0 && parseErrors.length === 0" class="bg-white overflow-hidden shadow-sm rounded-lg p-6 text-center">
-                    <p class="text-sm text-gray-500">No products could be parsed from the provided text.</p>
+        <!-- Skipped Lines -->
+        <div v-if="showResults && skipped.length > 0"
+            class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-5">
+            <h3 class="text-sm font-semibold text-slate-800 dark:text-slate-100 mb-3 flex items-center gap-2">
+                <AlertCircle class="w-4 h-4 text-slate-400" />
+                Skipped Lines ({{ skipped.length }})
+            </h3>
+            <div class="space-y-2">
+                <div v-for="(s, i) in skipped" :key="i"
+                    class="flex items-start gap-2 text-sm text-slate-500 dark:text-slate-400">
+                    <X class="w-3.5 h-3.5 mt-0.5 shrink-0 text-slate-400" />
+                    <div>
+                        <span class="font-mono text-xs">{{ s.line }}</span>
+                        <span v-if="s.reason" class="ml-2 text-slate-400 dark:text-slate-500">- {{ s.reason }}</span>
+                    </div>
                 </div>
             </div>
         </div>
-    </AppLayout>
+
+        <!-- Empty state -->
+        <div v-if="showResults && items.length === 0 && !error"
+            class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-8 text-center">
+            <AlertCircle class="w-10 h-10 text-slate-300 dark:text-slate-600 mx-auto mb-3" />
+            <p class="text-slate-500 dark:text-slate-400">No products could be parsed from the provided text.</p>
+            <p class="text-sm text-slate-400 dark:text-slate-500 mt-1">Try a different format or check your input.</p>
+        </div>
+    </div>
 </template>

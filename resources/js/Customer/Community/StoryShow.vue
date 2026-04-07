@@ -1,5 +1,5 @@
 <script setup>
-import { Link } from '@inertiajs/vue3';
+import { Head, Link } from '@inertiajs/vue3';
 import CustomerLayout from '@/Layouts/CustomerLayout.vue';
 import {
     Star, ChevronRight, User, Calendar, ArrowLeft, ShoppingCart
@@ -24,6 +24,7 @@ const formatPrice = (price) => {
 </script>
 
 <template>
+    <Head :title="story.title ? `${story.title} — TechMart Community` : 'Story — TechMart Community'" />
     <CustomerLayout>
         <!-- Breadcrumb -->
         <section class="bg-white border-b border-gray-100">

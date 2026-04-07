@@ -90,16 +90,16 @@ return [
     'maxRecsPerPage' => 30,
 
     'company' => [
-        'name' => env('COMPANY_NAME'),
-        'shortName' => env('COMPANY_SHORT_NAME'),
+        'name' => env('COMPANY_NAME', 'TechMart Kenya'),
+        'shortName' => env('COMPANY_SHORT_NAME', 'TechMartKE'),
         'website' => env('APP_URL'),
         'COMPANY_USER' => 'Administrator',
-        'COMPANY_EMAIL' => 'info@novustechhub.com',
+        'COMPANY_EMAIL' => env('COMPANY_EMAIL', 'info@techmart.ke'),
         'COMPANY_PASS' => '12345678',
     ],
     'whatsapp' => [
-        'phone' => env('WHATSAPP_PHONE', '254724301007'),
-        'default_message' => env('WHATSAPP_DEFAULT_MESSAGE', 'Hello! I would like to learn more about Novus Institute programs.'),
+        'phone' => env('WHATSAPP_PHONE', '254700000000'),
+        'default_message' => env('WHATSAPP_DEFAULT_MESSAGE', 'Hi TechMart KE! I\'d like to inquire about your products.'),
         'enabled' => env('WHATSAPP_ENABLED', true),
     ],
     'developer' => [
@@ -121,10 +121,10 @@ return [
             'deleted' => 'Record Deleted successfully',
         ],
     ],
-    'metaDescription' => env('COMPANY_NAME').' - '. "Novus Computer Training Institute of Technology is a leading technology and computer science institute offering innovative courses, expert faculty, and hands-on training. Empower your future with world-class education, industry partnerships, and a vibrant tech community.",
-    'metaKeywords' => 'Novus Institute of Technology, technology institute, computer science, IT courses, tech education, coding bootcamp, software development, digital skills, technology training, innovation, STEM, online learning, industry partnerships, tech careers, student success, Kenya, Africa',
-    'metaAuthor' => env('COMPANY_NAME'),
-    'metaPublisher' => env('COMPANY_NAME'),
+    'metaDescription' => 'TechMart KE — Kenya\'s trusted marketplace for phones, laptops & accessories. Compare prices with AI, find the best deals on Samsung, iPhone, MacBook & more. New & quality-tested Ex-UK devices. Fast delivery in Nairobi & beyond.',
+    'metaKeywords' => 'phones Kenya, buy phone Nairobi, Samsung Kenya, iPhone Kenya, laptops Nairobi, MacBook Kenya, ex-uk phones, refurbished phones Kenya, cheap smartphones Nairobi, phone deals Kenya, TechMart KE, computer shop Nairobi, M-Pesa payment, phone comparison Kenya, budget phones Kenya, gaming laptop Kenya',
+    'metaAuthor' => env('COMPANY_NAME', 'TechMart Kenya'),
+    'metaPublisher' => env('COMPANY_NAME', 'TechMart Kenya'),
     'metaRobots' => 'index, follow',
     'serverType' => env('SERVER_TYPE'),
 

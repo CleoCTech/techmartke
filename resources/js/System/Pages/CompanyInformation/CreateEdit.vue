@@ -2,309 +2,171 @@
     <div>
         <Head title="Company Information" />
         <x-create-edit-template :setup="setup" :selected="selected">
-            <form v-on:submit.prevent="submit" action="#" method="POST" enctype="multipart/form-data">
-                <x-grid>
-                   
-                    <x-grid-col class="sm:col-span-6">
-                        <x-form-group>
-                            <template #label>Name</template>
-                            <template #value>
-                                <TextInput type="text" v-model="form.name"/>
-                                <!-- <x-input type="text" v-model="form.name"/> -->
-                            </template>
-                        </x-form-group>
-                    </x-grid-col>
-                    <x-grid-col class="sm:col-span-6">
-                        <x-form-group>
-                            <template #label>Short Name</template>
-                            <template #value><x-input type="text" v-model="form.shortName"/></template>
-                        </x-form-group>
-                    </x-grid-col>
-                    <x-grid-col class="sm:col-span-6">
-                        <x-form-group>
-                            <template #label>Establishment Date</template>
-                            <template #value><x-input type="date" v-model="form.establishmentDate"/></template>
-                        </x-form-group>
-                    </x-grid-col>
-                    <x-grid-col class="sm:col-span-6">
-                        <x-form-group>
-                            <template #label>Motto</template>
-                            <template #value><x-input type="text" v-model="form.motto"/></template>
-                        </x-form-group>
-                    </x-grid-col>
-                    <x-grid-col class="sm:col-span-6">
-                        <x-form-group>
-                            <template #label>Total Students</template>
-                            <template #value><x-input type="text" v-model="form.total_students"/></template>
-                        </x-form-group>
-                    </x-grid-col>
-                    <x-grid-col class="sm:col-span-6">
-                        <x-form-group>
-                            <template #label>Programs Available</template>
-                            <template #value><x-input type="text" v-model="form.programs_available"/></template>
-                        </x-form-group>
-                    </x-grid-col>
-                    <x-grid-col class="sm:col-span-6">
-                        <x-form-group>
-                            <template #label>Job Placement Rate</template>
-                            <template #value><x-input type="text" v-model="form.job_placement_rate"/></template>
-                        </x-form-group>
-                    </x-grid-col>
-                    <x-grid-col class="sm:col-span-6">
-                        <x-form-group>
-                            <template #label>Vision</template>
-                            <template #value>
-                                <ckeditor v-cloak :editor="editor" v-model="form.vision" @ready="cardData != null? form.vision = cardData.vision :''"></ckeditor>
-                            </template>
-                        </x-form-group>
-                    </x-grid-col>
-                    <x-grid-col class="sm:col-span-6">
-                        <x-form-group>
-                            <template #label>Mission</template>
-                            <template #value>
-                                <ckeditor v-cloak :editor="editor" v-model="form.mission" @ready="cardData != null? form.mission = cardData.mission :''"></ckeditor>
-                            </template>
-                        </x-form-group>
-                    </x-grid-col>
-                    <x-grid-col class="sm:col-span-6">
-                        <x-form-group>
-                            <template #label>Location</template>
-                            <template #value><x-input type="text" v-model="form.location"/></template>
-                        </x-form-group>
-                    </x-grid-col>
-                    <x-grid-col class="sm:col-span-6">
-                        <x-form-group>
-                            <template #label>Emails</template>
-                            <template #value><x-input type="text" v-model="form.emails"/></template>
-                        </x-form-group>
-                    </x-grid-col>
-                    <x-grid-col class="sm:col-span-6">
-                        <x-form-group>
-                            <template #label>Highlight</template>
-                            <template #value>
-                                <ckeditor v-cloak :editor="editor" v-model="form.highlight" @ready="cardData != null? form.highlight = cardData.highlight :''"></ckeditor>
-                            </template>
-                        </x-form-group>
-                    </x-grid-col>
-                    
-                    <x-grid-col class="sm:col-span-6">
-                        <x-form-group>
-                            <template #label>Phone Numbers</template>
-                            <template #value><x-input type="text" v-model="form.phoneNumbers"/></template>
-                        </x-form-group>
-                    </x-grid-col>
-                    <x-grid-col class="sm:col-span-6">
-                        <x-form-group>
-                            <template #label>Address</template>
-                            <template #value><x-input type="text" v-model="form.address"/></template>
-                        </x-form-group>
-                    </x-grid-col>
-                    <x-grid-col class="sm:col-span-6">
-                        <x-form-group>
-                            <template #label>About Short</template>
-                            <template #value><x-input type="text" v-model="form.about_short"/></template>
-                        </x-form-group>
-                    </x-grid-col>
-                    
-                    
-                    <x-grid-col class="sm:col-span-6">
-                        <x-form-group class="sm:grid-cols-1">
-                            <template #label>History</template>
-                            <template #value>
-                                <ckeditor v-cloak :editor="editor" v-model="form.history" @ready="cardData != null? form.history = cardData.history :''"></ckeditor>
-                            </template>
-                        </x-form-group>
-                    </x-grid-col>
-                    <x-grid-col class="sm:col-span-6">
-                        <x-form-group class="sm:grid-cols-1">
-                            <template #label>About</template>
-                            <template #value>
-                                <ckeditor v-cloak :editor="editor" v-model="form.about" @ready="cardData != null? form.about = cardData.about :''"></ckeditor>
-                            </template>
-                        </x-form-group>
-                    </x-grid-col>
-                    <x-grid-col class="sm:col-span-6">
-                        <x-form-group class="sm:grid-cols-1">
-                            <template #label>Core Values</template>
-                            <template #value>
-                                <ckeditor v-cloak :editor="editor" v-model="form.core_values" @ready="cardData != null? form.core_values = cardData.core_values :''"></ckeditor>
-                            </template>
-                        </x-form-group>
-                    </x-grid-col>
-                   
-                    <x-grid-col class="sm:col-span-2">
-                        <x-form-group>
-                            <template #label>Logo</template>
-                            <template #value>
-                                <img v-if="show_image == '' && form.logo != null" :src="$page.props.storagePaths[setup.settings.storageName].images.readPath+form.logo" class="h-20 w-20">
-                                <x-input type="file" @input="onFileChange($event, form.logo, show_image)" ref="input" class="shadow appearance-none border w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline disabled:opacity-40"/>
-                                <img v-if="show_image != ''" :src="show_image" class="h-20 w-20">
-                            </template>
-                        </x-form-group>
-                    </x-grid-col>
-                </x-grid>
-                 
+            <form v-on:submit.prevent="submit" action="#" method="POST" enctype="multipart/form-data" class="space-y-8">
 
-                <div class="flex justify-center py-3">
-                    <x-button type="submit">Submit</x-button>
+                <!-- ============ BASIC INFORMATION ============ -->
+                <section>
+                    <div class="border-b border-slate-200 dark:border-slate-700 pb-2 mb-4">
+                        <h3 class="text-base font-semibold text-slate-800 dark:text-slate-100">Basic Information</h3>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Company Name <span class="text-red-500">*</span></label>
+                            <input v-model="form.name" type="text" required
+                                class="w-full rounded-lg border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 text-sm focus:ring-ablue focus:border-ablue" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Short Name</label>
+                            <input v-model="form.shortName" type="text" placeholder="e.g. TechMartKE"
+                                class="w-full rounded-lg border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 text-sm focus:ring-ablue focus:border-ablue" />
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Motto / Tagline</label>
+                            <input v-model="form.motto" type="text" placeholder="e.g. Smart Shopping, Better Decisions"
+                                class="w-full rounded-lg border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 text-sm focus:ring-ablue focus:border-ablue" />
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============ CONTACT INFORMATION ============ -->
+                <section>
+                    <div class="border-b border-slate-200 dark:border-slate-700 pb-2 mb-4">
+                        <h3 class="text-base font-semibold text-slate-800 dark:text-slate-100">Contact Information</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">This phone number is used for WhatsApp and Call buttons across the entire site</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Phone Number (WhatsApp & Calls) <span class="text-red-500">*</span></label>
+                            <input v-model="form.phoneNumbers" type="text" required placeholder="254700000000"
+                                class="w-full rounded-lg border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 text-sm focus:ring-ablue focus:border-ablue" />
+                            <p class="text-[10px] text-slate-400 mt-1">Format: 254XXXXXXXXX (no spaces or +)</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Email <span class="text-red-500">*</span></label>
+                            <input v-model="form.emails" type="email" required placeholder="info@techmart.ke"
+                                class="w-full rounded-lg border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 text-sm focus:ring-ablue focus:border-ablue" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Physical Address</label>
+                            <input v-model="form.address" type="text" placeholder="e.g. Moi Avenue, Nairobi CBD"
+                                class="w-full rounded-lg border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 text-sm focus:ring-ablue focus:border-ablue" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Location</label>
+                            <input v-model="form.location" type="text" placeholder="e.g. Nairobi, Kenya"
+                                class="w-full rounded-lg border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 text-sm focus:ring-ablue focus:border-ablue" />
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============ ABOUT US ============ -->
+                <section>
+                    <div class="border-b border-slate-200 dark:border-slate-700 pb-2 mb-4">
+                        <h3 class="text-base font-semibold text-slate-800 dark:text-slate-100">About Us</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Short Description (1 sentence)</label>
+                            <input v-model="form.about_short" type="text" placeholder="Kenya's trusted phone & computer marketplace"
+                                class="w-full rounded-lg border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 text-sm focus:ring-ablue focus:border-ablue" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Full About</label>
+                            <ckeditor v-cloak :editor="editor" v-model="form.about" @ready="cardData != null ? form.about = cardData.about : ''"></ckeditor>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Mission</label>
+                                <ckeditor v-cloak :editor="editor" v-model="form.mission" @ready="cardData != null ? form.mission = cardData.mission : ''"></ckeditor>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Vision</label>
+                                <ckeditor v-cloak :editor="editor" v-model="form.vision" @ready="cardData != null ? form.vision = cardData.vision : ''"></ckeditor>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Core Values</label>
+                            <ckeditor v-cloak :editor="editor" v-model="form.core_values" @ready="cardData != null ? form.core_values = cardData.core_values : ''"></ckeditor>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============ BRANDING ============ -->
+                <section>
+                    <div class="border-b border-slate-200 dark:border-slate-700 pb-2 mb-4">
+                        <h3 class="text-base font-semibold text-slate-800 dark:text-slate-100">Branding</h3>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Logo</label>
+                        <div class="flex items-center gap-4">
+                            <img v-if="show_image == '' && form.logo != null"
+                                :src="$page.props.storagePaths[setup.settings.storageName].images.readPath + form.logo"
+                                class="h-20 w-20 rounded-lg border border-slate-200 dark:border-slate-700 object-contain bg-white" />
+                            <img v-if="show_image != ''" :src="show_image" class="h-20 w-20 rounded-lg border border-slate-200 dark:border-slate-700 object-contain bg-white" />
+                            <input type="file" @input="onFileChange($event, form.logo, show_image)" ref="input"
+                                class="text-sm text-slate-700 dark:text-slate-300 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-slate-100 dark:file:bg-slate-700 file:text-sm file:font-medium hover:file:bg-slate-200 cursor-pointer" />
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Submit -->
+                <div class="flex justify-end pt-4 border-t border-slate-200 dark:border-slate-700">
+                    <button type="submit"
+                        class="inline-flex items-center px-6 py-2.5 bg-ablue border border-transparent rounded-lg font-semibold text-sm text-white hover:bg-blue-700 focus:ring-2 focus:ring-ablue focus:ring-offset-2 transition">
+                        Save Changes
+                    </button>
                 </div>
 
             </form>
-
         </x-create-edit-template>
-
-        
     </div>
 </template>
+
 <script setup>
 import { createEditProps, useCreateEdit } from '@/Composables/useCreateEdit'
-
-import { ref, reactive, computed, onMounted  } from 'vue'
-
+import { ref, reactive } from 'vue'
 
 const props = defineProps({
     ...createEditProps,
 })
 
-onMounted(() => {
-
-    // console.log(props.setup.bindedPriceIds);
-    // chartData.value = setChartData();
-    // chartOptions.value = setChartOptions();
-})
-
-const file = ref(null);
-
 const form = reactive({
     uuid: null,
     name: null,
     shortName: null,
-    establishmentDate: null,
-    vision: null,
-    mission: null,
-    quality: null,
-    history: null,
-    location: null,
-    about: null,
-    about_short: null,
-    about_newsletter: null,
-    total_people_helped: null,
-    manager_name: null,
-    manager_custom_title: null,
-    manager_image: null,
-    welcome_message: null,
-    emails: null,
-    phoneNumbers: null,
-    address: null,
-    logo: null,
-    total_students: null,
-    teachers: null,
-    schools: null,
-    graduate_students: null,
     motto: null,
+    phoneNumbers: null,
+    emails: null,
+    address: null,
+    location: null,
+    about_short: null,
+    about: null,
+    mission: null,
+    vision: null,
     core_values: null,
-    fee_naration: null,
-    highlight: null,
-    programs_available: null,
-    job_placement_rate: null,
+    logo: null,
 })
 
 const show_image = ref('')
-const show_image1 = ref('')
-
-const handleFileChange = (event) => {
-    // form.exam_path = event.target.files[0];
-    // form.exam_path = Array.from(event.target.files);
-    form.cover_image = Array.from(event.target.files);
-};
 
 function setData() {
     if (props.cardData != null && props.cardData.uuid != null) {
         form.uuid = props.cardData.uuid
         form.name = props.cardData.company_name
         form.shortName = props.cardData.short_name
-        form.establishmentDate = props.cardData.establishment_date
-        form.vision = props.cardData.vision
         form.motto = props.cardData.motto
-        form.core_values = props.cardData.core_values
-        form.mission = props.cardData.mission
-        form.quality = props.cardData.quality
-        form.about_newsletter = props.cardData.about_newsletter
-        form.total_people_helped = props.cardData.total_people_helped
-        form.manager_name = props.cardData.manager_name
-        form.manager_custom_title = props.cardData.manager_custom_title
-        form.manager_image = props.cardData.manager_image
+        form.phoneNumbers = props.cardData.phone_numbers
+        form.emails = props.cardData.emails
+        form.address = props.cardData.address
+        form.location = props.cardData.location
         form.about_short = props.cardData.about_short
         form.about = props.cardData.about
-        form.history = props.cardData.history
-        form.welcome_message = props.cardData.welcome_message
-        form.location = props.cardData.location
-        form.whatWeDo = props.cardData.what_we_do
-        form.emails = props.cardData.emails
-        form.phoneNumbers = props.cardData.phone_numbers
-        form.address = props.cardData.address
+        form.mission = props.cardData.mission
+        form.vision = props.cardData.vision
+        form.core_values = props.cardData.core_values
         form.logo = props.cardData.logo
-        form.total_students = props.cardData.total_members
-        form.teachers = props.cardData.teachers
-        form.graduate_students = props.cardData.graduate_students
-        form.schools = props.cardData.schools
-        form.fee_naration = props.cardData.fee_naration
-        form.highlight = props.cardData.highlight
-        form.programs_available = props.cardData.programs_available
-        form.job_placement_rate = props.cardData.job_placement_rate
     }
-    
-    
-    
 }
 
-// function convertToUppercase() {
-//     form.code = form.code.toUpperCase();
-// }
-
-const { editor,editorConfig, submit, onFileChange, ckeditor, xGrid,
-        xFormGroup,
-        xGridCol,
-        xLoading,
-        xPanel,
-        xInput,
-        xSelect,
-        xTextarea,
-        xCheckbox,
-        Checkbox,
-        xButton,
-        AppLayout,
-        xCreateEditTemplate, TextInput } = useCreateEdit(props, setData, form )
-
-
+const { editor, submit, onFileChange, ckeditor, xCreateEditTemplate, TextInput } = useCreateEdit(props, setData, form)
 </script>
-<style scoped>
-input[type="file"] {
-  /* display: none; */
-}
-
-.custom-file-input {
-  background-color: blue;
-  color: white;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-/* 
-label {
-  background-color: blue;
-  color: white;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-label::before {
-  content: "Choose file";
-} */
-
-/* label::after {
-  content: "📷";
-} */
-
-</style>

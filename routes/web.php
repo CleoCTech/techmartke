@@ -28,6 +28,9 @@ use App\Http\Controllers\Admin\AlbumCollectionController;
 use App\Http\Controllers\Customer\HomeController;
 use App\Http\Controllers\Customer\ProductController as CustomerProductController;
 use App\Http\Controllers\Customer\ComparisonController;
+use App\Http\Controllers\Customer\TradeInController;
+use App\Http\Controllers\Admin\CommunityController as AdminCommunityController;
+use App\Http\Controllers\Admin\TradeInController as AdminTradeInController;
 use App\Http\Controllers\Customer\CartController;
 use App\Http\Controllers\Customer\AIAssistantController;
 use App\Http\Controllers\Customer\CommunityController;
@@ -58,6 +61,11 @@ Route::get('/products/{slug}', [CustomerProductController::class, 'show'])->name
 
 // Budget Comparison
 Route::get('/compare', [ComparisonController::class, 'compare'])->name('compare');
+
+// Trade-In
+Route::get('/trade-in', [TradeInController::class, 'index'])->name('trade-in');
+Route::post('/trade-in/estimate', [TradeInController::class, 'estimate'])->name('trade-in.estimate');
+Route::post('/trade-in', [TradeInController::class, 'store'])->name('trade-in.store');
 
 // Cart & Checkout
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
@@ -107,10 +115,13 @@ Route::prefix('admin')->group(function () {
     Route::get('/products', [AdminProductController::class, 'index'])->name('admin.products');
     Route::get('/products/create', [AdminProductController::class, 'create'])->name('admin.products.create');
     Route::post('/products/store', [AdminProductController::class, 'store'])->name('admin.products.store');
-    Route::get('/products/show/{id}', [AdminProductController::class, 'show'])->name('admin.products.show');
-    Route::get('/products/edit/{id}', [AdminProductController::class, 'edit'])->name('admin.products.edit');
-    Route::put('/products/update/{id}', [AdminProductController::class, 'update'])->name('admin.products.update');
-    Route::delete('/products/delete/{id}', [AdminProductController::class, 'destroy'])->name('admin.products.destroy');
+    Route::get('/products/show/{uuid}', [AdminProductController::class, 'show'])->name('admin.products.show');
+    Route::get('/products/edit/{uuid}', [AdminProductController::class, 'edit'])->name('admin.products.edit');
+    Route::put('/products/update/{uuid}', [AdminProductController::class, 'update'])->name('admin.products.update');
+    Route::post('/products/update/{uuid}', [AdminProductController::class, 'update'])->name('admin.products.update.post');
+    Route::delete('/products/delete/{uuid}', [AdminProductController::class, 'destroy'])->name('admin.products.destroy');
+
+    Route::post('/products/generate-content', [AdminProductController::class, 'generateContent'])->name('admin.products.generate-content');
 
     /***
      * Bulk Upload
@@ -118,6 +129,28 @@ Route::prefix('admin')->group(function () {
     Route::get('/products/bulk-upload', [AdminBulkUploadController::class, 'index'])->name('admin.bulk-upload');
     Route::post('/products/bulk-upload/parse', [AdminBulkUploadController::class, 'parse'])->name('admin.bulk-upload.parse');
     Route::post('/products/bulk-upload/store', [AdminBulkUploadController::class, 'store'])->name('admin.bulk-upload.store');
+
+    /***
+     * Community Management
+     */
+    Route::get('/community', [AdminCommunityController::class, 'index'])->name('admin.community');
+    Route::post('/community/photos/{id}/approve', [AdminCommunityController::class, 'approvePhoto'])->name('admin.community.photos.approve');
+    Route::delete('/community/photos/{id}/reject', [AdminCommunityController::class, 'rejectPhoto'])->name('admin.community.photos.reject');
+    Route::post('/community/photos/{id}/feature', [AdminCommunityController::class, 'toggleFeaturePhoto'])->name('admin.community.photos.feature');
+    Route::post('/community/stories/{id}/approve', [AdminCommunityController::class, 'approveStory'])->name('admin.community.stories.approve');
+    Route::delete('/community/stories/{id}/reject', [AdminCommunityController::class, 'rejectStory'])->name('admin.community.stories.reject');
+    Route::post('/community/stories/{id}/feature', [AdminCommunityController::class, 'toggleFeatureStory'])->name('admin.community.stories.feature');
+    Route::put('/community/questions/{id}', [AdminCommunityController::class, 'updateQuestion'])->name('admin.community.questions.update');
+    Route::post('/community/questions/{id}/publish', [AdminCommunityController::class, 'publishQuestion'])->name('admin.community.questions.publish');
+    Route::delete('/community/questions/{id}', [AdminCommunityController::class, 'deleteQuestion'])->name('admin.community.questions.delete');
+
+    /***
+     * Trade-In Management
+     */
+    Route::get('/trade-in', [AdminTradeInController::class, 'index'])->name('admin.trade-in');
+    Route::get('/trade-in/{uuid}', [AdminTradeInController::class, 'show'])->name('admin.trade-in.show');
+    Route::put('/trade-in/{uuid}', [AdminTradeInController::class, 'update'])->name('admin.trade-in.update');
+    Route::delete('/trade-in/{uuid}', [AdminTradeInController::class, 'destroy'])->name('admin.trade-in.destroy');
 
     /***
      * Orders (E-Commerce)
@@ -288,3 +321,6 @@ Route::prefix('admin')->group(function () {
 });
 
 Route::group([], __DIR__.'/system.php');
+
+
+//php artisan products:fetch-images --force --limit=55

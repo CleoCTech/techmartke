@@ -1,8 +1,15 @@
 <script setup>
-import { Link } from '@inertiajs/vue3';
+import { Link, usePage } from '@inertiajs/vue3';
 import { Zap, ShoppingCart, Menu, X, Phone, Mail, MapPin } from 'lucide-vue-next';
 import FloatingContactBar from '@/Components/Customer/FloatingContactBar.vue';
-import { ref, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
+import { useCompanyInfo } from '@/Composables/useCompanyInfo';
+
+const { phoneDisplay, email, address, whatsappUrl } = useCompanyInfo();
+const contactWhatsApp = computed(() => whatsappUrl("Hi TechMart KE! I'd like to get in touch."));
+
+const page = usePage();
+const currentUrl = computed(() => page.url);
 
 const mobileMenuOpen = ref(false);
 const cartCount = ref(0);
@@ -26,13 +33,21 @@ onMounted(() => {
 });
 
 const navLinks = [
-    { label: 'Phones', href: '/products?category=phones' },
-    { label: 'Computers', href: '/products?category=computers' },
-    { label: 'New', href: '/products?condition=new' },
-    { label: 'Ex-UK', href: '/products?condition=ex-uk' },
-    { label: 'Community', href: '/community' },
-    { label: 'VIP', href: '/vip' },
+    { label: 'Phones', href: '/products?category=phones', match: 'category=phones' },
+    { label: 'Computers', href: '/products?category=computers', match: 'category=computers' },
+    { label: 'New', href: '/products?condition=new', match: 'condition=new' },
+    { label: 'Ex-UK', href: '/products?condition=ex-uk', match: 'condition=ex-uk' },
+    { label: 'Community', href: '/community', match: '/community' },
+    { label: 'VIP', href: '/vip', match: '/vip' },
 ];
+
+const isActive = (link) => {
+    const url = currentUrl.value;
+    if (link.match.startsWith('/')) {
+        return url.startsWith(link.match);
+    }
+    return url.includes(link.match);
+};
 </script>
 
 <template>
@@ -62,7 +77,10 @@ const navLinks = [
                             v-for="link in navLinks"
                             :key="link.label"
                             :href="link.href"
-                            class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-black hover:bg-gray-50 rounded-lg transition-all cursor-pointer"
+                            class="px-4 py-2 text-sm font-medium rounded-lg transition-all cursor-pointer"
+                            :class="isActive(link)
+                                ? 'text-black bg-gray-100 font-semibold'
+                                : 'text-gray-600 hover:text-black hover:bg-gray-50'"
                         >
                             {{ link.label }}
                         </Link>
@@ -110,7 +128,10 @@ const navLinks = [
                                 v-for="link in navLinks"
                                 :key="link.label"
                                 :href="link.href"
-                                class="px-4 py-3 text-sm font-medium text-gray-700 hover:text-black hover:bg-gray-50 rounded-xl transition-all cursor-pointer text-center border border-gray-100"
+                                class="px-4 py-3 text-sm font-medium rounded-xl transition-all cursor-pointer text-center border"
+                                :class="isActive(link)
+                                    ? 'text-black bg-gray-100 border-gray-300 font-semibold'
+                                    : 'text-gray-700 hover:text-black hover:bg-gray-50 border-gray-100'"
                                 @click="mobileMenuOpen = false"
                             >
                                 {{ link.label }}
@@ -160,15 +181,20 @@ const navLinks = [
                         <ul class="space-y-2 text-sm text-gray-400">
                             <li><Link href="/products?category=macbooks" class="hover:text-white transition cursor-pointer">MacBooks</Link></li>
                             <li><Link href="/products?category=windows-laptops" class="hover:text-white transition cursor-pointer">Windows Laptops</Link></li>
-                            <li><Link href="/products?category=desktops" class="hover:text-white transition cursor-pointer">Desktops</Link></li>
+                            <li><Link href="/products?category=computers" class="hover:text-white transition cursor-pointer">All Computers</Link></li>
                         </ul>
                     </div>
                     <div>
-                        <h5 class="font-bold mb-3 md:mb-4 text-sm md:text-base">Support</h5>
+                        <h5 class="font-bold mb-3 md:mb-4 text-sm md:text-base">Quick Links</h5>
                         <ul class="space-y-2 text-sm text-gray-400">
-                            <li><Link href="/contact" class="hover:text-white transition cursor-pointer">Contact Us</Link></li>
-                            <li><Link href="/shipping" class="hover:text-white transition cursor-pointer">Shipping Info</Link></li>
-                            <li><Link href="/returns" class="hover:text-white transition cursor-pointer">Returns</Link></li>
+                            <li><Link href="/trade-in" class="hover:text-white transition cursor-pointer">Trade-In</Link></li>
+                            <li><Link href="/community" class="hover:text-white transition cursor-pointer">Community</Link></li>
+                            <li><Link href="/vip" class="hover:text-white transition cursor-pointer">VIP Program</Link></li>
+                            <li>
+                                <a :href="contactWhatsApp" target="_blank" rel="noopener" class="hover:text-white transition cursor-pointer">
+                                    Contact Us
+                                </a>
+                            </li>
                         </ul>
                     </div>
                     <div>
@@ -176,15 +202,15 @@ const navLinks = [
                         <ul class="space-y-2 text-sm text-gray-400">
                             <li class="flex items-center gap-2">
                                 <Phone class="w-3.5 h-3.5 flex-shrink-0" />
-                                +254 700 000 000
+                                {{ phoneDisplay }}
                             </li>
                             <li class="flex items-center gap-2">
                                 <Mail class="w-3.5 h-3.5 flex-shrink-0" />
-                                info@techmart.ke
+                                {{ email }}
                             </li>
                             <li class="flex items-start gap-2">
                                 <MapPin class="w-3.5 h-3.5 flex-shrink-0 mt-0.5" />
-                                Nairobi, Kenya
+                                {{ address }}
                             </li>
                         </ul>
                     </div>

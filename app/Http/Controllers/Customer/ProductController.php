@@ -16,39 +16,67 @@ class ProductController extends Controller
         $query = Product::with(['images', 'brand', 'category', 'variants'])
             ->where('is_active', true);
 
-        if ($request->has('search') && $request->search) {
+        // Search
+        if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function ($q) use ($search) {
                 $q->where('name', 'LIKE', "%{$search}%")
-                  ->orWhere('description', 'LIKE', "%{$search}%");
+                  ->orWhere('description', 'LIKE', "%{$search}%")
+                  ->orWhereHas('brand', fn($b) => $b->where('name', 'LIKE', "%{$search}%"));
             });
         }
 
-        if ($request->has('category_id') && $request->category_id) {
-            $query->where('category_id', $request->category_id);
+        // Categories — supports: categories[]=id, category_id=id, category=slug
+        // Always includes child categories when a parent is selected
+        if ($request->filled('categories')) {
+            $catIds = (array) $request->categories;
+            $childIds = Category::whereIn('parent_id', $catIds)->pluck('id')->toArray();
+            $query->whereIn('category_id', array_merge($catIds, $childIds));
+        } elseif ($request->filled('category_id')) {
+            $catId = $request->category_id;
+            $childIds = Category::where('parent_id', $catId)->pluck('id')->toArray();
+            $query->whereIn('category_id', array_merge([$catId], $childIds));
+        } elseif ($request->filled('category')) {
+            $cat = Category::where('slug', $request->category)
+                ->orWhere('name', 'LIKE', $request->category)
+                ->first();
+            if ($cat) {
+                $childIds = Category::where('parent_id', $cat->id)->pluck('id')->toArray();
+                $query->whereIn('category_id', array_merge([$cat->id], $childIds));
+            }
         }
 
-        if ($request->has('brand_id') && $request->brand_id) {
+        // Brands — supports: brands[]=id, brand_id=id, brand=slug
+        if ($request->filled('brands')) {
+            $query->whereIn('brand_id', (array) $request->brands);
+        } elseif ($request->filled('brand_id')) {
             $query->where('brand_id', $request->brand_id);
+        } elseif ($request->filled('brand')) {
+            $brand = Brand::where('slug', $request->brand)
+                ->orWhere('name', 'LIKE', $request->brand)
+                ->first();
+            if ($brand) $query->where('brand_id', $brand->id);
         }
 
-        if ($request->has('condition') && $request->condition) {
-            $query->where('condition', $request->condition);
+        // Condition — normalize case
+        if ($request->filled('condition')) {
+            $query->where('condition', strtolower($request->condition));
         }
 
-        if ($request->has('min_price') && $request->min_price) {
-            $query->where('base_price', '>=', $request->min_price);
-        }
+        // Price range — supports both naming conventions
+        $minPrice = $request->price_min ?? $request->min_price;
+        $maxPrice = $request->price_max ?? $request->max_price;
+        if ($minPrice) $query->where('base_price', '>=', $minPrice);
+        if ($maxPrice) $query->where('base_price', '<=', $maxPrice);
 
-        if ($request->has('max_price') && $request->max_price) {
-            $query->where('base_price', '<=', $request->max_price);
-        }
-
-        $products = $query->orderBy('created_at', 'desc')->paginate(12);
+        $products = $query
+            ->orderByRaw("CASE WHEN stock_status = 'in_stock' THEN 0 ELSE 1 END")
+            ->orderBy('updated_at', 'desc')
+            ->paginate(12);
 
         return Inertia::render('Customer/Products/Index', [
             'products' => $products,
-            'filters' => $request->only(['search', 'category_id', 'brand_id', 'condition', 'min_price', 'max_price']),
+            'filters' => $request->only(['search', 'categories', 'brands', 'condition', 'price_min', 'price_max', 'category', 'brand']),
             'brands' => Brand::where('is_active', true)->get(),
             'categories' => Category::where('is_active', true)->get(),
         ]);

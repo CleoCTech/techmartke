@@ -16,11 +16,14 @@ class CommunityQuestion extends Model
         'asked_by',
         'is_answered',
         'is_featured',
+        'is_published',
+        'admin_answer',
     ];
 
     protected $casts = [
         'is_answered' => 'boolean',
         'is_featured' => 'boolean',
+        'is_published' => 'boolean',
     ];
 
     public function user()
