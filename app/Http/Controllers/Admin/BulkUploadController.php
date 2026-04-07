@@ -250,6 +250,16 @@ PROMPT;
      */
     private function fallbackParse(string $rawText, $existingProducts, $brands): array
     {
+        // Normalize unicode dashes (en-dash, em-dash, minus sign, hyphen-minus)
+        // and other separators that copy-paste from WhatsApp/Word can introduce
+        $rawText = str_replace(
+            ["\xE2\x80\x93", "\xE2\x80\x94", "\xE2\x88\x92", "\xEF\xB9\x98", "\xEF\xBC\x8D"],
+            '-',
+            $rawText
+        );
+        // Normalize non-breaking spaces and zero-width characters
+        $rawText = preg_replace('/[\xC2\xA0\xE2\x80\x8B\xE2\x80\x8C\xE2\x80\x8D]/', ' ', $rawText);
+
         $lines = preg_split('/\r?\n/', $rawText);
         $items = [];
         $skipped = [];
