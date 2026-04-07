@@ -456,13 +456,17 @@ const quickBudgets = [30000, 50000, 80000, 120000]; // kept for quick budget but
                             >
                                 Best iPhone camera
                             </button>
+                        </div>
+
+                        <!-- Trade-In CTA (own row, prominent) -->
+                        <div class="mt-3 flex justify-center">
                             <Link
                                 href="/trade-in"
-                                class="flex-shrink-0 ml-1 inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 active:scale-[0.97] rounded-full transition-all cursor-pointer text-white shadow-md shadow-green-500/30 hover:shadow-lg hover:shadow-green-500/40 ring-2 ring-white"
+                                class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-bold bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 active:scale-[0.97] rounded-full transition-all cursor-pointer text-white shadow-md shadow-green-500/30 hover:shadow-lg hover:shadow-green-500/40"
                             >
-                                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 014-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
+                                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 014-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
                                 Trade In Your Phone
-                                <ArrowRight class="w-3 h-3" />
+                                <ArrowRight class="w-4 h-4" />
                             </Link>
                         </div>
                     </div>
