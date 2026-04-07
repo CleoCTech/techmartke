@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\BulkUploadController as AdminBulkUploadController;
+use App\Http\Controllers\Admin\AiStatusController as AdminAiStatusController;
 use App\Http\Controllers\Admin\FaqController as AdminFaqController;
 use App\Http\Controllers\Admin\FeedbackController as AdminFeedbackController;
 use App\Http\Controllers\Admin\GalleryController;
@@ -129,6 +130,9 @@ Route::prefix('admin')->group(function () {
     Route::get('/products/bulk-upload', [AdminBulkUploadController::class, 'index'])->name('admin.bulk-upload');
     Route::post('/products/bulk-upload/parse', [AdminBulkUploadController::class, 'parse'])->name('admin.bulk-upload.parse');
     Route::post('/products/bulk-upload/store', [AdminBulkUploadController::class, 'store'])->name('admin.bulk-upload.store');
+
+    // AI Status Test
+    Route::get('/ai-status/test', [AdminAiStatusController::class, 'test'])->name('admin.ai-status.test');
 
     /***
      * Community Management
@@ -326,4 +330,4 @@ Route::group([], __DIR__.'/system.php');
 //php artisan products:fetch-images --force --limit=55
 
 //cd /var/www/techmartke
-//sudo bash /var/www/deploy-techmartke.sh
+// sudo bash /var/www/deploy-techmartke.sh

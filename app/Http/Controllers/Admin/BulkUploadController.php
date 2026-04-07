@@ -86,22 +86,29 @@ class BulkUploadController extends Controller
                 'x-api-key' => $apiKey,
                 'anthropic-version' => '2023-06-01',
                 'content-type' => 'application/json',
-            ])->timeout(60)->post('https://api.anthropic.com/v1/messages', [
-                'model' => 'claude-sonnet-4-20250514',
-                'max_tokens' => 4096,
+            ])->timeout(120)->post('https://api.anthropic.com/v1/messages', [
+                'model' => env('ANTHROPIC_MODEL', 'claude-sonnet-4-20250514'),
+                // Bumped from 4096 — larger price lists (30+ items) were
+                // truncating mid-JSON and triggering the "invalid JSON" fallback
+                'max_tokens' => 16000,
                 'messages' => [
                     ['role' => 'user', 'content' => $prompt],
                 ],
             ]);
 
             if (!$response->successful()) {
-                $aiFailureReason = 'AI service error: ' . ($response->json('error.message') ?? 'Unknown error');
+                $aiFailureReason = 'AI service error (HTTP ' . $response->status() . '): ' . ($response->json('error.message') ?? 'Unknown error');
             } else {
                 $aiText = $response->json('content.0.text', '');
+                $stopReason = $response->json('stop_reason', '');
                 $parsed = $this->extractJson($aiText);
 
                 if ($parsed === null) {
-                    $aiFailureReason = 'Failed to parse AI response (invalid JSON returned).';
+                    if ($stopReason === 'max_tokens') {
+                        $aiFailureReason = 'AI response was cut off (hit token limit). Try splitting your price list into smaller batches.';
+                    } else {
+                        $aiFailureReason = 'Failed to parse AI response (invalid JSON returned). Stop reason: ' . $stopReason;
+                    }
                 } elseif (empty($parsed['items'] ?? [])) {
                     $aiFailureReason = 'AI returned no parseable products from the text.';
                 } else {

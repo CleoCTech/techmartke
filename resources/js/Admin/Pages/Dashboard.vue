@@ -118,6 +118,11 @@
       </Link>
     </div>
 
+    <!-- AI Status Widget -->
+    <div class="mb-6">
+      <AiStatusWidget />
+    </div>
+
     <!-- Main Content Grid -->
     <div class="grid grid-cols-12 gap-6 mb-6">
 
@@ -497,6 +502,7 @@
 import { ref, onMounted, computed } from 'vue'
 import { Head, Link, usePage } from '@inertiajs/vue3'
 import WebTrafficStats from '@/Components/Dashboard/WebTrafficStats.vue'
+import AiStatusWidget from '@/Components/Admin/AiStatusWidget.vue'
 
 const page = usePage();
 
