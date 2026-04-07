@@ -78,32 +78,34 @@ const handleAddToCart = (e) => {
     } catch { /* silently fail */ }
 };
 
-// Pick the first image whose URL is non-empty (skip blanks like empty image_url)
-const productImage = (product) => {
-    const images = Array.isArray(product?.images) ? product.images : [];
+// Build a deduped list of all usable image URLs for this product (skip empty/null)
+const imageUrls = computed(() => {
+    const list = [];
+    const seen = new Set();
+    const images = Array.isArray(props.product?.images) ? props.product.images : [];
     for (const img of images) {
         const url = img?.image_url || img?.url || img?.path;
-        if (url && String(url).trim() !== '') return url;
-    }
-    return product?.image || '/assets/img/placeholder.jpg';
-};
-
-// Runtime fallback: if a chosen URL fails to load (404, broken link), try the
-// next available image, then fall back to the placeholder.
-const handleImgError = (e, product) => {
-    const images = Array.isArray(product?.images) ? product.images : [];
-    const tried = e.target.dataset.tried ? JSON.parse(e.target.dataset.tried) : [];
-    tried.push(e.target.src);
-    for (const img of images) {
-        const url = img?.image_url || img?.url || img?.path;
-        if (url && !tried.includes(url) && !tried.some(t => t.endsWith(url))) {
-            e.target.dataset.tried = JSON.stringify(tried);
-            e.target.src = url;
-            return;
+        if (url && String(url).trim() !== '' && !seen.has(url)) {
+            seen.add(url);
+            list.push(url);
         }
     }
-    e.target.src = '/assets/img/placeholder.jpg';
-    e.target.onerror = null; // stop infinite loop if placeholder also fails
+    if (props.product?.image && !seen.has(props.product.image)) {
+        list.push(props.product.image);
+    }
+    return list;
+});
+
+// Reactive index of the currently displayed image. Advances on @error.
+const imgIdx = ref(0);
+const currentImage = computed(() => imageUrls.value[imgIdx.value] || '/assets/img/placeholder.jpg');
+
+const onImgError = () => {
+    if (imgIdx.value < imageUrls.value.length - 1) {
+        imgIdx.value++; // try next image
+    } else {
+        imgIdx.value = imageUrls.value.length; // out of range -> placeholder via computed
+    }
 };
 
 const shareSuccess = ref(false);
@@ -140,12 +142,12 @@ const whatsappUrl = (product) => {
         <!-- Image -->
         <div class="relative aspect-square bg-gray-50/50 overflow-hidden p-4 sm:p-6">
             <img
-                :src="productImage(product)"
+                :src="currentImage"
                 :alt="product.name"
                 class="w-full h-full object-contain transition-transform duration-500"
                 :class="isOutOfStock ? '' : 'group-hover:scale-105'"
                 loading="lazy"
-                @error="(e) => handleImgError(e, product)"
+                @error="onImgError"
             />
 
             <!-- Badges -->

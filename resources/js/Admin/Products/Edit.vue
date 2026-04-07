@@ -449,12 +449,12 @@ const submit = () => {
                                     </div>
                                     <button
                                         type="button"
-                                        @click="deleteExistingImage(image)"
+                                        @click.stop.prevent="deleteExistingImage(image)"
                                         :disabled="deletingImageId === image.id"
-                                        class="absolute top-1 right-1 bg-red-500 hover:bg-red-600 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity disabled:opacity-50 cursor-pointer"
+                                        class="absolute -top-2 -right-2 bg-red-500 hover:bg-red-600 text-white rounded-full p-1.5 shadow-lg ring-2 ring-white dark:ring-slate-800 disabled:opacity-50 cursor-pointer z-10"
                                         title="Delete image"
                                     >
-                                        <Trash2 class="h-3 w-3" />
+                                        <Trash2 class="h-3.5 w-3.5" />
                                     </button>
                                     <span
                                         v-if="image.is_primary"

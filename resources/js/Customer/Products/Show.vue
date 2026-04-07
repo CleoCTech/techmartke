@@ -29,31 +29,41 @@ const galleryRef = ref(null);
 let touchStartX = 0;
 let touchEndX = 0;
 
-// Filter out images with empty/blank URLs so the gallery never shows a broken slot
+// Track which image URLs have failed to load at runtime so we can skip them
+const brokenUrls = ref(new Set());
+
+// Helper to extract URL from an image record
+const imgUrl = (img) => img?.image_url || img?.url || img?.path || '';
+
+// Filter out images with empty/blank URLs AND any that failed to load at runtime.
+// Reactive on brokenUrls so the UI updates as soon as an error fires.
 const images = computed(() => {
     const raw = Array.isArray(props.product?.images) ? props.product.images : [];
     const usable = raw.filter(img => {
-        const url = img?.image_url || img?.url || img?.path;
-        return url && String(url).trim() !== '';
+        const url = imgUrl(img);
+        return url && String(url).trim() !== '' && !brokenUrls.value.has(url);
     });
     if (usable.length) return usable;
     return [{ image_url: props.product?.image || '/assets/img/placeholder.jpg' }];
 });
 
-// Runtime fallback when an image fails to load
+// When an img fails to load, mark its URL as broken so the computed list excludes
+// it everywhere (main image AND thumbnails). Then ensure selectedImage stays valid.
 const handleImgError = (e) => {
-    const tried = e.target.dataset.tried ? JSON.parse(e.target.dataset.tried) : [];
-    tried.push(e.target.src);
-    for (const img of images.value) {
-        const url = img?.image_url || img?.url || img?.path;
-        if (url && !tried.some(t => t.endsWith(url))) {
-            e.target.dataset.tried = JSON.stringify(tried);
-            e.target.src = url;
-            return;
+    const failedSrc = e.target?.currentSrc || e.target?.src || '';
+    // Match against any image record whose URL appears in the failed src
+    const raw = Array.isArray(props.product?.images) ? props.product.images : [];
+    for (const img of raw) {
+        const url = imgUrl(img);
+        if (url && (failedSrc === url || failedSrc.endsWith(url))) {
+            brokenUrls.value.add(url);
+            break;
         }
     }
-    e.target.src = '/assets/img/placeholder.jpg';
-    e.target.onerror = null;
+    // Re-clamp selectedImage to a valid index after the list shrinks
+    if (selectedImage.value >= images.value.length) {
+        selectedImage.value = 0;
+    }
 };
 
 const nextImage = () => {
