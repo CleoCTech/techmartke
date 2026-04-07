@@ -115,7 +115,7 @@ const groupedSpecifications = computed(() => {
                                 :key="image.id"
                                 class="aspect-square border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden"
                             >
-                                <img :src="image.url || image.path" class="w-full h-full object-cover" :alt="product.name" />
+                                <img :src="image.image_url || image.url || image.path" class="w-full h-full object-cover bg-slate-100 dark:bg-slate-900" :alt="product.name" @error="(e) => { e.target.style.opacity = '0.2'; }" />
                             </div>
                         </div>
                     </div>

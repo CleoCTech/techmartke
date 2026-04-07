@@ -43,6 +43,39 @@ watch([categoryFilter, brandFilter], applyFilters);
 
 const formatCurrency = (amount) => 'KSh ' + Number(amount).toLocaleString('en-KE');
 
+// Track broken image URLs across all product cards (reactive)
+const brokenImageUrls = ref(new Set());
+
+// Get all usable (non-empty, non-broken) image URLs for a product
+const usableImages = (product) => {
+    const images = Array.isArray(product?.images) ? product.images : [];
+    const out = [];
+    for (const img of images) {
+        const url = img?.image_url || img?.url || img?.path;
+        if (url && String(url).trim() !== '' && !brokenImageUrls.value.has(url)) {
+            out.push(url);
+        }
+    }
+    return out;
+};
+
+// First valid image URL for a product (or null if none)
+const productImageUrl = (product) => usableImages(product)[0] || null;
+
+const onProductImageError = (product, e) => {
+    const failedSrc = e.target?.currentSrc || e.target?.src || '';
+    const images = Array.isArray(product?.images) ? product.images : [];
+    for (const img of images) {
+        const url = img?.image_url || img?.url || img?.path;
+        if (url && (failedSrc === url || failedSrc.endsWith(url))) {
+            brokenImageUrls.value.add(url);
+            // Trigger reactivity by reassigning the Set
+            brokenImageUrls.value = new Set(brokenImageUrls.value);
+            break;
+        }
+    }
+};
+
 const totalStock = (product) => {
     if (!product.variants) return 0;
     return product.variants.reduce((sum, v) => sum + (v.stock_quantity || 0), 0);
@@ -143,8 +176,9 @@ const stats = computed(() => {
 
                 <!-- Image -->
                 <div class="relative aspect-square bg-slate-100 dark:bg-slate-700">
-                    <img v-if="product.primary_image" :src="product.primary_image" :alt="product.name"
-                        class="w-full h-full object-cover" />
+                    <img v-if="productImageUrl(product)" :src="productImageUrl(product)" :alt="product.name"
+                        class="w-full h-full object-cover"
+                        @error="(e) => onProductImageError(product, e)" />
                     <div v-else class="w-full h-full flex items-center justify-center">
                         <Package class="w-12 h-12 text-slate-300 dark:text-slate-500" />
                     </div>
