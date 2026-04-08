@@ -527,6 +527,10 @@ PROMPT;
             $stats = ['updated' => 0, 'new_variants' => 0, 'created' => 0, 'marked_out' => 0];
             $touchedProductIds = [];
             $touchedVariantIds = [];
+            // Only NEWLY created products get AI enrichment (images, descriptions,
+            // specs, advantages). Updates and new-variants on existing products
+            // are skipped because they already have content.
+            $newProductIds = [];
 
             foreach ($validated['items'] as $item) {
                 if (!($item['selected'] ?? true)) {
@@ -629,6 +633,11 @@ PROMPT;
                         $variant->refresh();
                         $touchedProductIds[] = $product->id;
                         $touchedVariantIds[] = $variant->id;
+                        // Only flag for AI enrichment if this was a brand-new product row
+                        // (updateOrCreate may have matched an existing slug from a prior run)
+                        if ($product->wasRecentlyCreated) {
+                            $newProductIds[] = $product->id;
+                        }
                         $stats['created']++;
                         break;
                 }
@@ -667,11 +676,12 @@ PROMPT;
 
             // Dispatch image fetching + AI content generation as a background job
             // (runs AFTER the HTTP response is sent, so nginx never sees a 504).
-            // This is critical: with 30+ products, the synchronous version was
-            // making 60+ external API calls inline and timing out.
-            if (!empty($touchedProductIds)) {
-                EnrichProductsJob::dispatchAfterResponse(array_unique($touchedProductIds));
-                $msg[] = count(array_unique($touchedProductIds)) . ' products queued for image & AI content enrichment (processing in background)';
+            // ONLY brand-new products get enriched — existing ones that just had
+            // a price update or new variant added already have their content.
+            $newProductIds = array_unique($newProductIds);
+            if (!empty($newProductIds)) {
+                EnrichProductsJob::dispatchAfterResponse($newProductIds);
+                $msg[] = count($newProductIds) . ' new products queued for image & AI content enrichment (processing in background)';
             }
 
             return redirect()->back()->with('success', 'Bulk upload completed: ' . implode(', ', $msg) . '.');
