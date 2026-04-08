@@ -179,7 +179,8 @@ Parse each line of the price list and determine:
 1. **Product name** - the full product name (e.g. "Samsung S10e", "iPhone 15 Pro Max")
 2. **Storage** - if mentioned (e.g. "128GB", "256GB", "1TB")
 3. **Price** - the ADJUSTED price in KES after applying the mandatory markup rules above (remove commas, dashes, "/=" from raw price first, then apply markup)
-4. **Condition** - infer from context (e.g. "Ex US", "Ex UK" = "ex-uk", "Refurbished" = "refurbished", otherwise "new")
+4. **Condition** - infer from context. IMPORTANT: distinguish "Ex US"/"Ex USA" → "ex-us" from "Ex UK" → "ex-uk". "Refurbished" → "refurbished", otherwise → "new".
+5. **SIM Type** - if the line mentions "eSIM" → set sim_type to "eSIM". If it mentions "Physical" or "Dual" → use that. Otherwise leave null.
 5. **Brand** - match to an existing brand_id from the brands list, or suggest brand name if new
 6. **Category** - match to existing category_id if possible
 
@@ -201,7 +202,8 @@ Respond with ONLY a JSON object (no markdown, no explanation):
       "raw_price": 25000,
       "price": 27500,
       "markup_applied": 2500,
-      "condition": "new|ex-uk|refurbished",
+      "condition": "new|ex-uk|ex-us|refurbished",
+      "sim_type": "eSIM|Physical|Dual SIM|null",
       "brand_name": "Samsung",
       "brand_id": 2,
       "category_id": 1,
@@ -304,12 +306,19 @@ PROMPT;
                 $skipped[] = ['line' => $line, 'reason' => 'Section header (condition: new)'];
                 return true;
             }
-            if (preg_match('/(ex[\s\-]?(uk|us|usa))/i', $lower)) {
-                $context['condition'] = 'ex-uk';
-                // Detect brand if mentioned in the same line
+            // Detect Ex-US vs Ex-UK separately
+            if (preg_match('/ex[\s\-]?(us|usa)\b/i', $lower)) {
+                $context['condition'] = 'ex-us';
                 if (preg_match('/iphone/i', $lower)) $context['brand'] = 'apple';
                 if (preg_match('/samsung/i', $lower)) $context['brand'] = 'samsung';
-                $skipped[] = ['line' => $line, 'reason' => 'Section header (Ex-UK/US)'];
+                $skipped[] = ['line' => $line, 'reason' => 'Section header (Ex-US)'];
+                return true;
+            }
+            if (preg_match('/ex[\s\-]?uk\b/i', $lower)) {
+                $context['condition'] = 'ex-uk';
+                if (preg_match('/iphone/i', $lower)) $context['brand'] = 'apple';
+                if (preg_match('/samsung/i', $lower)) $context['brand'] = 'samsung';
+                $skipped[] = ['line' => $line, 'reason' => 'Section header (Ex-UK)'];
                 return true;
             }
             if (preg_match('/refurb/i', $lower)) {
@@ -501,6 +510,8 @@ PROMPT;
             'items.*.action' => 'required|in:update,new_variant,create',
             'items.*.product_name' => 'required|string',
             'items.*.storage' => 'nullable|string',
+            'items.*.sim_type' => 'nullable|string',
+            'items.*.color' => 'nullable|string',
             'items.*.price' => 'required|numeric|min:0',
             'items.*.raw_price' => 'nullable|numeric|min:0',
             'items.*.condition' => 'nullable|string',
@@ -529,6 +540,7 @@ PROMPT;
                             if ($variant) {
                                 $variant->update([
                                     'price' => $item['price'],
+                                    'sim_type' => $item['sim_type'] ?? $variant->sim_type,
                                     'stock_quantity' => max($variant->stock_quantity, 1), // Mark as available
                                     'is_active' => true,
                                 ]);
@@ -552,9 +564,14 @@ PROMPT;
                         if ($item['existing_product_id']) {
                             $product = Product::find($item['existing_product_id']);
                             if ($product) {
-                                $sku = Str::slug($product->name) . '-' . Str::slug($item['storage'] ?? 'default');
+                                $simSlug = !empty($item['sim_type']) ? '-' . Str::slug($item['sim_type']) : '';
+                                $sku = Str::slug($product->name) . '-' . Str::slug($item['storage'] ?? 'default') . $simSlug;
+                                // Match on both storage AND sim_type so eSIM and Physical are separate variants
                                 $variant = $product->variants()->updateOrCreate(
-                                    ['storage' => $item['storage'] ?? null],
+                                    [
+                                        'storage' => $item['storage'] ?? null,
+                                        'sim_type' => $item['sim_type'] ?? null,
+                                    ],
                                     [
                                         'price' => $item['price'],
                                         'stock_quantity' => DB::raw('GREATEST(stock_quantity, 1)'),
@@ -595,9 +612,13 @@ PROMPT;
                             ]
                         );
 
-                        $variantSku = Str::slug($item['product_name']) . '-' . Str::slug($item['storage'] ?? 'default');
+                        $simSlug = !empty($item['sim_type']) ? '-' . Str::slug($item['sim_type']) : '';
+                        $variantSku = Str::slug($item['product_name']) . '-' . Str::slug($item['storage'] ?? 'default') . $simSlug;
                         $variant = $product->variants()->updateOrCreate(
-                            ['storage' => $item['storage'] ?? null],
+                            [
+                                'storage' => $item['storage'] ?? null,
+                                'sim_type' => $item['sim_type'] ?? null,
+                            ],
                             [
                                 'price' => $item['price'],
                                 'stock_quantity' => DB::raw('GREATEST(stock_quantity, 1)'),

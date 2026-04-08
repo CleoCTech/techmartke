@@ -89,7 +89,7 @@ class ProductController extends Controller
             ->where('is_active', true)
             ->firstOrFail();
 
-        $relatedProducts = Product::with(['images', 'brand'])
+        $relatedProducts = Product::with(['images', 'brand', 'variants'])
             ->where('is_active', true)
             ->where('category_id', $product->category_id)
             ->where('id', '!=', $product->id)

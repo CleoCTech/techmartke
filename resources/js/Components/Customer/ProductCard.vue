@@ -40,10 +40,22 @@ const conditionBadge = (condition) => {
         new: { label: 'New', class: 'bg-blue-50 text-blue-700 border-blue-200', icon: '' },
         'ex-uk': { label: 'Ex-UK', class: 'bg-orange-50 text-orange-700 border-orange-200', icon: '✧ ' },
         'ex_uk': { label: 'Ex-UK', class: 'bg-orange-50 text-orange-700 border-orange-200', icon: '✧ ' },
+        'ex-us': { label: 'Ex-US', class: 'bg-purple-50 text-purple-700 border-purple-200', icon: '✧ ' },
+        'ex_us': { label: 'Ex-US', class: 'bg-purple-50 text-purple-700 border-purple-200', icon: '✧ ' },
         refurbished: { label: 'Refurbished', class: 'bg-gray-50 text-gray-700 border-gray-200', icon: '' },
     };
     return map[condition?.toLowerCase()] || { label: condition || '', class: 'bg-gray-50 text-gray-600 border-gray-200', icon: '' };
 };
+
+// Detect if any variant of this product is an eSIM variant — used to show
+// an "eSIM" pill next to the brand row (replacing the duplicate condition tag)
+const hasEsim = computed(() => {
+    const variants = props.product?.variants || [];
+    return variants.some(v => {
+        const s = (v?.sim_type || '').toString().toLowerCase();
+        return s.includes('esim') || s === 'e-sim';
+    });
+});
 
 const savingsAmount = (product) => {
     if (product.original_price && product.original_price > (product.base_price || product.price)) {
@@ -193,10 +205,9 @@ const whatsappUrl = (product) => {
                 <span v-if="product.brand" class="text-[11px] sm:text-xs font-semibold text-gray-400 uppercase tracking-wider">
                     {{ product.brand?.name || product.brand }}
                 </span>
-                <span v-if="product.condition"
-                    :class="conditionBadge(product.condition).class"
-                    class="px-2 py-0.5 rounded text-[10px] font-semibold border">
-                    {{ conditionBadge(product.condition).label }}
+                <span v-if="hasEsim"
+                    class="px-2 py-0.5 rounded text-[10px] font-bold border bg-emerald-50 text-emerald-700 border-emerald-200">
+                    eSIM
                 </span>
             </div>
 
