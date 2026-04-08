@@ -14,8 +14,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Use raw SQL because Doctrine DBAL can't always alter ENUMs cleanly
-        DB::statement("ALTER TABLE products MODIFY condition VARCHAR(50) NOT NULL DEFAULT 'new'");
+        // Use raw SQL because Doctrine DBAL can't always alter ENUMs cleanly.
+        // `condition` is a reserved word in MySQL so it MUST be backtick-quoted.
+        DB::statement("ALTER TABLE `products` MODIFY `condition` VARCHAR(50) NOT NULL DEFAULT 'new'");
     }
 
     public function down(): void
