@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onUnmounted, computed } from 'vue';
+import { ref, watch, onMounted, onUnmounted, computed } from 'vue';
 import { Star, ChevronLeft, ChevronRight } from 'lucide-vue-next';
 
 const props = defineProps({
@@ -9,6 +9,12 @@ const props = defineProps({
 
 const current = ref(0);
 let autoplayTimer = null;
+
+// When reviews prop updates (e.g. after silent reload), jump to the
+// newest review (index 0) so the customer sees their own review first.
+watch(() => props.reviews.length, () => {
+    current.value = 0;
+});
 
 const next = () => {
     if (props.reviews.length > 0) {

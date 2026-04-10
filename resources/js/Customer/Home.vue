@@ -73,6 +73,9 @@ const submitReview = async () => {
             showReviewForm.value = false;
             reviewSuccess.value = true;
             setTimeout(() => { reviewSuccess.value = false; }, 5000);
+            // Silently reload only the reviews + reviewCount props so the
+            // new review appears in the carousel immediately (no page flash)
+            router.reload({ only: ['reviews', 'reviewCount'] });
         } else {
             const data = await res.json().catch(() => null);
             reviewError.value = data?.message || 'Something went wrong. Please try again.';
