@@ -297,116 +297,37 @@ const addToCart = () => {
                         </div>
                     </div>
 
-                    <!-- Specifications — popup card trigger -->
-                    <div v-if="specsList.length" class="mb-3">
-                        <button
-                            @click="showSpecsPopup = !showSpecsPopup"
-                            class="w-full flex items-center justify-between py-3 border-b border-[#E5E5EA] cursor-pointer group"
-                        >
-                            <span class="text-sm font-semibold text-black">Specifications</span>
-                            <Minus v-if="showSpecsPopup" class="w-4 h-4 text-[#86868B]" />
-                            <Plus v-else class="w-4 h-4 text-[#86868B]" />
-                        </button>
-
-                        <!-- Floating popup card -->
-                        <Transition
-                            enter-active-class="transition-all duration-200 ease-out"
-                            enter-from-class="opacity-0 translate-y-2 scale-[0.97]"
-                            enter-to-class="opacity-100 translate-y-0 scale-100"
-                            leave-active-class="transition-all duration-150 ease-in"
-                            leave-from-class="opacity-100 scale-100"
-                            leave-to-class="opacity-0 scale-[0.97]"
-                        >
-                            <div v-if="showSpecsPopup" class="relative mt-5 z-20">
-                                <!-- Folder tab title -->
-                                <div class="absolute -top-3 left-4 bg-[#F5F5F7] px-3 py-0.5 rounded-t-lg z-10">
-                                    <span class="text-xs font-bold text-[#1D1D1F]">Specifications</span>
-                                </div>
-                                <!-- Card body -->
-                                <div class="bg-[#F5F5F7] rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.12)] pt-5 pb-4 px-5">
-                                    <ul class="space-y-1.5">
-                                        <li v-for="spec in specsList" :key="spec.id" class="text-sm text-[#1D1D1F] leading-snug">
-                                            <span class="text-[#86868B] mr-1.5">•</span>
-                                            <span class="font-medium">{{ spec.spec_name || spec.name }}:</span>
-                                            {{ spec.spec_value || spec.value }}
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </Transition>
-                    </div>
-
-                    <!-- Key Advantages — popup card trigger -->
-                    <div v-if="advantages.length" class="mb-3">
-                        <button
-                            @click="showAdvPopup = !showAdvPopup"
-                            class="w-full flex items-center justify-between py-3 border-b border-[#E5E5EA] cursor-pointer group"
-                        >
-                            <span class="text-sm font-semibold text-black">Key Advantages</span>
-                            <Minus v-if="showAdvPopup" class="w-4 h-4 text-[#86868B]" />
-                            <Plus v-else class="w-4 h-4 text-[#86868B]" />
-                        </button>
-
-                        <Transition
-                            enter-active-class="transition-all duration-200 ease-out"
-                            enter-from-class="opacity-0 translate-y-2 scale-[0.97]"
-                            enter-to-class="opacity-100 translate-y-0 scale-100"
-                            leave-active-class="transition-all duration-150 ease-in"
-                            leave-from-class="opacity-100 scale-100"
-                            leave-to-class="opacity-0 scale-[0.97]"
-                        >
-                            <div v-if="showAdvPopup" class="relative mt-5 z-20">
-                                <!-- Folder tab title -->
-                                <div class="absolute -top-3 left-4 bg-[#F5F5F7] px-3 py-0.5 rounded-t-lg z-10">
-                                    <span class="text-xs font-bold text-[#1D1D1F]">Key Advantages</span>
-                                </div>
-                                <!-- Card body -->
-                                <div class="bg-[#F5F5F7] rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.12)] pt-5 pb-4 px-5">
-                                    <ul class="space-y-2.5">
-                                        <li v-for="(adv, idx) in advantages" :key="idx" class="text-sm text-[#1D1D1F] leading-snug flex items-start gap-2">
-                                            <span class="text-[#86868B] mt-0.5 shrink-0">•</span>
-                                            <span>{{ adv.advantage || adv.text || adv }}</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </Transition>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ==================== FULL DESCRIPTION (below the fold) ==================== -->
-            <div v-if="product.description" class="px-4 sm:px-6 mt-10">
-                <details class="group max-w-3xl">
-                    <summary class="flex items-center justify-between cursor-pointer py-3 border-b border-[#E5E5EA]">
-                        <span class="text-base font-bold text-black">About This Product</span>
-                        <Plus class="w-4 h-4 text-[#86868B] group-open:hidden" />
-                        <Minus class="w-4 h-4 text-[#86868B] hidden group-open:block" />
-                    </summary>
-                    <div class="py-4 text-sm text-[#1D1D1F] leading-relaxed whitespace-pre-line">
-                        {{ product.description }}
-                    </div>
-                </details>
-            </div>
-
-            <!-- ==================== FULL SPECIFICATIONS (below the fold) ==================== -->
-            <div v-if="Object.keys(groupedSpecs).length" class="px-4 sm:px-6 mt-6">
-                <details class="group max-w-3xl">
-                    <summary class="flex items-center justify-between cursor-pointer py-3 border-b border-[#E5E5EA]">
-                        <span class="text-base font-bold text-black">Full Specifications</span>
-                        <Plus class="w-4 h-4 text-[#86868B] group-open:hidden" />
-                        <Minus class="w-4 h-4 text-[#86868B] hidden group-open:block" />
-                    </summary>
-                    <div class="py-4">
-                        <div v-for="(specs, group) in groupedSpecs" :key="group" class="mb-4">
-                            <h4 class="text-xs font-bold text-[#86868B] uppercase tracking-wider mb-2">{{ group }}</h4>
-                            <div v-for="spec in specs" :key="spec.id" class="flex justify-between py-1.5 border-b border-[#F5F5F7] text-sm">
-                                <span class="text-[#86868B]">{{ spec.spec_name || spec.name }}</span>
-                                <span class="text-[#1D1D1F] font-medium text-right">{{ spec.spec_value || spec.value }}</span>
-                            </div>
+                    <!-- Specifications — always visible folder-tab card -->
+                    <div v-if="specsList.length" class="relative mt-6 mb-4">
+                        <div class="absolute -top-3 left-4 bg-[#F5F5F7] px-3 py-0.5 rounded-t-lg z-10">
+                            <span class="text-xs font-bold text-[#1D1D1F]">Specifications</span>
+                        </div>
+                        <div class="bg-[#F5F5F7] rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.12)] pt-5 pb-4 px-5">
+                            <ul class="space-y-1.5">
+                                <li v-for="spec in specsList" :key="spec.id" class="text-sm text-[#1D1D1F] leading-snug">
+                                    <span class="text-[#86868B] mr-1.5">•</span>
+                                    <span class="font-medium">{{ spec.spec_name || spec.name }}:</span>
+                                    {{ spec.spec_value || spec.value }}
+                                </li>
+                            </ul>
                         </div>
                     </div>
-                </details>
+
+                    <!-- Key Advantages — always visible folder-tab card -->
+                    <div v-if="advantages.length" class="relative mt-6 mb-4">
+                        <div class="absolute -top-3 left-4 bg-[#F5F5F7] px-3 py-0.5 rounded-t-lg z-10">
+                            <span class="text-xs font-bold text-[#1D1D1F]">Key Advantages</span>
+                        </div>
+                        <div class="bg-[#F5F5F7] rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.12)] pt-5 pb-4 px-5">
+                            <ul class="space-y-2">
+                                <li v-for="(adv, idx) in advantages" :key="idx" class="text-sm text-[#1D1D1F] leading-snug flex items-start gap-2">
+                                    <span class="text-[#86868B] mt-0.5 shrink-0">•</span>
+                                    <span>{{ adv.advantage || adv.text || adv }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- ==================== RELATED PRODUCTS (horizontal scroll) ==================== -->
