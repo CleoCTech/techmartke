@@ -1,1 +1,0 @@
-import{_ as a,o as e,a as t,t as n,G as c}from"./app-eacada23.js";/* empty css                  */const l={props:["value"]},r={class:"block text-sm font-medium mb-1"},_={key:0},i={key:1};function d(o,p,s,m,u,f){return e(),t("label",r,[s.value?(e(),t("span",_,n(s.value),1)):(e(),t("span",i,[c(o.$slots,"default")]))])}const h=a(l,[["render",d]]);export{h as default};

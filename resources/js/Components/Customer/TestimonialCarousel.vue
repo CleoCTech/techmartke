@@ -94,14 +94,14 @@ onUnmounted(() => {
             </Transition>
         </div>
 
-        <!-- Dots -->
-        <div v-if="reviews.length > 1" class="flex justify-center gap-2 mt-4">
+        <!-- Dots — uniform circles, opacity-based active state -->
+        <div v-if="reviews.length > 1" class="flex justify-center gap-2.5 mt-5">
             <button
                 v-for="(_, i) in reviews"
                 :key="i"
                 @click="current = i"
-                class="w-2 h-2 rounded-full transition-all cursor-pointer"
-                :class="current === i ? 'bg-black w-6' : 'bg-[#E5E5EA] hover:bg-[#86868B]'"
+                class="w-2 h-2 rounded-full bg-black transition-opacity duration-300 cursor-pointer"
+                :class="current === i ? 'opacity-100' : 'opacity-20 hover:opacity-40'"
             />
         </div>
     </div>

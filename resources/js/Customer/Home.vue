@@ -661,25 +661,25 @@ const quickBudgets = [30000, 50000, 80000, 120000]; // kept for quick budget but
             </div>
         </section>
 
-        <!-- Trust Strip — grayscale thin row -->
+        <!-- Trust Strip — subtle, doesn't compete with testimonials -->
         <section class="py-3 md:py-4 border-y border-[#E5E5EA]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6">
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 text-center">
-                    <div class="flex items-center justify-center gap-1.5 text-[11px] md:text-xs">
-                        <Shield class="w-3.5 h-3.5 text-[#86868B] flex-shrink-0" />
-                        <span class="font-semibold text-[#1D1D1F]">Verified Devices</span>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 text-center">
+                    <div class="flex items-center justify-center gap-1.5 text-[10px] md:text-[11px]">
+                        <Shield class="w-3 h-3 text-[#C7C7CC] flex-shrink-0" />
+                        <span class="font-medium text-[#86868B]">Verified Devices</span>
                     </div>
-                    <div class="flex items-center justify-center gap-1.5 text-[11px] md:text-xs">
-                        <Truck class="w-3.5 h-3.5 text-[#86868B] flex-shrink-0" />
-                        <span class="font-semibold text-[#1D1D1F]">Fast Delivery</span>
+                    <div class="flex items-center justify-center gap-1.5 text-[10px] md:text-[11px]">
+                        <Truck class="w-3 h-3 text-[#C7C7CC] flex-shrink-0" />
+                        <span class="font-medium text-[#86868B]">Fast Delivery</span>
                     </div>
-                    <div class="flex items-center justify-center gap-1.5 text-[11px] md:text-xs">
-                        <Star class="w-3.5 h-3.5 text-[#86868B] flex-shrink-0" />
-                        <span class="font-semibold text-[#1D1D1F]">3-Month Warranty</span>
+                    <div class="flex items-center justify-center gap-1.5 text-[10px] md:text-[11px]">
+                        <Star class="w-3 h-3 text-[#C7C7CC] flex-shrink-0" />
+                        <span class="font-medium text-[#86868B]">3-Month Warranty</span>
                     </div>
-                    <div class="flex items-center justify-center gap-1.5 text-[11px] md:text-xs">
-                        <Zap class="w-3.5 h-3.5 text-[#86868B] flex-shrink-0" />
-                        <span class="font-semibold text-[#1D1D1F]">M-Pesa Ready</span>
+                    <div class="flex items-center justify-center gap-1.5 text-[10px] md:text-[11px]">
+                        <Zap class="w-3 h-3 text-[#C7C7CC] flex-shrink-0" />
+                        <span class="font-medium text-[#86868B]">M-Pesa Ready</span>
                     </div>
                 </div>
             </div>
@@ -711,7 +711,7 @@ const quickBudgets = [30000, 50000, 80000, 120000]; // kept for quick budget but
                     <button
                         v-if="!showReviewForm && !reviewSuccess"
                         @click="showReviewForm = true"
-                        class="text-xs font-semibold text-[#86868B] hover:text-black transition cursor-pointer underline underline-offset-2"
+                        class="px-5 py-2 text-xs font-semibold text-[#1D1D1F] bg-white border border-[#1D1D1F] rounded-full hover:bg-black hover:text-white transition-all cursor-pointer"
                     >
                         Share your experience
                     </button>
