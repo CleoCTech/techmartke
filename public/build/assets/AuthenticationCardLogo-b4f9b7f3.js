@@ -1,1 +1,0 @@
-import{o as t,g as a,j as r,d as o,u as s,m as n}from"./app-e1ae3202.js";/* empty css                  */const p={__name:"AuthenticationCardLogo",setup(c){return(i,e)=>(t(),a(s(n),{href:"/"},{default:r(()=>[...e[0]||(e[0]=[o("img",{src:"/storage/general/favicon.png",alt:"",srcset:""},null,-1)])]),_:1}))}};export{p as default};

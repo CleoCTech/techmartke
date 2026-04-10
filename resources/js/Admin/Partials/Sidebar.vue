@@ -196,6 +196,18 @@ const isActive = (path) => page.url.includes(path);
               </Link>
             </li>
 
+            <!-- Customer Reviews -->
+            <li class="px-3 py-2 rounded-lg mb-0.5" :class="isActive('reviews') && 'bg-slate-900'">
+              <Link href="/admin/reviews" class="block text-slate-200 hover:text-white truncate transition duration-150" @click="closeSidebar">
+                <div class="flex items-center">
+                  <svg class="shrink-0 h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" :class="isActive('reviews') ? 'text-yellow-400' : 'text-slate-400'" />
+                  </svg>
+                  <span class="text-sm font-medium ml-3">Reviews</span>
+                </div>
+              </Link>
+            </li>
+
             <!-- VIP Subscribers -->
             <SidebarLinkGroup v-slot="parentLink" :activeCondition="isActive('vip')">
               <a class="block text-slate-200 hover:text-white truncate transition duration-150 px-3 py-2 rounded-lg"
