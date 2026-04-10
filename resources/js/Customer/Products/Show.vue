@@ -323,7 +323,7 @@ const addToCart = () => {
                         </span>
                     </div>
 
-                    <p class="text-4xl font-bold mb-6">{{ formatPrice(currentPrice) }}</p>
+                    <p class="text-4xl font-bold mb-6 font-price">{{ formatPrice(currentPrice) }}</p>
 
                     <p v-if="product.short_description || product.description" class="text-gray-600 mb-6">
                         {{ product.short_description || product.description }}

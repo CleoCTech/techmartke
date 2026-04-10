@@ -3,15 +3,24 @@
 @tailwind utilities;
 
 @layer base {
-    /* Inter for body text, Manrope for headings */
+    /* Lexend for body — high legibility for specs, descriptions, long text */
     body {
         @apply font-sans antialiased;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
     }
 
+    /* Manrope for headings — commands attention without being loud */
     h1, h2, h3, h4, h5, h6 {
-        font-family: 'Manrope', 'Inter', system-ui, sans-serif;
+        font-family: 'Manrope', system-ui, sans-serif;
+        @apply font-extrabold;
+    }
+
+    /* Urbanist for buttons — modern, encourages clicks */
+    button, [type="submit"], [role="button"],
+    .btn, a.bg-black, a.bg-green-500, a.bg-blue-600, a.bg-emerald-600 {
+        font-family: 'Urbanist', system-ui, sans-serif;
+        @apply font-bold;
     }
 }
 

@@ -15,8 +15,10 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Inter', ...defaultTheme.fontFamily.sans],
-                heading: ['Manrope', 'Inter', ...defaultTheme.fontFamily.sans],
+                sans: ['Lexend', ...defaultTheme.fontFamily.sans],           // Body / specs / descriptions
+                heading: ['Manrope', ...defaultTheme.fontFamily.sans],        // h1-h6 headings
+                price: ['Inter', ...defaultTheme.fontFamily.sans],            // Prices & numbers
+                cta: ['Urbanist', ...defaultTheme.fontFamily.sans],           // Buttons & CTAs
             },
             colors: {
                 ablue: '#0855A8',

@@ -218,7 +218,7 @@ const whatsappUrl = (product) => {
 
             <div class="flex items-end justify-between gap-2">
                 <div>
-                    <p class="text-lg sm:text-xl md:text-2xl font-extrabold"
+                    <p class="text-lg sm:text-xl md:text-2xl font-extrabold font-price"
                         :class="isOutOfStock ? 'text-gray-400' : 'text-gray-900'">
                         {{ formatPrice(product.base_price || product.price) }}
                     </p>
