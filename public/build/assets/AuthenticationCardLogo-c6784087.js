@@ -1,0 +1,1 @@
+import{o as t,g as e,j as s,d as o,u as r,m as n}from"./app-eacada23.js";/* empty css                  */const m={__name:"AuthenticationCardLogo",setup(u){return(c,a)=>(t(),e(r(n),{href:"/"},{default:s(()=>[...a[0]||(a[0]=[o("img",{src:"/assets/images/logo.png",alt:"TechMart KE",class:"h-16 w-auto"},null,-1)])]),_:1}))}};export{m as default};

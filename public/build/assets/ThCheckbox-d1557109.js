@@ -1,0 +1,1 @@
+import{_ as t,o as e,a as s}from"./app-eacada23.js";/* empty css                  */const c={},o={class:"px-2 justify-items-start p-1"};function r(a,n){return e(),s("th",o)}const i=t(c,[["render",r]]);export{i as default};
