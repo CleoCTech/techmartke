@@ -6,6 +6,8 @@ import CustomerLayout from '@/Layouts/CustomerLayout.vue';
 import ProductCard from '@/Components/Customer/ProductCard.vue';
 import { Search, Zap, Shield, Truck, ArrowRight, Star, Smartphone, Monitor, Laptop, Tablet, Headphones, Flame, Clock, ShoppingCart, Sparkles, MessageCircle } from 'lucide-vue-next';
 import TrustActions from '@/Components/Customer/TrustActions.vue';
+import TestimonialCarousel from '@/Components/Customer/TestimonialCarousel.vue';
+import { useForm } from '@inertiajs/vue3';
 
 const props = defineProps({
     featuredProducts: {
@@ -32,7 +34,33 @@ const props = defineProps({
         type: Array,
         default: () => [],
     },
+    reviews: {
+        type: Array,
+        default: () => [],
+    },
+    reviewCount: {
+        type: Number,
+        default: 0,
+    },
 });
+
+// Review form
+const showReviewForm = ref(false);
+const reviewForm = useForm({
+    customer_name: '',
+    location: '',
+    rating: 5,
+    review: '',
+});
+const submitReview = () => {
+    reviewForm.post('/reviews', {
+        preserveScroll: true,
+        onSuccess: () => {
+            reviewForm.reset();
+            showReviewForm.value = false;
+        },
+    });
+};
 
 // Flash sale countdown
 const now = ref(Date.now());
@@ -635,17 +663,95 @@ const quickBudgets = [30000, 50000, 80000, 120000]; // kept for quick budget but
             </div>
         </section>
 
-        <!-- Ready to Buy — minimal -->
-        <section class="py-6 md:py-10 bg-[#F5F5F7]">
+        <!-- Testimonials + Review -->
+        <section class="py-8 md:py-12 bg-[#F5F5F7]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6">
-                <div class="text-center mb-4 md:mb-6">
-                    <h3 class="text-lg md:text-2xl font-extrabold text-black mb-1">Ready to Buy?</h3>
-                    <p class="text-[#86868B] text-xs md:text-sm max-w-md mx-auto">
-                        See it. Touch it. Trust it. Visit, call, or chat with us
-                    </p>
-                </div>
-                <div class="max-w-3xl mx-auto">
-                    <TrustActions layout="cards" />
+                <!-- Carousel -->
+                <TestimonialCarousel :reviews="reviews" :total-count="reviewCount" />
+
+                <!-- Leave a Review -->
+                <div class="text-center mt-6">
+                    <button
+                        v-if="!showReviewForm"
+                        @click="showReviewForm = true"
+                        class="text-xs font-semibold text-[#86868B] hover:text-black transition cursor-pointer underline underline-offset-2"
+                    >
+                        Share your experience
+                    </button>
+
+                    <Transition
+                        enter-active-class="transition-all duration-200 ease-out"
+                        enter-from-class="opacity-0 -translate-y-2"
+                        enter-to-class="opacity-100 translate-y-0"
+                        leave-active-class="transition-all duration-150 ease-in"
+                        leave-from-class="opacity-100"
+                        leave-to-class="opacity-0"
+                    >
+                        <form
+                            v-if="showReviewForm"
+                            @submit.prevent="submitReview"
+                            class="max-w-md mx-auto mt-4 bg-white rounded-2xl border border-[#E5E5EA] p-5 text-left space-y-3"
+                        >
+                            <h4 class="text-sm font-bold text-black text-center">Leave a Review</h4>
+
+                            <!-- Star rating -->
+                            <div class="flex justify-center gap-1">
+                                <button
+                                    v-for="n in 5"
+                                    :key="n"
+                                    type="button"
+                                    @click="reviewForm.rating = n"
+                                    class="cursor-pointer p-0.5"
+                                >
+                                    <Star
+                                        class="w-6 h-6 transition-colors"
+                                        :class="n <= reviewForm.rating ? 'text-black fill-black' : 'text-[#E5E5EA]'"
+                                    />
+                                </button>
+                            </div>
+
+                            <textarea
+                                v-model="reviewForm.review"
+                                required
+                                rows="2"
+                                class="w-full px-3 py-2 text-sm bg-[#F5F5F7] border border-[#E5E5EA] rounded-xl focus:bg-white focus:border-black focus:outline-none focus:ring-1 focus:ring-black/10 transition resize-none text-[#1D1D1F] placeholder-[#86868B]"
+                                placeholder="How was your experience?"
+                            />
+
+                            <div class="grid grid-cols-2 gap-2">
+                                <input
+                                    v-model="reviewForm.customer_name"
+                                    required
+                                    type="text"
+                                    class="px-3 py-2 text-sm bg-[#F5F5F7] border border-[#E5E5EA] rounded-xl focus:bg-white focus:border-black focus:outline-none transition text-[#1D1D1F] placeholder-[#86868B]"
+                                    placeholder="Your name"
+                                />
+                                <input
+                                    v-model="reviewForm.location"
+                                    type="text"
+                                    class="px-3 py-2 text-sm bg-[#F5F5F7] border border-[#E5E5EA] rounded-xl focus:bg-white focus:border-black focus:outline-none transition text-[#1D1D1F] placeholder-[#86868B]"
+                                    placeholder="City (optional)"
+                                />
+                            </div>
+
+                            <div class="flex gap-2">
+                                <button
+                                    type="button"
+                                    @click="showReviewForm = false"
+                                    class="flex-1 py-2 text-sm font-medium border border-[#E5E5EA] rounded-full hover:bg-[#F5F5F7] transition cursor-pointer text-[#1D1D1F]"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="submit"
+                                    :disabled="reviewForm.processing"
+                                    class="flex-1 py-2 text-sm font-bold bg-black text-white rounded-full hover:bg-[#1D1D1F] transition cursor-pointer disabled:opacity-50"
+                                >
+                                    {{ reviewForm.processing ? 'Sending...' : 'Submit' }}
+                                </button>
+                            </div>
+                        </form>
+                    </Transition>
                 </div>
             </div>
         </section>

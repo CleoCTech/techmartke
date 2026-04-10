@@ -40,7 +40,7 @@ export default defineConfig({
         port: 5173,
         cors: true,
         hmr: {
-            host: 'novus.test',
+            host: 'techmart.test',
             port: 5173,
         },
     },

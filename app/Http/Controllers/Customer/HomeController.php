@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Customer;
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\CustomerReview;
 use App\Models\Product;
 use Inertia\Inertia;
 
@@ -46,6 +47,13 @@ class HomeController extends Controller
         $brandNames = Brand::where('is_active', true)->pluck('name')->toArray();
         $categoryNames = Category::where('is_active', true)->pluck('name')->toArray();
 
+        $approvedReviews = CustomerReview::approved()
+            ->orderByDesc('is_featured')
+            ->orderByDesc('created_at')
+            ->limit(6)
+            ->get();
+        $reviewCount = CustomerReview::approved()->count();
+
         return Inertia::render('Customer/Home', [
             'featuredProducts' => $featuredProducts,
             'flashSaleProducts' => $flashSaleProducts,
@@ -53,6 +61,8 @@ class HomeController extends Controller
             'searchHints' => $searchHints,
             'brandNames' => $brandNames,
             'categoryNames' => $categoryNames,
+            'reviews' => $approvedReviews,
+            'reviewCount' => $reviewCount,
         ]);
     }
 }

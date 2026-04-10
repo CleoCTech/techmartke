@@ -87,6 +87,18 @@ Route::post('/community/stories', [CommunityController::class, 'storeStory'])->n
 Route::post('/community/questions', [CommunityController::class, 'storeQuestion'])->name('community.questions.store');
 Route::post('/community/questions/{questionId}/answers', [CommunityController::class, 'storeAnswer'])->name('community.answers.store');
 
+// Customer Reviews
+Route::post('/reviews', function (\Illuminate\Http\Request $request) {
+    $validated = $request->validate([
+        'customer_name' => 'required|string|max:100',
+        'location' => 'nullable|string|max:100',
+        'rating' => 'required|integer|min:1|max:5',
+        'review' => 'required|string|max:1000',
+    ]);
+    \App\Models\CustomerReview::create($validated);
+    return redirect()->back()->with('success', 'Thank you for your review! It will appear after approval.');
+})->name('reviews.store');
+
 // VIP Early Access
 Route::get('/vip', [VipController::class, 'index'])->name('vip');
 Route::post('/vip/register', [VipController::class, 'register'])->name('vip.register');
@@ -320,6 +332,42 @@ Route::prefix('admin')->group(function () {
     Route::get('/vip/campaigns', [AdminVipController::class, 'campaigns'])->name('admin.vip.campaigns');
     Route::post('/vip/campaigns', [AdminVipController::class, 'storeCampaign'])->name('admin.vip.campaigns.store');
     Route::put('/vip/subscribers/{id}/toggle', [AdminVipController::class, 'toggleSubscriber'])->name('admin.vip.toggle');
+
+    // Customer Reviews Management
+    Route::get('/reviews', function (\Illuminate\Http\Request $request) {
+        $query = \App\Models\CustomerReview::orderBy('created_at', 'desc');
+        if ($request->status === 'approved') $query->where('is_approved', true);
+        if ($request->status === 'pending') $query->where('is_approved', false);
+        return \Inertia\Inertia::render('Admin/Reviews/Index', [
+            'reviews' => $query->paginate(20),
+            'filters' => $request->only('status'),
+            'stats' => [
+                'total' => \App\Models\CustomerReview::count(),
+                'approved' => \App\Models\CustomerReview::where('is_approved', true)->count(),
+                'pending' => \App\Models\CustomerReview::where('is_approved', false)->count(),
+            ],
+        ]);
+    })->name('admin.reviews');
+
+    Route::put('/reviews/{id}/toggle', function ($id) {
+        $review = \App\Models\CustomerReview::findOrFail($id);
+        $review->update([
+            'is_approved' => !$review->is_approved,
+            'is_featured' => $review->is_approved ? false : $review->is_featured,
+        ]);
+        return redirect()->back()->with('success', $review->is_approved ? 'Review approved.' : 'Review hidden.');
+    })->name('admin.reviews.toggle');
+
+    Route::put('/reviews/{id}/feature', function ($id) {
+        $review = \App\Models\CustomerReview::findOrFail($id);
+        $review->update(['is_featured' => !$review->is_featured, 'is_approved' => true]);
+        return redirect()->back()->with('success', $review->is_featured ? 'Review featured on homepage.' : 'Review unfeatured.');
+    })->name('admin.reviews.feature');
+
+    Route::delete('/reviews/{id}', function ($id) {
+        \App\Models\CustomerReview::findOrFail($id)->delete();
+        return redirect()->back()->with('success', 'Review deleted.');
+    })->name('admin.reviews.destroy');
 
     // Change Password Routes
     Route::get('/settings/change-password', [AdminPasswordController::class, 'edit'])->name('password.edit');
