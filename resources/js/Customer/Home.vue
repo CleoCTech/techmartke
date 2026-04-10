@@ -484,13 +484,25 @@ const quickBudgets = [30000, 50000, 80000, 120000]; // kept for quick budget but
                             </div>
                         </div>
 
-                        <!-- Quick example chip -->
-                        <div class="mt-2.5 flex justify-center">
+                        <!-- Quick example chips — varied search types -->
+                        <div class="mt-2.5 flex gap-1.5 justify-center flex-wrap">
                             <button
-                                @click="query = 'Best phone under 30K'; smartSearch()"
+                                @click="query = 'iPhone under 50K'; smartSearch()"
                                 class="px-3 py-1 text-[11px] font-medium bg-[#F5F5F7] hover:bg-[#E5E5EA] active:bg-[#D1D1D6] rounded-full transition-all cursor-pointer text-[#86868B]"
                             >
-                                Try: Under 30K
+                                iPhone under 50K
+                            </button>
+                            <button
+                                @click="query = 'Samsung S24'; smartSearch()"
+                                class="px-3 py-1 text-[11px] font-medium bg-[#F5F5F7] hover:bg-[#E5E5EA] active:bg-[#D1D1D6] rounded-full transition-all cursor-pointer text-[#86868B]"
+                            >
+                                Samsung S24
+                            </button>
+                            <button
+                                @click="query = 'MacBook for coding'; smartSearch()"
+                                class="px-3 py-1 text-[11px] font-medium bg-[#F5F5F7] hover:bg-[#E5E5EA] active:bg-[#D1D1D6] rounded-full transition-all cursor-pointer text-[#86868B]"
+                            >
+                                MacBook
                             </button>
                         </div>
 
