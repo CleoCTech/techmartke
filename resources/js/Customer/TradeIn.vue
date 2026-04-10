@@ -179,13 +179,13 @@ const whatsappTradeIn = computed(() => {
 <template>
     <Head title="Trade-In Your Device — Get Instant Value" />
     <CustomerLayout>
-        <div class="bg-gradient-to-b from-gray-50 to-white min-h-screen">
+        <div class="bg-white min-h-screen">
             <div class="container mx-auto px-4 py-8 md:py-12">
                 <div class="max-w-2xl mx-auto">
 
                     <!-- Header -->
                     <div class="text-center mb-8">
-                        <div class="inline-flex items-center gap-2 bg-green-50 border border-green-200 rounded-full px-4 py-1.5 mb-4 text-sm font-semibold text-green-700">
+                        <div class="inline-flex items-center gap-2 bg-[#F5F5F7] border border-[#E5E5EA] rounded-full px-4 py-1.5 mb-4 text-sm font-semibold text-[#1D1D1F]">
                             <RefreshCw class="w-4 h-4" />
                             Value Trade-In
                         </div>
@@ -194,7 +194,7 @@ const whatsappTradeIn = computed(() => {
                     </div>
 
                     <!-- Flash -->
-                    <div v-if="page.props.flash?.success" class="mb-6 p-4 bg-green-50 border border-green-200 rounded-xl text-green-700 text-sm font-medium flex items-center gap-2">
+                    <div v-if="page.props.flash?.success" class="mb-6 p-4 bg-[#F5F5F7] border border-[#E5E5EA] rounded-xl text-[#1D1D1F] text-sm font-medium flex items-center gap-2">
                         <CheckCircle class="w-5 h-5 shrink-0" />
                         {{ page.props.flash.success }}
                     </div>
@@ -228,7 +228,7 @@ const whatsappTradeIn = computed(() => {
                     </div>
 
                     <!-- Step 1: Select Device -->
-                    <div v-if="step === 1" class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 md:p-8">
+                    <div v-if="step === 1" class="bg-white rounded-2xl border border-[#E5E5EA] p-6 md:p-8">
                         <h2 class="text-xl font-bold mb-1">What device are you trading in?</h2>
                         <p class="text-sm text-gray-500 mb-6">Search our catalog or enter your device manually</p>
 
@@ -238,7 +238,7 @@ const whatsappTradeIn = computed(() => {
                                 v-model="deviceSearch"
                                 type="text"
                                 placeholder="Search... e.g. iPhone 14, Samsung S24"
-                                class="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-2xl text-base focus:border-black focus:outline-none focus:ring-4 focus:ring-black/5 transition"
+                                class="w-full pl-12 pr-4 py-4 border border-[#E5E5EA] rounded-2xl text-base focus:border-black focus:outline-none focus:ring-1 focus:ring-black/10 transition text-[#1D1D1F]"
                                 @focus="showDeviceDropdown = true"
                                 @input="showDeviceDropdown = true"
                                 autocomplete="off"
@@ -246,7 +246,7 @@ const whatsappTradeIn = computed(() => {
 
                             <!-- Selected indicator -->
                             <div v-if="selectedDevice" class="absolute right-4 top-1/2 -translate-y-1/2">
-                                <CheckCircle class="w-5 h-5 text-green-500" />
+                                <CheckCircle class="w-5 h-5 text-black" />
                             </div>
 
                             <!-- Dropdown -->
@@ -262,7 +262,7 @@ const whatsappTradeIn = computed(() => {
                                         <p class="text-sm font-medium text-gray-900">{{ p.name }}</p>
                                         <p class="text-xs text-gray-400">{{ p.brand }} · {{ formatPrice(p.price) }}</p>
                                     </div>
-                                    <CheckCircle v-if="selectedDevice?.id === p.id" class="w-4 h-4 text-green-500 shrink-0" />
+                                    <CheckCircle v-if="selectedDevice?.id === p.id" class="w-4 h-4 text-black shrink-0" />
                                 </button>
                             </div>
                         </div>
@@ -286,7 +286,7 @@ const whatsappTradeIn = computed(() => {
                     </div>
 
                     <!-- Step 2: Condition -->
-                    <div v-if="step === 2" class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 md:p-8">
+                    <div v-if="step === 2" class="bg-white rounded-2xl border border-[#E5E5EA] p-6 md:p-8">
                         <h2 class="text-xl font-bold mb-1">Device condition</h2>
                         <p class="text-sm text-gray-500 mb-6">Be honest — it helps us give you the best offer</p>
 
@@ -348,7 +348,7 @@ const whatsappTradeIn = computed(() => {
 
                     <!-- Step 3: Issues & Valuation -->
                     <div v-if="step === 3" class="space-y-4">
-                        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 md:p-8">
+                        <div class="bg-white rounded-2xl border border-[#E5E5EA] p-6 md:p-8">
                             <h2 class="text-xl font-bold mb-1">Any issues?</h2>
                             <p class="text-sm text-gray-500 mb-6">Tell us about any problems with the device</p>
 
@@ -406,7 +406,7 @@ const whatsappTradeIn = computed(() => {
                     </div>
 
                     <!-- Step 4: Contact & Submit -->
-                    <div v-if="step === 4" class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 md:p-8">
+                    <div v-if="step === 4" class="bg-white rounded-2xl border border-[#E5E5EA] p-6 md:p-8">
                         <h2 class="text-xl font-bold mb-1">Almost done!</h2>
                         <p class="text-sm text-gray-500 mb-6">How should we reach you?</p>
 
@@ -414,33 +414,33 @@ const whatsappTradeIn = computed(() => {
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Your Name</label>
                                 <input v-model="form.customer_name" type="text" placeholder="John Doe" required
-                                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-sm focus:border-black focus:outline-none transition" />
+                                    class="w-full px-4 py-3 border border-[#E5E5EA] rounded-xl text-sm focus:border-black focus:outline-none focus:ring-1 focus:ring-black/10 transition text-[#1D1D1F]" />
                                 <p v-if="form.errors.customer_name" class="text-red-500 text-xs mt-1">{{ form.errors.customer_name }}</p>
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Phone Number (WhatsApp)</label>
                                 <input v-model="form.customer_phone" type="tel" placeholder="0712 345 678" required
-                                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-sm focus:border-black focus:outline-none transition" />
+                                    class="w-full px-4 py-3 border border-[#E5E5EA] rounded-xl text-sm focus:border-black focus:outline-none focus:ring-1 focus:ring-black/10 transition text-[#1D1D1F]" />
                                 <p v-if="form.errors.customer_phone" class="text-red-500 text-xs mt-1">{{ form.errors.customer_phone }}</p>
                             </div>
                         </div>
 
                         <!-- Summary -->
-                        <div class="bg-gray-50 rounded-xl p-4 mb-6 space-y-2 text-sm">
+                        <div class="bg-[#F5F5F7] rounded-xl p-4 mb-6 space-y-2 text-sm">
                             <div class="flex justify-between"><span class="text-gray-500">Device</span><span class="font-medium">{{ selectedDevice?.name || customDevice }}</span></div>
                             <div class="flex justify-between"><span class="text-gray-500">Storage</span><span>{{ storageCapacity }}</span></div>
                             <div class="flex justify-between"><span class="text-gray-500">Condition</span><span class="capitalize">{{ condition }}</span></div>
                             <div class="flex justify-between"><span class="text-gray-500">Battery</span><span>{{ batteryHealth }}%</span></div>
                             <div v-if="hasCracks" class="flex justify-between"><span class="text-gray-500">Cracks</span><span class="text-red-500">Yes</span></div>
                             <div v-if="hasRepairs" class="flex justify-between"><span class="text-gray-500">Repairs</span><span class="text-amber-500">Yes</span></div>
-                            <div v-if="estimatedValue" class="flex justify-between pt-2 border-t border-gray-200"><span class="font-bold">Estimated Value</span><span class="font-bold text-green-600">{{ formatPrice(estimatedValue) }}</span></div>
+                            <div v-if="estimatedValue" class="flex justify-between pt-2 border-t border-gray-200"><span class="font-bold">Estimated Value</span><span class="font-bold text-black">{{ formatPrice(estimatedValue) }}</span></div>
                         </div>
 
                         <div class="space-y-3">
                             <button
                                 @click="submitTradeIn"
                                 :disabled="form.processing || !form.customer_name || !form.customer_phone"
-                                class="w-full py-3.5 bg-black text-white rounded-xl font-semibold hover:bg-gray-800 transition active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-2"
+                                class="w-full py-3.5 bg-black text-white rounded-full font-semibold hover:bg-[#1D1D1F] transition active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer"
                             >
                                 <CheckCircle class="w-5 h-5" />
                                 {{ form.processing ? 'Submitting...' : 'Submit Trade-In Request' }}
@@ -448,7 +448,7 @@ const whatsappTradeIn = computed(() => {
                             <a
                                 :href="whatsappTradeIn"
                                 target="_blank"
-                                class="w-full py-3.5 bg-[#25D366] text-white rounded-xl font-semibold hover:bg-[#1fb855] transition active:scale-[0.98] flex items-center justify-center gap-2"
+                                class="w-full py-3.5 border border-[#1D1D1F] text-[#1D1D1F] rounded-full font-semibold hover:bg-black hover:text-white transition active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer"
                             >
                                 <MessageCircle class="w-5 h-5" />
                                 Or Send via WhatsApp
@@ -471,7 +471,7 @@ const whatsappTradeIn = computed(() => {
                             v-if="step < totalSteps"
                             @click="nextStep"
                             :disabled="!canProceed"
-                            class="flex items-center gap-2 px-6 py-2.5 bg-black text-white rounded-xl text-sm font-semibold hover:bg-gray-800 transition active:scale-[0.97] disabled:opacity-40"
+                            class="flex items-center gap-2 px-6 py-2.5 bg-black text-white rounded-full text-sm font-semibold hover:bg-[#1D1D1F] transition active:scale-[0.97] disabled:opacity-40 cursor-pointer"
                         >
                             Next <ChevronRight class="w-4 h-4" />
                         </button>
