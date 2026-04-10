@@ -484,25 +484,25 @@ const quickBudgets = [30000, 50000, 80000, 120000]; // kept for quick budget but
                             </div>
                         </div>
 
-                        <!-- Quick example chips — varied search types -->
+                        <!-- Quick example chips -->
                         <div class="mt-2.5 flex gap-1.5 justify-center flex-wrap">
                             <button
-                                @click="query = 'iPhone under 50K'; smartSearch()"
+                                @click="query = 'Best phone under 30K'; smartSearch()"
                                 class="px-3 py-1 text-[11px] font-medium bg-[#F5F5F7] hover:bg-[#E5E5EA] active:bg-[#D1D1D6] rounded-full transition-all cursor-pointer text-[#86868B]"
                             >
-                                iPhone under 50K
+                                Under 30K
                             </button>
                             <button
-                                @click="query = 'Samsung S24'; smartSearch()"
+                                @click="query = 'Budget friendly phone with good camera'; smartSearch()"
                                 class="px-3 py-1 text-[11px] font-medium bg-[#F5F5F7] hover:bg-[#E5E5EA] active:bg-[#D1D1D6] rounded-full transition-all cursor-pointer text-[#86868B]"
                             >
-                                Samsung S24
+                                Good camera phone
                             </button>
                             <button
-                                @click="query = 'MacBook for coding'; smartSearch()"
+                                @click="query = 'Best laptop for school work'; smartSearch()"
                                 class="px-3 py-1 text-[11px] font-medium bg-[#F5F5F7] hover:bg-[#E5E5EA] active:bg-[#D1D1D6] rounded-full transition-all cursor-pointer text-[#86868B]"
                             >
-                                MacBook
+                                Laptop for school
                             </button>
                         </div>
 
