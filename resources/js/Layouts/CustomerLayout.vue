@@ -158,7 +158,7 @@ const isActive = (link) => {
         <FloatingContactBar />
 
         <!-- Footer — dark, minimal -->
-        <footer class="bg-[#1D1D1F] text-white pt-12 md:pt-16 pb-6 mt-12 md:mt-16">
+        <footer class="bg-[#1D1D1F] text-white pt-12 md:pt-16 pb-6">
             <div class="max-w-7xl mx-auto px-4 sm:px-6">
                 <div class="grid grid-cols-2 md:grid-cols-5 gap-6 md:gap-8 mb-10 md:mb-12">
                     <!-- Brand -->
