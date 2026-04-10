@@ -3,7 +3,7 @@ import { ref, computed, onMounted, onUnmounted } from 'vue';
 import { Head, Link } from '@inertiajs/vue3';
 import CustomerLayout from '@/Layouts/CustomerLayout.vue';
 import ProductCard from '@/Components/Customer/ProductCard.vue';
-import { ChevronRight, ChevronLeft, Check, ShoppingCart, Minus, Plus, ZoomIn, X, Shield, Truck, Star, Zap } from 'lucide-vue-next';
+import { ChevronRight, ChevronLeft, Check, ShoppingCart, Minus, Plus, ZoomIn, X, Shield, Truck, Star, Zap, Share2, MessageCircle } from 'lucide-vue-next';
 import { useCompanyInfo } from '@/Composables/useCompanyInfo';
 
 const { whatsappUrl: companyWhatsappUrl } = useCompanyInfo();
@@ -108,6 +108,18 @@ const whatsappOrderUrl = computed(() => {
     return companyWhatsappUrl(msg);
 });
 
+// Share product
+const shareProduct = async () => {
+    const url = `${window.location.origin}/products/${props.product.slug || props.product.id}`;
+    const price = formatPrice(currentPrice.value);
+    const text = `Check out ${props.product.name} at ${price} on TechMart KE!`;
+    if (navigator.share) {
+        try { await navigator.share({ title: props.product.name, text, url }); } catch {}
+    } else {
+        try { await navigator.clipboard.writeText(`${text}\n${url}`); } catch {}
+    }
+};
+
 const addToCart = () => {
     try {
         const cart = JSON.parse(localStorage.getItem('techmart_cart') || '[]');
@@ -181,10 +193,14 @@ const addToCart = () => {
                             />
                         </div>
 
-                        <!-- Zoom hint (desktop) -->
-                        <div class="hidden sm:flex absolute top-4 right-4 bg-black/50 backdrop-blur-sm text-white px-2 py-1 rounded-lg text-[10px] font-medium items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-                            <ZoomIn class="w-3 h-3" /> Zoom
-                        </div>
+                        <!-- Share button (top-right, always visible) -->
+                        <button
+                            @click.stop="shareProduct"
+                            class="absolute top-3 right-3 w-9 h-9 bg-white/90 hover:bg-white backdrop-blur-sm rounded-full flex items-center justify-center transition-all cursor-pointer shadow-sm z-10"
+                            title="Share this product"
+                        >
+                            <Share2 class="w-4 h-4 text-[#1D1D1F]" :stroke-width="1.5" />
+                        </button>
                     </div>
 
                     <!-- Thumbnails (desktop only) -->
@@ -251,8 +267,8 @@ const addToCart = () => {
                         </div>
                     </div>
 
-                    <!-- Quantity + Add to Cart (horizontal, side by side) -->
-                    <div class="flex items-center gap-3 mb-5">
+                    <!-- Quantity + Add to Cart -->
+                    <div class="flex items-center gap-3 mb-3">
                         <div class="flex items-center border border-[#E5E5EA] rounded-full overflow-hidden">
                             <button
                                 @click="quantity = Math.max(1, quantity - 1)"
@@ -276,6 +292,17 @@ const addToCart = () => {
                             Add to Cart
                         </button>
                     </div>
+
+                    <!-- Order via WhatsApp -->
+                    <a
+                        :href="whatsappOrderUrl"
+                        target="_blank"
+                        rel="noopener"
+                        class="w-full h-10 flex items-center justify-center gap-2 border border-[#1D1D1F] text-[#1D1D1F] rounded-full font-semibold text-sm hover:bg-black hover:text-white transition-all cursor-pointer active:scale-[0.98] mb-5"
+                    >
+                        <MessageCircle class="w-4 h-4" />
+                        Order via WhatsApp
+                    </a>
 
                     <!-- Trust Section — clean bulleted icons, no big buttons -->
                     <div class="grid grid-cols-2 gap-x-4 gap-y-2 mb-5 py-4 border-y border-[#E5E5EA]">

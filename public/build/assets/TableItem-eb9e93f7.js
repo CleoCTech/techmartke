@@ -1,1 +1,0 @@
-import{_ as e,o as t,a as o}from"./app-e97af22f.js";/* empty css                  */const c={},s={class:"text-sm"};function r(a,n){return t(),o("tbody",s)}const f=e(c,[["render",r]]);export{f as default};
