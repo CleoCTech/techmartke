@@ -5,7 +5,7 @@
 @layer base {
     /* Lexend for body — high legibility for specs, descriptions, long text */
     body {
-        @apply font-sans antialiased;
+        @apply font-sans antialiased text-[#1D1D1F];
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
     }
@@ -13,14 +13,20 @@
     /* Manrope for headings — commands attention without being loud */
     h1, h2, h3, h4, h5, h6 {
         font-family: 'Manrope', system-ui, sans-serif;
-        @apply font-extrabold;
+        @apply font-extrabold tracking-tight text-black;
     }
 
     /* Urbanist for buttons — modern, encourages clicks */
     button, [type="submit"], [role="button"],
-    .btn, a.bg-black, a.bg-green-500, a.bg-blue-600, a.bg-emerald-600 {
+    .btn {
         font-family: 'Urbanist', system-ui, sans-serif;
         @apply font-bold;
+    }
+
+    /* Inter for prices — numbers are clear and official */
+    .font-price {
+        font-family: 'Inter', system-ui, sans-serif;
+        @apply tabular-nums;
     }
 }
 

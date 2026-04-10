@@ -54,75 +54,71 @@ const isActive = (link) => {
 
 <template>
     <div class="min-h-screen bg-white">
-        <!-- Animated logo loader (initial load + every Inertia navigation) -->
         <LogoLoader />
 
-        <!-- Header -->
+        <!-- Header — monochrome, minimal -->
         <header
             :class="[
-                'sticky top-0 z-30 transition-all duration-300',
-                scrolled ? 'bg-white/95 backdrop-blur-md shadow-md' : 'bg-white shadow-sm'
+                'sticky top-0 z-30 transition-all duration-300 border-b',
+                scrolled ? 'bg-white/95 backdrop-blur-xl border-gray-200/80' : 'bg-white border-transparent'
             ]"
         >
-            <div class="container mx-auto px-4 py-3 md:py-4">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 md:py-4">
                 <div class="flex items-center justify-between">
                     <!-- Logo -->
-                    <Link href="/" class="flex items-center gap-2 sm:gap-3 cursor-pointer group">
+                    <Link href="/" class="flex items-center gap-2.5 cursor-pointer group">
                         <div class="w-9 h-9 sm:w-10 sm:h-10 bg-black rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform">
                             <Zap class="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                         </div>
-                        <h1 class="text-xl sm:text-2xl font-bold tracking-tight">
-                            TechMart<span class="text-gray-400">KE</span>
-                        </h1>
+                        <span class="text-lg sm:text-xl font-extrabold tracking-tight text-black">
+                            TechMart<span class="text-[#86868B]">KE</span>
+                        </span>
                     </Link>
 
-                    <!-- Desktop Nav -->
-                    <nav class="hidden md:flex gap-1 items-center">
+                    <!-- Desktop Nav — monochrome with emerald Trade-In -->
+                    <nav class="hidden lg:flex items-center gap-0.5">
                         <Link
                             v-for="link in navLinks"
                             :key="link.label"
                             :href="link.href"
-                            class="px-4 py-2 text-sm font-medium rounded-lg transition-all cursor-pointer"
+                            class="px-4 py-2 text-[13px] font-medium rounded-full transition-all cursor-pointer"
                             :class="link.highlight
-                                ? (isActive(link)
-                                    ? 'bg-gradient-to-r from-green-600 to-emerald-700 text-white shadow-md shadow-green-500/30 font-bold'
-                                    : 'bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white shadow-sm hover:shadow-md font-bold')
+                                ? 'bg-[#2ECC71] hover:bg-[#27AE60] text-white font-bold'
                                 : (isActive(link)
-                                    ? 'text-black bg-gray-100 font-semibold'
-                                    : 'text-gray-600 hover:text-black hover:bg-gray-50')"
+                                    ? 'text-black font-semibold'
+                                    : 'text-[#86868B] hover:text-black')"
                         >
                             {{ link.label }}
                         </Link>
                     </nav>
 
                     <!-- Actions -->
-                    <div class="flex items-center gap-2 sm:gap-3">
+                    <div class="flex items-center gap-2">
                         <Link
                             href="/cart"
-                            class="relative px-3 sm:px-5 py-2 sm:py-2.5 bg-black text-white rounded-xl hover:bg-gray-800 active:scale-[0.97] transition-all text-sm font-medium flex items-center gap-2 cursor-pointer shadow-sm hover:shadow-md"
+                            class="relative flex items-center gap-2 px-3 sm:px-4 py-2 bg-black text-white rounded-full hover:bg-[#1D1D1F] active:scale-[0.97] transition-all text-[13px] font-medium cursor-pointer"
                         >
                             <ShoppingCart class="w-4 h-4" />
                             <span class="hidden sm:inline">Cart</span>
                             <span
                                 v-if="cartCount > 0"
-                                class="bg-white text-black text-[10px] sm:text-xs font-bold rounded-full min-w-[18px] sm:min-w-[20px] h-[18px] sm:h-[20px] flex items-center justify-center"
+                                class="bg-white text-black text-[10px] font-bold rounded-full min-w-[18px] h-[18px] flex items-center justify-center"
                             >
                                 {{ cartCount }}
                             </span>
-                            <span v-else class="text-xs">(0)</span>
                         </Link>
 
                         <button
-                            class="md:hidden p-2 hover:bg-gray-100 rounded-lg transition cursor-pointer"
+                            class="lg:hidden p-2 hover:bg-[#F5F5F7] rounded-full transition cursor-pointer"
                             @click="mobileMenuOpen = !mobileMenuOpen"
                         >
-                            <X v-if="mobileMenuOpen" class="w-5 h-5" />
-                            <Menu v-else class="w-5 h-5" />
+                            <X v-if="mobileMenuOpen" class="w-5 h-5 text-black" />
+                            <Menu v-else class="w-5 h-5 text-black" />
                         </button>
                     </div>
                 </div>
 
-                <!-- Mobile Menu -->
+                <!-- Mobile Menu — clean monochrome -->
                 <Transition
                     enter-active-class="transition-all duration-200 ease-out"
                     enter-from-class="opacity-0 -translate-y-2"
@@ -131,18 +127,18 @@ const isActive = (link) => {
                     leave-from-class="opacity-100 translate-y-0"
                     leave-to-class="opacity-0 -translate-y-2"
                 >
-                    <nav v-if="mobileMenuOpen" class="md:hidden mt-3 pb-3 border-t pt-3">
-                        <div class="grid grid-cols-2 gap-2">
+                    <nav v-if="mobileMenuOpen" class="lg:hidden mt-3 pb-3 border-t border-[#F5F5F7] pt-4">
+                        <div class="flex flex-col gap-1">
                             <Link
                                 v-for="link in navLinks"
                                 :key="link.label"
                                 :href="link.href"
-                                class="px-4 py-3 text-sm rounded-xl transition-all cursor-pointer text-center border"
+                                class="px-4 py-3 text-[15px] rounded-xl transition-all cursor-pointer"
                                 :class="link.highlight
-                                    ? 'col-span-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white border-transparent font-bold shadow-md shadow-green-500/30'
+                                    ? 'bg-[#2ECC71] text-white font-bold text-center'
                                     : (isActive(link)
-                                        ? 'text-black bg-gray-100 border-gray-300 font-semibold'
-                                        : 'text-gray-700 hover:text-black hover:bg-gray-50 border-gray-100 font-medium')"
+                                        ? 'text-black font-semibold bg-[#F5F5F7]'
+                                        : 'text-[#1D1D1F] hover:bg-[#F5F5F7]')"
                                 @click="mobileMenuOpen = false"
                             >
                                 {{ link.label }}
@@ -158,46 +154,45 @@ const isActive = (link) => {
             <slot />
         </main>
 
-        <!-- Floating Contact Bar (mobile bottom bar + desktop side buttons) -->
+        <!-- Floating Contact Bar -->
         <FloatingContactBar />
 
-        <!-- Footer -->
-        <footer class="bg-gradient-to-b from-gray-900 to-black text-white pt-12 md:pt-16 pb-6 mt-12 md:mt-16">
-            <div class="container mx-auto px-4">
-                <!-- Top section -->
+        <!-- Footer — dark, minimal -->
+        <footer class="bg-[#1D1D1F] text-white pt-12 md:pt-16 pb-6 mt-12 md:mt-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6">
                 <div class="grid grid-cols-2 md:grid-cols-5 gap-6 md:gap-8 mb-10 md:mb-12">
-                    <!-- Brand column -->
+                    <!-- Brand -->
                     <div class="col-span-2 md:col-span-1 mb-2 md:mb-0">
                         <div class="flex items-center gap-2 mb-4">
                             <div class="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
                                 <Zap class="w-5 h-5 text-black" />
                             </div>
-                            <span class="text-lg font-bold">TechMart<span class="text-gray-500">KE</span></span>
+                            <span class="text-lg font-bold">TechMart<span class="text-[#86868B]">KE</span></span>
                         </div>
-                        <p class="text-sm text-gray-400 leading-relaxed">
-                            Smart shopping, better decisions. Kenya's trusted phone & computer marketplace.
+                        <p class="text-sm text-[#86868B] leading-relaxed">
+                            Kenya's trusted phone & computer marketplace.
                         </p>
                     </div>
 
                     <div>
-                        <h5 class="font-bold mb-3 md:mb-4 text-sm md:text-base">Phones</h5>
-                        <ul class="space-y-2 text-sm text-gray-400">
+                        <h5 class="font-semibold mb-3 md:mb-4 text-sm text-[#F5F5F7]">Phones</h5>
+                        <ul class="space-y-2.5 text-sm text-[#86868B]">
                             <li><Link href="/products?brand=apple" class="hover:text-white transition cursor-pointer">iPhone</Link></li>
                             <li><Link href="/products?brand=samsung" class="hover:text-white transition cursor-pointer">Samsung</Link></li>
                             <li><Link href="/products?brand=google" class="hover:text-white transition cursor-pointer">Google Pixel</Link></li>
                         </ul>
                     </div>
                     <div>
-                        <h5 class="font-bold mb-3 md:mb-4 text-sm md:text-base">Computers</h5>
-                        <ul class="space-y-2 text-sm text-gray-400">
+                        <h5 class="font-semibold mb-3 md:mb-4 text-sm text-[#F5F5F7]">Computers</h5>
+                        <ul class="space-y-2.5 text-sm text-[#86868B]">
                             <li><Link href="/products?category=macbooks" class="hover:text-white transition cursor-pointer">MacBooks</Link></li>
                             <li><Link href="/products?category=windows-laptops" class="hover:text-white transition cursor-pointer">Windows Laptops</Link></li>
                             <li><Link href="/products?category=computers" class="hover:text-white transition cursor-pointer">All Computers</Link></li>
                         </ul>
                     </div>
                     <div>
-                        <h5 class="font-bold mb-3 md:mb-4 text-sm md:text-base">Quick Links</h5>
-                        <ul class="space-y-2 text-sm text-gray-400">
+                        <h5 class="font-semibold mb-3 md:mb-4 text-sm text-[#F5F5F7]">Quick Links</h5>
+                        <ul class="space-y-2.5 text-sm text-[#86868B]">
                             <li><Link href="/trade-in" class="hover:text-white transition cursor-pointer">Trade-In</Link></li>
                             <li><Link href="/community" class="hover:text-white transition cursor-pointer">Community</Link></li>
                             <li><Link href="/vip" class="hover:text-white transition cursor-pointer">VIP Program</Link></li>
@@ -209,8 +204,8 @@ const isActive = (link) => {
                         </ul>
                     </div>
                     <div>
-                        <h5 class="font-bold mb-3 md:mb-4 text-sm md:text-base">Contact</h5>
-                        <ul class="space-y-2 text-sm text-gray-400">
+                        <h5 class="font-semibold mb-3 md:mb-4 text-sm text-[#F5F5F7]">Contact</h5>
+                        <ul class="space-y-2.5 text-sm text-[#86868B]">
                             <li class="flex items-center gap-2">
                                 <Phone class="w-3.5 h-3.5 flex-shrink-0" />
                                 {{ phoneDisplay }}
@@ -227,8 +222,7 @@ const isActive = (link) => {
                     </div>
                 </div>
 
-                <!-- Bottom bar -->
-                <div class="pt-6 border-t border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-500">
+                <div class="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#86868B]">
                     <p>&copy; 2025 TechMart KE. All rights reserved.</p>
                     <p>Smart Shopping, Better Decisions</p>
                 </div>

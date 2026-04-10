@@ -351,23 +351,22 @@ const quickBudgets = [30000, 50000, 80000, 120000]; // kept for quick budget but
             </div>
         </div>
 
-        <!-- Compact Hero with Inline Search -->
-        <section class="relative overflow-hidden pt-4 pb-3 md:pt-6 md:pb-4">
+        <!-- Hero — monochrome, generous negative space -->
+        <section class="relative overflow-hidden pt-6 pb-4 md:pt-10 md:pb-6">
             <!-- Particle Canvas -->
             <canvas
                 ref="canvasRef"
                 class="absolute inset-0 pointer-events-none z-0"
             />
 
-            <div class="container mx-auto px-4 relative z-10">
-                <div class="max-w-3xl mx-auto">
-                    <!-- Compact heading with inline AI badge -->
-                    <div class="text-center mb-3 md:mb-4 animate-fade-in-up">
-                        <h1 class="text-xl sm:text-2xl md:text-3xl font-extrabold text-black tracking-tight leading-tight inline-flex items-center gap-2 flex-wrap justify-center">
-                            <Sparkles class="w-5 h-5 md:w-6 md:h-6 text-amber-500" />
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+                <div class="max-w-2xl mx-auto">
+                    <!-- Heading — pure black, Manrope -->
+                    <div class="text-center mb-4 md:mb-5 animate-fade-in-up">
+                        <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-black tracking-tight leading-tight">
                             Find Your Perfect Device
                         </h1>
-                        <p class="text-xs sm:text-sm text-gray-500 mt-1">AI-powered search · Best prices · Quality verified</p>
+                        <p class="text-xs sm:text-sm text-[#86868B] mt-1.5">AI-powered search · Best prices · Quality verified</p>
                     </div>
 
                     <!-- Compact Inline Search (no big card) -->
@@ -380,7 +379,7 @@ const quickBudgets = [30000, 50000, 80000, 120000]; // kept for quick budget but
                             <input
                                 v-model="query"
                                 type="text"
-                                class="w-full pl-10 pr-20 sm:pr-24 py-3 text-sm sm:text-base bg-white border border-gray-200 rounded-full shadow-sm focus:border-black focus:outline-none focus:ring-2 focus:ring-black/5 transition-all cursor-text relative z-10"
+                                class="w-full pl-10 pr-20 sm:pr-24 py-3 text-sm sm:text-base bg-[#F5F5F7] border border-[#E5E5EA] rounded-full focus:bg-white focus:border-black focus:outline-none focus:ring-1 focus:ring-black/10 transition-all cursor-text relative z-10 text-[#1D1D1F] placeholder-[#86868B]"
                                 :placeholder="currentPlaceholder"
                                 @input="onInput"
                                 @keydown="onKeydown"
@@ -391,7 +390,7 @@ const quickBudgets = [30000, 50000, 80000, 120000]; // kept for quick budget but
                             <button
                                 @click="showSuggestions = false; smartSearch()"
                                 :disabled="!query.trim()"
-                                class="absolute right-1.5 top-1/2 -translate-y-1/2 px-3 sm:px-4 py-2 bg-black text-white rounded-full hover:bg-gray-800 active:scale-[0.97] transition-all font-semibold flex items-center gap-1.5 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed text-xs sm:text-sm z-10"
+                                class="absolute right-1.5 top-1/2 -translate-y-1/2 px-3 sm:px-4 py-2 bg-black text-white rounded-full hover:bg-[#1D1D1F] active:scale-[0.97] transition-all font-semibold flex items-center gap-1.5 cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed text-xs sm:text-sm z-10"
                             >
                                 <Sparkles class="w-3.5 h-3.5" />
                                 <span>Ask AI</span>
@@ -438,19 +437,19 @@ const quickBudgets = [30000, 50000, 80000, 120000]; // kept for quick budget but
                                 v-for="b in quickBudgets"
                                 :key="b"
                                 @click="query = `Best phone under ${(b/1000)}K`; smartSearch()"
-                                class="flex-shrink-0 px-2.5 py-1 text-[11px] font-medium bg-gray-100 hover:bg-gray-200 active:bg-gray-300 rounded-full transition-all cursor-pointer text-gray-700"
+                                class="flex-shrink-0 px-2.5 py-1 text-[11px] font-medium bg-[#F5F5F7] hover:bg-[#E5E5EA] active:bg-[#D1D1D6] rounded-full transition-all cursor-pointer text-[#1D1D1F]"
                             >
                                 Under {{ (b/1000) }}K
                             </button>
                             <button
                                 @click="quickSearch('Best Samsung under 25K')"
-                                class="flex-shrink-0 px-2.5 py-1 text-[11px] font-medium bg-gray-100 hover:bg-gray-200 rounded-full transition-all cursor-pointer text-gray-700"
+                                class="flex-shrink-0 px-2.5 py-1 text-[11px] font-medium bg-[#F5F5F7] hover:bg-[#E5E5EA] rounded-full transition-all cursor-pointer text-[#1D1D1F]"
                             >
                                 Samsung under 25K
                             </button>
                             <button
                                 @click="quickSearch('iPhone with good camera')"
-                                class="flex-shrink-0 px-2.5 py-1 text-[11px] font-medium bg-gray-100 hover:bg-gray-200 rounded-full transition-all cursor-pointer text-gray-700"
+                                class="flex-shrink-0 px-2.5 py-1 text-[11px] font-medium bg-[#F5F5F7] hover:bg-[#E5E5EA] rounded-full transition-all cursor-pointer text-[#1D1D1F]"
                             >
                                 Best iPhone camera
                             </button>
@@ -460,7 +459,7 @@ const quickBudgets = [30000, 50000, 80000, 120000]; // kept for quick budget but
                         <div class="mt-3 flex justify-center">
                             <Link
                                 href="/trade-in"
-                                class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-bold bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 active:scale-[0.97] rounded-full transition-all cursor-pointer text-white shadow-md shadow-green-500/30 hover:shadow-lg hover:shadow-green-500/40"
+                                class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-bold bg-[#2ECC71] hover:bg-[#27AE60] active:scale-[0.97] rounded-full transition-all cursor-pointer text-white"
                             >
                                 <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 014-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
                                 Trade In Your Phone
@@ -473,48 +472,48 @@ const quickBudgets = [30000, 50000, 80000, 120000]; // kept for quick budget but
             </div>
         </section>
 
-        <!-- Compact Category Strip (horizontal pills) -->
-        <section class="border-y border-gray-100 bg-gray-50/50">
-            <div class="container mx-auto px-4 py-3">
+        <!-- Category Strip — thin grey divider -->
+        <section class="border-y border-[#E5E5EA] bg-[#F5F5F7]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3">
                 <div class="flex gap-2 overflow-x-auto scrollbar-hide -mx-1 px-1">
                     <Link
                         href="/products?category=phones"
-                        class="flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-gray-200 hover:border-black rounded-full text-xs font-semibold text-gray-700 hover:text-black transition cursor-pointer"
+                        class="flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-[#E5E5EA] hover:border-black rounded-full text-xs font-semibold text-[#1D1D1F] hover:text-black transition cursor-pointer"
                     >
                         <Smartphone class="w-3.5 h-3.5" />
                         Phones
                     </Link>
                     <Link
                         href="/products?category=computers"
-                        class="flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-gray-200 hover:border-black rounded-full text-xs font-semibold text-gray-700 hover:text-black transition cursor-pointer"
+                        class="flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-[#E5E5EA] hover:border-black rounded-full text-xs font-semibold text-[#1D1D1F] hover:text-black transition cursor-pointer"
                     >
                         <Laptop class="w-3.5 h-3.5" />
                         Laptops
                     </Link>
                     <Link
                         href="/products?category=tablets"
-                        class="flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-gray-200 hover:border-black rounded-full text-xs font-semibold text-gray-700 hover:text-black transition cursor-pointer"
+                        class="flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-[#E5E5EA] hover:border-black rounded-full text-xs font-semibold text-[#1D1D1F] hover:text-black transition cursor-pointer"
                     >
                         <Tablet class="w-3.5 h-3.5" />
                         Tablets
                     </Link>
                     <Link
                         href="/products?category=accessories"
-                        class="flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-gray-200 hover:border-black rounded-full text-xs font-semibold text-gray-700 hover:text-black transition cursor-pointer"
+                        class="flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-[#E5E5EA] hover:border-black rounded-full text-xs font-semibold text-[#1D1D1F] hover:text-black transition cursor-pointer"
                     >
                         <Headphones class="w-3.5 h-3.5" />
                         Accessories
                     </Link>
                     <Link
                         href="/products?condition=new"
-                        class="flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-gray-200 hover:border-black rounded-full text-xs font-semibold text-gray-700 hover:text-black transition cursor-pointer"
+                        class="flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-[#E5E5EA] hover:border-black rounded-full text-xs font-semibold text-[#1D1D1F] hover:text-black transition cursor-pointer"
                     >
                         <Star class="w-3.5 h-3.5" />
                         Brand New
                     </Link>
                     <Link
                         href="/products?condition=ex-uk"
-                        class="flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-gray-200 hover:border-black rounded-full text-xs font-semibold text-gray-700 hover:text-black transition cursor-pointer"
+                        class="flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-[#E5E5EA] hover:border-black rounded-full text-xs font-semibold text-[#1D1D1F] hover:text-black transition cursor-pointer"
                     >
                         <Shield class="w-3.5 h-3.5" />
                         Ex-UK
@@ -572,14 +571,14 @@ const quickBudgets = [30000, 50000, 80000, 120000]; // kept for quick budget but
             </div>
         </section>
 
-        <!-- Featured Products (right above the fold for mobile) -->
-        <section class="py-4 md:py-6 bg-white">
-            <div class="container mx-auto px-4">
-                <div class="flex items-center justify-between mb-3 md:mb-4">
-                    <h3 class="text-base md:text-lg font-bold">Featured Products</h3>
+        <!-- Featured Products -->
+        <section class="py-6 md:py-10 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6">
+                <div class="flex items-center justify-between mb-4 md:mb-6">
+                    <h3 class="text-lg md:text-xl font-extrabold text-black">Featured Products</h3>
                     <Link
                         href="/products"
-                        class="flex items-center gap-1 text-xs font-semibold text-gray-500 hover:text-black transition cursor-pointer group"
+                        class="flex items-center gap-1 text-xs font-semibold text-[#86868B] hover:text-black transition cursor-pointer group"
                     >
                         View All
                         <ArrowRight class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
@@ -588,15 +587,13 @@ const quickBudgets = [30000, 50000, 80000, 120000]; // kept for quick budget but
 
                 <div
                     v-if="featuredProducts.length"
-                    class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5"
+                    class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-px sm:gap-px bg-[#E5E5EA]"
                 >
-                    <ProductCard
-                        v-for="product in featuredProducts"
-                        :key="product.id"
-                        :product="product"
-                    />
+                    <div v-for="product in featuredProducts" :key="product.id" class="bg-white">
+                        <ProductCard :product="product" />
+                    </div>
                 </div>
-                <div v-else class="text-center py-10 text-gray-400">
+                <div v-else class="text-center py-10 text-[#86868B]">
                     <Smartphone class="w-12 h-12 mx-auto mb-3 opacity-30" />
                     <p class="text-sm font-medium">No featured products yet</p>
                 </div>
@@ -604,7 +601,7 @@ const quickBudgets = [30000, 50000, 80000, 120000]; // kept for quick budget but
                 <div class="sm:hidden mt-4 text-center">
                     <Link
                         href="/products"
-                        class="inline-flex items-center gap-2 px-5 py-2.5 bg-black text-white rounded-xl text-sm font-semibold cursor-pointer hover:bg-gray-800 transition-all active:scale-[0.98]"
+                        class="inline-flex items-center gap-2 px-5 py-2.5 bg-black text-white rounded-full text-sm font-semibold cursor-pointer hover:bg-[#1D1D1F] transition-all active:scale-[0.98]"
                     >
                         View All Products
                         <ArrowRight class="w-4 h-4" />
@@ -613,36 +610,36 @@ const quickBudgets = [30000, 50000, 80000, 120000]; // kept for quick budget but
             </div>
         </section>
 
-        <!-- Compact Trust Strip (single thin row) -->
-        <section class="py-3 md:py-4 border-y border-gray-100 bg-gray-50/50">
-            <div class="container mx-auto px-4">
+        <!-- Trust Strip — grayscale thin row -->
+        <section class="py-3 md:py-4 border-y border-[#E5E5EA]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6">
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 text-center">
                     <div class="flex items-center justify-center gap-1.5 text-[11px] md:text-xs">
-                        <Shield class="w-3.5 h-3.5 text-gray-500 flex-shrink-0" />
-                        <span class="font-semibold text-gray-700">Verified Devices</span>
+                        <Shield class="w-3.5 h-3.5 text-[#86868B] flex-shrink-0" />
+                        <span class="font-semibold text-[#1D1D1F]">Verified Devices</span>
                     </div>
                     <div class="flex items-center justify-center gap-1.5 text-[11px] md:text-xs">
-                        <Truck class="w-3.5 h-3.5 text-gray-500 flex-shrink-0" />
-                        <span class="font-semibold text-gray-700">Fast Delivery</span>
+                        <Truck class="w-3.5 h-3.5 text-[#86868B] flex-shrink-0" />
+                        <span class="font-semibold text-[#1D1D1F]">Fast Delivery</span>
                     </div>
                     <div class="flex items-center justify-center gap-1.5 text-[11px] md:text-xs">
-                        <Star class="w-3.5 h-3.5 text-gray-500 flex-shrink-0" />
-                        <span class="font-semibold text-gray-700">3-Month Warranty</span>
+                        <Star class="w-3.5 h-3.5 text-[#86868B] flex-shrink-0" />
+                        <span class="font-semibold text-[#1D1D1F]">3-Month Warranty</span>
                     </div>
                     <div class="flex items-center justify-center gap-1.5 text-[11px] md:text-xs">
-                        <Zap class="w-3.5 h-3.5 text-gray-500 flex-shrink-0" />
-                        <span class="font-semibold text-gray-700">M-Pesa Ready</span>
+                        <Zap class="w-3.5 h-3.5 text-[#86868B] flex-shrink-0" />
+                        <span class="font-semibold text-[#1D1D1F]">M-Pesa Ready</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Trust / Contact Section (compact) -->
-        <section class="py-6 md:py-10 bg-gray-50">
-            <div class="container mx-auto px-4">
+        <!-- Ready to Buy — minimal -->
+        <section class="py-6 md:py-10 bg-[#F5F5F7]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6">
                 <div class="text-center mb-4 md:mb-6">
-                    <h3 class="text-lg md:text-2xl font-bold mb-1">Ready to Buy?</h3>
-                    <p class="text-gray-600 text-xs md:text-sm max-w-md mx-auto">
+                    <h3 class="text-lg md:text-2xl font-extrabold text-black mb-1">Ready to Buy?</h3>
+                    <p class="text-[#86868B] text-xs md:text-sm max-w-md mx-auto">
                         See it. Touch it. Trust it. Visit, call, or chat with us
                     </p>
                 </div>

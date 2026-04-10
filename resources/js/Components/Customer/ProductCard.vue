@@ -35,16 +35,17 @@ const stockBadge = (status) => {
     return map[status?.toLowerCase()] || { label: 'In Stock', class: 'bg-emerald-500' };
 };
 
+// Monochrome badges — grayscale only, no color splashes
 const conditionBadge = (condition) => {
     const map = {
-        new: { label: 'New', class: 'bg-blue-50 text-blue-700 border-blue-200', icon: '' },
-        'ex-uk': { label: 'Ex-UK', class: 'bg-orange-50 text-orange-700 border-orange-200', icon: '✧ ' },
-        'ex_uk': { label: 'Ex-UK', class: 'bg-orange-50 text-orange-700 border-orange-200', icon: '✧ ' },
-        'ex-us': { label: 'Ex-US', class: 'bg-purple-50 text-purple-700 border-purple-200', icon: '✧ ' },
-        'ex_us': { label: 'Ex-US', class: 'bg-purple-50 text-purple-700 border-purple-200', icon: '✧ ' },
-        refurbished: { label: 'Refurbished', class: 'bg-gray-50 text-gray-700 border-gray-200', icon: '' },
+        new: { label: 'New', class: 'bg-black text-white border-black' },
+        'ex-uk': { label: 'Ex-UK', class: 'bg-[#F5F5F7] text-[#1D1D1F] border-[#E5E5EA]' },
+        'ex_uk': { label: 'Ex-UK', class: 'bg-[#F5F5F7] text-[#1D1D1F] border-[#E5E5EA]' },
+        'ex-us': { label: 'Ex-US', class: 'bg-[#F5F5F7] text-[#1D1D1F] border-[#E5E5EA]' },
+        'ex_us': { label: 'Ex-US', class: 'bg-[#F5F5F7] text-[#1D1D1F] border-[#E5E5EA]' },
+        refurbished: { label: 'Refurbished', class: 'bg-[#F5F5F7] text-[#86868B] border-[#E5E5EA]' },
     };
-    return map[condition?.toLowerCase()] || { label: condition || '', class: 'bg-gray-50 text-gray-600 border-gray-200', icon: '' };
+    return map[condition?.toLowerCase()] || { label: condition || '', class: 'bg-[#F5F5F7] text-[#86868B] border-[#E5E5EA]' };
 };
 
 // Detect if any variant of this product is an eSIM variant — used to show
@@ -146,13 +147,13 @@ const whatsappUrl = (product) => {
 <template>
     <Link
         :href="`/products/${product.slug || product.id}`"
-        class="product-card group bg-white rounded-2xl overflow-hidden shadow-sm block transition-all duration-300 cursor-pointer border border-gray-100"
+        class="product-card group bg-white rounded-2xl overflow-hidden block transition-all duration-300 cursor-pointer"
         :class="isOutOfStock
-            ? 'opacity-60 grayscale-[40%] hover:opacity-80 hover:grayscale-[20%] hover:shadow-md'
-            : 'hover:shadow-xl hover:-translate-y-1 hover:border-gray-200'"
+            ? 'opacity-60 grayscale-[40%] hover:opacity-80 hover:grayscale-[20%]'
+            : 'hover:bg-[#F5F5F7] hover:-translate-y-0.5'"
     >
         <!-- Image -->
-        <div class="relative aspect-square bg-gray-50/50 overflow-hidden p-4 sm:p-6">
+        <div class="relative aspect-square bg-[#F5F5F7] overflow-hidden p-4 sm:p-6">
             <img
                 :src="currentImage"
                 :alt="product.name"
@@ -202,11 +203,11 @@ const whatsappUrl = (product) => {
         <!-- Content -->
         <div class="px-4 pb-4 pt-2 sm:px-5 sm:pb-5">
             <div class="flex items-center gap-2 mb-1">
-                <span v-if="product.brand" class="text-[11px] sm:text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                <span v-if="product.brand" class="text-[11px] sm:text-xs font-semibold text-[#86868B] uppercase tracking-wider">
                     {{ product.brand?.name || product.brand }}
                 </span>
                 <span v-if="hasEsim"
-                    class="px-2 py-0.5 rounded text-[10px] font-bold border bg-emerald-50 text-emerald-700 border-emerald-200">
+                    class="px-2 py-0.5 rounded text-[10px] font-bold border bg-[#F5F5F7] text-[#1D1D1F] border-[#E5E5EA]">
                     eSIM
                 </span>
             </div>
@@ -227,20 +228,20 @@ const whatsappUrl = (product) => {
                     </p>
                 </div>
                 <div class="flex gap-1.5 flex-shrink-0">
-                    <!-- WhatsApp - always available -->
+                    <!-- WhatsApp — the only emerald accent in the card -->
                     <a :href="whatsappUrl(product)" target="_blank" rel="noopener" @click.stop
-                        class="w-9 h-9 sm:w-10 sm:h-10 bg-[#25D366] hover:bg-[#1fb855] text-white rounded-full active:scale-95 transition-all cursor-pointer flex items-center justify-center shadow-sm"
+                        class="w-9 h-9 sm:w-10 sm:h-10 bg-[#2ECC71] hover:bg-[#27AE60] text-white rounded-full active:scale-95 transition-all cursor-pointer flex items-center justify-center"
                         title="Ask on WhatsApp">
                         <MessageCircle class="w-4 h-4" />
                     </a>
-                    <!-- Add to cart - disabled when out of stock -->
+                    <!-- Add to cart — solid black primary action -->
                     <button v-if="!isOutOfStock"
                         @click="handleAddToCart"
-                        class="h-9 sm:h-10 px-3 sm:px-4 bg-black text-white rounded-full hover:bg-gray-800 active:scale-95 transition-all text-xs sm:text-sm font-semibold cursor-pointer flex items-center justify-center gap-1.5 shadow-sm hover:shadow-md">
+                        class="h-9 sm:h-10 px-3 sm:px-4 bg-black text-white rounded-full hover:bg-[#1D1D1F] active:scale-95 transition-all text-xs sm:text-sm font-semibold cursor-pointer flex items-center justify-center gap-1.5">
                         <ShoppingCart class="w-3.5 h-3.5" /> Add
                     </button>
                     <span v-else
-                        class="h-9 sm:h-10 px-3 sm:px-4 bg-gray-200 text-gray-400 rounded-full text-xs sm:text-sm font-semibold flex items-center justify-center gap-1.5 cursor-not-allowed">
+                        class="h-9 sm:h-10 px-3 sm:px-4 bg-[#F5F5F7] text-[#86868B] rounded-full text-xs sm:text-sm font-semibold flex items-center justify-center gap-1.5 cursor-not-allowed">
                         <Clock class="w-3.5 h-3.5" /> Soon
                     </span>
                 </div>
