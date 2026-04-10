@@ -484,27 +484,13 @@ const quickBudgets = [30000, 50000, 80000, 120000]; // kept for quick budget but
                             </div>
                         </div>
 
-                        <!-- Inline chip row (horizontal scroll on mobile) -->
-                        <div class="mt-2.5 flex gap-1.5 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-hide">
+                        <!-- Quick example chip -->
+                        <div class="mt-2.5 flex justify-center">
                             <button
-                                v-for="b in quickBudgets"
-                                :key="b"
-                                @click="query = `Best phone under ${(b/1000)}K`; smartSearch()"
-                                class="flex-shrink-0 px-2.5 py-1 text-[11px] font-medium bg-[#F5F5F7] hover:bg-[#E5E5EA] active:bg-[#D1D1D6] rounded-full transition-all cursor-pointer text-[#1D1D1F]"
+                                @click="query = 'Best phone under 30K'; smartSearch()"
+                                class="px-3 py-1 text-[11px] font-medium bg-[#F5F5F7] hover:bg-[#E5E5EA] active:bg-[#D1D1D6] rounded-full transition-all cursor-pointer text-[#86868B]"
                             >
-                                Under {{ (b/1000) }}K
-                            </button>
-                            <button
-                                @click="quickSearch('Best Samsung under 25K')"
-                                class="flex-shrink-0 px-2.5 py-1 text-[11px] font-medium bg-[#F5F5F7] hover:bg-[#E5E5EA] rounded-full transition-all cursor-pointer text-[#1D1D1F]"
-                            >
-                                Samsung under 25K
-                            </button>
-                            <button
-                                @click="quickSearch('iPhone with good camera')"
-                                class="flex-shrink-0 px-2.5 py-1 text-[11px] font-medium bg-[#F5F5F7] hover:bg-[#E5E5EA] rounded-full transition-all cursor-pointer text-[#1D1D1F]"
-                            >
-                                Best iPhone camera
+                                Try: Under 30K
                             </button>
                         </div>
 
