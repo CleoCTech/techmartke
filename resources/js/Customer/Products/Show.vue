@@ -3,40 +3,27 @@ import { ref, computed, onMounted, onUnmounted } from 'vue';
 import { Head, Link } from '@inertiajs/vue3';
 import CustomerLayout from '@/Layouts/CustomerLayout.vue';
 import ProductCard from '@/Components/Customer/ProductCard.vue';
-import { ChevronRight, ChevronLeft, Check, ShoppingCart, Minus, Plus, ZoomIn, X } from 'lucide-vue-next';
-import TrustActions from '@/Components/Customer/TrustActions.vue';
+import { ChevronRight, ChevronLeft, Check, ShoppingCart, Minus, Plus, ZoomIn, X, Shield, Truck, Star, Zap } from 'lucide-vue-next';
+import { useCompanyInfo } from '@/Composables/useCompanyInfo';
+
+const { whatsappUrl: companyWhatsappUrl } = useCompanyInfo();
 
 const props = defineProps({
-    product: {
-        type: Object,
-        required: true,
-    },
-    relatedProducts: {
-        type: Array,
-        default: () => [],
-    },
+    product: { type: Object, required: true },
+    relatedProducts: { type: Array, default: () => [] },
 });
 
-const formatPrice = (price) => {
-    return 'KSh ' + Number(price).toLocaleString();
-};
+const formatPrice = (price) => 'KSh ' + Number(price).toLocaleString();
 
 const selectedImage = ref(0);
 const selectedVariant = ref(null);
 const quantity = ref(1);
 const zoomed = ref(false);
-const galleryRef = ref(null);
 let touchStartX = 0;
-let touchEndX = 0;
 
-// Track which image URLs have failed to load at runtime so we can skip them
+// Image handling with broken URL tracking
 const brokenUrls = ref(new Set());
-
-// Helper to extract URL from an image record
 const imgUrl = (img) => img?.image_url || img?.url || img?.path || '';
-
-// Filter out images with empty/blank URLs AND any that failed to load at runtime.
-// Reactive on brokenUrls so the UI updates as soon as an error fires.
 const images = computed(() => {
     const raw = Array.isArray(props.product?.images) ? props.product.images : [];
     const usable = raw.filter(img => {
@@ -46,12 +33,8 @@ const images = computed(() => {
     if (usable.length) return usable;
     return [{ image_url: props.product?.image || '/assets/img/placeholder.jpg' }];
 });
-
-// When an img fails to load, mark its URL as broken so the computed list excludes
-// it everywhere (main image AND thumbnails). Then ensure selectedImage stays valid.
 const handleImgError = (e) => {
     const failedSrc = e.target?.currentSrc || e.target?.src || '';
-    // Match against any image record whose URL appears in the failed src
     const raw = Array.isArray(props.product?.images) ? props.product.images : [];
     for (const img of raw) {
         const url = imgUrl(img);
@@ -60,26 +43,15 @@ const handleImgError = (e) => {
             break;
         }
     }
-    // Re-clamp selectedImage to a valid index after the list shrinks
-    if (selectedImage.value >= images.value.length) {
-        selectedImage.value = 0;
-    }
+    if (selectedImage.value >= images.value.length) selectedImage.value = 0;
 };
 
-const nextImage = () => {
-    selectedImage.value = (selectedImage.value + 1) % images.value.length;
-};
-const prevImage = () => {
-    selectedImage.value = (selectedImage.value - 1 + images.value.length) % images.value.length;
-};
-
+const nextImage = () => { selectedImage.value = (selectedImage.value + 1) % images.value.length; };
+const prevImage = () => { selectedImage.value = (selectedImage.value - 1 + images.value.length) % images.value.length; };
 const onTouchStart = (e) => { touchStartX = e.changedTouches[0].screenX; };
 const onTouchEnd = (e) => {
-    touchEndX = e.changedTouches[0].screenX;
-    const diff = touchStartX - touchEndX;
-    if (Math.abs(diff) > 50) {
-        diff > 0 ? nextImage() : prevImage();
-    }
+    const diff = touchStartX - e.changedTouches[0].screenX;
+    if (Math.abs(diff) > 50) { diff > 0 ? nextImage() : prevImage(); }
 };
 
 const openZoom = () => { zoomed.value = true; };
@@ -92,18 +64,14 @@ const onKeydown = (e) => {
         if (e.key === 'ArrowLeft') prevImage();
     }
 };
-
 onMounted(() => window.addEventListener('keydown', onKeydown));
 onUnmounted(() => window.removeEventListener('keydown', onKeydown));
 
-const variants = computed(() => {
-    return props.product.variants || [];
-});
-
+const variants = computed(() => props.product.variants || []);
 const currentPrice = computed(() => {
     if (selectedVariant.value) {
-        const variant = variants.value.find((v) => v.id === selectedVariant.value);
-        return variant?.price || props.product.base_price || props.product.price;
+        const v = variants.value.find((v) => v.id === selectedVariant.value);
+        return v?.price || props.product.base_price;
     }
     return props.product.base_price || props.product.price;
 });
@@ -112,38 +80,37 @@ const groupedSpecs = computed(() => {
     const specs = props.product.specifications || [];
     const groups = {};
     specs.forEach((spec) => {
-        const group = spec.spec_group || spec.group || 'General';
+        const group = spec.spec_group || 'General';
         if (!groups[group]) groups[group] = [];
         groups[group].push(spec);
     });
     return groups;
 });
 
-const advantages = computed(() => {
-    return props.product.advantages || [];
+const specsList = computed(() => {
+    const specs = props.product.specifications || [];
+    return specs.slice(0, 6);
 });
 
+const advantages = computed(() => props.product.advantages || []);
+
 const conditionLabel = computed(() => {
-    const map = { new: 'New', 'ex-uk': 'Ex-UK', ex_uk: 'Ex-UK', refurbished: 'Refurbished' };
+    const map = { new: 'New', 'ex-uk': 'Ex-UK', 'ex-us': 'Ex-US', ex_uk: 'Ex-UK', refurbished: 'Refurbished' };
     return map[props.product.condition?.toLowerCase()] || props.product.condition || '';
 });
 
-const conditionColor = computed(() => {
-    const map = { new: 'bg-yellow-500', 'ex-uk': 'bg-blue-500', ex_uk: 'bg-blue-500', refurbished: 'bg-purple-500' };
-    return map[props.product.condition?.toLowerCase()] || 'bg-green-500';
+// WhatsApp with product context
+const whatsappOrderUrl = computed(() => {
+    const variant = selectedVariant.value ? variants.value.find(v => v.id === selectedVariant.value)?.storage : '';
+    const msg = `Hi TechMart KE! I want to order the *${props.product.name}*${variant ? ' (' + variant + ')' : ''} at KSh ${Number(currentPrice.value).toLocaleString()}. Please confirm availability.`;
+    return companyWhatsappUrl(msg);
 });
 
 const addToCart = () => {
     try {
         const cart = JSON.parse(localStorage.getItem('techmart_cart') || '[]');
-        const variantInfo = selectedVariant.value
-            ? variants.value.find((v) => v.id === selectedVariant.value)
-            : null;
-
-        const cartId = selectedVariant.value
-            ? `${props.product.id}-${selectedVariant.value}`
-            : String(props.product.id);
-
+        const variantInfo = selectedVariant.value ? variants.value.find(v => v.id === selectedVariant.value) : null;
+        const cartId = selectedVariant.value ? `${props.product.id}-${selectedVariant.value}` : String(props.product.id);
         const existing = cart.find((item) => item.id === cartId);
         if (existing) {
             existing.quantity += quantity.value;
@@ -152,7 +119,7 @@ const addToCart = () => {
                 id: cartId,
                 product_id: props.product.id,
                 name: props.product.name,
-                variant: variantInfo?.label || variantInfo?.storage || null,
+                variant: variantInfo?.storage || null,
                 price: currentPrice.value,
                 image: images.value[0]?.image_url || images.value[0]?.url,
                 condition: props.product.condition,
@@ -161,38 +128,35 @@ const addToCart = () => {
         }
         localStorage.setItem('techmart_cart', JSON.stringify(cart));
         window.dispatchEvent(new Event('cart-updated'));
-    } catch {
-        // silently fail
-    }
+    } catch { /* silently fail */ }
 };
 </script>
 
 <template>
-    <Head :title="`${product.name} - ${formatPrice(product.base_price)} | Buy Now`" />
+    <Head :title="`${product.name} - ${formatPrice(product.base_price)} | TechMart KE`" />
     <CustomerLayout>
-        <div class="container mx-auto px-4 py-8">
-            <!-- Breadcrumb -->
-            <nav class="flex items-center gap-2 text-sm text-gray-500 mb-8">
-                <Link href="/" class="hover:text-black transition">Home</Link>
-                <ChevronRight class="w-4 h-4" />
+        <div class="max-w-7xl mx-auto">
+            <!-- Breadcrumb — minimal -->
+            <nav class="flex items-center gap-1.5 text-xs text-[#86868B] px-4 sm:px-6 pt-4 pb-2">
+                <Link href="/" class="hover:text-black transition cursor-pointer">Home</Link>
+                <ChevronRight class="w-3 h-3" />
                 <Link
                     v-if="product.category"
                     :href="`/products?category=${product.category.slug || product.category.id}`"
-                    class="hover:text-black transition"
+                    class="hover:text-black transition cursor-pointer"
                 >
                     {{ product.category.name }}
                 </Link>
-                <ChevronRight v-if="product.category" class="w-4 h-4" />
-                <span class="text-black font-medium">{{ product.name }}</span>
+                <ChevronRight v-if="product.category" class="w-3 h-3" />
+                <span class="text-[#1D1D1F] font-medium truncate">{{ product.name }}</span>
             </nav>
 
-            <div class="grid md:grid-cols-2 gap-8 md:gap-12">
-                <!-- Image Gallery -->
-                <div>
-                    <!-- Main Image -->
+            <div class="lg:grid lg:grid-cols-2 lg:gap-12 px-4 sm:px-6">
+                <!-- ==================== LEFT: IMAGE GALLERY ==================== -->
+                <div class="mb-6 lg:mb-0">
+                    <!-- Main Image with dot indicators -->
                     <div
-                        ref="galleryRef"
-                        class="relative bg-gray-50 rounded-2xl overflow-hidden mb-3 group cursor-zoom-in"
+                        class="relative bg-[#F5F5F7] rounded-2xl overflow-hidden cursor-zoom-in group"
                         @click="openZoom"
                         @touchstart="onTouchStart"
                         @touchend="onTouchEnd"
@@ -200,47 +164,35 @@ const addToCart = () => {
                         <img
                             :src="images[selectedImage]?.image_url || images[selectedImage]?.url"
                             :alt="product.name"
-                            class="w-full h-80 sm:h-96 md:h-[480px] object-contain p-4 transition-transform duration-300"
+                            class="w-full aspect-square object-contain p-6 sm:p-10"
                             @error="handleImgError"
                         />
 
-                        <!-- Zoom hint -->
-                        <div class="absolute bottom-3 right-3 bg-black/60 backdrop-blur-sm text-white px-2.5 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-                            <ZoomIn class="w-3.5 h-3.5" /> Click to zoom
+                        <!-- Dot indicators (inside image, bottom center) -->
+                        <div v-if="images.length > 1" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                            <button
+                                v-for="(_, i) in images"
+                                :key="i"
+                                @click.stop="selectedImage = i"
+                                class="w-2 h-2 rounded-full bg-black transition-opacity duration-300 cursor-pointer"
+                                :class="selectedImage === i ? 'opacity-100' : 'opacity-20 hover:opacity-40'"
+                            />
                         </div>
 
-                        <!-- Arrow Navigation -->
-                        <template v-if="images.length > 1">
-                            <button
-                                @click.stop="prevImage"
-                                class="absolute left-2 top-1/2 -translate-y-1/2 w-9 h-9 bg-white/80 hover:bg-white backdrop-blur-sm rounded-full flex items-center justify-center shadow-md transition-all opacity-0 group-hover:opacity-100"
-                            >
-                                <ChevronLeft class="w-5 h-5 text-gray-700" />
-                            </button>
-                            <button
-                                @click.stop="nextImage"
-                                class="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 bg-white/80 hover:bg-white backdrop-blur-sm rounded-full flex items-center justify-center shadow-md transition-all opacity-0 group-hover:opacity-100"
-                            >
-                                <ChevronRight class="w-5 h-5 text-gray-700" />
-                            </button>
-                        </template>
-
-                        <!-- Image Counter -->
-                        <div v-if="images.length > 1" class="absolute bottom-3 left-3 bg-black/60 backdrop-blur-sm text-white px-2.5 py-1 rounded-full text-xs font-medium">
-                            {{ selectedImage + 1 }} / {{ images.length }}
+                        <!-- Zoom hint (desktop) -->
+                        <div class="hidden sm:flex absolute top-4 right-4 bg-black/50 backdrop-blur-sm text-white px-2 py-1 rounded-lg text-[10px] font-medium items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                            <ZoomIn class="w-3 h-3" /> Zoom
                         </div>
                     </div>
 
-                    <!-- Thumbnails -->
-                    <div v-if="images.length > 1" class="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
+                    <!-- Thumbnails (desktop only) -->
+                    <div v-if="images.length > 1" class="hidden sm:flex gap-2 mt-3">
                         <button
                             v-for="(img, idx) in images"
                             :key="idx"
                             @click="selectedImage = idx"
-                            :class="[
-                                'w-16 h-16 sm:w-20 sm:h-20 rounded-lg overflow-hidden border-2 transition flex-shrink-0',
-                                selectedImage === idx ? 'border-black ring-1 ring-black' : 'border-gray-200 hover:border-gray-400'
-                            ]"
+                            class="w-16 h-16 rounded-lg overflow-hidden border-2 transition flex-shrink-0"
+                            :class="selectedImage === idx ? 'border-black' : 'border-[#E5E5EA] hover:border-[#86868B]'"
                         >
                             <img
                                 :src="img.image_url || img.url"
@@ -250,211 +202,230 @@ const addToCart = () => {
                             />
                         </button>
                     </div>
-
-                    <!-- Fullscreen Zoom Modal -->
-                    <Teleport to="body">
-                        <Transition
-                            enter-active-class="transition duration-200 ease-out"
-                            enter-from-class="opacity-0"
-                            enter-to-class="opacity-100"
-                            leave-active-class="transition duration-150 ease-in"
-                            leave-from-class="opacity-100"
-                            leave-to-class="opacity-0"
-                        >
-                            <div
-                                v-if="zoomed"
-                                class="fixed inset-0 z-[9999] bg-black/95 flex items-center justify-center"
-                                @click.self="closeZoom"
-                                @touchstart="onTouchStart"
-                                @touchend="onTouchEnd"
-                            >
-                                <!-- Close -->
-                                <button
-                                    @click="closeZoom"
-                                    class="absolute top-4 right-4 w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition z-10"
-                                >
-                                    <X class="w-5 h-5" />
-                                </button>
-
-                                <!-- Counter -->
-                                <div v-if="images.length > 1" class="absolute top-4 left-4 text-white/70 text-sm font-medium z-10">
-                                    {{ selectedImage + 1 }} / {{ images.length }}
-                                </div>
-
-                                <!-- Arrows -->
-                                <template v-if="images.length > 1">
-                                    <button
-                                        @click="prevImage"
-                                        class="absolute left-3 top-1/2 -translate-y-1/2 w-11 h-11 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition z-10"
-                                    >
-                                        <ChevronLeft class="w-6 h-6" />
-                                    </button>
-                                    <button
-                                        @click="nextImage"
-                                        class="absolute right-3 top-1/2 -translate-y-1/2 w-11 h-11 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition z-10"
-                                    >
-                                        <ChevronRight class="w-6 h-6" />
-                                    </button>
-                                </template>
-
-                                <!-- Zoomed Image -->
-                                <img
-                                    :src="images[selectedImage]?.image_url || images[selectedImage]?.url"
-                                    :alt="product.name"
-                                    class="max-w-[90vw] max-h-[85vh] object-contain select-none"
-                                    draggable="false"
-                                    @error="handleImgError"
-                                />
-                            </div>
-                        </Transition>
-                    </Teleport>
                 </div>
 
-                <!-- Product Info -->
-                <div>
-                    <div class="flex items-center gap-3 mb-4">
-                        <h1 class="text-3xl font-bold">{{ product.name }}</h1>
-                        <span
-                            v-if="conditionLabel"
-                            :class="conditionColor"
-                            class="text-white px-3 py-1 rounded-full text-sm font-medium"
-                        >
-                            {{ conditionLabel }}
-                        </span>
-                    </div>
+                <!-- ==================== RIGHT: PRODUCT INFO ==================== -->
+                <div class="lg:pt-2">
+                    <!-- Condition badge -->
+                    <span
+                        v-if="conditionLabel"
+                        class="inline-block px-2.5 py-0.5 rounded text-[11px] font-semibold border mb-3"
+                        :class="conditionLabel === 'New'
+                            ? 'bg-black text-white border-black'
+                            : 'bg-[#F5F5F7] text-[#1D1D1F] border-[#E5E5EA]'"
+                    >
+                        {{ conditionLabel }}
+                    </span>
 
-                    <p class="text-4xl font-bold mb-6 font-price">{{ formatPrice(currentPrice) }}</p>
+                    <!-- Product Name -->
+                    <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-black tracking-tight leading-tight mb-2">
+                        {{ product.name }}
+                    </h1>
 
-                    <p v-if="product.short_description || product.description" class="text-gray-600 mb-6">
-                        {{ product.short_description || product.description }}
+                    <!-- Price -->
+                    <p class="text-2xl sm:text-3xl font-extrabold text-black font-price mb-4">
+                        {{ formatPrice(currentPrice) }}
+                    </p>
+
+                    <!-- Short description -->
+                    <p v-if="product.short_description" class="text-sm text-[#86868B] mb-5 leading-relaxed">
+                        {{ product.short_description }}
                     </p>
 
                     <!-- Storage Variants -->
-                    <div v-if="variants.length" class="mb-6">
-                        <h3 class="font-semibold mb-3 text-sm text-gray-700 uppercase tracking-wide">Storage</h3>
-                        <div class="flex flex-wrap gap-3">
+                    <div v-if="variants.length" class="mb-5">
+                        <div class="flex flex-wrap gap-2">
                             <button
                                 v-for="variant in variants"
                                 :key="variant.id"
                                 @click="selectedVariant = variant.id"
-                                :class="[
-                                    'px-5 py-2 rounded-lg border-2 text-sm font-medium transition',
-                                    selectedVariant === variant.id
-                                        ? 'border-black bg-black text-white'
-                                        : 'border-gray-300 hover:border-black'
-                                ]"
+                                class="px-4 py-2 rounded-full text-sm font-medium transition cursor-pointer border"
+                                :class="selectedVariant === variant.id
+                                    ? 'bg-black text-white border-black'
+                                    : 'bg-white text-[#1D1D1F] border-[#E5E5EA] hover:border-black'"
                             >
-                                {{ variant.label || variant.storage }}
+                                {{ variant.storage || variant.label }}
                             </button>
                         </div>
                     </div>
 
-                    <!-- SIM Type -->
-                    <div v-if="product.sim_type" class="mb-6">
-                        <h3 class="font-semibold mb-2 text-sm text-gray-700 uppercase tracking-wide">SIM Type</h3>
-                        <p class="text-gray-800">{{ product.sim_type }}</p>
-                    </div>
-
-                    <!-- Advantages -->
-                    <div v-if="advantages.length" class="mb-6">
-                        <h3 class="font-semibold mb-3 text-sm text-gray-700 uppercase tracking-wide">Key Advantages</h3>
-                        <div class="space-y-2">
-                            <div
-                                v-for="(advantage, idx) in advantages"
-                                :key="idx"
-                                class="flex items-center gap-2"
-                            >
-                                <Check class="w-5 h-5 text-green-500 shrink-0" />
-                                <span class="text-sm text-gray-700">{{ advantage.advantage || advantage.text || advantage }}</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Quantity & Add to Cart -->
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="flex items-center border border-gray-300 rounded-lg">
+                    <!-- Quantity + Add to Cart (horizontal, side by side) -->
+                    <div class="flex items-center gap-3 mb-5">
+                        <div class="flex items-center border border-[#E5E5EA] rounded-full overflow-hidden">
                             <button
                                 @click="quantity = Math.max(1, quantity - 1)"
-                                class="px-3 py-2 hover:bg-gray-100 transition cursor-pointer"
+                                class="w-10 h-10 flex items-center justify-center hover:bg-[#F5F5F7] transition cursor-pointer"
                             >
-                                <Minus class="w-4 h-4" />
+                                <Minus class="w-4 h-4 text-[#1D1D1F]" />
                             </button>
-                            <span class="px-4 py-2 font-medium">{{ quantity }}</span>
+                            <span class="w-8 text-center text-sm font-semibold text-[#1D1D1F]">{{ quantity }}</span>
                             <button
                                 @click="quantity++"
-                                class="px-3 py-2 hover:bg-gray-100 transition cursor-pointer"
+                                class="w-10 h-10 flex items-center justify-center hover:bg-[#F5F5F7] transition cursor-pointer"
                             >
-                                <Plus class="w-4 h-4" />
+                                <Plus class="w-4 h-4 text-[#1D1D1F]" />
                             </button>
                         </div>
                         <button
                             @click="addToCart"
-                            class="flex-1 px-8 py-3 bg-black text-white rounded-xl hover:bg-gray-800 transition font-medium flex items-center justify-center gap-2 cursor-pointer"
+                            class="flex-1 h-10 bg-black text-white rounded-full hover:bg-[#1D1D1F] transition font-semibold text-sm flex items-center justify-center gap-2 cursor-pointer active:scale-[0.98]"
                         >
-                            <ShoppingCart class="w-5 h-5" />
+                            <ShoppingCart class="w-4 h-4" />
                             Add to Cart
                         </button>
                     </div>
 
-                    <!-- Trust Actions: WhatsApp, Call, Visit -->
-                    <div class="mb-8 pt-5 border-t border-gray-100">
-                        <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Prefer to see it first?</p>
-                        <TrustActions
-                            :product="{
-                                name: product.name,
-                                base_price: currentPrice,
-                                selectedVariant: selectedVariant ? variants.find(v => v.id === selectedVariant)?.storage : null
-                            }"
-                            layout="buttons"
-                        />
-                    </div>
-                </div>
-            </div>
-
-            <!-- Full Description -->
-            <div v-if="product.description" class="mt-12 md:mt-16">
-                <h2 class="text-2xl font-bold mb-4">About This Product</h2>
-                <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 md:p-8 prose prose-sm max-w-none text-gray-700 whitespace-pre-line leading-relaxed">
-                    {{ product.description }}
-                </div>
-            </div>
-
-            <!-- Specifications -->
-            <div v-if="Object.keys(groupedSpecs).length" class="mt-12 md:mt-16">
-                <h2 class="text-2xl font-bold mb-6">Specifications</h2>
-                <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-                    <div v-for="(specs, group) in groupedSpecs" :key="group">
-                        <div class="bg-gray-50 px-6 py-3 border-b border-gray-200">
-                            <h3 class="font-semibold text-gray-700 text-sm uppercase tracking-wide">{{ group }}</h3>
+                    <!-- Trust Section — clean bulleted icons, no big buttons -->
+                    <div class="grid grid-cols-2 gap-x-4 gap-y-2 mb-5 py-4 border-y border-[#E5E5EA]">
+                        <div class="flex items-center gap-2">
+                            <Check class="w-4 h-4 text-[#86868B]" :stroke-width="1.5" />
+                            <span class="text-xs text-[#1D1D1F] font-medium">Verify Quality</span>
                         </div>
-                        <table class="w-full">
-                            <tbody>
-                                <tr
-                                    v-for="spec in specs"
-                                    :key="spec.id || spec.name"
-                                    class="border-b border-gray-100 last:border-0"
-                                >
-                                    <td class="px-6 py-3 text-sm text-gray-500 w-1/3">{{ spec.spec_name || spec.name || spec.key }}</td>
-                                    <td class="px-6 py-3 text-sm font-medium text-gray-900">{{ spec.spec_value || spec.value }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="flex items-center gap-2">
+                            <Truck class="w-4 h-4 text-[#86868B]" :stroke-width="1.5" />
+                            <span class="text-xs text-[#1D1D1F] font-medium">Same Day Delivery</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <Shield class="w-4 h-4 text-[#86868B]" :stroke-width="1.5" />
+                            <span class="text-xs text-[#1D1D1F] font-medium">6-Month Warranty</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <Zap class="w-4 h-4 text-[#86868B]" :stroke-width="1.5" />
+                            <span class="text-xs text-[#1D1D1F] font-medium">M-Pesa Ready</span>
+                        </div>
+                    </div>
+
+                    <!-- Quick Specs (collapsed summary, not the full table) -->
+                    <div v-if="specsList.length" class="mb-5">
+                        <details class="group">
+                            <summary class="flex items-center justify-between cursor-pointer py-3 border-b border-[#E5E5EA]">
+                                <span class="text-sm font-semibold text-black">Specifications</span>
+                                <Plus class="w-4 h-4 text-[#86868B] group-open:hidden" />
+                                <Minus class="w-4 h-4 text-[#86868B] hidden group-open:block" />
+                            </summary>
+                            <ul class="py-3 space-y-1.5">
+                                <li v-for="spec in specsList" :key="spec.id" class="flex items-start gap-2 text-sm">
+                                    <span class="text-[#86868B]">{{ spec.spec_name || spec.name }}:</span>
+                                    <span class="text-[#1D1D1F] font-medium">{{ spec.spec_value || spec.value }}</span>
+                                </li>
+                            </ul>
+                        </details>
+                    </div>
+
+                    <!-- Key Advantages (if present) -->
+                    <div v-if="advantages.length" class="mb-5">
+                        <details class="group" open>
+                            <summary class="flex items-center justify-between cursor-pointer py-3 border-b border-[#E5E5EA]">
+                                <span class="text-sm font-semibold text-black">Key Advantages</span>
+                                <Plus class="w-4 h-4 text-[#86868B] group-open:hidden" />
+                                <Minus class="w-4 h-4 text-[#86868B] hidden group-open:block" />
+                            </summary>
+                            <ul class="py-3 space-y-2">
+                                <li v-for="(adv, idx) in advantages" :key="idx" class="flex items-start gap-2 text-sm">
+                                    <Check class="w-4 h-4 text-black flex-shrink-0 mt-0.5" :stroke-width="2" />
+                                    <span class="text-[#1D1D1F]">{{ adv.advantage || adv.text || adv }}</span>
+                                </li>
+                            </ul>
+                        </details>
                     </div>
                 </div>
             </div>
 
-            <!-- Related Products -->
-            <div v-if="relatedProducts.length" class="mt-16">
-                <h2 class="text-2xl font-bold mb-6">Related Products</h2>
-                <div class="grid md:grid-cols-3 gap-8">
-                    <ProductCard
+            <!-- ==================== FULL DESCRIPTION (below the fold) ==================== -->
+            <div v-if="product.description" class="px-4 sm:px-6 mt-10">
+                <details class="group max-w-3xl">
+                    <summary class="flex items-center justify-between cursor-pointer py-3 border-b border-[#E5E5EA]">
+                        <span class="text-base font-bold text-black">About This Product</span>
+                        <Plus class="w-4 h-4 text-[#86868B] group-open:hidden" />
+                        <Minus class="w-4 h-4 text-[#86868B] hidden group-open:block" />
+                    </summary>
+                    <div class="py-4 text-sm text-[#1D1D1F] leading-relaxed whitespace-pre-line">
+                        {{ product.description }}
+                    </div>
+                </details>
+            </div>
+
+            <!-- ==================== FULL SPECIFICATIONS (below the fold) ==================== -->
+            <div v-if="Object.keys(groupedSpecs).length" class="px-4 sm:px-6 mt-6">
+                <details class="group max-w-3xl">
+                    <summary class="flex items-center justify-between cursor-pointer py-3 border-b border-[#E5E5EA]">
+                        <span class="text-base font-bold text-black">Full Specifications</span>
+                        <Plus class="w-4 h-4 text-[#86868B] group-open:hidden" />
+                        <Minus class="w-4 h-4 text-[#86868B] hidden group-open:block" />
+                    </summary>
+                    <div class="py-4">
+                        <div v-for="(specs, group) in groupedSpecs" :key="group" class="mb-4">
+                            <h4 class="text-xs font-bold text-[#86868B] uppercase tracking-wider mb-2">{{ group }}</h4>
+                            <div v-for="spec in specs" :key="spec.id" class="flex justify-between py-1.5 border-b border-[#F5F5F7] text-sm">
+                                <span class="text-[#86868B]">{{ spec.spec_name || spec.name }}</span>
+                                <span class="text-[#1D1D1F] font-medium text-right">{{ spec.spec_value || spec.value }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <!-- ==================== RELATED PRODUCTS (horizontal scroll) ==================== -->
+            <div v-if="relatedProducts.length" class="mt-12 mb-8">
+                <div class="px-4 sm:px-6 mb-4">
+                    <h2 class="text-lg font-extrabold text-black">Related Products</h2>
+                </div>
+                <div class="flex gap-3 overflow-x-auto pb-4 px-4 sm:px-6 snap-x snap-mandatory scrollbar-hide">
+                    <div
                         v-for="related in relatedProducts"
                         :key="related.id"
-                        :product="related"
-                    />
+                        class="flex-shrink-0 w-[160px] sm:w-[200px] snap-start"
+                    >
+                        <ProductCard :product="related" />
+                    </div>
                 </div>
             </div>
         </div>
+
+        <!-- Fullscreen Zoom Modal -->
+        <Teleport to="body">
+            <Transition
+                enter-active-class="transition duration-200 ease-out"
+                enter-from-class="opacity-0"
+                enter-to-class="opacity-100"
+                leave-active-class="transition duration-150 ease-in"
+                leave-from-class="opacity-100"
+                leave-to-class="opacity-0"
+            >
+                <div
+                    v-if="zoomed"
+                    class="fixed inset-0 z-[9999] bg-black/95 flex items-center justify-center"
+                    @click.self="closeZoom"
+                    @touchstart="onTouchStart"
+                    @touchend="onTouchEnd"
+                >
+                    <button
+                        @click="closeZoom"
+                        class="absolute top-4 right-4 w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition z-10 cursor-pointer"
+                    >
+                        <X class="w-5 h-5" />
+                    </button>
+                    <div v-if="images.length > 1" class="absolute top-4 left-4 text-white/60 text-xs font-medium z-10">
+                        {{ selectedImage + 1 }} / {{ images.length }}
+                    </div>
+                    <template v-if="images.length > 1">
+                        <button @click="prevImage" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition z-10 cursor-pointer">
+                            <ChevronLeft class="w-5 h-5" />
+                        </button>
+                        <button @click="nextImage" class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition z-10 cursor-pointer">
+                            <ChevronRight class="w-5 h-5" />
+                        </button>
+                    </template>
+                    <img
+                        :src="images[selectedImage]?.image_url || images[selectedImage]?.url"
+                        :alt="product.name"
+                        class="max-w-[90vw] max-h-[85vh] object-contain select-none"
+                        draggable="false"
+                        @error="handleImgError"
+                    />
+                </div>
+            </Transition>
+        </Teleport>
     </CustomerLayout>
 </template>
 

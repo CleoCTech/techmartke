@@ -1,1 +1,0 @@
-import{_ as t,o as s,a as o,G as r}from"./app-7d3c98c5.js";/* empty css                  */const a={},c={class:"px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap"};function n(e,p){return s(),o("td",c,[r(e.$slots,"default")])}const d=t(a,[["render",n]]);export{d as default};

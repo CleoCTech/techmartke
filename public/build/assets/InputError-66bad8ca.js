@@ -1,1 +1,0 @@
-import{w as t,K as s,o as a,a as r,d as o,t as c}from"./app-7d3c98c5.js";/* empty css                  */const n={class:"text-sm text-red-600"},d={__name:"InputError",props:{message:String},setup(e){return(i,m)=>t((a(),r("div",null,[o("p",n,c(e.message),1)],512)),[[s,e.message]])}};export{d as default};

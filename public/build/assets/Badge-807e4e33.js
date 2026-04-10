@@ -1,1 +1,0 @@
-import{o as t,a as o,G as r}from"./app-7d3c98c5.js";/* empty css                  */const a={class:"inline-flex font-medium rounded-full text-center px-2.5 py-0.5"},c={__name:"Badge",props:{bgColor:{default:"bg-gray-300"}},setup(s){return(e,l)=>(t(),o("div",a,[r(e.$slots,"default")]))}};export{c as default};
