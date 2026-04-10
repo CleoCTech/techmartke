@@ -1,1 +1,0 @@
-import{_ as o,o as s,a as t,G as r}from"./app-077e4aae.js";/* empty css                  */const c={},a={class:""};function n(e,_){return s(),t("div",a,[r(e.$slots,"default")])}const f=o(c,[["render",n]]);export{f as default};

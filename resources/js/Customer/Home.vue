@@ -704,7 +704,7 @@ const quickBudgets = [30000, 50000, 80000, 120000]; // kept for quick budget but
                     >
                         <div v-if="reviewSuccess" class="max-w-md mx-auto mb-4 bg-black text-white rounded-full px-5 py-2.5 text-sm font-semibold inline-flex items-center gap-2">
                             <svg class="w-4 h-4 text-[#2ECC71]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-                            Thank you! Your review will appear after approval.
+                            Thank you for your review!
                         </div>
                     </Transition>
 

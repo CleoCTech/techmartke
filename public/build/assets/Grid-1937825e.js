@@ -1,1 +1,0 @@
-import{_ as o,o as r,a as c,G as e}from"./app-077e4aae.js";/* empty css                  */const t={},d={class:"grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"};function l(s,i){return r(),c("div",d,[e(s.$slots,"default")])}const _=o(t,[["render",l]]);export{_ as default};

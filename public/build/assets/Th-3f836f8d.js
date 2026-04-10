@@ -1,0 +1,1 @@
+import{_ as t,o as s,a as o,G as r}from"./app-dca1a583.js";/* empty css                  */const a={},c={class:"text-left px-1 py-1 sm:py-2"};function n(e,l){return s(),o("th",c,[r(e.$slots,"default")])}const p=t(a,[["render",n]]);export{p as default};

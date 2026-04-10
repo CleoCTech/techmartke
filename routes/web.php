@@ -95,11 +95,11 @@ Route::post('/reviews', function (\Illuminate\Http\Request $request) {
         'rating' => 'required|integer|min:1|max:5',
         'review' => 'required|string|max:1000',
     ]);
-    \App\Models\CustomerReview::create($validated);
+    \App\Models\CustomerReview::create(array_merge($validated, ['is_approved' => true]));
     if ($request->expectsJson()) {
-        return response()->json(['success' => true, 'message' => 'Thank you! Your review will appear after approval.']);
+        return response()->json(['success' => true, 'message' => 'Thank you for your review!']);
     }
-    return redirect()->back()->with('success', 'Thank you for your review! It will appear after approval.');
+    return redirect()->back()->with('success', 'Thank you for your review!');
 })->name('reviews.store');
 
 // VIP Early Access
