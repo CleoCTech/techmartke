@@ -163,17 +163,17 @@ const whatsappUrl = (product) => {
                 @error="onImgError"
             />
 
-            <!-- Badges -->
-            <div class="absolute top-3 left-3 right-3 flex items-start justify-between">
+            <!-- Badges — uniform small rectangles, top-left aligned -->
+            <div class="absolute top-3 left-3 flex items-center gap-1.5">
                 <span v-if="product.condition"
                     :class="conditionBadge(product.condition).class"
-                    class="px-2.5 py-1 rounded-lg text-[11px] font-semibold border inline-flex items-center gap-0.5">
-                    {{ conditionBadge(product.condition).icon }}{{ conditionBadge(product.condition).label }}
+                    class="px-2 py-0.5 rounded text-[10px] font-semibold border leading-none">
+                    {{ conditionBadge(product.condition).label }}
                 </span>
                 <span
                     v-if="product.stock_status && product.stock_status !== 'in_stock'"
                     :class="stockBadge(product.stock_status).class"
-                    class="text-white px-2.5 py-1 rounded-lg text-[11px] font-semibold shadow-sm"
+                    class="text-white px-2 py-0.5 rounded text-[10px] font-semibold leading-none"
                 >
                     {{ stockBadge(product.stock_status).label }}
                 </span>

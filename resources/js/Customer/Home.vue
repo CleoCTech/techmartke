@@ -237,7 +237,7 @@ const initParticles = () => {
             size: Math.random() * 2 + 0.5,
             speedX: (Math.random() - 0.5) * 0.4,
             speedY: (Math.random() - 0.5) * 0.4,
-            opacity: Math.random() * 0.5 + 0.1,
+            opacity: Math.random() * 0.12 + 0.03,  // 3-15% — a whisper, not a distraction
         });
     }
 
@@ -277,7 +277,7 @@ const initParticles = () => {
                     ctx.beginPath();
                     ctx.moveTo(p.x, p.y);
                     ctx.lineTo(p2.x, p2.y);
-                    ctx.strokeStyle = `rgba(0, 0, 0, ${0.06 * (1 - d / 100)})`;
+                    ctx.strokeStyle = `rgba(0, 0, 0, ${0.025 * (1 - d / 100)})`;
                     ctx.lineWidth = 0.5;
                     ctx.stroke();
                 }
@@ -455,25 +455,26 @@ const quickBudgets = [30000, 50000, 80000, 120000]; // kept for quick budget but
                             </button>
                         </div>
 
-                        <!-- Trade-In CTA (own row, prominent) -->
-                        <div class="mt-3 flex justify-center">
-                            <Link
-                                href="/trade-in"
-                                class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-bold bg-[#2ECC71] hover:bg-[#27AE60] active:scale-[0.97] rounded-full transition-all cursor-pointer text-white"
-                            >
-                                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 014-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
-                                Trade In Your Phone
-                                <ArrowRight class="w-4 h-4" />
-                            </Link>
-                        </div>
                     </div>
 
                 </div>
             </div>
         </section>
 
-        <!-- Category Strip — thin grey divider -->
-        <section class="border-y border-[#E5E5EA] bg-[#F5F5F7]">
+        <!-- Trade-In Banner — full-width thin strip, Apple-style native feel -->
+        <Link
+            href="/trade-in"
+            class="block bg-[#2ECC71] hover:bg-[#27AE60] transition-colors cursor-pointer"
+        >
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 flex items-center justify-center gap-2 text-white">
+                <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 014-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
+                <span class="text-sm font-bold">Trade in your phone — get instant value</span>
+                <ArrowRight class="w-4 h-4 flex-shrink-0" />
+            </div>
+        </Link>
+
+        <!-- Category Strip -->
+        <section class="border-b border-[#E5E5EA] bg-[#F5F5F7]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3">
                 <div class="flex gap-2 overflow-x-auto scrollbar-hide -mx-1 px-1">
                     <Link
@@ -574,16 +575,16 @@ const quickBudgets = [30000, 50000, 80000, 120000]; // kept for quick budget but
         <!-- Featured Products -->
         <section class="py-6 md:py-10 bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6">
-                <div class="flex items-center justify-between mb-4 md:mb-6">
+                <Link
+                    href="/products"
+                    class="flex items-center justify-between mb-4 md:mb-6 py-2 -my-2 cursor-pointer group"
+                >
                     <h3 class="text-lg md:text-xl font-extrabold text-black">Featured Products</h3>
-                    <Link
-                        href="/products"
-                        class="flex items-center gap-1 text-xs font-semibold text-[#86868B] hover:text-black transition cursor-pointer group"
-                    >
+                    <span class="flex items-center gap-1 text-xs font-semibold text-[#86868B] group-hover:text-black transition px-3 py-1.5 rounded-full group-hover:bg-[#F5F5F7]">
                         View All
                         <ArrowRight class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                    </Link>
-                </div>
+                    </span>
+                </Link>
 
                 <div
                     v-if="featuredProducts.length"
