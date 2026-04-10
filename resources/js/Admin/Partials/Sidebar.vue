@@ -12,19 +12,25 @@ const props = defineProps({
 const page = usePage();
 const user = computed(() => page.props.auth.user);
 
-const isAdmin = computed(() =>
-  user.value.roles.includes('administrator') || user.value.roles.includes('superadmin')
-);
+const isAdmin = computed(() => {
+  if (!user.value) return false;
+  // Check user_category (100 = super admin, 3 = admin) as primary check
+  if (user.value.user_category >= 3) return true;
+  // Also check roles array
+  const roles = Array.isArray(user.value.roles) ? user.value.roles : [];
+  return roles.includes('administrator') || roles.includes('superadmin');
+});
 
 const hasCMSAccess = computed(() => {
-  const permissions = ['managegallery', 'manageevents'];
-  return isAdmin.value || user.value.permissions.some(p => permissions.includes(p));
+  if (isAdmin.value) return true;
+  const permissions = Array.isArray(user.value?.permissions) ? user.value.permissions : [];
+  return permissions.some(p => ['managegallery', 'manageevents'].includes(p));
 });
 
 const trigger = ref(null)
 const sidebar = ref(null)
 const storedSidebarExpanded = localStorage.getItem('sidebar-expanded')
-const sidebarExpanded = ref(storedSidebarExpanded === null ? false : storedSidebarExpanded === 'true')
+const sidebarExpanded = ref(storedSidebarExpanded === null ? true : storedSidebarExpanded === 'true')
 
 const handleOutsideClick = (event) => {
   if (props.sidebarOpen && window.innerWidth < 1024) {

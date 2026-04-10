@@ -7,7 +7,6 @@ import ProductCard from '@/Components/Customer/ProductCard.vue';
 import { Search, Zap, Shield, Truck, ArrowRight, Star, Smartphone, Monitor, Laptop, Tablet, Headphones, Flame, Clock, ShoppingCart, Sparkles, MessageCircle } from 'lucide-vue-next';
 import TrustActions from '@/Components/Customer/TrustActions.vue';
 import TestimonialCarousel from '@/Components/Customer/TestimonialCarousel.vue';
-import { useForm } from '@inertiajs/vue3';
 
 const props = defineProps({
     featuredProducts: {
@@ -44,22 +43,45 @@ const props = defineProps({
     },
 });
 
-// Review form
+// Review form — uses fetch instead of Inertia to avoid full page reload + loader
 const showReviewForm = ref(false);
-const reviewForm = useForm({
+const reviewSubmitting = ref(false);
+const reviewSuccess = ref(false);
+const reviewError = ref('');
+const reviewForm = ref({
     customer_name: '',
     location: '',
     rating: 5,
     review: '',
 });
-const submitReview = () => {
-    reviewForm.post('/reviews', {
-        preserveScroll: true,
-        onSuccess: () => {
-            reviewForm.reset();
+const submitReview = async () => {
+    reviewSubmitting.value = true;
+    reviewError.value = '';
+    try {
+        const res = await fetch('/reviews', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '',
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+            },
+            body: JSON.stringify(reviewForm.value),
+        });
+        if (res.ok || res.status === 302) {
+            reviewForm.value = { customer_name: '', location: '', rating: 5, review: '' };
             showReviewForm.value = false;
-        },
-    });
+            reviewSuccess.value = true;
+            setTimeout(() => { reviewSuccess.value = false; }, 5000);
+        } else {
+            const data = await res.json().catch(() => null);
+            reviewError.value = data?.message || 'Something went wrong. Please try again.';
+        }
+    } catch {
+        reviewError.value = 'Network error. Please check your connection.';
+    } finally {
+        reviewSubmitting.value = false;
+    }
 };
 
 // Flash sale countdown
@@ -671,8 +693,23 @@ const quickBudgets = [30000, 50000, 80000, 120000]; // kept for quick budget but
 
                 <!-- Leave a Review -->
                 <div class="text-center mt-6">
+                    <!-- Success feedback -->
+                    <Transition
+                        enter-active-class="transition-all duration-300 ease-out"
+                        enter-from-class="opacity-0 scale-95"
+                        enter-to-class="opacity-100 scale-100"
+                        leave-active-class="transition-all duration-200 ease-in"
+                        leave-from-class="opacity-100"
+                        leave-to-class="opacity-0"
+                    >
+                        <div v-if="reviewSuccess" class="max-w-md mx-auto mb-4 bg-black text-white rounded-full px-5 py-2.5 text-sm font-semibold inline-flex items-center gap-2">
+                            <svg class="w-4 h-4 text-[#2ECC71]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            Thank you! Your review will appear after approval.
+                        </div>
+                    </Transition>
+
                     <button
-                        v-if="!showReviewForm"
+                        v-if="!showReviewForm && !reviewSuccess"
                         @click="showReviewForm = true"
                         class="text-xs font-semibold text-[#86868B] hover:text-black transition cursor-pointer underline underline-offset-2"
                     >
@@ -693,6 +730,9 @@ const quickBudgets = [30000, 50000, 80000, 120000]; // kept for quick budget but
                             class="max-w-md mx-auto mt-4 bg-white rounded-2xl border border-[#E5E5EA] p-5 text-left space-y-3"
                         >
                             <h4 class="text-sm font-bold text-black text-center">Leave a Review</h4>
+
+                            <!-- Error message -->
+                            <p v-if="reviewError" class="text-xs text-red-500 text-center font-medium">{{ reviewError }}</p>
 
                             <!-- Star rating -->
                             <div class="flex justify-center gap-1">
@@ -744,10 +784,10 @@ const quickBudgets = [30000, 50000, 80000, 120000]; // kept for quick budget but
                                 </button>
                                 <button
                                     type="submit"
-                                    :disabled="reviewForm.processing"
+                                    :disabled="reviewSubmitting"
                                     class="flex-1 py-2 text-sm font-bold bg-black text-white rounded-full hover:bg-[#1D1D1F] transition cursor-pointer disabled:opacity-50"
                                 >
-                                    {{ reviewForm.processing ? 'Sending...' : 'Submit' }}
+                                    {{ reviewSubmitting ? 'Sending...' : 'Submit' }}
                                 </button>
                             </div>
                         </form>

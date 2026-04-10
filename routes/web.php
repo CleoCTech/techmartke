@@ -96,6 +96,9 @@ Route::post('/reviews', function (\Illuminate\Http\Request $request) {
         'review' => 'required|string|max:1000',
     ]);
     \App\Models\CustomerReview::create($validated);
+    if ($request->expectsJson()) {
+        return response()->json(['success' => true, 'message' => 'Thank you! Your review will appear after approval.']);
+    }
     return redirect()->back()->with('success', 'Thank you for your review! It will appear after approval.');
 })->name('reviews.store');
 
