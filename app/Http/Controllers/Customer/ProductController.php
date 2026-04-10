@@ -74,11 +74,26 @@ class ProductController extends Controller
             ->orderBy('updated_at', 'desc')
             ->paginate(12);
 
+        // Lightweight product hints for instant search suggestions
+        $searchHints = Product::where('is_active', true)
+            ->select('id', 'name', 'slug', 'brand_id', 'base_price', 'condition')
+            ->with('brand:id,name')
+            ->orderBy('name')
+            ->get()
+            ->map(fn($p) => [
+                'name' => $p->name,
+                'slug' => $p->slug,
+                'brand' => $p->brand?->name,
+                'price' => (float) $p->base_price,
+                'condition' => $p->condition,
+            ]);
+
         return Inertia::render('Customer/Products/Index', [
             'products' => $products,
             'filters' => $request->only(['search', 'categories', 'brands', 'condition', 'price_min', 'price_max', 'category', 'brand']),
             'brands' => Brand::where('is_active', true)->get(),
             'categories' => Category::where('is_active', true)->get(),
+            'searchHints' => $searchHints,
         ]);
     }
 

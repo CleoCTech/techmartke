@@ -1,0 +1,1 @@
+import{_ as t,o as s,a as o,d as a,G as r}from"./app-16df0ae0.js";/* empty css                  */const c={},n={class:"px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px"},l={class:"font-semibold text-left"};function p(e,_){return s(),o("th",n,[a("div",l,[r(e.$slots,"default")])])}const i=t(c,[["render",p]]);export{i as default};
