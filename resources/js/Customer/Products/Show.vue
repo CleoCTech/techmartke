@@ -317,15 +317,21 @@ const addToCart = () => {
                             leave-from-class="opacity-100 scale-100"
                             leave-to-class="opacity-0 scale-[0.97]"
                         >
-                            <div v-if="showSpecsPopup" class="relative mt-3 bg-[#F5F5F7] rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.12)] p-5 z-20">
-                                <h4 class="text-sm font-bold text-black mb-3">Specifications</h4>
-                                <ul class="space-y-1.5">
-                                    <li v-for="spec in specsList" :key="spec.id" class="text-sm text-[#1D1D1F] leading-snug">
-                                        <span class="text-[#86868B] mr-1">•</span>
-                                        <span class="font-medium">{{ spec.spec_name || spec.name }}:</span>
-                                        {{ spec.spec_value || spec.value }}
-                                    </li>
-                                </ul>
+                            <div v-if="showSpecsPopup" class="relative mt-5 z-20">
+                                <!-- Folder tab title -->
+                                <div class="absolute -top-3 left-4 bg-[#F5F5F7] px-3 py-0.5 rounded-t-lg z-10">
+                                    <span class="text-xs font-bold text-[#1D1D1F]">Specifications</span>
+                                </div>
+                                <!-- Card body -->
+                                <div class="bg-[#F5F5F7] rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.12)] pt-5 pb-4 px-5">
+                                    <ul class="space-y-1.5">
+                                        <li v-for="spec in specsList" :key="spec.id" class="text-sm text-[#1D1D1F] leading-snug">
+                                            <span class="text-[#86868B] mr-1.5">•</span>
+                                            <span class="font-medium">{{ spec.spec_name || spec.name }}:</span>
+                                            {{ spec.spec_value || spec.value }}
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </Transition>
                     </div>
@@ -349,14 +355,20 @@ const addToCart = () => {
                             leave-from-class="opacity-100 scale-100"
                             leave-to-class="opacity-0 scale-[0.97]"
                         >
-                            <div v-if="showAdvPopup" class="relative mt-3 bg-[#F5F5F7] rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.12)] p-5 z-20">
-                                <h4 class="text-sm font-bold text-black mb-3">Key Advantages</h4>
-                                <ul class="space-y-2.5">
-                                    <li v-for="(adv, idx) in advantages" :key="idx" class="text-sm text-[#1D1D1F] leading-snug flex items-start gap-2">
-                                        <span class="text-[#86868B] mt-0.5 shrink-0">•</span>
-                                        <span>{{ adv.advantage || adv.text || adv }}</span>
-                                    </li>
-                                </ul>
+                            <div v-if="showAdvPopup" class="relative mt-5 z-20">
+                                <!-- Folder tab title -->
+                                <div class="absolute -top-3 left-4 bg-[#F5F5F7] px-3 py-0.5 rounded-t-lg z-10">
+                                    <span class="text-xs font-bold text-[#1D1D1F]">Key Advantages</span>
+                                </div>
+                                <!-- Card body -->
+                                <div class="bg-[#F5F5F7] rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.12)] pt-5 pb-4 px-5">
+                                    <ul class="space-y-2.5">
+                                        <li v-for="(adv, idx) in advantages" :key="idx" class="text-sm text-[#1D1D1F] leading-snug flex items-start gap-2">
+                                            <span class="text-[#86868B] mt-0.5 shrink-0">•</span>
+                                            <span>{{ adv.advantage || adv.text || adv }}</span>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </Transition>
                     </div>
