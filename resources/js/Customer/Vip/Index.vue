@@ -113,11 +113,11 @@ const referralsNeeded = computed(() => props.activeCampaign?.referrals_to_activa
 
 const statusBadgeClass = (status) => {
     const classes = {
-        active: 'bg-green-100 text-green-800',
-        pending: 'bg-yellow-100 text-yellow-800',
-        expired: 'bg-red-100 text-red-800',
+        active: 'bg-black text-white',
+        pending: 'bg-[#F5F5F7] text-[#86868B] border border-[#E5E5EA]',
+        expired: 'bg-[#F5F5F7] text-[#86868B] border border-[#E5E5EA]',
     };
-    return classes[status] || 'bg-gray-100 text-gray-800';
+    return classes[status] || 'bg-[#F5F5F7] text-[#86868B]';
 };
 </script>
 
@@ -128,7 +128,7 @@ const statusBadgeClass = (status) => {
         <section class="pt-8 pb-6 md:pt-12 md:pb-10">
             <div class="container mx-auto px-4">
                 <div class="max-w-3xl mx-auto text-center">
-                    <div class="inline-flex items-center gap-2 bg-amber-50 border border-amber-200 rounded-full px-4 py-1.5 mb-4 text-sm font-medium text-amber-700">
+                    <div class="inline-flex items-center gap-2 bg-[#F5F5F7] border border-[#E5E5EA] rounded-full px-4 py-1.5 mb-4 text-sm font-medium text-[#1D1D1F]">
                         <Crown class="w-4 h-4" />
                         Get First Access
                     </div>
@@ -144,7 +144,7 @@ const statusBadgeClass = (status) => {
         </section>
 
         <!-- How It Works -->
-        <section class="py-8 md:py-12 bg-gray-50">
+        <section class="py-8 md:py-12 bg-[#F5F5F7]">
             <div class="container mx-auto px-4">
                 <h3 class="text-xl md:text-2xl font-bold text-center mb-8">How It Works</h3>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
@@ -157,7 +157,7 @@ const statusBadgeClass = (status) => {
                         <p class="text-sm text-gray-500">Enter your email & phone</p>
                     </div>
                     <div class="text-center">
-                        <div class="w-14 h-14 bg-amber-500 rounded-2xl flex items-center justify-center mx-auto mb-3">
+                        <div class="w-14 h-14 bg-[#F5F5F7]0 rounded-2xl flex items-center justify-center mx-auto mb-3">
                             <Crown class="w-7 h-7 text-white" />
                         </div>
                         <div class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Step 2</div>
@@ -165,7 +165,7 @@ const statusBadgeClass = (status) => {
                         <p class="text-sm text-gray-500">Pay KSh {{ vipPrice.toLocaleString() }} OR refer a friend</p>
                     </div>
                     <div class="text-center">
-                        <div class="w-14 h-14 bg-green-500 rounded-2xl flex items-center justify-center mx-auto mb-3">
+                        <div class="w-14 h-14 bg-black rounded-2xl flex items-center justify-center mx-auto mb-3">
                             <Bell class="w-7 h-7 text-white" />
                         </div>
                         <div class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Step 3</div>
@@ -181,30 +181,30 @@ const statusBadgeClass = (status) => {
             <div class="container mx-auto px-4">
                 <h3 class="text-xl md:text-2xl font-bold text-center mb-8">VIP Benefits</h3>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto">
-                    <div class="bg-white rounded-xl border border-gray-100 p-5 shadow-sm hover:shadow-md transition-shadow">
-                        <div class="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center mb-3">
-                            <Bell class="w-5 h-5 text-blue-600" />
+                    <div class="bg-white rounded-xl border border-[#E5E5EA] p-5  hover:shadow-md transition-shadow">
+                        <div class="w-10 h-10 bg-[#F5F5F7] rounded-lg flex items-center justify-center mb-3">
+                            <Bell class="w-5 h-5 text-[#1D1D1F]" />
                         </div>
                         <h4 class="font-bold text-sm mb-1">First to Know</h4>
                         <p class="text-sm text-gray-500">Get notified before anyone when new stock arrives</p>
                     </div>
-                    <div class="bg-white rounded-xl border border-gray-100 p-5 shadow-sm hover:shadow-md transition-shadow">
-                        <div class="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center mb-3">
-                            <Tag class="w-5 h-5 text-green-600" />
+                    <div class="bg-white rounded-xl border border-[#E5E5EA] p-5  hover:shadow-md transition-shadow">
+                        <div class="w-10 h-10 bg-[#F5F5F7] rounded-lg flex items-center justify-center mb-3">
+                            <Tag class="w-5 h-5 text-black" />
                         </div>
                         <h4 class="font-bold text-sm mb-1">Exclusive Deals</h4>
                         <p class="text-sm text-gray-500">VIP-only discounts and flash sales</p>
                     </div>
-                    <div class="bg-white rounded-xl border border-gray-100 p-5 shadow-sm hover:shadow-md transition-shadow">
-                        <div class="w-10 h-10 bg-red-50 rounded-lg flex items-center justify-center mb-3">
-                            <TrendingDown class="w-5 h-5 text-red-600" />
+                    <div class="bg-white rounded-xl border border-[#E5E5EA] p-5  hover:shadow-md transition-shadow">
+                        <div class="w-10 h-10 bg-[#F5F5F7] rounded-lg flex items-center justify-center mb-3">
+                            <TrendingDown class="w-5 h-5 text-[#1D1D1F]" />
                         </div>
                         <h4 class="font-bold text-sm mb-1">Price Drop Alerts</h4>
                         <p class="text-sm text-gray-500">Instant notification when prices drop</p>
                     </div>
-                    <div class="bg-white rounded-xl border border-gray-100 p-5 shadow-sm hover:shadow-md transition-shadow">
-                        <div class="w-10 h-10 bg-purple-50 rounded-lg flex items-center justify-center mb-3">
-                            <Headphones class="w-5 h-5 text-purple-600" />
+                    <div class="bg-white rounded-xl border border-[#E5E5EA] p-5  hover:shadow-md transition-shadow">
+                        <div class="w-10 h-10 bg-[#F5F5F7] rounded-lg flex items-center justify-center mb-3">
+                            <Headphones class="w-5 h-5 text-[#1D1D1F]" />
                         </div>
                         <h4 class="font-bold text-sm mb-1">Priority Support</h4>
                         <p class="text-sm text-gray-500">Direct WhatsApp line to our team</p>
@@ -214,35 +214,35 @@ const statusBadgeClass = (status) => {
         </section>
 
         <!-- Registration Form -->
-        <section class="py-8 md:py-12 bg-gray-50">
+        <section class="py-8 md:py-12 bg-[#F5F5F7]">
             <div class="container mx-auto px-4">
                 <div class="max-w-lg mx-auto">
                     <!-- Success State -->
-                    <div v-if="registrationSuccess" class="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 md:p-8 text-center">
-                        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <Check class="w-8 h-8 text-green-600" />
+                    <div v-if="registrationSuccess" class="bg-white rounded-2xl shadow-lg border border-[#E5E5EA] p-6 md:p-8 text-center">
+                        <div class="w-16 h-16 bg-[#F5F5F7] rounded-full flex items-center justify-center mx-auto mb-4">
+                            <Check class="w-8 h-8 text-black" />
                         </div>
                         <h3 class="text-xl font-bold mb-2">You're In!</h3>
                         <p class="text-gray-600 text-sm mb-6">Welcome to TechMart KE VIP. Share your code to unlock full access.</p>
 
-                        <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-4">
-                            <p class="text-xs text-amber-600 font-medium uppercase tracking-wider mb-1">Your Promo Code</p>
+                        <div class="bg-[#F5F5F7] border border-[#E5E5EA] rounded-xl p-4 mb-4">
+                            <p class="text-xs text-[#86868B] font-medium uppercase tracking-wider mb-1">Your Promo Code</p>
                             <div class="flex items-center justify-center gap-3">
-                                <span class="text-2xl font-bold text-amber-800 tracking-wider">{{ registeredPromoCode }}</span>
+                                <span class="text-2xl font-bold text-[#1D1D1F] tracking-wider">{{ registeredPromoCode }}</span>
                                 <button
                                     @click="copyCode(registeredPromoCode)"
-                                    class="p-2 rounded-lg hover:bg-amber-100 transition"
+                                    class="p-2 rounded-lg hover:bg-[#F5F5F7] transition"
                                 >
-                                    <Check v-if="copied" class="w-5 h-5 text-green-600" />
-                                    <Copy v-else class="w-5 h-5 text-amber-600" />
+                                    <Check v-if="copied" class="w-5 h-5 text-black" />
+                                    <Copy v-else class="w-5 h-5 text-[#86868B]" />
                                 </button>
                             </div>
-                            <p class="text-xs text-amber-600 mt-2">Share it with friends!</p>
+                            <p class="text-xs text-[#86868B] mt-2">Share it with friends!</p>
                         </div>
 
                         <button
                             @click="shareWhatsApp(registeredPromoCode)"
-                            class="w-full flex items-center justify-center gap-2 px-6 py-3 bg-[#25D366] text-white rounded-xl font-semibold hover:bg-[#20bd5a] transition-all active:scale-[0.98]"
+                            class="w-full flex items-center justify-center gap-2 px-6 py-3 bg-black text-white rounded-full font-semibold hover:bg-[#1D1D1F] transition-all active:scale-[0.98]"
                         >
                             <MessageCircle class="w-5 h-5" />
                             Share on WhatsApp
@@ -250,7 +250,7 @@ const statusBadgeClass = (status) => {
                     </div>
 
                     <!-- Registration Form -->
-                    <div v-else class="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 md:p-8">
+                    <div v-else class="bg-white rounded-2xl shadow-lg border border-[#E5E5EA] p-6 md:p-8">
                         <div class="text-center mb-6">
                             <h3 class="text-xl font-bold mb-1">Join VIP Early Access</h3>
                             <p class="text-sm text-gray-500">Sign up in 30 seconds</p>
@@ -267,7 +267,7 @@ const statusBadgeClass = (status) => {
                                     type="text"
                                     required
                                     placeholder="Your name"
-                                    class="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm transition"
+                                    class="w-full px-4 py-2.5 border border-[#E5E5EA] rounded-xl focus:ring-2 focus:ring-black/10 focus:border-black text-sm transition"
                                 />
                                 <p v-if="registerForm.errors.name" class="text-red-500 text-xs mt-1">{{ registerForm.errors.name }}</p>
                             </div>
@@ -282,7 +282,7 @@ const statusBadgeClass = (status) => {
                                     type="email"
                                     required
                                     placeholder="you@example.com"
-                                    class="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm transition"
+                                    class="w-full px-4 py-2.5 border border-[#E5E5EA] rounded-xl focus:ring-2 focus:ring-black/10 focus:border-black text-sm transition"
                                 />
                                 <p v-if="registerForm.errors.email" class="text-red-500 text-xs mt-1">{{ registerForm.errors.email }}</p>
                             </div>
@@ -297,7 +297,7 @@ const statusBadgeClass = (status) => {
                                     type="tel"
                                     required
                                     placeholder="+254 7XX XXX XXX"
-                                    class="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm transition"
+                                    class="w-full px-4 py-2.5 border border-[#E5E5EA] rounded-xl focus:ring-2 focus:ring-black/10 focus:border-black text-sm transition"
                                 />
                                 <p v-if="registerForm.errors.phone" class="text-red-500 text-xs mt-1">{{ registerForm.errors.phone }}</p>
                             </div>
@@ -327,7 +327,7 @@ const statusBadgeClass = (status) => {
                                             v-model="registerForm.promo_code"
                                             type="text"
                                             placeholder="e.g. TM-ABCDE"
-                                            class="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm transition uppercase"
+                                            class="w-full px-4 py-2.5 border border-[#E5E5EA] rounded-xl focus:ring-2 focus:ring-black/10 focus:border-black text-sm transition uppercase"
                                         />
                                         <p v-if="registerForm.errors.promo_code" class="text-red-500 text-xs mt-1">{{ registerForm.errors.promo_code }}</p>
                                     </div>
@@ -339,15 +339,15 @@ const statusBadgeClass = (status) => {
                                 <p class="text-sm font-medium text-gray-700 mb-2">Notify me about:</p>
                                 <div class="space-y-2">
                                     <label class="flex items-center gap-2 cursor-pointer">
-                                        <input v-model="registerForm.notify_new_stock" type="checkbox" class="rounded border-gray-300 text-green-600 focus:ring-green-500" />
+                                        <input v-model="registerForm.notify_new_stock" type="checkbox" class="rounded border-[#E5E5EA] text-black focus:ring-black/10" />
                                         <span class="text-sm text-gray-600">New Stock Arrivals</span>
                                     </label>
                                     <label class="flex items-center gap-2 cursor-pointer">
-                                        <input v-model="registerForm.notify_deals" type="checkbox" class="rounded border-gray-300 text-green-600 focus:ring-green-500" />
+                                        <input v-model="registerForm.notify_deals" type="checkbox" class="rounded border-[#E5E5EA] text-black focus:ring-black/10" />
                                         <span class="text-sm text-gray-600">Exclusive Deals</span>
                                     </label>
                                     <label class="flex items-center gap-2 cursor-pointer">
-                                        <input v-model="registerForm.notify_price_drops" type="checkbox" class="rounded border-gray-300 text-green-600 focus:ring-green-500" />
+                                        <input v-model="registerForm.notify_price_drops" type="checkbox" class="rounded border-[#E5E5EA] text-black focus:ring-black/10" />
                                         <span class="text-sm text-gray-600">Price Drops</span>
                                     </label>
                                 </div>
@@ -356,7 +356,7 @@ const statusBadgeClass = (status) => {
                             <button
                                 type="submit"
                                 :disabled="registerForm.processing"
-                                class="w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-[#25D366] text-white rounded-xl font-bold hover:bg-[#20bd5a] transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-green-500/20 text-base"
+                                class="w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-black text-white rounded-full font-bold hover:bg-[#1D1D1F] transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed  text-base"
                             >
                                 <Crown class="w-5 h-5" />
                                 <span v-if="registerForm.processing">Signing up...</span>
@@ -383,10 +383,10 @@ const statusBadgeClass = (status) => {
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Path 1: Pay -->
-                        <div class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
+                        <div class="bg-white rounded-2xl border border-[#E5E5EA] p-6 ">
                             <div class="flex items-center gap-3 mb-4">
-                                <div class="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center">
-                                    <CreditCard class="w-5 h-5 text-indigo-600" />
+                                <div class="w-10 h-10 bg-[#F5F5F7] rounded-lg flex items-center justify-center">
+                                    <CreditCard class="w-5 h-5 text-[#1D1D1F]" />
                                 </div>
                                 <div>
                                     <h4 class="font-bold text-base">Pay KSh {{ vipPrice.toLocaleString() }}</h4>
@@ -394,7 +394,7 @@ const statusBadgeClass = (status) => {
                                 </div>
                             </div>
 
-                            <div class="bg-gray-50 rounded-xl p-4 mb-4">
+                            <div class="bg-[#F5F5F7] rounded-xl p-4 mb-4">
                                 <p class="text-sm font-medium text-gray-700 mb-2">M-Pesa Instructions:</p>
                                 <ol class="text-sm text-gray-600 space-y-1 list-decimal list-inside">
                                     <li>Go to M-Pesa &gt; Lipa na M-Pesa &gt; Buy Goods</li>
@@ -410,21 +410,21 @@ const statusBadgeClass = (status) => {
                                     type="email"
                                     required
                                     placeholder="Email used during sign up"
-                                    class="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm"
+                                    class="w-full px-4 py-2.5 border border-[#E5E5EA] rounded-xl focus:ring-2 focus:ring-black/10 focus:border-black text-sm"
                                 />
                                 <input
                                     v-model="activateForm.payment_reference"
                                     type="text"
                                     required
                                     placeholder="M-Pesa confirmation code (e.g. SHJ3XXXXXX)"
-                                    class="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm"
+                                    class="w-full px-4 py-2.5 border border-[#E5E5EA] rounded-xl focus:ring-2 focus:ring-black/10 focus:border-black text-sm"
                                 />
                                 <p v-if="activateForm.errors.email" class="text-red-500 text-xs">{{ activateForm.errors.email }}</p>
                                 <p v-if="activateForm.errors.payment_reference" class="text-red-500 text-xs">{{ activateForm.errors.payment_reference }}</p>
                                 <button
                                     type="submit"
                                     :disabled="activateForm.processing"
-                                    class="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-indigo-600 text-white rounded-xl font-semibold hover:bg-indigo-700 transition-all active:scale-[0.98] disabled:opacity-50 text-sm"
+                                    class="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-black text-white rounded-full font-semibold hover:bg-[#1D1D1F] transition-all active:scale-[0.98] disabled:opacity-50 text-sm"
                                 >
                                     <Zap class="w-4 h-4" />
                                     <span v-if="activateForm.processing">Activating...</span>
@@ -434,10 +434,10 @@ const statusBadgeClass = (status) => {
                         </div>
 
                         <!-- Path 2: Refer -->
-                        <div class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
+                        <div class="bg-white rounded-2xl border border-[#E5E5EA] p-6 ">
                             <div class="flex items-center gap-3 mb-4">
-                                <div class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center">
-                                    <Share2 class="w-5 h-5 text-amber-600" />
+                                <div class="w-10 h-10 bg-[#F5F5F7] rounded-lg flex items-center justify-center">
+                                    <Share2 class="w-5 h-5 text-[#86868B]" />
                                 </div>
                                 <div>
                                     <h4 class="font-bold text-base">Refer {{ referralsNeeded }} Friends</h4>
@@ -448,19 +448,19 @@ const statusBadgeClass = (status) => {
                             <p class="text-sm text-gray-600 mb-4">Share your promo code with friends. When they sign up using your code, you get closer to full VIP access.</p>
 
                             <!-- Code Display (shown when status result has a code) -->
-                            <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-4">
-                                <p class="text-xs text-amber-600 font-medium mb-1">Your Promo Code</p>
+                            <div class="bg-[#F5F5F7] border border-[#E5E5EA] rounded-xl p-4 mb-4">
+                                <p class="text-xs text-[#86868B] font-medium mb-1">Your Promo Code</p>
                                 <div class="flex items-center gap-2">
-                                    <span class="text-xl font-bold text-amber-800 tracking-wider flex-1">
+                                    <span class="text-xl font-bold text-[#1D1D1F] tracking-wider flex-1">
                                         {{ statusResult?.promo_code || registeredPromoCode || 'Sign up to get your code' }}
                                     </span>
                                     <button
                                         v-if="statusResult?.promo_code || registeredPromoCode"
                                         @click="copyCode(statusResult?.promo_code || registeredPromoCode)"
-                                        class="p-2 rounded-lg hover:bg-amber-100 transition"
+                                        class="p-2 rounded-lg hover:bg-[#F5F5F7] transition"
                                     >
-                                        <Check v-if="copied" class="w-4 h-4 text-green-600" />
-                                        <Copy v-else class="w-4 h-4 text-amber-600" />
+                                        <Check v-if="copied" class="w-4 h-4 text-black" />
+                                        <Copy v-else class="w-4 h-4 text-[#86868B]" />
                                     </button>
                                 </div>
                             </div>
@@ -473,7 +473,7 @@ const statusBadgeClass = (status) => {
                                 </div>
                                 <div class="w-full bg-gray-200 rounded-full h-2.5">
                                     <div
-                                        class="bg-amber-500 h-2.5 rounded-full transition-all duration-500"
+                                        class="bg-[#F5F5F7]0 h-2.5 rounded-full transition-all duration-500"
                                         :style="{ width: Math.min((statusResult.referral_count / referralsNeeded) * 100, 100) + '%' }"
                                     ></div>
                                 </div>
@@ -482,7 +482,7 @@ const statusBadgeClass = (status) => {
                             <button
                                 v-if="statusResult?.promo_code || registeredPromoCode"
                                 @click="shareWhatsApp(statusResult?.promo_code || registeredPromoCode)"
-                                class="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-[#25D366] text-white rounded-xl font-semibold hover:bg-[#20bd5a] transition-all active:scale-[0.98] text-sm"
+                                class="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-black text-white rounded-full font-semibold hover:bg-[#1D1D1F] transition-all active:scale-[0.98] text-sm"
                             >
                                 <MessageCircle class="w-4 h-4" />
                                 Share on WhatsApp
@@ -495,7 +495,7 @@ const statusBadgeClass = (status) => {
         </section>
 
         <!-- Check Status Section -->
-        <section class="py-8 md:py-10 bg-gray-50">
+        <section class="py-8 md:py-10 bg-[#F5F5F7]">
             <div class="container mx-auto px-4">
                 <div class="max-w-md mx-auto text-center">
                     <h3 class="text-lg font-bold mb-3">Check your VIP status</h3>
@@ -504,13 +504,13 @@ const statusBadgeClass = (status) => {
                             v-model="statusEmail"
                             type="email"
                             placeholder="Enter your email"
-                            class="flex-1 px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm"
+                            class="flex-1 px-4 py-2.5 border border-[#E5E5EA] rounded-xl focus:ring-2 focus:ring-black/10 focus:border-black text-sm"
                             @keyup.enter="checkStatus"
                         />
                         <button
                             @click="checkStatus"
                             :disabled="statusLoading || !statusEmail"
-                            class="px-5 py-2.5 bg-black text-white rounded-xl font-semibold hover:bg-gray-800 transition-all active:scale-[0.98] disabled:opacity-50 text-sm"
+                            class="px-5 py-2.5 bg-black text-white rounded-full font-semibold hover:bg-gray-800 transition-all active:scale-[0.98] disabled:opacity-50 text-sm"
                         >
                             <span v-if="statusLoading">...</span>
                             <span v-else>Check</span>
@@ -518,7 +518,7 @@ const statusBadgeClass = (status) => {
                     </div>
 
                     <!-- Status Result -->
-                    <div v-if="statusResult && !statusResult.error" class="mt-4 bg-white rounded-xl border border-gray-200 p-4 text-left">
+                    <div v-if="statusResult && !statusResult.error" class="mt-4 bg-white rounded-xl border border-[#E5E5EA] p-4 text-left">
                         <div class="grid grid-cols-2 gap-3 text-sm">
                             <div>
                                 <span class="text-gray-500">Status</span>
@@ -533,7 +533,7 @@ const statusBadgeClass = (status) => {
                             </div>
                             <div>
                                 <span class="text-gray-500">Promo Code</span>
-                                <p class="font-bold text-amber-700 mt-0.5">{{ statusResult.promo_code }}</p>
+                                <p class="font-bold text-[#1D1D1F] mt-0.5">{{ statusResult.promo_code }}</p>
                             </div>
                             <div>
                                 <span class="text-gray-500">Referrals</span>
@@ -563,7 +563,7 @@ const statusBadgeClass = (status) => {
                     <a
                         href="#"
                         @click.prevent="document.querySelector('form')?.scrollIntoView({ behavior: 'smooth' })"
-                        class="inline-flex items-center gap-2 mt-4 px-6 py-3 bg-[#25D366] text-white rounded-xl font-bold hover:bg-[#20bd5a] transition-all active:scale-[0.98] shadow-lg shadow-green-500/20"
+                        class="inline-flex items-center gap-2 mt-4 px-6 py-3 bg-black text-white rounded-full font-bold hover:bg-[#1D1D1F] transition-all active:scale-[0.98] "
                     >
                         <Crown class="w-5 h-5" />
                         Join VIP Now
