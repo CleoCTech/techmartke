@@ -2,6 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    /* Inter for body text, Manrope for headings */
+    body {
+        @apply font-sans antialiased;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: 'Manrope', 'Inter', system-ui, sans-serif;
+    }
+}
+
 [x-cloak] {
     display: none;
 }

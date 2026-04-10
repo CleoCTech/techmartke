@@ -11,6 +11,7 @@ export default defineConfig({
                 'resources/css/ck-editor.css',
                 'resources/css/app.css'
             ],
+            ssr: 'resources/js/ssr.js',
             refresh: true,
             detectTls: false,
         }),
