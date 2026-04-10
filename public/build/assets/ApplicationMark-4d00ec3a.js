@@ -1,1 +1,0 @@
-import{_ as e,o as t,a as c}from"./app-ced1a2b8.js";/* empty css                  */const o={},r={src:"/storage/general/favicon.png",alt:"",srcset:""};function a(n,s){return t(),c("img",r)}const p=e(o,[["render",a]]);export{p as default};

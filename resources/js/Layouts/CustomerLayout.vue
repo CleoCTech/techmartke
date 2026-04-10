@@ -150,15 +150,15 @@ const isActive = (link) => {
         </header>
 
         <!-- Main Content -->
-        <main class="pb-16 md:pb-0">
+        <main>
             <slot />
         </main>
 
         <!-- Floating Contact Bar -->
         <FloatingContactBar />
 
-        <!-- Footer — dark, minimal -->
-        <footer class="bg-[#1D1D1F] text-white pt-12 md:pt-16 pb-6">
+        <!-- Footer — dark, minimal. pb-20 on mobile to clear the sticky bar -->
+        <footer class="bg-[#1D1D1F] text-white pt-12 md:pt-16 pb-20 md:pb-6">
             <div class="max-w-7xl mx-auto px-4 sm:px-6">
                 <div class="grid grid-cols-2 md:grid-cols-5 gap-6 md:gap-8 mb-10 md:mb-12">
                     <!-- Brand -->
