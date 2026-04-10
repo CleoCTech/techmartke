@@ -26,9 +26,9 @@
         <title inertia><?php echo e(config('app.name', 'Laravel')); ?></title>
 
 
-        <!-- Fonts -->
+        <!-- Fonts: Manrope (headings) + Inter (prices) + Lexend (body) + Urbanist (buttons) -->
         <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <link href="https://fonts.bunny.net/css?family=manrope:500,600,700,800|inter:400,500,600,700|lexend:300,400,500|urbanist:500,600,700,800&display=swap" rel="stylesheet" />
 
         <!-- css -->
         <!-- Scripts -->
