@@ -230,7 +230,7 @@ const whatsappUrl = (product) => {
                 <div class="flex gap-1.5 flex-shrink-0">
                     <!-- WhatsApp — the only emerald accent in the card -->
                     <a :href="whatsappUrl(product)" target="_blank" rel="noopener" @click.stop
-                        class="w-9 h-9 sm:w-10 sm:h-10 bg-[#2ECC71] hover:bg-[#27AE60] text-white rounded-full active:scale-95 transition-all cursor-pointer flex items-center justify-center"
+                        class="w-9 h-9 sm:w-10 sm:h-10 bg-[#1A531B] hover:bg-[#006241] text-white rounded-full active:scale-95 transition-all cursor-pointer flex items-center justify-center"
                         title="Ask on WhatsApp">
                         <MessageCircle class="w-4 h-4" />
                     </a>

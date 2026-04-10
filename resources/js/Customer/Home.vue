@@ -461,15 +461,15 @@ const quickBudgets = [30000, 50000, 80000, 120000]; // kept for quick budget but
             </div>
         </section>
 
-        <!-- Trade-In Banner — full-width thin strip, Apple-style native feel -->
+        <!-- Trade-In Banner — solid black, green icon for the "wink" -->
         <Link
             href="/trade-in"
-            class="block bg-[#2ECC71] hover:bg-[#27AE60] transition-colors cursor-pointer"
+            class="block bg-black hover:bg-[#1D1D1F] transition-colors cursor-pointer"
         >
             <div class="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 flex items-center justify-center gap-2 text-white">
-                <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 014-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
+                <svg class="w-4 h-4 flex-shrink-0 text-[#1A531B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 014-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
                 <span class="text-sm font-bold">Trade in your phone — get instant value</span>
-                <ArrowRight class="w-4 h-4 flex-shrink-0" />
+                <ArrowRight class="w-4 h-4 flex-shrink-0 text-[#86868B]" />
             </div>
         </Link>
 

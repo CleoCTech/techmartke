@@ -20,7 +20,7 @@ const whatsappUrl = computed(() => companyWhatsappUrl("Hi TechMart KE! I'm inter
                 :href="whatsappUrl"
                 target="_blank"
                 rel="noopener"
-                class="flex flex-col items-center gap-0.5 py-2.5 text-[#2ECC71] active:bg-[#F5F5F7] transition cursor-pointer"
+                class="flex flex-col items-center gap-0.5 py-2.5 text-[#1A531B] active:bg-[#F5F5F7] transition cursor-pointer"
             >
                 <MessageCircle class="w-5 h-5" :stroke-width="1.5" />
                 <span class="text-[10px] font-semibold">WhatsApp</span>
@@ -50,7 +50,7 @@ const whatsappUrl = computed(() => companyWhatsappUrl("Hi TechMart KE! I'm inter
             :href="whatsappUrl"
             target="_blank"
             rel="noopener"
-            class="w-14 h-14 bg-[#2ECC71] hover:bg-[#27AE60] text-white rounded-full flex items-center justify-center transition-all cursor-pointer hover:scale-110 shadow-lg"
+            class="w-14 h-14 bg-[#1A531B] hover:bg-[#006241] text-white rounded-full flex items-center justify-center transition-all cursor-pointer hover:scale-110 shadow-lg"
             title="WhatsApp Us"
         >
             <MessageCircle class="w-6 h-6" />

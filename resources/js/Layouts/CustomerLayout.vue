@@ -83,7 +83,7 @@ const isActive = (link) => {
                             :href="link.href"
                             class="px-4 py-2 text-[13px] font-medium rounded-full transition-all cursor-pointer"
                             :class="link.highlight
-                                ? 'bg-[#2ECC71] hover:bg-[#27AE60] text-white font-bold'
+                                ? 'bg-black hover:bg-[#1D1D1F] text-white font-bold'
                                 : (isActive(link)
                                     ? 'text-black font-semibold'
                                     : 'text-[#86868B] hover:text-black')"
@@ -135,7 +135,7 @@ const isActive = (link) => {
                                 :href="link.href"
                                 class="px-4 py-3 text-[15px] rounded-xl transition-all cursor-pointer"
                                 :class="link.highlight
-                                    ? 'bg-[#2ECC71] text-white font-bold text-center'
+                                    ? 'bg-black text-white font-bold text-center'
                                     : (isActive(link)
                                         ? 'text-black font-semibold bg-[#F5F5F7]'
                                         : 'text-[#1D1D1F] hover:bg-[#F5F5F7]')"
