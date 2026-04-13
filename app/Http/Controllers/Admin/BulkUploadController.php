@@ -383,9 +383,9 @@ PROMPT;
             // Auto-detect brand from model name keywords if context not set
             $modelLower = strtolower($modelPart);
             if (!$brand) {
-                if (preg_match('/^(s\d+|note|flip|fold|galaxy)/i', $modelLower)) {
+                if (preg_match('/^(s\d+|note|flip|fold|galaxy|a\d{2})/i', $modelLower)) {
                     $brand = 'samsung';
-                } elseif (preg_match('/^(\d+|x[rs]?|se|pro|max)/i', $modelLower)) {
+                } elseif (preg_match('/^(\d+|x[rs]?|se|pro|max|mini)/i', $modelLower)) {
                     // Default to apple for purely numeric or X-series models
                     $brand = 'apple';
                 }
@@ -396,6 +396,8 @@ PROMPT;
             if ($brand === 'apple') {
                 $brandName = 'Apple';
                 $brandId = $appleBrandId;
+                // Expand shorthand: "PM" → "Pro Max", "Mini" stays
+                $productName = preg_replace('/\bPM\b/i', 'Pro Max', $productName);
                 // Prefix iPhone if not already there
                 if (!preg_match('/^iphone/i', $productName)) {
                     $productName = 'iPhone ' . $productName;
@@ -408,6 +410,15 @@ PROMPT;
                     // S24U -> Galaxy S24 Ultra
                     $num = preg_replace('/[^\d]/', '', $modelPart);
                     $productName = "Galaxy S{$num} Ultra";
+                } elseif (preg_match('/^s(\d+)\+$/i', $modelPart, $fm)) {
+                    // S22+ -> Galaxy S22 Plus
+                    $productName = "Galaxy S{$fm[1]} Plus";
+                } elseif (preg_match('/^s(\d+)fe$/i', $modelPart, $fm)) {
+                    // S20FE -> Galaxy S20 FE
+                    $productName = "Galaxy S{$fm[1]} FE";
+                } elseif (preg_match('/^note\s*(\d+)/i', $modelPart, $fm)) {
+                    // Note 10 -> Galaxy Note 10
+                    $productName = "Galaxy Note {$fm[1]}";
                 } elseif (preg_match('/^flip\s*(\d+)$/i', $modelPart, $fm)) {
                     $productName = "Galaxy Z Flip {$fm[1]}";
                 } elseif (preg_match('/^fold\s*(\d+)$/i', $modelPart, $fm)) {
