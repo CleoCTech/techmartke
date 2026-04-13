@@ -39,23 +39,23 @@
     "file": "assets/WhatsHappeningSection-fb1a49ec.css",
     "src": "WhatsHappeningSection.css"
   },
-  "_CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-0111af1d.js": {
+  "_CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-94cf182d.js": {
     "css": [
       "assets/CreateEdit-ab6ae869.css"
     ],
-    "file": "assets/CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-0111af1d.js",
+    "file": "assets/CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-94cf182d.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_CrudMethodsMixin-63116bac.js": {
-    "file": "assets/CrudMethodsMixin-63116bac.js",
+  "_CrudMethodsMixin-f15f2c4b.js": {
+    "file": "assets/CrudMethodsMixin-f15f2c4b.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_Index-4857e647.js": {
-    "file": "assets/Index-4857e647.js",
+  "_Index-073472c7.js": {
+    "file": "assets/Index-073472c7.js",
     "imports": [
       "resources/js/Components/Filter.vue",
       "resources/js/app.js",
@@ -74,18 +74,18 @@
       "resources/js/Components/Mosaic/Table/Td.vue",
       "resources/js/Components/Mosaic/Table/Tr.vue",
       "resources/js/Components/Mosaic/Table/Table.vue",
-      "_useNotify-112c9657.js"
+      "_useNotify-449c2f4f.js"
     ],
     "isDynamicEntry": true
   },
-  "_MenuBarTabsMixin-c6e9613b.js": {
-    "file": "assets/MenuBarTabsMixin-c6e9613b.js",
+  "_MenuBarTabsMixin-b5acaccc.js": {
+    "file": "assets/MenuBarTabsMixin-b5acaccc.js",
     "imports": [
       "resources/js/Components/MenuBarItem.vue"
     ]
   },
-  "_Swiper-7e157d1a.js": {
-    "file": "assets/Swiper-7e157d1a.js",
+  "_Swiper-b0c69106.js": {
+    "file": "assets/Swiper-b0c69106.js",
     "imports": [
       "_Swiper.vue_vue_type_style_index_0_lang-b197a6ec.js",
       "resources/js/app.js"
@@ -98,8 +98,8 @@
     ],
     "file": "assets/Swiper.vue_vue_type_style_index_0_lang-b197a6ec.js"
   },
-  "_Utils-89caf61d.js": {
-    "file": "assets/Utils-89caf61d.js",
+  "_Utils-bd307493.js": {
+    "file": "assets/Utils-bd307493.js",
     "imports": [
       "resources/js/app.js"
     ]
@@ -107,26 +107,26 @@
   "_VueLoadingMixin-89c4e429.js": {
     "file": "assets/VueLoadingMixin-89c4e429.js"
   },
-  "_arrow-left-6b5be024.js": {
-    "file": "assets/arrow-left-6b5be024.js",
+  "_arrow-left-f862b342.js": {
+    "file": "assets/arrow-left-f862b342.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_arrow-right-bf448b51.js": {
-    "file": "assets/arrow-right-bf448b51.js",
+  "_arrow-right-59024025.js": {
+    "file": "assets/arrow-right-59024025.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_award-029714bf.js": {
-    "file": "assets/award-029714bf.js",
+  "_award-b0bdd770.js": {
+    "file": "assets/award-b0bdd770.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_book-open-431824da.js": {
-    "file": "assets/book-open-431824da.js",
+  "_book-open-e699018b.js": {
+    "file": "assets/book-open-e699018b.js",
     "imports": [
       "resources/js/app.js"
     ]
@@ -134,268 +134,268 @@
   "_chart-3591f7dc.js": {
     "file": "assets/chart-3591f7dc.js"
   },
-  "_chartjs-adapter-moment.esm-c74ab6c9.js": {
-    "file": "assets/chartjs-adapter-moment.esm-c74ab6c9.js",
+  "_chartjs-adapter-moment.esm-14e86f49.js": {
+    "file": "assets/chartjs-adapter-moment.esm-14e86f49.js",
     "imports": [
       "_chart-3591f7dc.js",
-      "_Utils-89caf61d.js"
+      "_Utils-bd307493.js"
     ]
   },
-  "_check-9b0837a1.js": {
-    "file": "assets/check-9b0837a1.js",
+  "_check-f9138aa0.js": {
+    "file": "assets/check-f9138aa0.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_chevron-left-0e81cfab.js": {
-    "file": "assets/chevron-left-0e81cfab.js",
+  "_chevron-left-4570d22b.js": {
+    "file": "assets/chevron-left-4570d22b.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_chevron-right-488b17f8.js": {
-    "file": "assets/chevron-right-488b17f8.js",
+  "_chevron-right-988d7f24.js": {
+    "file": "assets/chevron-right-988d7f24.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_circle-alert-0549431c.js": {
-    "file": "assets/circle-alert-0549431c.js",
+  "_circle-alert-645878eb.js": {
+    "file": "assets/circle-alert-645878eb.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_circle-check-119f4daf.js": {
-    "file": "assets/circle-check-119f4daf.js",
+  "_circle-check-7296cd4a.js": {
+    "file": "assets/circle-check-7296cd4a.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_circle-check-big-921be177.js": {
-    "file": "assets/circle-check-big-921be177.js",
+  "_circle-check-big-76c5f95a.js": {
+    "file": "assets/circle-check-big-76c5f95a.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_circle-x-521c77db.js": {
-    "file": "assets/circle-x-521c77db.js",
+  "_circle-x-104fd4ac.js": {
+    "file": "assets/circle-x-104fd4ac.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_clock-c63fc9da.js": {
-    "file": "assets/clock-c63fc9da.js",
+  "_clock-03c18a72.js": {
+    "file": "assets/clock-03c18a72.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_credit-card-4557bf64.js": {
-    "file": "assets/credit-card-4557bf64.js",
+  "_credit-card-e1436dff.js": {
+    "file": "assets/credit-card-e1436dff.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_crown-c0a7d359.js": {
-    "file": "assets/crown-c0a7d359.js",
+  "_crown-34ee6155.js": {
+    "file": "assets/crown-34ee6155.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_dialog-64648265.js": {
-    "file": "assets/dialog-64648265.js",
+  "_dialog-feab619c.js": {
+    "file": "assets/dialog-feab619c.js",
     "imports": [
-      "_transition-7b27e259.js",
+      "_transition-d4935713.js",
       "resources/js/app.js"
     ]
   },
-  "_dollar-sign-ed03c610.js": {
-    "file": "assets/dollar-sign-ed03c610.js",
-    "imports": [
-      "resources/js/app.js"
-    ]
-  },
-  "_eye-d24b9887.js": {
-    "file": "assets/eye-d24b9887.js",
+  "_dollar-sign-004594c1.js": {
+    "file": "assets/dollar-sign-004594c1.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_globe-e3ca6b8e.js": {
-    "file": "assets/globe-e3ca6b8e.js",
+  "_eye-8fa73145.js": {
+    "file": "assets/eye-8fa73145.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_graduation-cap-a1bd363f.js": {
-    "file": "assets/graduation-cap-a1bd363f.js",
+  "_globe-7a68c588.js": {
+    "file": "assets/globe-7a68c588.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_headphones-edc78985.js": {
-    "file": "assets/headphones-edc78985.js",
+  "_graduation-cap-f92649a5.js": {
+    "file": "assets/graduation-cap-f92649a5.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_heart-8f450fe3.js": {
-    "file": "assets/heart-8f450fe3.js",
+  "_headphones-dc41ac02.js": {
+    "file": "assets/headphones-dc41ac02.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_index-8639ff04.js": {
-    "file": "assets/index-8639ff04.js",
+  "_heart-58387422.js": {
+    "file": "assets/heart-58387422.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_loader-circle-07f3c91e.js": {
-    "file": "assets/loader-circle-07f3c91e.js",
+  "_index-370a6861.js": {
+    "file": "assets/index-370a6861.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_message-circle-2a3d5d04.js": {
-    "file": "assets/message-circle-2a3d5d04.js",
+  "_loader-circle-bd00ee02.js": {
+    "file": "assets/loader-circle-bd00ee02.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_minus-504bacbb.js": {
-    "file": "assets/minus-504bacbb.js",
+  "_message-circle-6e3301a4.js": {
+    "file": "assets/message-circle-6e3301a4.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_package-c27feeb2.js": {
-    "file": "assets/package-c27feeb2.js",
+  "_minus-f401c509.js": {
+    "file": "assets/minus-f401c509.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_pencil-2878b9f0.js": {
-    "file": "assets/pencil-2878b9f0.js",
+  "_package-71e1f713.js": {
+    "file": "assets/package-71e1f713.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_plus-13ee7472.js": {
-    "file": "assets/plus-13ee7472.js",
+  "_pencil-7f075a0b.js": {
+    "file": "assets/pencil-7f075a0b.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_refresh-cw-5ae085f6.js": {
-    "file": "assets/refresh-cw-5ae085f6.js",
+  "_plus-e5ce0b64.js": {
+    "file": "assets/plus-e5ce0b64.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_save-f66cb09c.js": {
-    "file": "assets/save-f66cb09c.js",
+  "_refresh-cw-23d6942b.js": {
+    "file": "assets/refresh-cw-23d6942b.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_search-edb7c99d.js": {
-    "file": "assets/search-edb7c99d.js",
+  "_save-7840e1a9.js": {
+    "file": "assets/save-7840e1a9.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_send-f983bb0f.js": {
-    "file": "assets/send-f983bb0f.js",
+  "_search-9d8e958a.js": {
+    "file": "assets/search-9d8e958a.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_share-2-b64e5e2c.js": {
-    "file": "assets/share-2-b64e5e2c.js",
+  "_send-c9b76423.js": {
+    "file": "assets/send-c9b76423.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_shield-eb64dad6.js": {
-    "file": "assets/shield-eb64dad6.js",
+  "_share-2-af2ce309.js": {
+    "file": "assets/share-2-af2ce309.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_shopping-cart-2b6b215c.js": {
-    "file": "assets/shopping-cart-2b6b215c.js",
+  "_shield-a4f93771.js": {
+    "file": "assets/shield-a4f93771.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_smartphone-7270e879.js": {
-    "file": "assets/smartphone-7270e879.js",
+  "_shopping-cart-11eda74c.js": {
+    "file": "assets/shopping-cart-11eda74c.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_sparkles-72587b50.js": {
-    "file": "assets/sparkles-72587b50.js",
+  "_smartphone-a36fa93a.js": {
+    "file": "assets/smartphone-a36fa93a.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_star-d4774b07.js": {
-    "file": "assets/star-d4774b07.js",
+  "_sparkles-7b6280b5.js": {
+    "file": "assets/sparkles-7b6280b5.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_target-dde201bd.js": {
-    "file": "assets/target-dde201bd.js",
+  "_star-ec019b57.js": {
+    "file": "assets/star-ec019b57.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_transition-7b27e259.js": {
-    "file": "assets/transition-7b27e259.js",
+  "_target-ee4ccc70.js": {
+    "file": "assets/target-ee4ccc70.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_trash-2-13208821.js": {
-    "file": "assets/trash-2-13208821.js",
+  "_transition-d4935713.js": {
+    "file": "assets/transition-d4935713.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_trending-down-2693bb48.js": {
-    "file": "assets/trending-down-2693bb48.js",
+  "_trash-2-c3488b18.js": {
+    "file": "assets/trash-2-c3488b18.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_triangle-alert-b60910d7.js": {
-    "file": "assets/triangle-alert-b60910d7.js",
+  "_trending-down-9c3b53de.js": {
+    "file": "assets/trending-down-9c3b53de.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_truck-09c1e345.js": {
-    "file": "assets/truck-09c1e345.js",
+  "_triangle-alert-8957bff3.js": {
+    "file": "assets/triangle-alert-8957bff3.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_upload-a640bf42.js": {
-    "file": "assets/upload-a640bf42.js",
+  "_truck-a481c17e.js": {
+    "file": "assets/truck-a481c17e.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_useCompanyInfo-13ddf9d8.js": {
-    "file": "assets/useCompanyInfo-13ddf9d8.js",
+  "_upload-5e7f97d5.js": {
+    "file": "assets/upload-5e7f97d5.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_useCreateEdit-348fe287.js": {
-    "file": "assets/useCreateEdit-348fe287.js",
+  "_useCompanyInfo-2604f89a.js": {
+    "file": "assets/useCompanyInfo-2604f89a.js",
+    "imports": [
+      "resources/js/app.js"
+    ]
+  },
+  "_useCreateEdit-21ef3a05.js": {
+    "file": "assets/useCreateEdit-21ef3a05.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/Grid.vue",
@@ -408,21 +408,21 @@
       "resources/js/Components/Textarea.vue",
       "resources/js/Components/Checkbox.vue",
       "resources/js/Components/Button.vue",
-      "_CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-0111af1d.js",
+      "_CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-94cf182d.js",
       "resources/js/System/Pages/Templates/CRUD/CreateEdit.vue",
       "resources/js/Components/FileInput.vue",
       "resources/js/Components/TagInput.vue",
-      "_useNotify-112c9657.js"
+      "_useNotify-449c2f4f.js"
     ]
   },
-  "_useNotify-112c9657.js": {
-    "file": "assets/useNotify-112c9657.js",
+  "_useNotify-449c2f4f.js": {
+    "file": "assets/useNotify-449c2f4f.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_useShow-58dbfe99.js": {
-    "file": "assets/useShow-58dbfe99.js",
+  "_useShow-1f1a5148.js": {
+    "file": "assets/useShow-1f1a5148.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/Grid.vue",
@@ -434,32 +434,32 @@
       "resources/js/System/Pages/Templates/CRUD/Show.vue"
     ]
   },
-  "_user-01d25138.js": {
-    "file": "assets/user-01d25138.js",
+  "_user-6fde7bf5.js": {
+    "file": "assets/user-6fde7bf5.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_users-74c428a5.js": {
-    "file": "assets/users-74c428a5.js",
+  "_users-da3f0b2b.js": {
+    "file": "assets/users-da3f0b2b.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_wrench-b4bfef6c.js": {
-    "file": "assets/wrench-b4bfef6c.js",
+  "_wrench-c9238a67.js": {
+    "file": "assets/wrench-c9238a67.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_zap-6e1f0987.js": {
-    "file": "assets/zap-6e1f0987.js",
+  "_zap-bf7cb2bd.js": {
+    "file": "assets/zap-bf7cb2bd.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
   "resources/css/app.css": {
-    "file": "assets/app-c823b979.css",
+    "file": "assets/app-271837f1.css",
     "isEntry": true,
     "src": "resources/css/app.css"
   },
@@ -477,19 +477,19 @@
       "assets/Index-7dfb555a.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Index-2468c7a0.js",
+    "file": "assets/Index-18ec3cd9.js",
     "imports": [
       "resources/js/app.js",
-      "_circle-check-big-921be177.js",
-      "_book-open-431824da.js",
-      "_message-circle-2a3d5d04.js",
-      "_circle-alert-0549431c.js",
-      "_circle-x-521c77db.js",
-      "_star-d4774b07.js",
-      "_trash-2-13208821.js",
-      "_pencil-2878b9f0.js",
-      "_globe-e3ca6b8e.js",
-      "_send-f983bb0f.js"
+      "_circle-check-big-76c5f95a.js",
+      "_book-open-e699018b.js",
+      "_message-circle-6e3301a4.js",
+      "_circle-alert-645878eb.js",
+      "_circle-x-104fd4ac.js",
+      "_star-ec019b57.js",
+      "_trash-2-c3488b18.js",
+      "_pencil-7f075a0b.js",
+      "_globe-7a68c588.js",
+      "_send-c9b76423.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/Community/Index.vue"
@@ -498,15 +498,15 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Dashboard-4733f2be.js",
+    "file": "assets/Dashboard-741e7de7.js",
     "imports": [
       "resources/js/Layouts/AppLayout.vue",
       "resources/js/app.js",
-      "_package-c27feeb2.js",
-      "_shopping-cart-2b6b215c.js",
-      "_dollar-sign-ed03c610.js",
-      "_clock-c63fc9da.js",
-      "_triangle-alert-b60910d7.js",
+      "_package-71e1f713.js",
+      "_shopping-cart-11eda74c.js",
+      "_dollar-sign-004594c1.js",
+      "_clock-03c18a72.js",
+      "_triangle-alert-8957bff3.js",
       "resources/js/Components/ApplicationMark.vue",
       "resources/js/Components/Banner.vue",
       "resources/js/Components/Dropdown.vue",
@@ -521,7 +521,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/AppLayout-2eb68429.js",
+    "file": "assets/AppLayout-9d67ba74.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -532,7 +532,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Default-e0e11fc8.js",
+    "file": "assets/Default-77551e5e.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -543,9 +543,9 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Solution-e6c2b6ae.js",
+    "file": "assets/Solution-85f76f40.js",
     "imports": [
-      "_MenuBarTabsMixin-c6e9613b.js",
+      "_MenuBarTabsMixin-b5acaccc.js",
       "resources/js/app.js",
       "resources/js/Components/Loading.vue",
       "resources/js/Components/MenuBarItem.vue"
@@ -557,11 +557,11 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Index-83159854.js",
+    "file": "assets/Index-11b56bc7.js",
     "imports": [
       "resources/js/app.js",
-      "_search-edb7c99d.js",
-      "_eye-d24b9887.js"
+      "_search-9d8e958a.js",
+      "_eye-8fa73145.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/Orders/Index.vue"
@@ -570,11 +570,11 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Show-0feb56b1.js",
+    "file": "assets/Show-f46dda72.js",
     "imports": [
       "resources/js/app.js",
-      "_user-01d25138.js",
-      "_package-c27feeb2.js"
+      "_user-6fde7bf5.js",
+      "_package-71e1f713.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/Orders/Show.vue"
@@ -583,14 +583,14 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Create-8f886570.js",
+    "file": "assets/Create-cb0a5eb0.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Admin/Layouts/AppLayout.vue",
-      "_arrow-left-6b5be024.js",
-      "_upload-a640bf42.js",
-      "_loader-circle-07f3c91e.js",
-      "_save-f66cb09c.js"
+      "_arrow-left-f862b342.js",
+      "_upload-5e7f97d5.js",
+      "_loader-circle-bd00ee02.js",
+      "_save-7840e1a9.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/Pages/AlbumCollections/Create.vue"
@@ -602,11 +602,11 @@
       "assets/StandardActions-e9dff04a.css",
       "assets/MenuBar-e3b0c442.css"
     ],
-    "file": "assets/CreateEdit-913bd56d.js",
+    "file": "assets/CreateEdit-00cfbb64.js",
     "imports": [
       "resources/js/app.js",
-      "_useCreateEdit-348fe287.js",
-      "_useNotify-112c9657.js",
+      "_useCreateEdit-21ef3a05.js",
+      "_useNotify-449c2f4f.js",
       "resources/js/Components/Grid.vue",
       "resources/js/Components/GridCol.vue",
       "resources/js/Components/Loading.vue",
@@ -617,7 +617,7 @@
       "resources/js/Components/Textarea.vue",
       "resources/js/Components/Checkbox.vue",
       "resources/js/Components/Button.vue",
-      "_CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-0111af1d.js",
+      "_CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-94cf182d.js",
       "resources/js/System/Pages/Templates/CRUD/CreateEdit.vue",
       "resources/js/Components/MenuBar.vue",
       "resources/js/Components/StandardActions.vue",
@@ -635,15 +635,15 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Edit-38c9a6ed.js",
+    "file": "assets/Edit-5cea5b71.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Admin/Layouts/AppLayout.vue",
-      "_arrow-left-6b5be024.js",
-      "_trash-2-13208821.js",
-      "_upload-a640bf42.js",
-      "_loader-circle-07f3c91e.js",
-      "_save-f66cb09c.js"
+      "_arrow-left-f862b342.js",
+      "_trash-2-c3488b18.js",
+      "_upload-5e7f97d5.js",
+      "_loader-circle-bd00ee02.js",
+      "_save-7840e1a9.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/Pages/AlbumCollections/Edit.vue"
@@ -653,9 +653,9 @@
       "assets/Select-90f4b454.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Index-b1b1bf29.js",
+    "file": "assets/Index-ab8b93b5.js",
     "imports": [
-      "_Index-4857e647.js",
+      "_Index-073472c7.js",
       "resources/js/app.js",
       "resources/js/Components/Mosaic/Badge.vue",
       "resources/js/Components/Filter.vue",
@@ -682,7 +682,7 @@
       "resources/js/Components/Mosaic/Table/Td.vue",
       "resources/js/Components/Mosaic/Table/Tr.vue",
       "resources/js/Components/Mosaic/Table/Table.vue",
-      "_useNotify-112c9657.js"
+      "_useNotify-449c2f4f.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/Pages/AlbumCollections/Index.vue"
@@ -691,9 +691,9 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Show-385e2dc5.js",
+    "file": "assets/Show-7e827333.js",
     "imports": [
-      "_useShow-58dbfe99.js",
+      "_useShow-1f1a5148.js",
       "resources/js/app.js",
       "resources/js/Components/Mosaic/Badge.vue",
       "resources/js/Components/Modal.vue",
@@ -719,22 +719,22 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Dashboard-5b0e8bb4.js",
+    "file": "assets/Dashboard-681ce15a.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/Dashboard/WebTrafficStats.vue",
       "resources/js/Components/Admin/AiStatusWidget.vue",
       "resources/js/Components/Mosaic/Tooltip.vue",
       "resources/js/Components/Charts/FlexibleChart.vue",
-      "_chartjs-adapter-moment.esm-c74ab6c9.js",
+      "_chartjs-adapter-moment.esm-14e86f49.js",
       "_chart-3591f7dc.js",
-      "_Utils-89caf61d.js",
-      "_loader-circle-07f3c91e.js",
-      "_circle-check-119f4daf.js",
-      "_circle-x-521c77db.js",
-      "_sparkles-72587b50.js",
-      "_refresh-cw-5ae085f6.js",
-      "_zap-6e1f0987.js"
+      "_Utils-bd307493.js",
+      "_loader-circle-bd00ee02.js",
+      "_circle-check-7296cd4a.js",
+      "_circle-x-104fd4ac.js",
+      "_sparkles-7b6280b5.js",
+      "_refresh-cw-23d6942b.js",
+      "_zap-bf7cb2bd.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/Pages/Dashboard.vue"
@@ -751,10 +751,10 @@
       "assets/StandardActions-e9dff04a.css",
       "assets/MenuBar-e3b0c442.css"
     ],
-    "file": "assets/CreateEdit-20b75fbf.js",
+    "file": "assets/CreateEdit-535422ff.js",
     "imports": [
       "resources/js/app.js",
-      "_useCreateEdit-348fe287.js",
+      "_useCreateEdit-21ef3a05.js",
       "resources/js/Components/Grid.vue",
       "resources/js/Components/GridCol.vue",
       "resources/js/Components/Loading.vue",
@@ -765,7 +765,7 @@
       "resources/js/Components/Textarea.vue",
       "resources/js/Components/Checkbox.vue",
       "resources/js/Components/Button.vue",
-      "_CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-0111af1d.js",
+      "_CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-94cf182d.js",
       "resources/js/System/Pages/Templates/CRUD/CreateEdit.vue",
       "resources/js/Components/MenuBar.vue",
       "resources/js/Components/StandardActions.vue",
@@ -775,7 +775,7 @@
       "resources/js/Components/Attachment.vue",
       "resources/js/Components/FileInput.vue",
       "resources/js/Components/TagInput.vue",
-      "_useNotify-112c9657.js"
+      "_useNotify-449c2f4f.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/Pages/Events/CreateEdit.vue"
@@ -785,9 +785,9 @@
       "assets/Select-90f4b454.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Index-e2bb3d37.js",
+    "file": "assets/Index-a3631b4c.js",
     "imports": [
-      "_Index-4857e647.js",
+      "_Index-073472c7.js",
       "resources/js/app.js",
       "resources/js/Components/Filter.vue",
       "resources/js/Components/Select.vue",
@@ -813,7 +813,7 @@
       "resources/js/Components/Mosaic/Table/Td.vue",
       "resources/js/Components/Mosaic/Table/Tr.vue",
       "resources/js/Components/Mosaic/Table/Table.vue",
-      "_useNotify-112c9657.js"
+      "_useNotify-449c2f4f.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/Pages/Events/Index.vue"
@@ -822,9 +822,9 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Show-cd83916c.js",
+    "file": "assets/Show-8b7c2281.js",
     "imports": [
-      "_useShow-58dbfe99.js",
+      "_useShow-1f1a5148.js",
       "resources/js/app.js",
       "resources/js/Components/Grid.vue",
       "resources/js/Components/GridCol.vue",
@@ -856,10 +856,10 @@
       "assets/StandardActions-e9dff04a.css",
       "assets/MenuBar-e3b0c442.css"
     ],
-    "file": "assets/CreateEdit-357fcd20.js",
+    "file": "assets/CreateEdit-ccb6d76c.js",
     "imports": [
       "resources/js/app.js",
-      "_useCreateEdit-348fe287.js",
+      "_useCreateEdit-21ef3a05.js",
       "resources/js/Components/Grid.vue",
       "resources/js/Components/GridCol.vue",
       "resources/js/Components/Loading.vue",
@@ -870,7 +870,7 @@
       "resources/js/Components/Textarea.vue",
       "resources/js/Components/Checkbox.vue",
       "resources/js/Components/Button.vue",
-      "_CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-0111af1d.js",
+      "_CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-94cf182d.js",
       "resources/js/System/Pages/Templates/CRUD/CreateEdit.vue",
       "resources/js/Components/MenuBar.vue",
       "resources/js/Components/StandardActions.vue",
@@ -880,7 +880,7 @@
       "resources/js/Components/Attachment.vue",
       "resources/js/Components/FileInput.vue",
       "resources/js/Components/TagInput.vue",
-      "_useNotify-112c9657.js"
+      "_useNotify-449c2f4f.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/Pages/Faqs/CreateEdit.vue"
@@ -890,9 +890,9 @@
       "assets/Select-90f4b454.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Index-68b76070.js",
+    "file": "assets/Index-c1d17008.js",
     "imports": [
-      "_Index-4857e647.js",
+      "_Index-073472c7.js",
       "resources/js/Components/Mosaic/Badge.vue",
       "resources/js/app.js",
       "resources/js/Components/Filter.vue",
@@ -919,7 +919,7 @@
       "resources/js/Components/Mosaic/Table/Td.vue",
       "resources/js/Components/Mosaic/Table/Tr.vue",
       "resources/js/Components/Mosaic/Table/Table.vue",
-      "_useNotify-112c9657.js"
+      "_useNotify-449c2f4f.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/Pages/Faqs/Index.vue"
@@ -928,9 +928,9 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Show-12d2a54a.js",
+    "file": "assets/Show-cc37bdc8.js",
     "imports": [
-      "_useShow-58dbfe99.js",
+      "_useShow-1f1a5148.js",
       "resources/js/app.js",
       "resources/js/Components/Grid.vue",
       "resources/js/Components/GridCol.vue",
@@ -962,10 +962,10 @@
       "assets/StandardActions-e9dff04a.css",
       "assets/MenuBar-e3b0c442.css"
     ],
-    "file": "assets/CreateEdit-a3808980.js",
+    "file": "assets/CreateEdit-b4960a6f.js",
     "imports": [
       "resources/js/app.js",
-      "_useCreateEdit-348fe287.js",
+      "_useCreateEdit-21ef3a05.js",
       "resources/js/Components/Grid.vue",
       "resources/js/Components/GridCol.vue",
       "resources/js/Components/Loading.vue",
@@ -976,7 +976,7 @@
       "resources/js/Components/Textarea.vue",
       "resources/js/Components/Checkbox.vue",
       "resources/js/Components/Button.vue",
-      "_CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-0111af1d.js",
+      "_CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-94cf182d.js",
       "resources/js/System/Pages/Templates/CRUD/CreateEdit.vue",
       "resources/js/Components/MenuBar.vue",
       "resources/js/Components/StandardActions.vue",
@@ -986,7 +986,7 @@
       "resources/js/Components/Attachment.vue",
       "resources/js/Components/FileInput.vue",
       "resources/js/Components/TagInput.vue",
-      "_useNotify-112c9657.js"
+      "_useNotify-449c2f4f.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/Pages/Feedback/CreateEdit.vue"
@@ -996,9 +996,9 @@
       "assets/Select-90f4b454.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Index-93d650d2.js",
+    "file": "assets/Index-bd4c3e7d.js",
     "imports": [
-      "_Index-4857e647.js",
+      "_Index-073472c7.js",
       "resources/js/Components/Mosaic/Badge.vue",
       "resources/js/app.js",
       "resources/js/Components/Filter.vue",
@@ -1025,7 +1025,7 @@
       "resources/js/Components/Mosaic/Table/Td.vue",
       "resources/js/Components/Mosaic/Table/Tr.vue",
       "resources/js/Components/Mosaic/Table/Table.vue",
-      "_useNotify-112c9657.js"
+      "_useNotify-449c2f4f.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/Pages/Feedback/Index.vue"
@@ -1034,9 +1034,9 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Show-578b29a0.js",
+    "file": "assets/Show-28a220e1.js",
     "imports": [
-      "_useShow-58dbfe99.js",
+      "_useShow-1f1a5148.js",
       "resources/js/app.js",
       "resources/js/Components/Grid.vue",
       "resources/js/Components/GridCol.vue",
@@ -1068,10 +1068,10 @@
       "assets/StandardActions-e9dff04a.css",
       "assets/MenuBar-e3b0c442.css"
     ],
-    "file": "assets/CreateEdit-25111961.js",
+    "file": "assets/CreateEdit-7fce6d37.js",
     "imports": [
       "resources/js/app.js",
-      "_useCreateEdit-348fe287.js",
+      "_useCreateEdit-21ef3a05.js",
       "resources/js/Components/Grid.vue",
       "resources/js/Components/GridCol.vue",
       "resources/js/Components/Loading.vue",
@@ -1082,7 +1082,7 @@
       "resources/js/Components/Textarea.vue",
       "resources/js/Components/Checkbox.vue",
       "resources/js/Components/Button.vue",
-      "_CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-0111af1d.js",
+      "_CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-94cf182d.js",
       "resources/js/System/Pages/Templates/CRUD/CreateEdit.vue",
       "resources/js/Components/MenuBar.vue",
       "resources/js/Components/StandardActions.vue",
@@ -1092,7 +1092,7 @@
       "resources/js/Components/Attachment.vue",
       "resources/js/Components/FileInput.vue",
       "resources/js/Components/TagInput.vue",
-      "_useNotify-112c9657.js"
+      "_useNotify-449c2f4f.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/Pages/Gallery/CreateEdit.vue"
@@ -1102,9 +1102,9 @@
       "assets/Select-90f4b454.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Index-0afefd3a.js",
+    "file": "assets/Index-5713feaf.js",
     "imports": [
-      "_Index-4857e647.js",
+      "_Index-073472c7.js",
       "resources/js/Components/Mosaic/Badge.vue",
       "resources/js/app.js",
       "resources/js/Components/Filter.vue",
@@ -1131,7 +1131,7 @@
       "resources/js/Components/Mosaic/Table/Td.vue",
       "resources/js/Components/Mosaic/Table/Tr.vue",
       "resources/js/Components/Mosaic/Table/Table.vue",
-      "_useNotify-112c9657.js"
+      "_useNotify-449c2f4f.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/Pages/Gallery/Index.vue"
@@ -1140,9 +1140,9 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Show-16d50d20.js",
+    "file": "assets/Show-29447cf3.js",
     "imports": [
-      "_useShow-58dbfe99.js",
+      "_useShow-1f1a5148.js",
       "resources/js/app.js",
       "resources/js/Components/Grid.vue",
       "resources/js/Components/GridCol.vue",
@@ -1174,10 +1174,10 @@
       "assets/StandardActions-e9dff04a.css",
       "assets/MenuBar-e3b0c442.css"
     ],
-    "file": "assets/CreateEdit-d799ca4e.js",
+    "file": "assets/CreateEdit-bb0bead1.js",
     "imports": [
       "resources/js/app.js",
-      "_useCreateEdit-348fe287.js",
+      "_useCreateEdit-21ef3a05.js",
       "resources/js/Components/Grid.vue",
       "resources/js/Components/GridCol.vue",
       "resources/js/Components/Loading.vue",
@@ -1188,7 +1188,7 @@
       "resources/js/Components/Textarea.vue",
       "resources/js/Components/Checkbox.vue",
       "resources/js/Components/Button.vue",
-      "_CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-0111af1d.js",
+      "_CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-94cf182d.js",
       "resources/js/System/Pages/Templates/CRUD/CreateEdit.vue",
       "resources/js/Components/MenuBar.vue",
       "resources/js/Components/StandardActions.vue",
@@ -1198,7 +1198,7 @@
       "resources/js/Components/Attachment.vue",
       "resources/js/Components/FileInput.vue",
       "resources/js/Components/TagInput.vue",
-      "_useNotify-112c9657.js"
+      "_useNotify-449c2f4f.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/Pages/Inquiry/CreateEdit.vue"
@@ -1208,9 +1208,9 @@
       "assets/Select-90f4b454.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Index-c9f6ddcc.js",
+    "file": "assets/Index-92010568.js",
     "imports": [
-      "_Index-4857e647.js",
+      "_Index-073472c7.js",
       "resources/js/Components/Mosaic/Badge.vue",
       "resources/js/app.js",
       "resources/js/Components/Filter.vue",
@@ -1237,7 +1237,7 @@
       "resources/js/Components/Mosaic/Table/Td.vue",
       "resources/js/Components/Mosaic/Table/Tr.vue",
       "resources/js/Components/Mosaic/Table/Table.vue",
-      "_useNotify-112c9657.js"
+      "_useNotify-449c2f4f.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/Pages/Inquiry/Index.vue"
@@ -1246,9 +1246,9 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Show-1f1762d4.js",
+    "file": "assets/Show-ac982dc5.js",
     "imports": [
-      "_useShow-58dbfe99.js",
+      "_useShow-1f1a5148.js",
       "resources/js/app.js",
       "resources/js/Components/Grid.vue",
       "resources/js/Components/GridCol.vue",
@@ -1280,10 +1280,10 @@
       "assets/StandardActions-e9dff04a.css",
       "assets/MenuBar-e3b0c442.css"
     ],
-    "file": "assets/CreateEdit-09267f30.js",
+    "file": "assets/CreateEdit-7796a914.js",
     "imports": [
       "resources/js/app.js",
-      "_useCreateEdit-348fe287.js",
+      "_useCreateEdit-21ef3a05.js",
       "resources/js/Components/Grid.vue",
       "resources/js/Components/GridCol.vue",
       "resources/js/Components/Loading.vue",
@@ -1294,7 +1294,7 @@
       "resources/js/Components/Textarea.vue",
       "resources/js/Components/Checkbox.vue",
       "resources/js/Components/Button.vue",
-      "_CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-0111af1d.js",
+      "_CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-94cf182d.js",
       "resources/js/System/Pages/Templates/CRUD/CreateEdit.vue",
       "resources/js/Components/MenuBar.vue",
       "resources/js/Components/StandardActions.vue",
@@ -1304,7 +1304,7 @@
       "resources/js/Components/Attachment.vue",
       "resources/js/Components/FileInput.vue",
       "resources/js/Components/TagInput.vue",
-      "_useNotify-112c9657.js"
+      "_useNotify-449c2f4f.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/Pages/News/CreateEdit.vue"
@@ -1314,9 +1314,9 @@
       "assets/Select-90f4b454.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Index-777b2eb1.js",
+    "file": "assets/Index-74e9ce1e.js",
     "imports": [
-      "_Index-4857e647.js",
+      "_Index-073472c7.js",
       "resources/js/Components/Mosaic/Badge.vue",
       "resources/js/app.js",
       "resources/js/Components/Filter.vue",
@@ -1343,7 +1343,7 @@
       "resources/js/Components/Mosaic/Table/Td.vue",
       "resources/js/Components/Mosaic/Table/Tr.vue",
       "resources/js/Components/Mosaic/Table/Table.vue",
-      "_useNotify-112c9657.js"
+      "_useNotify-449c2f4f.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/Pages/News/Index.vue"
@@ -1352,9 +1352,9 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Show-22baef39.js",
+    "file": "assets/Show-74a174ea.js",
     "imports": [
-      "_useShow-58dbfe99.js",
+      "_useShow-1f1a5148.js",
       "resources/js/app.js",
       "resources/js/Components/Grid.vue",
       "resources/js/Components/GridCol.vue",
@@ -1385,10 +1385,10 @@
       "assets/Select-90f4b454.css",
       "assets/StandardActions-e9dff04a.css"
     ],
-    "file": "assets/CreateEdit-c33f5ea8.js",
+    "file": "assets/CreateEdit-bc5eecf9.js",
     "imports": [
       "resources/js/app.js",
-      "_useCreateEdit-348fe287.js",
+      "_useCreateEdit-21ef3a05.js",
       "resources/js/Components/Grid.vue",
       "resources/js/Components/GridCol.vue",
       "resources/js/Components/Loading.vue",
@@ -1399,7 +1399,7 @@
       "resources/js/Components/Textarea.vue",
       "resources/js/Components/Checkbox.vue",
       "resources/js/Components/Button.vue",
-      "_CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-0111af1d.js",
+      "_CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-94cf182d.js",
       "resources/js/System/Pages/Templates/CRUD/CreateEdit.vue",
       "resources/js/Components/MenuBar.vue",
       "resources/js/Components/StandardActions.vue",
@@ -1409,7 +1409,7 @@
       "resources/js/Components/Attachment.vue",
       "resources/js/Components/FileInput.vue",
       "resources/js/Components/TagInput.vue",
-      "_useNotify-112c9657.js"
+      "_useNotify-449c2f4f.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/Pages/Permission/CreateEdit.vue"
@@ -1424,9 +1424,9 @@
       "assets/Select-90f4b454.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Index-26bc2baf.js",
+    "file": "assets/Index-d415c831.js",
     "imports": [
-      "_Index-4857e647.js",
+      "_Index-073472c7.js",
       "resources/js/app.js",
       "resources/js/Components/Filter.vue",
       "resources/js/Components/Select.vue",
@@ -1452,7 +1452,7 @@
       "resources/js/Components/Mosaic/Table/Td.vue",
       "resources/js/Components/Mosaic/Table/Tr.vue",
       "resources/js/Components/Mosaic/Table/Table.vue",
-      "_useNotify-112c9657.js"
+      "_useNotify-449c2f4f.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/Pages/Permission/Index.vue"
@@ -1466,9 +1466,9 @@
       "assets/MenuBar-e3b0c442.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Show-17753ede.js",
+    "file": "assets/Show-e2a3e0df.js",
     "imports": [
-      "_useShow-58dbfe99.js",
+      "_useShow-1f1a5148.js",
       "resources/js/app.js",
       "resources/js/Components/Grid.vue",
       "resources/js/Components/GridCol.vue",
@@ -1499,10 +1499,10 @@
       "assets/Select-90f4b454.css",
       "assets/StandardActions-e9dff04a.css"
     ],
-    "file": "assets/CreateEdit-bb117f65.js",
+    "file": "assets/CreateEdit-657e1ea5.js",
     "imports": [
       "resources/js/app.js",
-      "_useCreateEdit-348fe287.js",
+      "_useCreateEdit-21ef3a05.js",
       "resources/js/Components/Grid.vue",
       "resources/js/Components/GridCol.vue",
       "resources/js/Components/Loading.vue",
@@ -1513,7 +1513,7 @@
       "resources/js/Components/Textarea.vue",
       "resources/js/Components/Checkbox.vue",
       "resources/js/Components/Button.vue",
-      "_CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-0111af1d.js",
+      "_CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-94cf182d.js",
       "resources/js/System/Pages/Templates/CRUD/CreateEdit.vue",
       "resources/js/Components/MenuBar.vue",
       "resources/js/Components/StandardActions.vue",
@@ -1523,7 +1523,7 @@
       "resources/js/Components/Attachment.vue",
       "resources/js/Components/FileInput.vue",
       "resources/js/Components/TagInput.vue",
-      "_useNotify-112c9657.js"
+      "_useNotify-449c2f4f.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/Pages/Role/CreateEdit.vue"
@@ -1538,9 +1538,9 @@
       "assets/Select-90f4b454.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Index-bfb02384.js",
+    "file": "assets/Index-4ec6cf0f.js",
     "imports": [
-      "_Index-4857e647.js",
+      "_Index-073472c7.js",
       "resources/js/app.js",
       "resources/js/Components/Filter.vue",
       "resources/js/Components/Select.vue",
@@ -1566,7 +1566,7 @@
       "resources/js/Components/Mosaic/Table/Td.vue",
       "resources/js/Components/Mosaic/Table/Tr.vue",
       "resources/js/Components/Mosaic/Table/Table.vue",
-      "_useNotify-112c9657.js"
+      "_useNotify-449c2f4f.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/Pages/Role/Index.vue"
@@ -1580,9 +1580,9 @@
       "assets/MenuBar-e3b0c442.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Show-dc0c759a.js",
+    "file": "assets/Show-8ee00bad.js",
     "imports": [
-      "_useShow-58dbfe99.js",
+      "_useShow-1f1a5148.js",
       "resources/js/app.js",
       "resources/js/Components/Grid.vue",
       "resources/js/Components/GridCol.vue",
@@ -1614,10 +1614,10 @@
       "assets/StandardActions-e9dff04a.css",
       "assets/MenuBar-e3b0c442.css"
     ],
-    "file": "assets/CreateEdit-78883dc7.js",
+    "file": "assets/CreateEdit-fe8bc31b.js",
     "imports": [
       "resources/js/app.js",
-      "_useCreateEdit-348fe287.js",
+      "_useCreateEdit-21ef3a05.js",
       "resources/js/Components/Grid.vue",
       "resources/js/Components/GridCol.vue",
       "resources/js/Components/Loading.vue",
@@ -1628,7 +1628,7 @@
       "resources/js/Components/Textarea.vue",
       "resources/js/Components/Checkbox.vue",
       "resources/js/Components/Button.vue",
-      "_CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-0111af1d.js",
+      "_CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-94cf182d.js",
       "resources/js/System/Pages/Templates/CRUD/CreateEdit.vue",
       "resources/js/Components/MenuBar.vue",
       "resources/js/Components/StandardActions.vue",
@@ -1638,7 +1638,7 @@
       "resources/js/Components/Attachment.vue",
       "resources/js/Components/FileInput.vue",
       "resources/js/Components/TagInput.vue",
-      "_useNotify-112c9657.js"
+      "_useNotify-449c2f4f.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/Pages/Service/CreateEdit.vue"
@@ -1648,9 +1648,9 @@
       "assets/Select-90f4b454.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Index-0f2aeb1a.js",
+    "file": "assets/Index-85a8f596.js",
     "imports": [
-      "_Index-4857e647.js",
+      "_Index-073472c7.js",
       "resources/js/Components/Mosaic/Badge.vue",
       "resources/js/app.js",
       "resources/js/Components/Filter.vue",
@@ -1677,7 +1677,7 @@
       "resources/js/Components/Mosaic/Table/Td.vue",
       "resources/js/Components/Mosaic/Table/Tr.vue",
       "resources/js/Components/Mosaic/Table/Table.vue",
-      "_useNotify-112c9657.js"
+      "_useNotify-449c2f4f.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/Pages/Service/Index.vue"
@@ -1686,9 +1686,9 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Show-6799fca1.js",
+    "file": "assets/Show-2680db4b.js",
     "imports": [
-      "_useShow-58dbfe99.js",
+      "_useShow-1f1a5148.js",
       "resources/js/app.js",
       "resources/js/Components/Grid.vue",
       "resources/js/Components/GridCol.vue",
@@ -1712,10 +1712,10 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/ChangePassword-031ccafa.js",
+    "file": "assets/ChangePassword-a9889351.js",
     "imports": [
       "resources/js/app.js",
-      "_useNotify-112c9657.js",
+      "_useNotify-449c2f4f.js",
       "resources/js/Components/InputError.vue",
       "resources/js/Components/InputLabel.vue",
       "resources/js/Components/PrimaryButton.vue",
@@ -1736,10 +1736,10 @@
       "assets/StandardActions-e9dff04a.css",
       "assets/MenuBar-e3b0c442.css"
     ],
-    "file": "assets/CreateEdit-bca7b2cb.js",
+    "file": "assets/CreateEdit-f2a849f8.js",
     "imports": [
       "resources/js/app.js",
-      "_useCreateEdit-348fe287.js",
+      "_useCreateEdit-21ef3a05.js",
       "resources/js/Components/Grid.vue",
       "resources/js/Components/GridCol.vue",
       "resources/js/Components/Loading.vue",
@@ -1750,7 +1750,7 @@
       "resources/js/Components/Textarea.vue",
       "resources/js/Components/Checkbox.vue",
       "resources/js/Components/Button.vue",
-      "_CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-0111af1d.js",
+      "_CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-94cf182d.js",
       "resources/js/System/Pages/Templates/CRUD/CreateEdit.vue",
       "resources/js/Components/MenuBar.vue",
       "resources/js/Components/StandardActions.vue",
@@ -1760,7 +1760,7 @@
       "resources/js/Components/Attachment.vue",
       "resources/js/Components/FileInput.vue",
       "resources/js/Components/TagInput.vue",
-      "_useNotify-112c9657.js"
+      "_useNotify-449c2f4f.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/Pages/SocialMedia/CreateEdit.vue"
@@ -1770,9 +1770,9 @@
       "assets/Select-90f4b454.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Index-88305de4.js",
+    "file": "assets/Index-b6e40081.js",
     "imports": [
-      "_Index-4857e647.js",
+      "_Index-073472c7.js",
       "resources/js/Components/Mosaic/Badge.vue",
       "resources/js/app.js",
       "resources/js/Components/Filter.vue",
@@ -1799,7 +1799,7 @@
       "resources/js/Components/Mosaic/Table/Td.vue",
       "resources/js/Components/Mosaic/Table/Tr.vue",
       "resources/js/Components/Mosaic/Table/Table.vue",
-      "_useNotify-112c9657.js"
+      "_useNotify-449c2f4f.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/Pages/SocialMedia/Index.vue"
@@ -1808,9 +1808,9 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Show-4b4da9a4.js",
+    "file": "assets/Show-0f6ffff0.js",
     "imports": [
-      "_useShow-58dbfe99.js",
+      "_useShow-1f1a5148.js",
       "resources/js/app.js",
       "resources/js/Components/Grid.vue",
       "resources/js/Components/GridCol.vue",
@@ -1842,10 +1842,10 @@
       "assets/StandardActions-e9dff04a.css",
       "assets/MenuBar-e3b0c442.css"
     ],
-    "file": "assets/CreateEdit-08b9fff0.js",
+    "file": "assets/CreateEdit-fdfcca36.js",
     "imports": [
       "resources/js/app.js",
-      "_useCreateEdit-348fe287.js",
+      "_useCreateEdit-21ef3a05.js",
       "resources/js/Components/Grid.vue",
       "resources/js/Components/GridCol.vue",
       "resources/js/Components/Loading.vue",
@@ -1856,7 +1856,7 @@
       "resources/js/Components/Textarea.vue",
       "resources/js/Components/Checkbox.vue",
       "resources/js/Components/Button.vue",
-      "_CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-0111af1d.js",
+      "_CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-94cf182d.js",
       "resources/js/System/Pages/Templates/CRUD/CreateEdit.vue",
       "resources/js/Components/MenuBar.vue",
       "resources/js/Components/StandardActions.vue",
@@ -1866,7 +1866,7 @@
       "resources/js/Components/Attachment.vue",
       "resources/js/Components/FileInput.vue",
       "resources/js/Components/TagInput.vue",
-      "_useNotify-112c9657.js"
+      "_useNotify-449c2f4f.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/Pages/Staff/CreateEdit.vue"
@@ -1876,9 +1876,9 @@
       "assets/Select-90f4b454.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Index-7201306f.js",
+    "file": "assets/Index-b361459a.js",
     "imports": [
-      "_Index-4857e647.js",
+      "_Index-073472c7.js",
       "resources/js/Components/Mosaic/Badge.vue",
       "resources/js/app.js",
       "resources/js/Components/Filter.vue",
@@ -1905,7 +1905,7 @@
       "resources/js/Components/Mosaic/Table/Td.vue",
       "resources/js/Components/Mosaic/Table/Tr.vue",
       "resources/js/Components/Mosaic/Table/Table.vue",
-      "_useNotify-112c9657.js"
+      "_useNotify-449c2f4f.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/Pages/Staff/Index.vue"
@@ -1914,9 +1914,9 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Show-d5a34640.js",
+    "file": "assets/Show-3cf16fe1.js",
     "imports": [
-      "_useShow-58dbfe99.js",
+      "_useShow-1f1a5148.js",
       "resources/js/app.js",
       "resources/js/Components/Grid.vue",
       "resources/js/Components/GridCol.vue",
@@ -1948,10 +1948,10 @@
       "assets/StandardActions-e9dff04a.css",
       "assets/MenuBar-e3b0c442.css"
     ],
-    "file": "assets/CreateEdit-91ec1f00.js",
+    "file": "assets/CreateEdit-c2ca7b64.js",
     "imports": [
       "resources/js/app.js",
-      "_useCreateEdit-348fe287.js",
+      "_useCreateEdit-21ef3a05.js",
       "resources/js/Components/Grid.vue",
       "resources/js/Components/GridCol.vue",
       "resources/js/Components/Loading.vue",
@@ -1962,7 +1962,7 @@
       "resources/js/Components/Textarea.vue",
       "resources/js/Components/Checkbox.vue",
       "resources/js/Components/Button.vue",
-      "_CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-0111af1d.js",
+      "_CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-94cf182d.js",
       "resources/js/System/Pages/Templates/CRUD/CreateEdit.vue",
       "resources/js/Components/MenuBar.vue",
       "resources/js/Components/StandardActions.vue",
@@ -1972,7 +1972,7 @@
       "resources/js/Components/Attachment.vue",
       "resources/js/Components/FileInput.vue",
       "resources/js/Components/TagInput.vue",
-      "_useNotify-112c9657.js"
+      "_useNotify-449c2f4f.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/Pages/Testimony/CreateEdit.vue"
@@ -1982,9 +1982,9 @@
       "assets/Select-90f4b454.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Index-3afe6f93.js",
+    "file": "assets/Index-d4e0f54c.js",
     "imports": [
-      "_Index-4857e647.js",
+      "_Index-073472c7.js",
       "resources/js/Components/Mosaic/Badge.vue",
       "resources/js/app.js",
       "resources/js/Components/Filter.vue",
@@ -2011,7 +2011,7 @@
       "resources/js/Components/Mosaic/Table/Td.vue",
       "resources/js/Components/Mosaic/Table/Tr.vue",
       "resources/js/Components/Mosaic/Table/Table.vue",
-      "_useNotify-112c9657.js"
+      "_useNotify-449c2f4f.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/Pages/Testimony/Index.vue"
@@ -2020,9 +2020,9 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Show-280ca4bf.js",
+    "file": "assets/Show-7ca11ae2.js",
     "imports": [
-      "_useShow-58dbfe99.js",
+      "_useShow-1f1a5148.js",
       "resources/js/app.js",
       "resources/js/Components/Grid.vue",
       "resources/js/Components/GridCol.vue",
@@ -2054,10 +2054,10 @@
       "assets/StandardActions-e9dff04a.css",
       "assets/MenuBar-e3b0c442.css"
     ],
-    "file": "assets/CreateEdit-549094d2.js",
+    "file": "assets/CreateEdit-0028bff4.js",
     "imports": [
       "resources/js/app.js",
-      "_useCreateEdit-348fe287.js",
+      "_useCreateEdit-21ef3a05.js",
       "resources/js/Components/Grid.vue",
       "resources/js/Components/GridCol.vue",
       "resources/js/Components/Loading.vue",
@@ -2068,7 +2068,7 @@
       "resources/js/Components/Textarea.vue",
       "resources/js/Components/Checkbox.vue",
       "resources/js/Components/Button.vue",
-      "_CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-0111af1d.js",
+      "_CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-94cf182d.js",
       "resources/js/System/Pages/Templates/CRUD/CreateEdit.vue",
       "resources/js/Components/MenuBar.vue",
       "resources/js/Components/StandardActions.vue",
@@ -2078,7 +2078,7 @@
       "resources/js/Components/Attachment.vue",
       "resources/js/Components/FileInput.vue",
       "resources/js/Components/TagInput.vue",
-      "_useNotify-112c9657.js"
+      "_useNotify-449c2f4f.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/Pages/Users/CreateEdit.vue"
@@ -2088,9 +2088,9 @@
       "assets/Select-90f4b454.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Index-11cb4fa4.js",
+    "file": "assets/Index-7702e17e.js",
     "imports": [
-      "_Index-4857e647.js",
+      "_Index-073472c7.js",
       "resources/js/Components/Mosaic/Badge.vue",
       "resources/js/app.js",
       "resources/js/Components/Filter.vue",
@@ -2117,7 +2117,7 @@
       "resources/js/Components/Mosaic/Table/Td.vue",
       "resources/js/Components/Mosaic/Table/Tr.vue",
       "resources/js/Components/Mosaic/Table/Table.vue",
-      "_useNotify-112c9657.js"
+      "_useNotify-449c2f4f.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/Pages/Users/Index.vue"
@@ -2126,9 +2126,9 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Show-87f25cfb.js",
+    "file": "assets/Show-86f86e06.js",
     "imports": [
-      "_useShow-58dbfe99.js",
+      "_useShow-1f1a5148.js",
       "resources/js/app.js",
       "resources/js/Components/Grid.vue",
       "resources/js/Components/GridCol.vue",
@@ -2160,10 +2160,10 @@
       "assets/StandardActions-e9dff04a.css",
       "assets/MenuBar-e3b0c442.css"
     ],
-    "file": "assets/CreateEdit-f39ac668.js",
+    "file": "assets/CreateEdit-4e69c6f5.js",
     "imports": [
       "resources/js/app.js",
-      "_useCreateEdit-348fe287.js",
+      "_useCreateEdit-21ef3a05.js",
       "resources/js/Components/Grid.vue",
       "resources/js/Components/GridCol.vue",
       "resources/js/Components/Loading.vue",
@@ -2174,7 +2174,7 @@
       "resources/js/Components/Textarea.vue",
       "resources/js/Components/Checkbox.vue",
       "resources/js/Components/Button.vue",
-      "_CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-0111af1d.js",
+      "_CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-94cf182d.js",
       "resources/js/System/Pages/Templates/CRUD/CreateEdit.vue",
       "resources/js/Components/MenuBar.vue",
       "resources/js/Components/StandardActions.vue",
@@ -2184,7 +2184,7 @@
       "resources/js/Components/Attachment.vue",
       "resources/js/Components/FileInput.vue",
       "resources/js/Components/TagInput.vue",
-      "_useNotify-112c9657.js"
+      "_useNotify-449c2f4f.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/Pages/Videos/CreateEdit.vue"
@@ -2194,9 +2194,9 @@
       "assets/Select-90f4b454.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Index-431e1db5.js",
+    "file": "assets/Index-40c1f70d.js",
     "imports": [
-      "_Index-4857e647.js",
+      "_Index-073472c7.js",
       "resources/js/Components/Mosaic/Badge.vue",
       "resources/js/app.js",
       "resources/js/Components/Filter.vue",
@@ -2223,7 +2223,7 @@
       "resources/js/Components/Mosaic/Table/Td.vue",
       "resources/js/Components/Mosaic/Table/Tr.vue",
       "resources/js/Components/Mosaic/Table/Table.vue",
-      "_useNotify-112c9657.js"
+      "_useNotify-449c2f4f.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/Pages/Videos/Index.vue"
@@ -2232,9 +2232,9 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Show-799c2915.js",
+    "file": "assets/Show-04c82f26.js",
     "imports": [
-      "_useShow-58dbfe99.js",
+      "_useShow-1f1a5148.js",
       "resources/js/app.js",
       "resources/js/Components/Grid.vue",
       "resources/js/Components/GridCol.vue",
@@ -2258,7 +2258,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/DeleteButton-2518e3c6.js",
+    "file": "assets/DeleteButton-3ba10ca2.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -2269,7 +2269,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/DashboardAvatars-2bd16d55.js",
+    "file": "assets/DashboardAvatars-7d9dee81.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -2280,7 +2280,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/WelcomeBanner-4f5cb1b2.js",
+    "file": "assets/WelcomeBanner-a2d33e10.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -2291,7 +2291,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Footer-c033fb42.js",
+    "file": "assets/Footer-81d3b168.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -2302,7 +2302,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/GuestSidebar-01bea05d.js",
+    "file": "assets/GuestSidebar-ca6e0d6d.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -2313,7 +2313,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Sidenav-861845c1.js",
+    "file": "assets/Sidenav-65b2bcf4.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -2324,20 +2324,20 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/BulkUpload-0821f8af.js",
+    "file": "assets/BulkUpload-fdd1f48b.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/Admin/ProductMenuBar.vue",
-      "_sparkles-72587b50.js",
-      "_circle-check-big-921be177.js",
-      "_circle-alert-0549431c.js",
-      "_refresh-cw-5ae085f6.js",
-      "_loader-circle-07f3c91e.js",
-      "_check-9b0837a1.js",
-      "_pencil-2878b9f0.js",
-      "_plus-13ee7472.js",
-      "_eye-d24b9887.js",
-      "_upload-a640bf42.js"
+      "_sparkles-7b6280b5.js",
+      "_circle-check-big-76c5f95a.js",
+      "_circle-alert-645878eb.js",
+      "_refresh-cw-23d6942b.js",
+      "_loader-circle-bd00ee02.js",
+      "_check-f9138aa0.js",
+      "_pencil-7f075a0b.js",
+      "_plus-e5ce0b64.js",
+      "_eye-8fa73145.js",
+      "_upload-5e7f97d5.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/Products/BulkUpload.vue"
@@ -2346,18 +2346,18 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Create-42c45a31.js",
+    "file": "assets/Create-b3da3a5e.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/Admin/ProductMenuBar.vue",
-      "_arrow-left-6b5be024.js",
-      "_loader-circle-07f3c91e.js",
-      "_sparkles-72587b50.js",
-      "_plus-13ee7472.js",
-      "_trash-2-13208821.js",
-      "_upload-a640bf42.js",
-      "_eye-d24b9887.js",
-      "_pencil-2878b9f0.js"
+      "_arrow-left-f862b342.js",
+      "_loader-circle-bd00ee02.js",
+      "_sparkles-7b6280b5.js",
+      "_plus-e5ce0b64.js",
+      "_trash-2-c3488b18.js",
+      "_upload-5e7f97d5.js",
+      "_eye-8fa73145.js",
+      "_pencil-7f075a0b.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/Products/Create.vue"
@@ -2366,17 +2366,17 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Edit-e12793c7.js",
+    "file": "assets/Edit-53d3df6e.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/Admin/ProductMenuBar.vue",
-      "_loader-circle-07f3c91e.js",
-      "_sparkles-72587b50.js",
-      "_plus-13ee7472.js",
-      "_trash-2-13208821.js",
-      "_upload-a640bf42.js",
-      "_eye-d24b9887.js",
-      "_pencil-2878b9f0.js"
+      "_loader-circle-bd00ee02.js",
+      "_sparkles-7b6280b5.js",
+      "_plus-e5ce0b64.js",
+      "_trash-2-c3488b18.js",
+      "_upload-5e7f97d5.js",
+      "_eye-8fa73145.js",
+      "_pencil-7f075a0b.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/Products/Edit.vue"
@@ -2385,18 +2385,18 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Index-7c0e4195.js",
+    "file": "assets/Index-ab3a41ec.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/Admin/ProductMenuBar.vue",
-      "_upload-a640bf42.js",
-      "_plus-13ee7472.js",
-      "_search-edb7c99d.js",
-      "_package-c27feeb2.js",
-      "_clock-c63fc9da.js",
-      "_eye-d24b9887.js",
-      "_pencil-2878b9f0.js",
-      "_trash-2-13208821.js"
+      "_upload-5e7f97d5.js",
+      "_plus-e5ce0b64.js",
+      "_search-9d8e958a.js",
+      "_package-71e1f713.js",
+      "_clock-03c18a72.js",
+      "_eye-8fa73145.js",
+      "_pencil-7f075a0b.js",
+      "_trash-2-c3488b18.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/Products/Index.vue"
@@ -2405,15 +2405,15 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Show-5100db2d.js",
+    "file": "assets/Show-994c976b.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/Admin/ProductMenuBar.vue",
-      "_circle-check-big-921be177.js",
-      "_plus-13ee7472.js",
-      "_eye-d24b9887.js",
-      "_pencil-2878b9f0.js",
-      "_upload-a640bf42.js"
+      "_circle-check-big-76c5f95a.js",
+      "_plus-e5ce0b64.js",
+      "_eye-8fa73145.js",
+      "_pencil-7f075a0b.js",
+      "_upload-5e7f97d5.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/Products/Show.vue"
@@ -2423,10 +2423,10 @@
       "assets/ck-editor-8e2de217.css",
       "assets/Select-90f4b454.css"
     ],
-    "file": "assets/ReportsTab-0664d848.js",
+    "file": "assets/ReportsTab-4723aabf.js",
     "imports": [
       "resources/js/System/Reports/Templates/Default.vue",
-      "_MenuBarTabsMixin-c6e9613b.js",
+      "_MenuBarTabsMixin-b5acaccc.js",
       "resources/js/app.js",
       "resources/js/System/Reports/FilterPages/Default.vue",
       "resources/js/Components/Input.vue",
@@ -2441,13 +2441,13 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Index-26667985.js",
+    "file": "assets/Index-0e1da275.js",
     "imports": [
       "resources/js/app.js",
-      "_eye-d24b9887.js",
-      "_star-d4774b07.js",
-      "_award-029714bf.js",
-      "_trash-2-13208821.js"
+      "_eye-8fa73145.js",
+      "_star-ec019b57.js",
+      "_award-b0bdd770.js",
+      "_trash-2-c3488b18.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/Reviews/Index.vue"
@@ -2456,14 +2456,14 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Index-14d36ffe.js",
+    "file": "assets/Index-215b8688.js",
     "imports": [
       "resources/js/app.js",
-      "_refresh-cw-5ae085f6.js",
-      "_circle-check-big-921be177.js",
-      "_search-edb7c99d.js",
-      "_smartphone-7270e879.js",
-      "_eye-d24b9887.js"
+      "_refresh-cw-23d6942b.js",
+      "_circle-check-big-76c5f95a.js",
+      "_search-9d8e958a.js",
+      "_smartphone-a36fa93a.js",
+      "_eye-8fa73145.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/TradeIn/Index.vue"
@@ -2472,17 +2472,17 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Show-ed23b0f7.js",
+    "file": "assets/Show-f7236ad9.js",
     "imports": [
       "resources/js/app.js",
-      "_arrow-left-6b5be024.js",
-      "_circle-check-big-921be177.js",
-      "_smartphone-7270e879.js",
-      "_triangle-alert-b60910d7.js",
-      "_wrench-b4bfef6c.js",
-      "_user-01d25138.js",
-      "_message-circle-2a3d5d04.js",
-      "_trash-2-13208821.js"
+      "_arrow-left-f862b342.js",
+      "_circle-check-big-76c5f95a.js",
+      "_smartphone-a36fa93a.js",
+      "_triangle-alert-8957bff3.js",
+      "_wrench-c9238a67.js",
+      "_user-6fde7bf5.js",
+      "_message-circle-6e3301a4.js",
+      "_trash-2-c3488b18.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/TradeIn/Show.vue"
@@ -2491,10 +2491,10 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Campaigns-13381b9a.js",
+    "file": "assets/Campaigns-47a69bfb.js",
     "imports": [
       "resources/js/app.js",
-      "_plus-13ee7472.js"
+      "_plus-e5ce0b64.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/Vip/Campaigns.vue"
@@ -2503,14 +2503,14 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Index-325f19c2.js",
+    "file": "assets/Index-f0fef298.js",
     "imports": [
       "resources/js/app.js",
-      "_users-74c428a5.js",
-      "_crown-c0a7d359.js",
-      "_clock-c63fc9da.js",
-      "_dollar-sign-ed03c610.js",
-      "_search-edb7c99d.js"
+      "_users-da3f0b2b.js",
+      "_crown-34ee6155.js",
+      "_clock-03c18a72.js",
+      "_dollar-sign-004594c1.js",
+      "_search-9d8e958a.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/Vip/Index.vue"
@@ -2519,13 +2519,13 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Notifications-6b001555.js",
+    "file": "assets/Notifications-1186a292.js",
     "imports": [
       "resources/js/app.js",
-      "_users-74c428a5.js",
-      "_send-f983bb0f.js",
-      "_trending-down-2693bb48.js",
-      "_package-c27feeb2.js"
+      "_users-da3f0b2b.js",
+      "_send-c9b76423.js",
+      "_trending-down-9c3b53de.js",
+      "_package-71e1f713.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Admin/Vip/Notifications.vue"
@@ -2534,7 +2534,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/AButton-ad3f619f.js",
+    "file": "assets/AButton-88ea19ea.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -2545,7 +2545,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/ActionMessage-108b691d.js",
+    "file": "assets/ActionMessage-8e783e3e.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -2556,7 +2556,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/ActionSection-4ef9c2e4.js",
+    "file": "assets/ActionSection-c96833ba.js",
     "imports": [
       "resources/js/Components/SectionTitle.vue",
       "resources/js/app.js"
@@ -2568,14 +2568,14 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/AiStatusWidget-ca04be82.js",
+    "file": "assets/AiStatusWidget-69f14826.js",
     "imports": [
-      "_loader-circle-07f3c91e.js",
-      "_circle-check-119f4daf.js",
-      "_circle-x-521c77db.js",
-      "_sparkles-72587b50.js",
-      "_refresh-cw-5ae085f6.js",
-      "_zap-6e1f0987.js",
+      "_loader-circle-bd00ee02.js",
+      "_circle-check-7296cd4a.js",
+      "_circle-x-104fd4ac.js",
+      "_sparkles-7b6280b5.js",
+      "_refresh-cw-23d6942b.js",
+      "_zap-bf7cb2bd.js",
       "resources/js/app.js"
     ],
     "isDynamicEntry": true,
@@ -2585,13 +2585,13 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/ProductMenuBar-3e86c37f.js",
+    "file": "assets/ProductMenuBar-40fb1413.js",
     "imports": [
       "resources/js/app.js",
-      "_plus-13ee7472.js",
-      "_eye-d24b9887.js",
-      "_pencil-2878b9f0.js",
-      "_upload-a640bf42.js"
+      "_plus-e5ce0b64.js",
+      "_eye-8fa73145.js",
+      "_pencil-7f075a0b.js",
+      "_upload-5e7f97d5.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Components/Admin/ProductMenuBar.vue"
@@ -2600,7 +2600,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/AlertModal-64c37843.js",
+    "file": "assets/AlertModal-aa49c970.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/Button.vue"
@@ -2612,7 +2612,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/ApplicationLogo-75d63045.js",
+    "file": "assets/ApplicationLogo-24938053.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -2623,7 +2623,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/ApplicationMark-76914dae.js",
+    "file": "assets/ApplicationMark-660a5954.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -2634,7 +2634,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Attachment-46e57606.js",
+    "file": "assets/Attachment-1c3745a7.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -2645,7 +2645,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/AttachmentForList-57b2ac33.js",
+    "file": "assets/AttachmentForList-30290b60.js",
     "imports": [
       "resources/js/Components/Table/Table.vue",
       "resources/js/Components/Table/Td.vue",
@@ -2665,7 +2665,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/AuthenticationCard-51c07550.js",
+    "file": "assets/AuthenticationCard-fbea8dda.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -2676,7 +2676,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/AuthenticationCardLogo-93fc42ac.js",
+    "file": "assets/AuthenticationCardLogo-d8fd2a20.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -2687,7 +2687,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Badge-8c6c045d.js",
+    "file": "assets/Badge-36550232.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -2698,7 +2698,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Banner-7f197d33.js",
+    "file": "assets/Banner-a5133180.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -2709,7 +2709,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Button-4db8a1c4.js",
+    "file": "assets/Button-edc4aa17.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -2720,7 +2720,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Card-9a8f184c.js",
+    "file": "assets/Card-2b338133.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -2731,7 +2731,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/DefaultChart-c359f035.js",
+    "file": "assets/DefaultChart-472e5c06.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -2742,12 +2742,12 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/FlexibleChart-62960210.js",
+    "file": "assets/FlexibleChart-168e1206.js",
     "imports": [
       "resources/js/app.js",
-      "_chartjs-adapter-moment.esm-c74ab6c9.js",
+      "_chartjs-adapter-moment.esm-14e86f49.js",
       "_chart-3591f7dc.js",
-      "_Utils-89caf61d.js"
+      "_Utils-bd307493.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Components/Charts/FlexibleChart.vue"
@@ -2756,9 +2756,9 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/LineChart-617080cb.js",
+    "file": "assets/LineChart-80a1cf24.js",
     "imports": [
-      "_index-8639ff04.js",
+      "_index-370a6861.js",
       "resources/js/app.js"
     ],
     "isDynamicEntry": true,
@@ -2768,12 +2768,12 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/LineChart03-f6bfa7a3.js",
+    "file": "assets/LineChart03-a494e818.js",
     "imports": [
       "resources/js/app.js",
-      "_chartjs-adapter-moment.esm-c74ab6c9.js",
+      "_chartjs-adapter-moment.esm-14e86f49.js",
       "_chart-3591f7dc.js",
-      "_Utils-89caf61d.js"
+      "_Utils-bd307493.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Components/Charts/LineChart03.vue"
@@ -2782,9 +2782,9 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/PieChart-d1661050.js",
+    "file": "assets/PieChart-03269325.js",
     "imports": [
-      "_index-8639ff04.js",
+      "_index-370a6861.js",
       "resources/js/app.js"
     ],
     "isDynamicEntry": true,
@@ -2794,12 +2794,12 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/RealtimeChart-48d38680.js",
+    "file": "assets/RealtimeChart-15fc9fcc.js",
     "imports": [
       "resources/js/app.js",
-      "_chartjs-adapter-moment.esm-c74ab6c9.js",
+      "_chartjs-adapter-moment.esm-14e86f49.js",
       "_chart-3591f7dc.js",
-      "_Utils-89caf61d.js"
+      "_Utils-bd307493.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Components/Charts/RealtimeChart.vue"
@@ -2808,7 +2808,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Checkbox-7409ab04.js",
+    "file": "assets/Checkbox-e1728b4e.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -2819,7 +2819,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/ConfirmationModal-8edfbdf6.js",
+    "file": "assets/ConfirmationModal-92d73930.js",
     "imports": [
       "resources/js/Components/Modal.vue",
       "resources/js/app.js"
@@ -2831,7 +2831,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/ConfirmsPassword-fdd4dcba.js",
+    "file": "assets/ConfirmsPassword-19faa88b.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/DialogModal.vue",
@@ -2848,7 +2848,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/CustomLink-17c60c46.js",
+    "file": "assets/CustomLink-9559e985.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -2859,11 +2859,11 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/AIChat-6058f277.js",
+    "file": "assets/AIChat-f00e4231.js",
     "imports": [
       "resources/js/app.js",
-      "_message-circle-2a3d5d04.js",
-      "_send-f983bb0f.js"
+      "_message-circle-6e3301a4.js",
+      "_send-c9b76423.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Components/Customer/AIChat.vue"
@@ -2872,7 +2872,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/ComparisonModal-8c43af26.js",
+    "file": "assets/ComparisonModal-94c8aa30.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -2883,11 +2883,11 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/FloatingContactBar-5e497cb4.js",
+    "file": "assets/FloatingContactBar-7e5948f1.js",
     "imports": [
-      "_useCompanyInfo-13ddf9d8.js",
+      "_useCompanyInfo-2604f89a.js",
       "resources/js/app.js",
-      "_message-circle-2a3d5d04.js"
+      "_message-circle-6e3301a4.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Components/Customer/FloatingContactBar.vue"
@@ -2896,7 +2896,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Footer-fa2d1d84.js",
+    "file": "assets/Footer-fa655ea4.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -2907,10 +2907,10 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Header-0afaa7c5.js",
+    "file": "assets/Header-63fdef81.js",
     "imports": [
       "resources/js/app.js",
-      "_shopping-cart-2b6b215c.js"
+      "_shopping-cart-11eda74c.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Components/Customer/Header.vue"
@@ -2919,11 +2919,11 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/ImageZoom-80493480.js",
+    "file": "assets/ImageZoom-bee0b8eb.js",
     "imports": [
       "resources/js/app.js",
-      "_chevron-left-0e81cfab.js",
-      "_chevron-right-488b17f8.js"
+      "_chevron-left-4570d22b.js",
+      "_chevron-right-988d7f24.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Components/Customer/ImageZoom.vue"
@@ -2932,31 +2932,31 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/LogoLoader-07df0e48.js",
+    "file": "assets/LogoLoader-58172ec9.js",
     "imports": [
       "resources/js/app.js",
-      "_zap-6e1f0987.js"
+      "_zap-bf7cb2bd.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Components/Customer/LogoLoader.vue"
   },
   "resources/js/Components/Customer/ProductCard.css": {
-    "file": "assets/ProductCard-f3b88726.css",
+    "file": "assets/ProductCard-b8f26324.css",
     "src": "resources/js/Components/Customer/ProductCard.css"
   },
   "resources/js/Components/Customer/ProductCard.vue": {
     "css": [
-      "assets/ProductCard-f3b88726.css",
+      "assets/ProductCard-b8f26324.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/ProductCard-d9bac574.js",
+    "file": "assets/ProductCard-597a746f.js",
     "imports": [
       "resources/js/app.js",
-      "_useCompanyInfo-13ddf9d8.js",
-      "_share-2-b64e5e2c.js",
-      "_clock-c63fc9da.js",
-      "_message-circle-2a3d5d04.js",
-      "_shopping-cart-2b6b215c.js"
+      "_useCompanyInfo-2604f89a.js",
+      "_share-2-af2ce309.js",
+      "_clock-03c18a72.js",
+      "_message-circle-6e3301a4.js",
+      "_shopping-cart-11eda74c.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Components/Customer/ProductCard.vue"
@@ -2965,10 +2965,10 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/TestimonialCarousel-f2363664.js",
+    "file": "assets/TestimonialCarousel-9209d9a1.js",
     "imports": [
       "resources/js/app.js",
-      "_star-d4774b07.js"
+      "_star-ec019b57.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Components/Customer/TestimonialCarousel.vue"
@@ -2977,11 +2977,11 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/TrustActions-aeea0ab2.js",
+    "file": "assets/TrustActions-8478506c.js",
     "imports": [
       "resources/js/app.js",
-      "_useCompanyInfo-13ddf9d8.js",
-      "_message-circle-2a3d5d04.js"
+      "_useCompanyInfo-2604f89a.js",
+      "_message-circle-6e3301a4.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Components/Customer/TrustActions.vue"
@@ -2990,7 +2990,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/DangerButton-e73ccf51.js",
+    "file": "assets/DangerButton-1cee09af.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3001,12 +3001,12 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/ApplicationStats-0edb9c2c.js",
+    "file": "assets/ApplicationStats-ea1ab58a.js",
     "imports": [
       "resources/js/app.js",
-      "_award-029714bf.js",
-      "_graduation-cap-a1bd363f.js",
-      "_eye-d24b9887.js"
+      "_award-b0bdd770.js",
+      "_graduation-cap-f92649a5.js",
+      "_eye-8fa73145.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Components/Dashboard/ApplicationStats.vue"
@@ -3015,7 +3015,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/AttendanceTrends-f24c6c85.js",
+    "file": "assets/AttendanceTrends-796be5cb.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3026,13 +3026,13 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/AttendanceTrendsGraph-0e9e16c1.js",
+    "file": "assets/AttendanceTrendsGraph-6b7bdc80.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/Mosaic/Tooltip.vue",
       "resources/js/Components/Charts/FlexibleChart.vue",
-      "_Utils-89caf61d.js",
-      "_chartjs-adapter-moment.esm-c74ab6c9.js",
+      "_Utils-bd307493.js",
+      "_chartjs-adapter-moment.esm-14e86f49.js",
       "_chart-3591f7dc.js"
     ],
     "isDynamicEntry": true,
@@ -3042,14 +3042,14 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/CalendarWidget-9b3836b6.js",
+    "file": "assets/CalendarWidget-aab13853.js",
     "imports": [
       "resources/js/app.js",
-      "_chevron-left-0e81cfab.js",
-      "_chevron-right-488b17f8.js",
-      "_dialog-64648265.js",
-      "_transition-7b27e259.js",
-      "_clock-c63fc9da.js"
+      "_chevron-left-4570d22b.js",
+      "_chevron-right-988d7f24.js",
+      "_dialog-feab619c.js",
+      "_transition-d4935713.js",
+      "_clock-03c18a72.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Components/Dashboard/CalendarWidget.vue"
@@ -3058,13 +3058,13 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/DashboardCard-9118f31c.js",
+    "file": "assets/DashboardCard-0afc89fb.js",
     "imports": [
       "resources/js/Components/Charts/LineChart.vue",
       "resources/js/Components/Mosaic/DropdownEditMenu.vue",
-      "_Utils-89caf61d.js",
+      "_Utils-bd307493.js",
       "resources/js/app.js",
-      "_index-8639ff04.js"
+      "_index-370a6861.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Components/Dashboard/DashboardCard.vue"
@@ -3073,13 +3073,13 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/DashboardCard05-9d6af274.js",
+    "file": "assets/DashboardCard05-fca63242.js",
     "imports": [
       "resources/js/Components/Mosaic/Tooltip.vue",
       "resources/js/Components/Charts/RealtimeChart.vue",
-      "_Utils-89caf61d.js",
+      "_Utils-bd307493.js",
       "resources/js/app.js",
-      "_chartjs-adapter-moment.esm-c74ab6c9.js",
+      "_chartjs-adapter-moment.esm-14e86f49.js",
       "_chart-3591f7dc.js"
     ],
     "isDynamicEntry": true,
@@ -3089,7 +3089,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/DashboardCard10-7c228879.js",
+    "file": "assets/DashboardCard10-63cb378f.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3100,11 +3100,11 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/DepartmentOverview-80d2fc1c.js",
+    "file": "assets/DepartmentOverview-2526989c.js",
     "imports": [
       "resources/js/app.js",
-      "_users-74c428a5.js",
-      "_target-dde201bd.js"
+      "_users-da3f0b2b.js",
+      "_target-ee4ccc70.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Components/Dashboard/DepartmentOverview.vue"
@@ -3113,11 +3113,11 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/DepartmentSummary-03167fff.js",
+    "file": "assets/DepartmentSummary-a14e32d6.js",
     "imports": [
       "resources/js/app.js",
-      "_users-74c428a5.js",
-      "_target-dde201bd.js"
+      "_users-da3f0b2b.js",
+      "_target-ee4ccc70.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Components/Dashboard/DepartmentSummary.vue"
@@ -3126,7 +3126,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/FinancialOverview-fd7e4a9e.js",
+    "file": "assets/FinancialOverview-41877ead.js",
     "imports": [
       "resources/js/app.js",
       "_chart-3591f7dc.js"
@@ -3138,7 +3138,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/MediaGallery-ff6b350f.js",
+    "file": "assets/MediaGallery-deb43334.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3149,14 +3149,14 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/PendingRequests-1ed9436c.js",
+    "file": "assets/PendingRequests-0496b62e.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/PendingRequestModal.vue",
-      "_useNotify-112c9657.js",
-      "_refresh-cw-5ae085f6.js",
-      "_dialog-64648265.js",
-      "_transition-7b27e259.js"
+      "_useNotify-449c2f4f.js",
+      "_refresh-cw-23d6942b.js",
+      "_dialog-feab619c.js",
+      "_transition-d4935713.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Components/Dashboard/PendingRequests.vue"
@@ -3165,11 +3165,11 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/QuickActions-f0b1c7b3.js",
+    "file": "assets/QuickActions-43528307.js",
     "imports": [
       "resources/js/app.js",
-      "_chevron-right-488b17f8.js",
-      "_upload-a640bf42.js"
+      "_chevron-right-988d7f24.js",
+      "_upload-5e7f97d5.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Components/Dashboard/QuickActions.vue"
@@ -3178,7 +3178,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/RecentActivities-5e460d98.js",
+    "file": "assets/RecentActivities-e7b6823f.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3189,7 +3189,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/RecentReports-9de6af72.js",
+    "file": "assets/RecentReports-bb1a95bc.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3200,12 +3200,12 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/StatsCard-9ec20dba.js",
+    "file": "assets/StatsCard-eff7f528.js",
     "imports": [
       "resources/js/Components/Charts/LineChart.vue",
-      "_Utils-89caf61d.js",
+      "_Utils-bd307493.js",
       "resources/js/app.js",
-      "_index-8639ff04.js"
+      "_index-370a6861.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Components/Dashboard/StatsCard.vue"
@@ -3214,14 +3214,14 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/WebTrafficStats-cbccf04b.js",
+    "file": "assets/WebTrafficStats-9c033515.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/Mosaic/Tooltip.vue",
       "resources/js/Components/Charts/FlexibleChart.vue",
-      "_chartjs-adapter-moment.esm-c74ab6c9.js",
+      "_chartjs-adapter-moment.esm-14e86f49.js",
       "_chart-3591f7dc.js",
-      "_Utils-89caf61d.js"
+      "_Utils-bd307493.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Components/Dashboard/WebTrafficStats.vue"
@@ -3230,7 +3230,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/DialogModal-36333e55.js",
+    "file": "assets/DialogModal-5b50db57.js",
     "imports": [
       "resources/js/Components/Modal.vue",
       "resources/js/app.js"
@@ -3242,7 +3242,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Dropdown-320d388d.js",
+    "file": "assets/Dropdown-ea60b264.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3253,7 +3253,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/DropdownLink-12df3df8.js",
+    "file": "assets/DropdownLink-da3929fa.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3264,7 +3264,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/FileInput-0f92622a.js",
+    "file": "assets/FileInput-09098ed1.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3276,7 +3276,7 @@
       "assets/Select-90f4b454.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Filter-bf1d2353.js",
+    "file": "assets/Filter-cfbf698f.js",
     "imports": [
       "resources/js/Components/Select.vue",
       "resources/js/Components/Input.vue",
@@ -3290,7 +3290,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/FormGroup-fa1cfd26.js",
+    "file": "assets/FormGroup-565d2ef4.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3301,7 +3301,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/FormSection-d96b53ff.js",
+    "file": "assets/FormSection-fe386847.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/SectionTitle.vue"
@@ -3313,7 +3313,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Grid-f035744e.js",
+    "file": "assets/Grid-737aa6a2.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3324,7 +3324,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/GridCol-fe136a15.js",
+    "file": "assets/GridCol-4e56f4fd.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3335,7 +3335,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Input-b5cd50c8.js",
+    "file": "assets/Input-0ffecfc4.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3346,7 +3346,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/InputError-58260c6d.js",
+    "file": "assets/InputError-a54161cb.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3357,7 +3357,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/InputLabel-7e59a2cc.js",
+    "file": "assets/InputLabel-667d7389.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3368,7 +3368,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Label-79ab231c.js",
+    "file": "assets/Label-3baf8d3e.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3379,7 +3379,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Link-f2134fb2.js",
+    "file": "assets/Link-1cb7e0ea.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3393,13 +3393,13 @@
       "assets/ck-editor-8e2de217.css",
       "assets/Select-90f4b454.css"
     ],
-    "file": "assets/CreateEditPanel-7ac8a8eb.js",
+    "file": "assets/CreateEditPanel-255cc9a7.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/TextInput.vue",
       "resources/js/Components/Panel.vue",
       "resources/js/Components/Select.vue",
-      "_CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-0111af1d.js"
+      "_CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-94cf182d.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Components/ListPart/CreateEditPanel.vue"
@@ -3414,7 +3414,7 @@
       "resources/js/Components/Reports/DefaultReport.vue",
       "resources/js/Components/Charts/DefaultChart.vue"
     ],
-    "file": "assets/MenuBar-9657a7a0.js",
+    "file": "assets/MenuBar-f5c79b60.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/ListPart/StandardActions.vue",
@@ -3431,7 +3431,7 @@
       "assets/StandardActions-e9dff04a.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/StandardActions-5884f22d.js",
+    "file": "assets/StandardActions-e4f4f1d4.js",
     "imports": [
       "resources/js/Components/Button.vue",
       "resources/js/Components/Link.vue",
@@ -3446,7 +3446,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Loading-bd4bdbdb.js",
+    "file": "assets/Loading-08b53b5c.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3457,7 +3457,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/MenuBar-4e5b352c.js",
+    "file": "assets/MenuBar-f6e00b36.js",
     "imports": [
       "resources/js/Components/StandardActions.vue",
       "resources/js/app.js",
@@ -3473,7 +3473,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/MenuBarItem-43999805.js",
+    "file": "assets/MenuBarItem-0d631218.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3484,7 +3484,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Modal-95c4676f.js",
+    "file": "assets/Modal-c01438f5.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3495,7 +3495,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/AccordionBasic-a56698b8.js",
+    "file": "assets/AccordionBasic-19ca7a94.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3506,7 +3506,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/AccordionTableItem-0d1951f0.js",
+    "file": "assets/AccordionTableItem-537e699d.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3517,7 +3517,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/AccordionTableRichItem-8902ec7e.js",
+    "file": "assets/AccordionTableRichItem-8a80dc91.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3528,7 +3528,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Badge-a14971ef.js",
+    "file": "assets/Badge-03eb06a3.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3539,7 +3539,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Banner-735f41b2.js",
+    "file": "assets/Banner-28fc69e1.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3550,7 +3550,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Banner2-d08079ad.js",
+    "file": "assets/Banner2-6bf2f40b.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3561,7 +3561,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Checkbox-d7d6ab51.js",
+    "file": "assets/Checkbox-9d9bb339.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3572,7 +3572,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/DateSelect-71b05fa7.js",
+    "file": "assets/DateSelect-a855a54e.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3583,7 +3583,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Datepicker-4b7819a3.js",
+    "file": "assets/Datepicker-9f4d78c4.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3594,7 +3594,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/DropdownClassic-699c91d6.js",
+    "file": "assets/DropdownClassic-a83159ca.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3605,7 +3605,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/DropdownEditMenu-9854d2b6.js",
+    "file": "assets/DropdownEditMenu-98fcbf99.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3616,7 +3616,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/DropdownEditMenuCard-8b80acde.js",
+    "file": "assets/DropdownEditMenuCard-7bd894b4.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3627,7 +3627,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/DropdownFilter-65945e8f.js",
+    "file": "assets/DropdownFilter-7e4da606.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3638,7 +3638,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/DropdownFull-dfb6323c.js",
+    "file": "assets/DropdownFull-38c891fb.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3649,7 +3649,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/DropdownHelp-122d6baa.js",
+    "file": "assets/DropdownHelp-21632e15.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3660,7 +3660,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/DropdownNotifications-18ec283f.js",
+    "file": "assets/DropdownNotifications-2189cd15.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3671,7 +3671,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/DropdownSort-1bbade71.js",
+    "file": "assets/DropdownSort-e74545ac.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3682,7 +3682,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/DropdownSwitch-f8acfb53.js",
+    "file": "assets/DropdownSwitch-21f3172f.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3693,7 +3693,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/DropdownTransaction-bcc6c9be.js",
+    "file": "assets/DropdownTransaction-9ee6af3d.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3704,7 +3704,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/ModalAction-ca9cae50.js",
+    "file": "assets/ModalAction-5d00421d.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3715,7 +3715,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/ModalBasic-b7f69ce2.js",
+    "file": "assets/ModalBasic-4904abbc.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3726,7 +3726,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/ModalBlank-6fff80d1.js",
+    "file": "assets/ModalBlank-b7646bcc.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3737,7 +3737,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/ModalCookies-20da26d3.js",
+    "file": "assets/ModalCookies-811002a6.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3748,7 +3748,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Notification-d80f2617.js",
+    "file": "assets/Notification-5a2c885d.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3759,7 +3759,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/PaginationClassic-4f106888.js",
+    "file": "assets/PaginationClassic-3036b4e5.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3770,7 +3770,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/PaginationNumeric-9d36d152.js",
+    "file": "assets/PaginationNumeric-5dbc3d25.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3781,7 +3781,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/PaginationNumeric2-f2b20d4c.js",
+    "file": "assets/PaginationNumeric2-83a6de44.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3792,7 +3792,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/SearchForm-337fd262.js",
+    "file": "assets/SearchForm-f2313928.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3803,7 +3803,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Table-24654b28.js",
+    "file": "assets/Table-56c60474.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3814,7 +3814,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/TableItem-12b0af66.js",
+    "file": "assets/TableItem-6e507dde.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3825,7 +3825,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Td-eb044fd5.js",
+    "file": "assets/Td-a5a792fd.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3836,7 +3836,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/TdCheckbox-4648fd0e.js",
+    "file": "assets/TdCheckbox-24c6bd42.js",
     "imports": [
       "resources/js/Components/Mosaic/Checkbox.vue",
       "resources/js/app.js"
@@ -3848,7 +3848,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Th-04487308.js",
+    "file": "assets/Th-4bc44818.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3859,7 +3859,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/ThCheckbox-367e1964.js",
+    "file": "assets/ThCheckbox-00e3278c.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3870,7 +3870,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Tr-f07f1e36.js",
+    "file": "assets/Tr-d2a55b92.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3881,7 +3881,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Table-9589d8fb.js",
+    "file": "assets/Table-45120fd0.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3892,7 +3892,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/TableItem-c0efcda9.js",
+    "file": "assets/TableItem-f65221cc.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3903,7 +3903,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Td-9ad4e487.js",
+    "file": "assets/Td-02c19db9.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3914,7 +3914,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/TdCheckbox-65a129aa.js",
+    "file": "assets/TdCheckbox-d26801b1.js",
     "imports": [
       "resources/js/Components/Mosaic/Checkbox.vue",
       "resources/js/app.js"
@@ -3926,7 +3926,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Th-f3350b41.js",
+    "file": "assets/Th-1a00251b.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3937,7 +3937,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/ThCheckbox-6f729ece.js",
+    "file": "assets/ThCheckbox-3a0bb1fd.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3948,7 +3948,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Tr-340401ec.js",
+    "file": "assets/Tr-b20a05f1.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3959,7 +3959,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Toast-888738d8.js",
+    "file": "assets/Toast-460a5bea.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3970,7 +3970,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Toast2-c063ce9f.js",
+    "file": "assets/Toast2-236fa398.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3981,7 +3981,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Toast3-5139ba39.js",
+    "file": "assets/Toast3-89ddddad.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -3992,7 +3992,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Tooltip-6bdb4286.js",
+    "file": "assets/Tooltip-520129bb.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -4003,7 +4003,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/NavLink-d717aba5.js",
+    "file": "assets/NavLink-60103a2c.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -4014,7 +4014,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Notification-bc7dc205.js",
+    "file": "assets/Notification-41e8eda1.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -4025,7 +4025,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Pagination-61b34655.js",
+    "file": "assets/Pagination-a840be72.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -4036,7 +4036,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Panel-f23c36b1.js",
+    "file": "assets/Panel-f00c5d6e.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -4047,11 +4047,11 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/PendingRequestModal-8b8de64c.js",
+    "file": "assets/PendingRequestModal-b7bbe7ca.js",
     "imports": [
       "resources/js/app.js",
-      "_dialog-64648265.js",
-      "_transition-7b27e259.js"
+      "_dialog-feab619c.js",
+      "_transition-d4935713.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Components/PendingRequestModal.vue"
@@ -4060,7 +4060,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/PrimaryButton-55fbde2a.js",
+    "file": "assets/PrimaryButton-3241b7b1.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -4071,7 +4071,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/DefaultReport-e37f1a09.js",
+    "file": "assets/DefaultReport-192ef20a.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -4082,7 +4082,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/ResponsiveNavLink-9f61af5d.js",
+    "file": "assets/ResponsiveNavLink-9d223475.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -4093,7 +4093,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/SecondaryButton-65729841.js",
+    "file": "assets/SecondaryButton-3bdc878e.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -4104,7 +4104,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/SectionBorder-3b5263c9.js",
+    "file": "assets/SectionBorder-93a10d7d.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -4115,7 +4115,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/SectionTitle-7e71fbcf.js",
+    "file": "assets/SectionTitle-e0cec0bc.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -4127,7 +4127,7 @@
       "assets/Select-90f4b454.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Select-a01eb429.js",
+    "file": "assets/Select-8711712b.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -4138,7 +4138,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/ShowGroup-e29fd86e.js",
+    "file": "assets/ShowGroup-fd48ba1f.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -4149,7 +4149,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/StandardActions-c7f4680b.js",
+    "file": "assets/StandardActions-d3d222b8.js",
     "imports": [
       "resources/js/Components/Button.vue",
       "resources/js/Components/Link.vue",
@@ -4164,7 +4164,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Table-3673b3e8.js",
+    "file": "assets/Table-961751e1.js",
     "imports": [
       "resources/js/Components/Checkbox.vue",
       "resources/js/app.js"
@@ -4176,7 +4176,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Td-b502c980.js",
+    "file": "assets/Td-4377a2fb.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -4187,7 +4187,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/TdCheckbox-1f90f4d8.js",
+    "file": "assets/TdCheckbox-cde4fd77.js",
     "imports": [
       "resources/js/Components/Checkbox.vue",
       "resources/js/app.js"
@@ -4199,7 +4199,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Th-9f16bacb.js",
+    "file": "assets/Th-a03dc7fd.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -4210,7 +4210,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/ThCheckbox-7c296f91.js",
+    "file": "assets/ThCheckbox-0acf3f84.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -4221,7 +4221,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Tr-fa138cf1.js",
+    "file": "assets/Tr-3fd6e30b.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -4237,7 +4237,7 @@
       "assets/TagInput-36d8b65f.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/TagInput-b231e2b2.js",
+    "file": "assets/TagInput-5834ce5a.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -4248,7 +4248,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/TextInput-3a79b909.js",
+    "file": "assets/TextInput-98453508.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -4259,7 +4259,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Textarea-6bb29fe3.js",
+    "file": "assets/Textarea-53354577.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -4270,7 +4270,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Tile-cfae8c22.js",
+    "file": "assets/Tile-6a121877.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -4281,10 +4281,10 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Toast-0409a783.js",
+    "file": "assets/Toast-c6f5fbd4.js",
     "imports": [
       "resources/js/app.js",
-      "_transition-7b27e259.js"
+      "_transition-d4935713.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Components/Toast.vue"
@@ -4293,7 +4293,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/ValidationErrors-2b8edf68.js",
+    "file": "assets/ValidationErrors-0824608e.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -4304,7 +4304,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Welcome-6e49b44e.js",
+    "file": "assets/Welcome-1e301648.js",
     "imports": [
       "resources/js/Components/ApplicationLogo.vue",
       "resources/js/app.js"
@@ -4316,19 +4316,19 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Cart-9fa08301.js",
+    "file": "assets/Cart-d3ef57fb.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Layouts/CustomerLayout.vue",
-      "_useCompanyInfo-13ddf9d8.js",
-      "_trash-2-13208821.js",
-      "_minus-504bacbb.js",
-      "_plus-13ee7472.js",
-      "_message-circle-2a3d5d04.js",
+      "_useCompanyInfo-2604f89a.js",
+      "_trash-2-c3488b18.js",
+      "_minus-f401c509.js",
+      "_plus-e5ce0b64.js",
+      "_message-circle-6e3301a4.js",
       "resources/js/Components/Customer/FloatingContactBar.vue",
       "resources/js/Components/Customer/LogoLoader.vue",
-      "_zap-6e1f0987.js",
-      "_shopping-cart-2b6b215c.js"
+      "_zap-bf7cb2bd.js",
+      "_shopping-cart-11eda74c.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Customer/Cart.vue"
@@ -4337,20 +4337,20 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Checkout-747c326c.js",
+    "file": "assets/Checkout-0c4ab1e4.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Layouts/CustomerLayout.vue",
-      "_useCompanyInfo-13ddf9d8.js",
-      "_circle-check-big-921be177.js",
-      "_message-circle-2a3d5d04.js",
-      "_smartphone-7270e879.js",
-      "_credit-card-4557bf64.js",
-      "_truck-09c1e345.js",
+      "_useCompanyInfo-2604f89a.js",
+      "_circle-check-big-76c5f95a.js",
+      "_message-circle-6e3301a4.js",
+      "_smartphone-a36fa93a.js",
+      "_credit-card-e1436dff.js",
+      "_truck-a481c17e.js",
       "resources/js/Components/Customer/FloatingContactBar.vue",
       "resources/js/Components/Customer/LogoLoader.vue",
-      "_zap-6e1f0987.js",
-      "_shopping-cart-2b6b215c.js"
+      "_zap-bf7cb2bd.js",
+      "_shopping-cart-11eda74c.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Customer/Checkout.vue"
@@ -4364,21 +4364,21 @@
       "assets/Index-336af838.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Index-3e57f50c.js",
+    "file": "assets/Index-0d462156.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Layouts/CustomerLayout.vue",
-      "_arrow-right-bf448b51.js",
-      "_star-d4774b07.js",
-      "_chevron-right-488b17f8.js",
-      "_book-open-431824da.js",
-      "_user-01d25138.js",
-      "_message-circle-2a3d5d04.js",
+      "_arrow-right-59024025.js",
+      "_star-ec019b57.js",
+      "_chevron-right-988d7f24.js",
+      "_book-open-e699018b.js",
+      "_user-6fde7bf5.js",
+      "_message-circle-6e3301a4.js",
       "resources/js/Components/Customer/FloatingContactBar.vue",
-      "_useCompanyInfo-13ddf9d8.js",
+      "_useCompanyInfo-2604f89a.js",
       "resources/js/Components/Customer/LogoLoader.vue",
-      "_zap-6e1f0987.js",
-      "_shopping-cart-2b6b215c.js"
+      "_zap-bf7cb2bd.js",
+      "_shopping-cart-11eda74c.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Customer/Community/Index.vue"
@@ -4387,22 +4387,22 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Photos-40c235f0.js",
+    "file": "assets/Photos-49420b89.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Layouts/CustomerLayout.vue",
-      "_chevron-right-488b17f8.js",
-      "_plus-13ee7472.js",
-      "_upload-a640bf42.js",
-      "_send-f983bb0f.js",
-      "_user-01d25138.js",
-      "_heart-8f450fe3.js",
+      "_chevron-right-988d7f24.js",
+      "_plus-e5ce0b64.js",
+      "_upload-5e7f97d5.js",
+      "_send-c9b76423.js",
+      "_user-6fde7bf5.js",
+      "_heart-58387422.js",
       "resources/js/Components/Customer/FloatingContactBar.vue",
-      "_useCompanyInfo-13ddf9d8.js",
-      "_message-circle-2a3d5d04.js",
+      "_useCompanyInfo-2604f89a.js",
+      "_message-circle-6e3301a4.js",
       "resources/js/Components/Customer/LogoLoader.vue",
-      "_zap-6e1f0987.js",
-      "_shopping-cart-2b6b215c.js"
+      "_zap-bf7cb2bd.js",
+      "_shopping-cart-11eda74c.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Customer/Community/Photos.vue"
@@ -4411,22 +4411,22 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Questions-dd71a9c7.js",
+    "file": "assets/Questions-b3a74293.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Layouts/CustomerLayout.vue",
-      "_chevron-right-488b17f8.js",
-      "_plus-13ee7472.js",
-      "_search-edb7c99d.js",
-      "_send-f983bb0f.js",
-      "_user-01d25138.js",
-      "_check-9b0837a1.js",
-      "_message-circle-2a3d5d04.js",
+      "_chevron-right-988d7f24.js",
+      "_plus-e5ce0b64.js",
+      "_search-9d8e958a.js",
+      "_send-c9b76423.js",
+      "_user-6fde7bf5.js",
+      "_check-f9138aa0.js",
+      "_message-circle-6e3301a4.js",
       "resources/js/Components/Customer/FloatingContactBar.vue",
-      "_useCompanyInfo-13ddf9d8.js",
+      "_useCompanyInfo-2604f89a.js",
       "resources/js/Components/Customer/LogoLoader.vue",
-      "_zap-6e1f0987.js",
-      "_shopping-cart-2b6b215c.js"
+      "_zap-bf7cb2bd.js",
+      "_shopping-cart-11eda74c.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Customer/Community/Questions.vue"
@@ -4440,22 +4440,22 @@
       "assets/Stories-6e8b3425.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Stories-b4ab3c59.js",
+    "file": "assets/Stories-6c022fc0.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Layouts/CustomerLayout.vue",
-      "_chevron-right-488b17f8.js",
-      "_plus-13ee7472.js",
-      "_star-d4774b07.js",
-      "_send-f983bb0f.js",
-      "_user-01d25138.js",
-      "_book-open-431824da.js",
+      "_chevron-right-988d7f24.js",
+      "_plus-e5ce0b64.js",
+      "_star-ec019b57.js",
+      "_send-c9b76423.js",
+      "_user-6fde7bf5.js",
+      "_book-open-e699018b.js",
       "resources/js/Components/Customer/FloatingContactBar.vue",
-      "_useCompanyInfo-13ddf9d8.js",
-      "_message-circle-2a3d5d04.js",
+      "_useCompanyInfo-2604f89a.js",
+      "_message-circle-6e3301a4.js",
       "resources/js/Components/Customer/LogoLoader.vue",
-      "_zap-6e1f0987.js",
-      "_shopping-cart-2b6b215c.js"
+      "_zap-bf7cb2bd.js",
+      "_shopping-cart-11eda74c.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Customer/Community/Stories.vue"
@@ -4464,20 +4464,20 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/StoryShow-02fcef58.js",
+    "file": "assets/StoryShow-b57ac671.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Layouts/CustomerLayout.vue",
-      "_chevron-right-488b17f8.js",
-      "_star-d4774b07.js",
-      "_user-01d25138.js",
-      "_shopping-cart-2b6b215c.js",
-      "_arrow-left-6b5be024.js",
+      "_chevron-right-988d7f24.js",
+      "_star-ec019b57.js",
+      "_user-6fde7bf5.js",
+      "_shopping-cart-11eda74c.js",
+      "_arrow-left-f862b342.js",
       "resources/js/Components/Customer/FloatingContactBar.vue",
-      "_useCompanyInfo-13ddf9d8.js",
-      "_message-circle-2a3d5d04.js",
+      "_useCompanyInfo-2604f89a.js",
+      "_message-circle-6e3301a4.js",
       "resources/js/Components/Customer/LogoLoader.vue",
-      "_zap-6e1f0987.js"
+      "_zap-bf7cb2bd.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Customer/Community/StoryShow.vue"
@@ -4491,22 +4491,22 @@
       "assets/Comparison-aa39ee18.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Comparison-5680394a.js",
+    "file": "assets/Comparison-21161f7f.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Layouts/CustomerLayout.vue",
-      "_arrow-left-6b5be024.js",
-      "_sparkles-72587b50.js",
-      "_search-edb7c99d.js",
-      "_star-d4774b07.js",
-      "_clock-c63fc9da.js",
-      "_check-9b0837a1.js",
+      "_arrow-left-f862b342.js",
+      "_sparkles-7b6280b5.js",
+      "_search-9d8e958a.js",
+      "_star-ec019b57.js",
+      "_clock-03c18a72.js",
+      "_check-f9138aa0.js",
       "resources/js/Components/Customer/FloatingContactBar.vue",
-      "_useCompanyInfo-13ddf9d8.js",
-      "_message-circle-2a3d5d04.js",
+      "_useCompanyInfo-2604f89a.js",
+      "_message-circle-6e3301a4.js",
       "resources/js/Components/Customer/LogoLoader.vue",
-      "_zap-6e1f0987.js",
-      "_shopping-cart-2b6b215c.js"
+      "_zap-bf7cb2bd.js",
+      "_shopping-cart-11eda74c.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Customer/Comparison.vue"
@@ -4520,28 +4520,28 @@
       "assets/Home-80c2c6e6.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Home-8c8f458f.js",
+    "file": "assets/Home-be89e3a0.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Layouts/CustomerLayout.vue",
       "resources/js/Components/Customer/ProductCard.vue",
       "resources/js/Components/Customer/TestimonialCarousel.vue",
-      "_zap-6e1f0987.js",
-      "_search-edb7c99d.js",
-      "_sparkles-72587b50.js",
-      "_smartphone-7270e879.js",
-      "_star-d4774b07.js",
-      "_arrow-right-bf448b51.js",
-      "_headphones-edc78985.js",
-      "_shield-eb64dad6.js",
-      "_shopping-cart-2b6b215c.js",
-      "_truck-09c1e345.js",
+      "_zap-bf7cb2bd.js",
+      "_search-9d8e958a.js",
+      "_sparkles-7b6280b5.js",
+      "_smartphone-a36fa93a.js",
+      "_star-ec019b57.js",
+      "_arrow-right-59024025.js",
+      "_headphones-dc41ac02.js",
+      "_shield-a4f93771.js",
+      "_shopping-cart-11eda74c.js",
+      "_truck-a481c17e.js",
       "resources/js/Components/Customer/FloatingContactBar.vue",
-      "_useCompanyInfo-13ddf9d8.js",
-      "_message-circle-2a3d5d04.js",
+      "_useCompanyInfo-2604f89a.js",
+      "_message-circle-6e3301a4.js",
       "resources/js/Components/Customer/LogoLoader.vue",
-      "_share-2-b64e5e2c.js",
-      "_clock-c63fc9da.js"
+      "_share-2-af2ce309.js",
+      "_clock-03c18a72.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Customer/Home.vue"
@@ -4550,21 +4550,21 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Index-3a555178.js",
+    "file": "assets/Index-0f22d3bc.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Layouts/CustomerLayout.vue",
       "resources/js/Components/Customer/ProductCard.vue",
-      "_search-edb7c99d.js",
-      "_smartphone-7270e879.js",
+      "_search-9d8e958a.js",
+      "_smartphone-a36fa93a.js",
       "resources/js/Components/Customer/FloatingContactBar.vue",
-      "_useCompanyInfo-13ddf9d8.js",
-      "_message-circle-2a3d5d04.js",
+      "_useCompanyInfo-2604f89a.js",
+      "_message-circle-6e3301a4.js",
       "resources/js/Components/Customer/LogoLoader.vue",
-      "_zap-6e1f0987.js",
-      "_shopping-cart-2b6b215c.js",
-      "_share-2-b64e5e2c.js",
-      "_clock-c63fc9da.js"
+      "_zap-bf7cb2bd.js",
+      "_shopping-cart-11eda74c.js",
+      "_share-2-af2ce309.js",
+      "_clock-03c18a72.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Customer/Products/Index.vue"
@@ -4578,26 +4578,26 @@
       "assets/Show-d08b7906.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Show-4eeb573c.js",
+    "file": "assets/Show-15ffcd6d.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Layouts/CustomerLayout.vue",
       "resources/js/Components/Customer/ProductCard.vue",
-      "_useCompanyInfo-13ddf9d8.js",
-      "_chevron-right-488b17f8.js",
-      "_share-2-b64e5e2c.js",
-      "_minus-504bacbb.js",
-      "_plus-13ee7472.js",
-      "_shopping-cart-2b6b215c.js",
-      "_message-circle-2a3d5d04.js",
-      "_check-9b0837a1.js",
-      "_truck-09c1e345.js",
-      "_shield-eb64dad6.js",
-      "_zap-6e1f0987.js",
-      "_chevron-left-0e81cfab.js",
+      "_useCompanyInfo-2604f89a.js",
+      "_chevron-right-988d7f24.js",
+      "_share-2-af2ce309.js",
+      "_minus-f401c509.js",
+      "_plus-e5ce0b64.js",
+      "_shopping-cart-11eda74c.js",
+      "_message-circle-6e3301a4.js",
+      "_check-f9138aa0.js",
+      "_truck-a481c17e.js",
+      "_shield-a4f93771.js",
+      "_zap-bf7cb2bd.js",
+      "_chevron-left-4570d22b.js",
       "resources/js/Components/Customer/FloatingContactBar.vue",
       "resources/js/Components/Customer/LogoLoader.vue",
-      "_clock-c63fc9da.js"
+      "_clock-03c18a72.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Customer/Products/Show.vue"
@@ -4606,24 +4606,24 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/TradeIn-18b3ab01.js",
+    "file": "assets/TradeIn-e8f013de.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Layouts/CustomerLayout.vue",
-      "_useCompanyInfo-13ddf9d8.js",
-      "_refresh-cw-5ae085f6.js",
-      "_circle-check-big-921be177.js",
-      "_smartphone-7270e879.js",
-      "_search-edb7c99d.js",
-      "_chevron-left-0e81cfab.js",
-      "_triangle-alert-b60910d7.js",
-      "_wrench-b4bfef6c.js",
-      "_message-circle-2a3d5d04.js",
-      "_chevron-right-488b17f8.js",
+      "_useCompanyInfo-2604f89a.js",
+      "_refresh-cw-23d6942b.js",
+      "_circle-check-big-76c5f95a.js",
+      "_smartphone-a36fa93a.js",
+      "_search-9d8e958a.js",
+      "_chevron-left-4570d22b.js",
+      "_triangle-alert-8957bff3.js",
+      "_wrench-c9238a67.js",
+      "_message-circle-6e3301a4.js",
+      "_chevron-right-988d7f24.js",
       "resources/js/Components/Customer/FloatingContactBar.vue",
       "resources/js/Components/Customer/LogoLoader.vue",
-      "_zap-6e1f0987.js",
-      "_shopping-cart-2b6b215c.js"
+      "_zap-bf7cb2bd.js",
+      "_shopping-cart-11eda74c.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Customer/TradeIn.vue"
@@ -4632,25 +4632,25 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Index-5fdea3d9.js",
+    "file": "assets/Index-259b4fb6.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Layouts/CustomerLayout.vue",
-      "_crown-c0a7d359.js",
-      "_trending-down-2693bb48.js",
-      "_headphones-edc78985.js",
-      "_check-9b0837a1.js",
-      "_message-circle-2a3d5d04.js",
-      "_user-01d25138.js",
-      "_credit-card-4557bf64.js",
-      "_zap-6e1f0987.js",
-      "_share-2-b64e5e2c.js",
-      "_users-74c428a5.js",
-      "_arrow-right-bf448b51.js",
+      "_crown-34ee6155.js",
+      "_trending-down-9c3b53de.js",
+      "_headphones-dc41ac02.js",
+      "_check-f9138aa0.js",
+      "_message-circle-6e3301a4.js",
+      "_user-6fde7bf5.js",
+      "_credit-card-e1436dff.js",
+      "_zap-bf7cb2bd.js",
+      "_share-2-af2ce309.js",
+      "_users-da3f0b2b.js",
+      "_arrow-right-59024025.js",
       "resources/js/Components/Customer/FloatingContactBar.vue",
-      "_useCompanyInfo-13ddf9d8.js",
+      "_useCompanyInfo-2604f89a.js",
       "resources/js/Components/Customer/LogoLoader.vue",
-      "_shopping-cart-2b6b215c.js"
+      "_shopping-cart-11eda74c.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Customer/Vip/Index.vue"
@@ -4659,7 +4659,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/ConfirmPassword-fbcc3ce6.js",
+    "file": "assets/ConfirmPassword-0ae1b7c2.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/AuthenticationCard.vue",
@@ -4676,7 +4676,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/ForgotPassword-dc9db7b7.js",
+    "file": "assets/ForgotPassword-aabf237c.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/AuthenticationCard.vue",
@@ -4693,7 +4693,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Login-caf68e03.js",
+    "file": "assets/Login-bdea7639.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/AuthenticationCard.vue",
@@ -4711,7 +4711,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Register-bcca8ee0.js",
+    "file": "assets/Register-6122364b.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/AuthenticationCard.vue",
@@ -4729,7 +4729,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/ResetPassword-0533fcfe.js",
+    "file": "assets/ResetPassword-be183408.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/AuthenticationCard.vue",
@@ -4746,7 +4746,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/TwoFactorChallenge-25d1f58e.js",
+    "file": "assets/TwoFactorChallenge-d7a48800.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/AuthenticationCard.vue",
@@ -4763,7 +4763,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/VerifyEmail-682dfa93.js",
+    "file": "assets/VerifyEmail-1ea33626.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/AuthenticationCard.vue",
@@ -4777,12 +4777,12 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Default-ce9293fe.js",
+    "file": "assets/Default-8ba92c9c.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Guest/Partials/Navbar.vue",
       "resources/js/Guest/Partials/Footer.vue",
-      "_graduation-cap-a1bd363f.js"
+      "_graduation-cap-f92649a5.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Guest/Layouts/Default.vue"
@@ -4791,11 +4791,11 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Layout-361c2cb3.js",
+    "file": "assets/Layout-6495b887.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Guest/Partials/Footer2.vue",
-      "_graduation-cap-a1bd363f.js"
+      "_graduation-cap-f92649a5.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Guest/Layouts/Layout.vue"
@@ -4814,26 +4814,26 @@
       "assets/LatestContentSection-6e8c3049.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Home-11be6586.js",
+    "file": "assets/Home-a0bca729.js",
     "imports": [
       "resources/js/app.js",
       "_Swiper.vue_vue_type_style_index_0_lang-b197a6ec.js",
       "resources/js/Guest/Partials/HeroSection.vue",
-      "_chevron-left-0e81cfab.js",
-      "_chevron-right-488b17f8.js",
-      "_star-d4774b07.js",
-      "_book-open-431824da.js",
-      "_users-74c428a5.js",
-      "_graduation-cap-a1bd363f.js",
-      "_arrow-right-bf448b51.js",
-      "_eye-d24b9887.js",
-      "_clock-c63fc9da.js",
-      "_shield-eb64dad6.js",
-      "_heart-8f450fe3.js",
-      "_user-01d25138.js",
-      "_globe-e3ca6b8e.js",
-      "_award-029714bf.js",
-      "_credit-card-4557bf64.js"
+      "_chevron-left-4570d22b.js",
+      "_chevron-right-988d7f24.js",
+      "_star-ec019b57.js",
+      "_book-open-e699018b.js",
+      "_users-da3f0b2b.js",
+      "_graduation-cap-f92649a5.js",
+      "_arrow-right-59024025.js",
+      "_eye-8fa73145.js",
+      "_clock-03c18a72.js",
+      "_shield-a4f93771.js",
+      "_heart-58387422.js",
+      "_user-6fde7bf5.js",
+      "_globe-7a68c588.js",
+      "_award-b0bdd770.js",
+      "_credit-card-e1436dff.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Guest/Pages/Home.vue"
@@ -4843,7 +4843,7 @@
       "assets/CurrentSermonSeries-b29a3e79.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/CurrentSermonSeries-33869cec.js",
+    "file": "assets/CurrentSermonSeries-8b423b16.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -4859,7 +4859,7 @@
       "assets/FAQ-2d850844.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/FAQ-98bf1fea.js",
+    "file": "assets/FAQ-ecdff987.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -4875,10 +4875,10 @@
       "assets/Footer-c582090a.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Footer-bbdf92f0.js",
+    "file": "assets/Footer-cf85916b.js",
     "imports": [
       "resources/js/app.js",
-      "_graduation-cap-a1bd363f.js"
+      "_graduation-cap-f92649a5.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Guest/Partials/Footer.vue"
@@ -4887,9 +4887,9 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Footer2-7c128c03.js",
+    "file": "assets/Footer2-ce872fe8.js",
     "imports": [
-      "_graduation-cap-a1bd363f.js",
+      "_graduation-cap-f92649a5.js",
       "resources/js/app.js"
     ],
     "isDynamicEntry": true,
@@ -4899,7 +4899,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Geolocation-59907db9.js",
+    "file": "assets/Geolocation-3dffcbbb.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -4915,11 +4915,11 @@
       "assets/HeroSection-fb100fa8.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/HeroSection-d2a8ba32.js",
+    "file": "assets/HeroSection-e916ecd0.js",
     "imports": [
       "resources/js/app.js",
-      "_graduation-cap-a1bd363f.js",
-      "_arrow-right-bf448b51.js"
+      "_graduation-cap-f92649a5.js",
+      "_arrow-right-59024025.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Guest/Partials/HeroSection.vue"
@@ -4929,10 +4929,10 @@
       "assets/LatestContentSection-6e8c3049.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/LatestContentSection-ada7f5f3.js",
+    "file": "assets/LatestContentSection-4a0df468.js",
     "imports": [
       "resources/js/app.js",
-      "_arrow-right-bf448b51.js"
+      "_arrow-right-59024025.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Guest/Partials/LatestContentSection.vue"
@@ -4946,7 +4946,7 @@
       "assets/LeftNavigation-b5c3f1f4.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/LeftNavigation-72b7d185.js",
+    "file": "assets/LeftNavigation-ad1894fd.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -4957,7 +4957,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Navbar-43274534.js",
+    "file": "assets/Navbar-246e2515.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -4968,7 +4968,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Navbar2-aef37a21.js",
+    "file": "assets/Navbar2-862ffd59.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -4984,7 +4984,7 @@
       "assets/Pagination-a85a79b3.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Pagination-fe376c9b.js",
+    "file": "assets/Pagination-35aba42c.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -5000,9 +5000,9 @@
       "assets/Partners-feb874d4.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Partners-abda8919.js",
+    "file": "assets/Partners-885a51f4.js",
     "imports": [
-      "_Swiper-7e157d1a.js",
+      "_Swiper-b0c69106.js",
       "resources/js/app.js",
       "_Swiper.vue_vue_type_style_index_0_lang-b197a6ec.js"
     ],
@@ -5014,10 +5014,10 @@
       "assets/ResourcesSection-86c73f38.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/ResourcesSection-71921133.js",
+    "file": "assets/ResourcesSection-b8a713b7.js",
     "imports": [
       "resources/js/app.js",
-      "_arrow-right-bf448b51.js"
+      "_arrow-right-59024025.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Guest/Partials/ResourcesSection.vue"
@@ -5031,7 +5031,7 @@
       "assets/RightNavigation-db487779.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/RightNavigation-02afcce1.js",
+    "file": "assets/RightNavigation-8c018025.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -5042,7 +5042,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/SermonSeries-4d42e961.js",
+    "file": "assets/SermonSeries-0eaab16e.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -5053,9 +5053,9 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Services-439bd25a.js",
+    "file": "assets/Services-2f3648ec.js",
     "imports": [
-      "_Swiper-7e157d1a.js",
+      "_Swiper-b0c69106.js",
       "resources/js/app.js",
       "_Swiper.vue_vue_type_style_index_0_lang-b197a6ec.js"
     ],
@@ -5066,9 +5066,9 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Testmonial-5b186094.js",
+    "file": "assets/Testmonial-a508f88a.js",
     "imports": [
-      "_Swiper-7e157d1a.js",
+      "_Swiper-b0c69106.js",
       "resources/js/app.js",
       "_Swiper.vue_vue_type_style_index_0_lang-b197a6ec.js"
     ],
@@ -5079,7 +5079,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/TopBar-a11ff6cc.js",
+    "file": "assets/TopBar-ccb2fd5f.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -5091,7 +5091,7 @@
       "assets/WelcomeSection-fea45ded.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/WelcomeSection-3fee702c.js",
+    "file": "assets/WelcomeSection-10cd1c57.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -5103,10 +5103,10 @@
       "assets/WhatsHappeningSection-fb1a49ec.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/WhatsHappeningSection-78641fae.js",
+    "file": "assets/WhatsHappeningSection-12dc3c12.js",
     "imports": [
       "resources/js/app.js",
-      "_arrow-right-bf448b51.js"
+      "_arrow-right-59024025.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Guest/Partials/WhatsHappeningSection.vue"
@@ -5115,7 +5115,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/ActionMessage-cc28cb08.js",
+    "file": "assets/ActionMessage-3b624709.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -5126,7 +5126,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/ActionSection-a1ea4cd9.js",
+    "file": "assets/ActionSection-3d658cd5.js",
     "imports": [
       "resources/js/Jetstream/SectionTitle.vue",
       "resources/js/app.js"
@@ -5138,7 +5138,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/ApplicationLogo-439faa31.js",
+    "file": "assets/ApplicationLogo-dae25463.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -5149,7 +5149,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/ApplicationMark-12ab8b19.js",
+    "file": "assets/ApplicationMark-856f3e6b.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -5160,7 +5160,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/AuthenticationCard-d3f3be2f.js",
+    "file": "assets/AuthenticationCard-372bed2e.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -5171,7 +5171,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/AuthenticationCardLogo-157a06aa.js",
+    "file": "assets/AuthenticationCardLogo-a1b4bef0.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -5182,7 +5182,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Banner-a8c44128.js",
+    "file": "assets/Banner-3783035d.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -5193,7 +5193,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Button-22e7c546.js",
+    "file": "assets/Button-43e2c5ac.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -5204,7 +5204,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Checkbox-dbca0bff.js",
+    "file": "assets/Checkbox-12b9f3f9.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -5215,7 +5215,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/ConfirmationModal-454a4ea7.js",
+    "file": "assets/ConfirmationModal-a2a84e37.js",
     "imports": [
       "resources/js/Jetstream/Modal.vue",
       "resources/js/app.js"
@@ -5227,7 +5227,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/ConfirmsPassword-3a90619d.js",
+    "file": "assets/ConfirmsPassword-aa832036.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Jetstream/Button.vue",
@@ -5244,7 +5244,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/DangerButton-2120c672.js",
+    "file": "assets/DangerButton-7972c34f.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -5255,7 +5255,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/DialogModal-ff4de2d9.js",
+    "file": "assets/DialogModal-146ef8ad.js",
     "imports": [
       "resources/js/Jetstream/Modal.vue",
       "resources/js/app.js"
@@ -5267,7 +5267,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Dropdown-df13ad87.js",
+    "file": "assets/Dropdown-9216c8dc.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -5278,7 +5278,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/DropdownLink-cbdef193.js",
+    "file": "assets/DropdownLink-05bf4eee.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -5289,7 +5289,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/FormSection-d8c2057d.js",
+    "file": "assets/FormSection-65027ab7.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Jetstream/SectionTitle.vue"
@@ -5301,7 +5301,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Input-aeb4c8b7.js",
+    "file": "assets/Input-31151f13.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -5312,7 +5312,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/InputError-970af9e2.js",
+    "file": "assets/InputError-e7617789.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -5323,7 +5323,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Label-e92e894f.js",
+    "file": "assets/Label-80b2b447.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -5334,7 +5334,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Modal-5d4bcac4.js",
+    "file": "assets/Modal-2865d922.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -5345,7 +5345,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/NavLink-e8285d1d.js",
+    "file": "assets/NavLink-50f84051.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -5356,7 +5356,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/ResponsiveNavLink-63aef90b.js",
+    "file": "assets/ResponsiveNavLink-20e4152a.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -5367,7 +5367,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/SecondaryButton-5ef2d7bb.js",
+    "file": "assets/SecondaryButton-aafa6108.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -5378,7 +5378,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/SectionBorder-c2545df5.js",
+    "file": "assets/SectionBorder-5b178dfa.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -5389,7 +5389,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/SectionTitle-d468511b.js",
+    "file": "assets/SectionTitle-8bb83916.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -5400,7 +5400,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/ValidationErrors-2b1f510f.js",
+    "file": "assets/ValidationErrors-7796fed0.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -5411,7 +5411,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Welcome-4074ccd0.js",
+    "file": "assets/Welcome-aedc2a58.js",
     "imports": [
       "resources/js/Jetstream/ApplicationLogo.vue",
       "resources/js/app.js"
@@ -5423,7 +5423,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/AppLayout-e5ee738d.js",
+    "file": "assets/AppLayout-79af3779.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/ApplicationMark.vue",
@@ -5440,15 +5440,15 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/CustomerLayout-64bb48cd.js",
+    "file": "assets/CustomerLayout-a284a9b5.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/Customer/FloatingContactBar.vue",
       "resources/js/Components/Customer/LogoLoader.vue",
-      "_useCompanyInfo-13ddf9d8.js",
-      "_zap-6e1f0987.js",
-      "_shopping-cart-2b6b215c.js",
-      "_message-circle-2a3d5d04.js"
+      "_useCompanyInfo-2604f89a.js",
+      "_zap-bf7cb2bd.js",
+      "_shopping-cart-11eda74c.js",
+      "_message-circle-6e3301a4.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Layouts/CustomerLayout.vue"
@@ -5457,7 +5457,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Index-b77dc04d.js",
+    "file": "assets/Index-7525ec59.js",
     "imports": [
       "resources/js/Pages/API/Partials/ApiTokenManager.vue",
       "resources/js/Layouts/AppLayout.vue",
@@ -5491,7 +5491,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/ApiTokenManager-5142cc85.js",
+    "file": "assets/ApiTokenManager-a6b8062c.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/ActionMessage.vue",
@@ -5517,7 +5517,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/ConfirmPassword-f4eb03ff.js",
+    "file": "assets/ConfirmPassword-b57c568d.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/AuthenticationCard.vue",
@@ -5534,7 +5534,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/ForgotPassword-1b9d4d45.js",
+    "file": "assets/ForgotPassword-99aaab9d.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/AuthenticationCard.vue",
@@ -5551,7 +5551,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Login-26dfc99b.js",
+    "file": "assets/Login-448980ac.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/AuthenticationCard.vue",
@@ -5569,7 +5569,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Register-e5443942.js",
+    "file": "assets/Register-0d82e3f0.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/AuthenticationCard.vue",
@@ -5587,7 +5587,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/ResetPassword-eeb8f789.js",
+    "file": "assets/ResetPassword-5099c8e4.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/AuthenticationCard.vue",
@@ -5604,7 +5604,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/TwoFactorChallenge-9aeda13f.js",
+    "file": "assets/TwoFactorChallenge-15521f3f.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/AuthenticationCard.vue",
@@ -5621,7 +5621,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/VerifyEmail-4cd18737.js",
+    "file": "assets/VerifyEmail-bb6036e4.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/AuthenticationCard.vue",
@@ -5635,7 +5635,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Dashboard-d4306193.js",
+    "file": "assets/Dashboard-f780b075.js",
     "imports": [
       "resources/js/Layouts/AppLayout.vue",
       "resources/js/Components/Welcome.vue",
@@ -5655,7 +5655,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/PrivacyPolicy-2ac88938.js",
+    "file": "assets/PrivacyPolicy-d37edf05.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/AuthenticationCardLogo.vue"
@@ -5667,7 +5667,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/DeleteUserForm-94917e5b.js",
+    "file": "assets/DeleteUserForm-35a263fe.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/ActionSection.vue",
@@ -5686,7 +5686,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/LogoutOtherBrowserSessionsForm-eaa5e742.js",
+    "file": "assets/LogoutOtherBrowserSessionsForm-a423d1c8.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/ActionMessage.vue",
@@ -5706,7 +5706,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/TwoFactorAuthenticationForm-4d3c8eb1.js",
+    "file": "assets/TwoFactorAuthenticationForm-3c978fc5.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/ActionSection.vue",
@@ -5728,7 +5728,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/UpdatePasswordForm-5a343059.js",
+    "file": "assets/UpdatePasswordForm-f29a2907.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/ActionMessage.vue",
@@ -5746,7 +5746,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/UpdateProfileInformationForm-41dcdb3d.js",
+    "file": "assets/UpdateProfileInformationForm-3ba84bb4.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/ActionMessage.vue",
@@ -5765,7 +5765,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Show-eae0e45b.js",
+    "file": "assets/Show-484876c2.js",
     "imports": [
       "resources/js/Layouts/AppLayout.vue",
       "resources/js/Pages/Profile/Partials/DeleteUserForm.vue",
@@ -5802,7 +5802,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/TermsOfService-cbc5d75c.js",
+    "file": "assets/TermsOfService-d69a3dcf.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/AuthenticationCardLogo.vue"
@@ -5819,16 +5819,16 @@
       "assets/Welcome-cfd2b184.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Welcome-013d0ae1.js",
+    "file": "assets/Welcome-45cc5b94.js",
     "imports": [
       "resources/js/app.js",
-      "_book-open-431824da.js",
-      "_sparkles-72587b50.js",
-      "_shield-eb64dad6.js",
-      "_circle-check-119f4daf.js",
-      "_zap-6e1f0987.js",
-      "_users-74c428a5.js",
-      "_user-01d25138.js"
+      "_book-open-e699018b.js",
+      "_sparkles-7b6280b5.js",
+      "_shield-a4f93771.js",
+      "_circle-check-7296cd4a.js",
+      "_zap-bf7cb2bd.js",
+      "_users-da3f0b2b.js",
+      "_user-6fde7bf5.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Welcome.vue"
@@ -5837,11 +5837,11 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Default-7925b99f.js",
+    "file": "assets/Default-1b482dbd.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/Charts/LineChart.vue",
-      "_index-8639ff04.js"
+      "_index-370a6861.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/System/Charts/Templates/Default.vue"
@@ -5850,7 +5850,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Guest-7d926507.js",
+    "file": "assets/Guest-3191eb64.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -5862,13 +5862,13 @@
       "assets/ck-editor-8e2de217.css",
       "assets/Select-90f4b454.css"
     ],
-    "file": "assets/ApprovalManagement-c2c51d00.js",
+    "file": "assets/ApprovalManagement-35d614e7.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/Button.vue",
       "resources/js/Components/Textarea.vue",
       "resources/js/Components/Select.vue",
-      "_MenuBarTabsMixin-c6e9613b.js",
+      "_MenuBarTabsMixin-b5acaccc.js",
       "_VueLoadingMixin-89c4e429.js",
       "resources/js/Components/MenuBarItem.vue"
     ],
@@ -5879,12 +5879,12 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/DataImport-97b58908.js",
+    "file": "assets/DataImport-34be29ab.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/Button.vue",
-      "_MenuBarTabsMixin-c6e9613b.js",
-      "_CrudMethodsMixin-63116bac.js",
+      "_MenuBarTabsMixin-b5acaccc.js",
+      "_CrudMethodsMixin-f15f2c4b.js",
       "_VueLoadingMixin-89c4e429.js",
       "resources/js/Components/MenuBarItem.vue"
     ],
@@ -5895,10 +5895,10 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/SystemAction-e2269d30.js",
+    "file": "assets/SystemAction-42c3f056.js",
     "imports": [
-      "_MenuBarTabsMixin-c6e9613b.js",
-      "_CrudMethodsMixin-63116bac.js",
+      "_MenuBarTabsMixin-b5acaccc.js",
+      "_CrudMethodsMixin-f15f2c4b.js",
       "_VueLoadingMixin-89c4e429.js",
       "resources/js/app.js",
       "resources/js/Components/MenuBarItem.vue"
@@ -5911,12 +5911,12 @@
       "assets/ck-editor-8e2de217.css",
       "assets/Select-90f4b454.css"
     ],
-    "file": "assets/UserRole-efb76c39.js",
+    "file": "assets/UserRole-bebb6717.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/Button.vue",
       "resources/js/Components/Select.vue",
-      "_MenuBarTabsMixin-c6e9613b.js",
+      "_MenuBarTabsMixin-b5acaccc.js",
       "_VueLoadingMixin-89c4e429.js",
       "resources/js/Components/MenuBarItem.vue"
     ],
@@ -5928,12 +5928,12 @@
       "assets/ck-editor-8e2de217.css",
       "assets/Select-90f4b454.css"
     ],
-    "file": "assets/Workflow-4ac03388.js",
+    "file": "assets/Workflow-d3c3a2a5.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/Button.vue",
       "resources/js/Components/Select.vue",
-      "_MenuBarTabsMixin-c6e9613b.js",
+      "_MenuBarTabsMixin-b5acaccc.js",
       "_VueLoadingMixin-89c4e429.js",
       "resources/js/Components/MenuBarItem.vue"
     ],
@@ -5947,10 +5947,10 @@
       "assets/StandardActions-e9dff04a.css",
       "assets/MenuBar-e3b0c442.css"
     ],
-    "file": "assets/CreateEdit-492a2ec1.js",
+    "file": "assets/CreateEdit-a59205b7.js",
     "imports": [
       "resources/js/app.js",
-      "_useCreateEdit-348fe287.js",
+      "_useCreateEdit-21ef3a05.js",
       "resources/js/Components/Grid.vue",
       "resources/js/Components/GridCol.vue",
       "resources/js/Components/Loading.vue",
@@ -5961,7 +5961,7 @@
       "resources/js/Components/Textarea.vue",
       "resources/js/Components/Checkbox.vue",
       "resources/js/Components/Button.vue",
-      "_CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-0111af1d.js",
+      "_CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-94cf182d.js",
       "resources/js/System/Pages/Templates/CRUD/CreateEdit.vue",
       "resources/js/Components/MenuBar.vue",
       "resources/js/Components/StandardActions.vue",
@@ -5971,7 +5971,7 @@
       "resources/js/Components/Attachment.vue",
       "resources/js/Components/FileInput.vue",
       "resources/js/Components/TagInput.vue",
-      "_useNotify-112c9657.js"
+      "_useNotify-449c2f4f.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/System/Pages/CompanyInformation/CreateEdit.vue"
@@ -5981,9 +5981,9 @@
       "assets/Select-90f4b454.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Index-8af1dbe1.js",
+    "file": "assets/Index-ea0812b0.js",
     "imports": [
-      "_Index-4857e647.js",
+      "_Index-073472c7.js",
       "resources/js/Components/Mosaic/Badge.vue",
       "resources/js/app.js",
       "resources/js/Components/Filter.vue",
@@ -6010,7 +6010,7 @@
       "resources/js/Components/Mosaic/Table/Td.vue",
       "resources/js/Components/Mosaic/Table/Tr.vue",
       "resources/js/Components/Mosaic/Table/Table.vue",
-      "_useNotify-112c9657.js"
+      "_useNotify-449c2f4f.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/System/Pages/CompanyInformation/Index.vue"
@@ -6024,9 +6024,9 @@
       "assets/MenuBar-e3b0c442.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Show-48d913ac.js",
+    "file": "assets/Show-b127600a.js",
     "imports": [
-      "_useShow-58dbfe99.js",
+      "_useShow-1f1a5148.js",
       "resources/js/app.js",
       "resources/js/Components/Grid.vue",
       "resources/js/Components/GridCol.vue",
@@ -6057,10 +6057,10 @@
       "assets/Select-90f4b454.css",
       "assets/StandardActions-e9dff04a.css"
     ],
-    "file": "assets/CreateEdit-9cb64432.js",
+    "file": "assets/CreateEdit-a18481ff.js",
     "imports": [
       "resources/js/app.js",
-      "_useCreateEdit-348fe287.js",
+      "_useCreateEdit-21ef3a05.js",
       "resources/js/Components/Grid.vue",
       "resources/js/Components/GridCol.vue",
       "resources/js/Components/Loading.vue",
@@ -6071,7 +6071,7 @@
       "resources/js/Components/Textarea.vue",
       "resources/js/Components/Checkbox.vue",
       "resources/js/Components/Button.vue",
-      "_CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-0111af1d.js",
+      "_CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-94cf182d.js",
       "resources/js/System/Pages/Templates/CRUD/CreateEdit.vue",
       "resources/js/Components/MenuBar.vue",
       "resources/js/Components/StandardActions.vue",
@@ -6081,7 +6081,7 @@
       "resources/js/Components/Attachment.vue",
       "resources/js/Components/FileInput.vue",
       "resources/js/Components/TagInput.vue",
-      "_useNotify-112c9657.js"
+      "_useNotify-449c2f4f.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/System/Pages/Course/CreateEdit.vue"
@@ -6091,9 +6091,9 @@
       "assets/Select-90f4b454.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Index-96d02584.js",
+    "file": "assets/Index-3bb81f6a.js",
     "imports": [
-      "_Index-4857e647.js",
+      "_Index-073472c7.js",
       "resources/js/Components/Mosaic/Badge.vue",
       "resources/js/app.js",
       "resources/js/Components/Filter.vue",
@@ -6120,7 +6120,7 @@
       "resources/js/Components/Mosaic/Table/Td.vue",
       "resources/js/Components/Mosaic/Table/Tr.vue",
       "resources/js/Components/Mosaic/Table/Table.vue",
-      "_useNotify-112c9657.js"
+      "_useNotify-449c2f4f.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/System/Pages/Course/Index.vue"
@@ -6129,9 +6129,9 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Show-e02e4a92.js",
+    "file": "assets/Show-914437a3.js",
     "imports": [
-      "_useShow-58dbfe99.js",
+      "_useShow-1f1a5148.js",
       "resources/js/app.js",
       "resources/js/Components/Grid.vue",
       "resources/js/Components/GridCol.vue",
@@ -6156,7 +6156,7 @@
       "assets/ck-editor-8e2de217.css",
       "assets/Select-90f4b454.css"
     ],
-    "file": "assets/Index-6e1ece53.js",
+    "file": "assets/Index-e043dca2.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/Table/Table.vue",
@@ -6166,7 +6166,7 @@
       "resources/js/Components/Table/ThCheckbox.vue",
       "resources/js/Components/Table/Tr.vue",
       "resources/js/Components/Badge.vue",
-      "_Index-4857e647.js",
+      "_Index-073472c7.js",
       "resources/js/Components/Checkbox.vue",
       "resources/js/Components/Filter.vue",
       "resources/js/Components/Select.vue",
@@ -6185,7 +6185,7 @@
       "resources/js/Components/Mosaic/Table/Td.vue",
       "resources/js/Components/Mosaic/Table/Tr.vue",
       "resources/js/Components/Mosaic/Table/Table.vue",
-      "_useNotify-112c9657.js"
+      "_useNotify-449c2f4f.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/System/Pages/SystemAction/Index.vue"
@@ -6197,13 +6197,13 @@
       "assets/MenuBar-e3b0c442.css",
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/CreateEdit-d0320a51.js",
+    "file": "assets/CreateEdit-0c7082d4.js",
     "imports": [
       "resources/js/Components/Panel.vue",
       "resources/js/app.js",
       "resources/js/Components/MenuBar.vue",
       "resources/js/Components/Attachment.vue",
-      "_CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-0111af1d.js",
+      "_CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-94cf182d.js",
       "resources/js/Components/StandardActions.vue",
       "resources/js/Components/Button.vue",
       "resources/js/Components/Link.vue",
@@ -6220,7 +6220,7 @@
       "assets/StandardActions-e9dff04a.css",
       "assets/MenuBar-e3b0c442.css"
     ],
-    "file": "assets/ListPart-12f72014.js",
+    "file": "assets/ListPart-3ed9b9fb.js",
     "imports": [
       "resources/js/Components/Filter.vue",
       "resources/js/Components/ListPart/MenuBar.vue",
@@ -6236,7 +6236,7 @@
       "resources/js/Components/Table/Th.vue",
       "resources/js/Components/Table/Tr.vue",
       "resources/js/Components/Badge.vue",
-      "_Index-4857e647.js",
+      "_Index-073472c7.js",
       "resources/js/Components/Mosaic/Table/ListPart/ThCheckbox.vue",
       "resources/js/Components/Mosaic/Table/ListPart/TdCheckbox.vue",
       "resources/js/Components/Mosaic/Table/ListPart/Th.vue",
@@ -6251,7 +6251,7 @@
       "resources/js/Components/MenuBarItem.vue",
       "resources/js/Components/TextInput.vue",
       "resources/js/Components/Panel.vue",
-      "_CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-0111af1d.js",
+      "_CreateEdit.vue_vue_type_style_index_0_scoped_0383ee72_lang-94cf182d.js",
       "resources/js/Components/Checkbox.vue",
       "resources/js/Components/MenuBar.vue",
       "resources/js/Components/StandardActions.vue",
@@ -6262,7 +6262,7 @@
       "resources/js/Components/Mosaic/Table/Td.vue",
       "resources/js/Components/Mosaic/Table/Tr.vue",
       "resources/js/Components/Mosaic/Table/Table.vue",
-      "_useNotify-112c9657.js"
+      "_useNotify-449c2f4f.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/System/Pages/Templates/CRUD/ListPart.vue"
@@ -6271,7 +6271,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Show-b4fcbc9e.js",
+    "file": "assets/Show-1a6f59dd.js",
     "imports": [
       "resources/js/Components/Panel.vue",
       "resources/js/Components/Button.vue",
@@ -6290,7 +6290,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Sidebar-8f0789d7.js",
+    "file": "assets/Sidebar-404a1354.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -6301,7 +6301,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Footer-b10f1533.js",
+    "file": "assets/Footer-703147f1.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -6312,7 +6312,7 @@
     "css": [
       "assets/ck-editor-8e2de217.css"
     ],
-    "file": "assets/Navbar-d98739a6.js",
+    "file": "assets/Navbar-f73304a9.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Jetstream/ApplicationMark.vue",
@@ -6327,7 +6327,7 @@
       "assets/ck-editor-8e2de217.css",
       "assets/Select-90f4b454.css"
     ],
-    "file": "assets/Default-a60c4461.js",
+    "file": "assets/Default-ad34980b.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Components/Input.vue",
@@ -6342,7 +6342,7 @@
       "assets/ck-editor-8e2de217.css",
       "assets/Select-90f4b454.css"
     ],
-    "file": "assets/Default-545da48e.js",
+    "file": "assets/Default-deed5493.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/System/Reports/FilterPages/Default.vue",
@@ -6572,7 +6572,7 @@
       "resources/js/Components/Select.vue",
       "resources/js/Components/ShowGroup.vue",
       "resources/js/Components/StandardActions.vue",
-      "_Swiper-7e157d1a.js",
+      "_Swiper-b0c69106.js",
       "resources/js/Components/Table/Table.vue",
       "resources/js/Components/Table/Td.vue",
       "resources/js/Components/Table/TdCheckbox.vue",
@@ -6692,7 +6692,7 @@
       "resources/js/System/Pages/Course/Show.vue",
       "resources/js/System/Pages/SystemAction/Index.vue",
       "resources/js/System/Pages/Templates/CRUD/CreateEdit.vue",
-      "_Index-4857e647.js",
+      "_Index-073472c7.js",
       "resources/js/System/Pages/Templates/CRUD/ListPart.vue",
       "resources/js/System/Pages/Templates/CRUD/Show.vue",
       "resources/js/System/Partials/AuthUser/Sidebar.vue",
@@ -6701,7 +6701,7 @@
       "resources/js/System/Reports/FilterPages/Default.vue",
       "resources/js/System/Reports/Templates/Default.vue"
     ],
-    "file": "assets/app-3e8dc5f0.js",
+    "file": "assets/app-32b66a99.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   }

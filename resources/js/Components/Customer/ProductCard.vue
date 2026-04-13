@@ -234,15 +234,17 @@ const whatsappUrl = (product) => {
                         title="Ask on WhatsApp">
                         <MessageCircle class="w-4 h-4" />
                     </a>
-                    <!-- Add to cart — solid black primary action -->
+                    <!-- Add to cart — icon-only on mobile, icon+text on sm+ -->
                     <button v-if="!isOutOfStock"
                         @click="handleAddToCart"
-                        class="h-9 sm:h-10 px-3 sm:px-4 bg-black text-white rounded-full hover:bg-[#1D1D1F] active:scale-95 transition-all text-xs sm:text-sm font-semibold cursor-pointer flex items-center justify-center gap-1.5">
-                        <ShoppingCart class="w-3.5 h-3.5" /> Add
+                        class="w-9 h-9 sm:w-auto sm:h-10 sm:px-4 bg-black text-white rounded-full hover:bg-[#1D1D1F] active:scale-95 transition-all text-sm font-semibold cursor-pointer flex items-center justify-center gap-1.5">
+                        <ShoppingCart class="w-4 h-4 sm:w-3.5 sm:h-3.5" />
+                        <span class="hidden sm:inline">Add</span>
                     </button>
                     <span v-else
-                        class="h-9 sm:h-10 px-3 sm:px-4 bg-[#F5F5F7] text-[#86868B] rounded-full text-xs sm:text-sm font-semibold flex items-center justify-center gap-1.5 cursor-not-allowed">
-                        <Clock class="w-3.5 h-3.5" /> Soon
+                        class="w-9 h-9 sm:w-auto sm:h-10 sm:px-4 bg-[#F5F5F7] text-[#86868B] rounded-full text-sm font-semibold flex items-center justify-center gap-1.5 cursor-not-allowed">
+                        <Clock class="w-4 h-4 sm:w-3.5 sm:h-3.5" />
+                        <span class="hidden sm:inline">Soon</span>
                     </span>
                 </div>
             </div>
