@@ -263,6 +263,43 @@ PROMPT;
     /**
      * Markup rules — same as the AI prompt — applied to raw cost prices.
      */
+    /**
+     * Infer a sensible category_id from the product name.
+     * Returns the first matching category, or falls back to any active
+     * category as a last resort (since category_id is NOT NULL in the DB).
+     */
+    private function inferCategoryId(string $productName): ?int
+    {
+        static $cache = null;
+        if ($cache === null) {
+            $cache = Category::where('is_active', true)->get(['id', 'name', 'slug'])->keyBy(fn($c) => strtolower($c->slug));
+        }
+
+        $name = strtolower($productName);
+
+        // Product-type keyword → category slug preference order
+        $rules = [
+            ['keywords' => ['iphone', 'samsung', 'pixel', 'galaxy', 'redmi', 'oppo', 'nokia', 'infinix', 'tecno', 'xiaomi', 'realme', 'honor'], 'slugs' => ['phones', 'smartphones', 'mobile-phones']],
+            ['keywords' => ['macbook', 'laptop', 'thinkpad', 'zenbook', 'ideapad'], 'slugs' => ['laptops', 'computers']],
+            ['keywords' => ['ipad', 'tab '], 'slugs' => ['tablets']],
+            ['keywords' => ['airpod', 'earbud', 'headphone', 'headset'], 'slugs' => ['accessories', 'audio']],
+            ['keywords' => ['watch'], 'slugs' => ['wearables', 'accessories']],
+        ];
+
+        foreach ($rules as $rule) {
+            foreach ($rule['keywords'] as $kw) {
+                if (str_contains($name, $kw)) {
+                    foreach ($rule['slugs'] as $slug) {
+                        if (isset($cache[$slug])) return $cache[$slug]->id;
+                    }
+                }
+            }
+        }
+
+        // Last resort: use the first active category (DB requires NOT NULL)
+        return $cache->first()?->id;
+    }
+
     private function applyMarkup(int $rawPrice): array
     {
         $markup = 0;
@@ -496,7 +533,7 @@ PROMPT;
                 'condition' => $context['condition'],
                 'brand_name' => $brandName,
                 'brand_id' => $brandId,
-                'category_id' => null,
+                'category_id' => $this->inferCategoryId($productName),
                 'existing_product_id' => $existingProductId,
                 'existing_variant_id' => $existingVariantId,
                 'existing_price' => $existingPrice,
@@ -644,13 +681,18 @@ PROMPT;
                     case 'create':
                         $slug = Str::slug($item['product_name']);
                         $baseSku = strtoupper(Str::slug($item['product_name'], '-'));
+
+                        // Ensure category_id is set — DB requires it.
+                        // Infer from the product name if the item didn't specify one.
+                        $categoryId = $item['category_id'] ?? $this->inferCategoryId($item['product_name']);
+
                         $product = Product::updateOrCreate(
                             ['slug' => $slug],
                             [
                                 'name' => $item['product_name'],
                                 'base_sku' => $baseSku,
                                 'brand_id' => $item['brand_id'] ?? null,
-                                'category_id' => $item['category_id'] ?? null,
+                                'category_id' => $categoryId,
                                 'base_price' => $item['price'],
                                 'cost_price' => $item['raw_price'] ?? null,
                                 'condition' => $item['condition'] ?? 'new',
