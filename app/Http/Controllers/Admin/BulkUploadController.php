@@ -7,6 +7,7 @@ use App\Models\BulkPriceUpload;
 use App\Models\Product;
 use App\Models\ProductVariant;
 use App\Models\Brand;
+use Illuminate\Support\Facades\Log;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -44,11 +45,13 @@ class BulkUploadController extends Controller
 
         $apiKey = config('anthropic.api_key') ?: env('ANTHROPIC_API_KEY');
 
-        // Count how many product lines are in the text. If too many, skip the
-        // AI (which will timeout) and use the regex fallback directly. The
-        // regex parser handles 30+ items in milliseconds.
+        // Count how many product lines are in the text. The regex parser is
+        // fast AND reliable, so we prefer it unless the admin explicitly
+        // wants AI for smart matching. Only use AI for small price lists
+        // (under 10 lines) where the overhead is worth it and timeouts are
+        // unlikely.
         $lineCount = substr_count($validated['raw_text'], "\n") + 1;
-        $forceRegex = $lineCount > 25;
+        $forceRegex = $lineCount > 10;
 
         // If no API key OR the input is too large, use the regex fallback parser
         if (empty($apiKey) || $forceRegex) {
@@ -57,8 +60,27 @@ class BulkUploadController extends Controller
             if (empty($apiKey)) {
                 $fallback['notice'] = 'AI parser unavailable (no API key). Used regex fallback parser.';
             } else {
-                $fallback['notice'] = "Large price list ({$lineCount} lines) — used fast regex parser to avoid timeout. Split into smaller batches to use AI parsing.";
+                $fallback['notice'] = "Parsed by fast regex parser ({$lineCount} lines, {$fallback['summary']['total_parsed']} items).";
             }
+
+            // Log what happened for debugging
+            Log::info('Bulk upload regex parse', [
+                'line_count' => $lineCount,
+                'items_parsed' => $fallback['summary']['total_parsed'] ?? 0,
+                'skipped' => count($fallback['skipped'] ?? []),
+                'first_3_skipped' => array_slice($fallback['skipped'] ?? [], 0, 3),
+                'sample_raw_text' => substr($validated['raw_text'], 0, 200),
+            ]);
+
+            // If regex found nothing, return actionable error instead of silent empty
+            if (empty($fallback['items'])) {
+                return response()->json([
+                    'error' => 'Could not parse any products. Check format: expected lines like "iPhone 14 Pro 256GB - 85,000" or "Samsung S24 128GB - 80,000". Skipped: ' . count($fallback['skipped'] ?? []) . ' lines.',
+                    'items' => [],
+                    'skipped' => $fallback['skipped'] ?? [],
+                ], 422);
+            }
+
             return response()->json($fallback);
         }
 
