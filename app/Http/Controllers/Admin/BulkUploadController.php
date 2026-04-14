@@ -265,8 +265,8 @@ PROMPT;
      */
     /**
      * Infer a sensible category_id from the product name.
-     * Returns the first matching category, or falls back to any active
-     * category as a last resort (since category_id is NOT NULL in the DB).
+     * Looks for an existing category first. If none matches, creates the
+     * category on the fly so the product has a proper home.
      */
     private function inferCategoryId(string $productName): ?int
     {
@@ -277,27 +277,70 @@ PROMPT;
 
         $name = strtolower($productName);
 
-        // Product-type keyword → category slug preference order
+        // Product-type keyword → preferred category slug + display name
+        // First slug in each list is what we'll CREATE if no match found.
         $rules = [
-            ['keywords' => ['iphone', 'samsung', 'pixel', 'galaxy', 'redmi', 'oppo', 'nokia', 'infinix', 'tecno', 'xiaomi', 'realme', 'honor'], 'slugs' => ['phones', 'smartphones', 'mobile-phones']],
-            ['keywords' => ['macbook', 'laptop', 'thinkpad', 'zenbook', 'ideapad'], 'slugs' => ['laptops', 'computers']],
-            ['keywords' => ['ipad', 'tab '], 'slugs' => ['tablets']],
-            ['keywords' => ['airpod', 'earbud', 'headphone', 'headset'], 'slugs' => ['accessories', 'audio']],
-            ['keywords' => ['watch'], 'slugs' => ['wearables', 'accessories']],
+            [
+                'keywords' => ['iphone', 'samsung', 'pixel', 'galaxy', 'redmi', 'oppo', 'nokia', 'infinix', 'tecno', 'xiaomi', 'realme', 'honor'],
+                'slugs' => ['phones', 'smartphones', 'mobile-phones'],
+                'createName' => 'Phones',
+            ],
+            [
+                'keywords' => ['macbook', 'laptop', 'thinkpad', 'zenbook', 'ideapad'],
+                'slugs' => ['laptops', 'computers'],
+                'createName' => 'Laptops',
+            ],
+            [
+                'keywords' => ['ipad', 'tab '],
+                'slugs' => ['tablets'],
+                'createName' => 'Tablets',
+            ],
+            [
+                'keywords' => ['airpod', 'earbud', 'headphone', 'headset'],
+                'slugs' => ['accessories', 'audio'],
+                'createName' => 'Accessories',
+            ],
+            [
+                'keywords' => ['watch'],
+                'slugs' => ['wearables', 'accessories'],
+                'createName' => 'Wearables',
+            ],
         ];
 
         foreach ($rules as $rule) {
             foreach ($rule['keywords'] as $kw) {
                 if (str_contains($name, $kw)) {
+                    // Try to find an existing category in the preferred order
                     foreach ($rule['slugs'] as $slug) {
                         if (isset($cache[$slug])) return $cache[$slug]->id;
                     }
+                    // Nothing matched — create the preferred category
+                    $newCat = Category::firstOrCreate(
+                        ['slug' => $rule['slugs'][0]],
+                        [
+                            'name' => $rule['createName'],
+                            'is_active' => true,
+                            'sort_order' => 0,
+                        ]
+                    );
+                    // Refresh cache so repeat lookups find it
+                    $cache->put(strtolower($newCat->slug), $newCat);
+                    return $newCat->id;
                 }
             }
         }
 
-        // Last resort: use the first active category (DB requires NOT NULL)
-        return $cache->first()?->id;
+        // No rule matched at all — create a generic "Uncategorized" bucket
+        $fallback = Category::firstOrCreate(
+            ['slug' => 'uncategorized'],
+            [
+                'name' => 'Uncategorized',
+                'is_active' => true,
+                'sort_order' => 999,
+            ]
+        );
+        $cache->put('uncategorized', $fallback);
+        return $fallback->id;
     }
 
     private function applyMarkup(int $rawPrice): array
