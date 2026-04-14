@@ -1,1 +1,0 @@
-import{_ as t,o,a as s,G as r}from"./app-fbee168d.js";/* empty css                  */const a={props:{bgColor:{default:"bg-gray-300"}}},n={class:"rounded-md px-1 py-0 text-xs text-white"};function c(e,p,d,l,_,f){return o(),s("label",n,[r(e.$slots,"default")])}const x=t(a,[["render",c]]);export{x as default};

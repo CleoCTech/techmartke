@@ -1,1 +1,0 @@
-import{_ as t,o as a,a as r,d as s,G as o}from"./app-fbee168d.js";/* empty css                  */const c={},l={class:"px-2 py-1"},n={class:"px-2"};function d(e,_){return a(),r("div",null,[s("div",l,[o(e.$slots,"label")]),s("div",n,[o(e.$slots,"value")])])}const f=t(c,[["render",d]]);export{f as default};

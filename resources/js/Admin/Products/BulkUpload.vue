@@ -27,7 +27,10 @@ const source = ref('');
 const isParsing = ref(false);
 const isUploading = ref(false);
 const showResults = ref(false);
-const markOthersOutOfStock = ref(true); // Default: mark unlisted products as out of stock
+// Default: false — so splitting a long price list into multiple batches
+// doesn't zero-out earlier batches. Admin ticks this manually on the
+// FINAL batch when uploading a full price list in one go.
+const markOthersOutOfStock = ref(false);
 
 const selectedCount = computed(() => items.value.filter(i => i.selected).length);
 const updateCount = computed(() => items.value.filter(i => i.selected && i.action === 'update').length);
@@ -295,10 +298,12 @@ const reset = () => {
                             class="rounded border-slate-300 dark:border-slate-600 text-ablue focus:ring-ablue" />
                         Select All
                     </label>
-                    <label class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 cursor-pointer">
+                    <label class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 cursor-pointer"
+                        title="Only tick this on your FINAL batch if you're uploading a complete price list. Leave unchecked when splitting a long list across multiple uploads.">
                         <input type="checkbox" v-model="markOthersOutOfStock"
                             class="rounded border-slate-300 dark:border-slate-600 text-amber-500 focus:ring-amber-500" />
                         Mark unlisted as out of stock
+                        <span class="text-[10px] text-amber-500 font-semibold uppercase tracking-wider">⚠ final batch only</span>
                     </label>
                     <button @click="confirmUpload" :disabled="isUploading || selectedCount === 0"
                         class="inline-flex items-center px-4 py-2 bg-green-600 rounded-lg font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-700 disabled:opacity-50 transition">
