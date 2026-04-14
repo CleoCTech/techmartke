@@ -44,11 +44,21 @@ class BulkUploadController extends Controller
 
         $apiKey = config('anthropic.api_key') ?: env('ANTHROPIC_API_KEY');
 
-        // If no API key, use the regex fallback parser
-        if (empty($apiKey)) {
+        // Count how many product lines are in the text. If too many, skip the
+        // AI (which will timeout) and use the regex fallback directly. The
+        // regex parser handles 30+ items in milliseconds.
+        $lineCount = substr_count($validated['raw_text'], "\n") + 1;
+        $forceRegex = $lineCount > 25;
+
+        // If no API key OR the input is too large, use the regex fallback parser
+        if (empty($apiKey) || $forceRegex) {
             $fallback = $this->fallbackParse($validated['raw_text'], $existingProducts, $brands);
             $fallback['source'] = 'regex';
-            $fallback['notice'] = 'AI parser unavailable (no API key). Used regex fallback parser.';
+            if (empty($apiKey)) {
+                $fallback['notice'] = 'AI parser unavailable (no API key). Used regex fallback parser.';
+            } else {
+                $fallback['notice'] = "Large price list ({$lineCount} lines) — used fast regex parser to avoid timeout. Split into smaller batches to use AI parsing.";
+            }
             return response()->json($fallback);
         }
 

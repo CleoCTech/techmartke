@@ -46,6 +46,10 @@ const parseText = async () => {
     notice.value = '';
     source.value = '';
 
+    // 3-minute abort controller so the fetch doesn't hang forever
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 180000);
+
     try {
         const response = await fetch('/admin/products/bulk-upload/parse', {
             method: 'POST',
@@ -55,9 +59,32 @@ const parseText = async () => {
                 'Accept': 'application/json',
             },
             body: JSON.stringify({ raw_text: priceText.value }),
+            signal: controller.signal,
         });
+        clearTimeout(timeoutId);
 
-        const data = await response.json();
+        // If server returned HTML (e.g. nginx 504 page), try text first
+        const contentType = response.headers.get('content-type') || '';
+        let data;
+        if (contentType.includes('application/json')) {
+            data = await response.json();
+        } else {
+            const txt = await response.text();
+            error.value = `Server error (HTTP ${response.status}). The AI request may have timed out. Try a shorter price list (under 20 items) or split it into batches.`;
+            showResults.value = true;
+            return;
+        }
+
+        // If response has items even with an "error" field, show them (regex fallback case)
+        if (data.items && data.items.length > 0) {
+            items.value = data.items.map(item => ({ ...item, selected: true }));
+            skipped.value = data.skipped || [];
+            summary.value = data.summary || null;
+            source.value = data.source || '';
+            notice.value = data.notice || '';
+            showResults.value = true;
+            return;
+        }
 
         if (data.error) {
             error.value = data.error;
@@ -65,17 +92,16 @@ const parseText = async () => {
             return;
         }
 
-        items.value = (data.items || []).map(item => ({
-            ...item,
-            selected: true,
-        }));
-        skipped.value = data.skipped || [];
-        summary.value = data.summary || null;
-        source.value = data.source || '';
-        notice.value = data.notice || '';
+        // No items, no error — odd response
+        error.value = 'No products could be parsed from the provided text. Try a different format or check your input.';
         showResults.value = true;
     } catch (e) {
-        error.value = 'Failed to connect to AI service. Please check your API key and try again.';
+        clearTimeout(timeoutId);
+        if (e.name === 'AbortError') {
+            error.value = 'Request timed out after 3 minutes. Try a shorter price list (under 20 items) or split it into smaller batches.';
+        } else {
+            error.value = 'Failed to reach server: ' + (e.message || 'Unknown error') + '. Try a shorter price list.';
+        }
         showResults.value = true;
     } finally {
         isParsing.value = false;
