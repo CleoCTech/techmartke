@@ -45,34 +45,14 @@ class BulkUploadController extends Controller
 
         $apiKey = config('anthropic.api_key') ?: env('ANTHROPIC_API_KEY');
 
-        // Count how many product lines are in the text. The regex parser is
-        // fast AND reliable, so we prefer it unless the admin explicitly
-        // wants AI for smart matching. Only use AI for small price lists
-        // (under 10 lines) where the overhead is worth it and timeouts are
-        // unlikely.
         $lineCount = substr_count($validated['raw_text'], "\n") + 1;
-        $forceRegex = $lineCount > 10;
 
-        // If no API key OR the input is too large, use the regex fallback parser
-        if (empty($apiKey) || $forceRegex) {
+        // If no API key, use the regex fallback parser
+        if (empty($apiKey)) {
             $fallback = $this->fallbackParse($validated['raw_text'], $existingProducts, $brands);
             $fallback['source'] = 'regex';
-            if (empty($apiKey)) {
-                $fallback['notice'] = 'AI parser unavailable (no API key). Used regex fallback parser.';
-            } else {
-                $fallback['notice'] = "Parsed by fast regex parser ({$lineCount} lines, {$fallback['summary']['total_parsed']} items).";
-            }
+            $fallback['notice'] = 'AI parser unavailable (no API key). Used regex fallback parser.';
 
-            // Log what happened for debugging
-            Log::info('Bulk upload regex parse', [
-                'line_count' => $lineCount,
-                'items_parsed' => $fallback['summary']['total_parsed'] ?? 0,
-                'skipped' => count($fallback['skipped'] ?? []),
-                'first_3_skipped' => array_slice($fallback['skipped'] ?? [], 0, 3),
-                'sample_raw_text' => substr($validated['raw_text'], 0, 200),
-            ]);
-
-            // If regex found nothing, return actionable error instead of silent empty
             if (empty($fallback['items'])) {
                 return response()->json([
                     'error' => 'Could not parse any products. Check format: expected lines like "iPhone 14 Pro 256GB - 85,000" or "Samsung S24 128GB - 80,000". Skipped: ' . count($fallback['skipped'] ?? []) . ' lines.',
@@ -84,91 +64,218 @@ class BulkUploadController extends Controller
             return response()->json($fallback);
         }
 
-        $productContext = $existingProducts->map(function ($p) {
-            $variants = $p->variants->map(fn($v) => [
-                'id' => $v->id,
-                'sku' => $v->sku,
-                'storage' => $v->storage,
-                'sim_type' => $v->sim_type,
-                'color' => $v->color,
-                'price' => (float) $v->price,
-                'stock_quantity' => $v->stock_quantity,
-            ]);
-            return [
-                'id' => $p->id,
-                'name' => $p->name,
-                'slug' => $p->slug,
-                'brand' => $p->brand?->name,
-                'brand_id' => $p->brand_id,
-                'category_id' => $p->category_id,
-                'condition' => $p->condition,
-                'base_price' => (float) $p->base_price,
-                'variants' => $variants,
-            ];
-        })->toArray();
+        // ============================================================
+        // OPTIMIZED AI PATH — batch + parallel + slim context
+        // ============================================================
+
+        // 1. SLIM product context: only fields AI needs for matching.
+        //    Drop variants, slug, category_id. Save ~70% input tokens.
+        $productContext = $existingProducts->map(fn($p) => [
+            'id' => $p->id,
+            'name' => $p->name,
+            'brand' => $p->brand?->name,
+        ])->take(200)->toArray(); // Cap at 200 products (enough context)
 
         $brandList = $brands->map(fn($b) => ['id' => $b->id, 'name' => $b->name])->toArray();
-        $categoryList = $categories->map(fn($c) => ['id' => $c->id, 'name' => $c->name])->toArray();
 
-        $prompt = $this->buildPrompt($validated['raw_text'], $productContext, $brandList, $categoryList);
+        // 2. BATCH the input into chunks of 15 lines each.
+        //    Keep header/context lines (Ex US, iPhones, Samsung) in EVERY
+        //    batch so AI knows the brand/condition context.
+        $lines = preg_split('/\r?\n/', $validated['raw_text']);
+        $batches = $this->splitIntoBatches($lines, 15);
 
-        $aiFailureReason = null;
-
-        try {
-            $response = Http::withHeaders([
-                'x-api-key' => $apiKey,
-                'anthropic-version' => '2023-06-01',
-                'content-type' => 'application/json',
-            ])->timeout(120)->post('https://api.anthropic.com/v1/messages', [
-                'model' => env('ANTHROPIC_MODEL', 'claude-sonnet-4-20250514'),
-                // Bumped from 4096 — larger price lists (30+ items) were
-                // truncating mid-JSON and triggering the "invalid JSON" fallback
-                'max_tokens' => 16000,
-                'messages' => [
-                    ['role' => 'user', 'content' => $prompt],
-                ],
-            ]);
-
-            if (!$response->successful()) {
-                $aiFailureReason = 'AI service error (HTTP ' . $response->status() . '): ' . ($response->json('error.message') ?? 'Unknown error');
-            } else {
-                $aiText = $response->json('content.0.text', '');
-                $stopReason = $response->json('stop_reason', '');
-                $parsed = $this->extractJson($aiText);
-
-                if ($parsed === null) {
-                    if ($stopReason === 'max_tokens') {
-                        $aiFailureReason = 'AI response was cut off (hit token limit). Try splitting your price list into smaller batches.';
-                    } else {
-                        $aiFailureReason = 'Failed to parse AI response (invalid JSON returned). Stop reason: ' . $stopReason;
-                    }
-                } elseif (empty($parsed['items'] ?? [])) {
-                    $aiFailureReason = 'AI returned no parseable products from the text.';
-                } else {
-                    // SUCCESS: AI returned valid parsed items
-                    $parsed['source'] = 'ai';
-                    return response()->json($parsed);
-                }
-            }
-        } catch (\Exception $e) {
-            $aiFailureReason = 'AI analysis failed: ' . $e->getMessage();
+        if (empty($batches)) {
+            $fallback = $this->fallbackParse($validated['raw_text'], $existingProducts, $brands);
+            $fallback['source'] = 'regex';
+            $fallback['notice'] = 'No parseable lines found. Used regex fallback.';
+            return response()->json($fallback);
         }
 
-        // AI failed for some reason — fall back to regex parser
+        // 3. PARALLEL requests via Http::pool() — all batches fire at once.
+        //    Each batch has <=15 items, small prompt, quick response.
+        try {
+            $model = env('ANTHROPIC_MODEL', 'claude-sonnet-4-20250514');
+
+            $responses = Http::pool(function ($pool) use ($batches, $productContext, $brandList, $apiKey, $model) {
+                return array_map(function ($batch) use ($pool, $productContext, $brandList, $apiKey, $model) {
+                    $prompt = $this->buildBatchPrompt($batch, $productContext, $brandList);
+                    return $pool->withHeaders([
+                        'x-api-key' => $apiKey,
+                        'anthropic-version' => '2023-06-01',
+                        'content-type' => 'application/json',
+                    ])->timeout(60)->post('https://api.anthropic.com/v1/messages', [
+                        'model' => $model,
+                        'max_tokens' => 4096,
+                        'messages' => [['role' => 'user', 'content' => $prompt]],
+                    ]);
+                }, $batches);
+            });
+
+            // 4. MERGE results
+            $allItems = [];
+            $allSkipped = [];
+            $failedBatches = 0;
+
+            foreach ($responses as $i => $response) {
+                if (!$response || !$response->successful()) {
+                    $failedBatches++;
+                    continue;
+                }
+                $aiText = $response->json('content.0.text', '');
+                $parsed = $this->extractJson($aiText);
+                if ($parsed === null) {
+                    $failedBatches++;
+                    continue;
+                }
+                $allItems = array_merge($allItems, $parsed['items'] ?? []);
+                $allSkipped = array_merge($allSkipped, $parsed['skipped'] ?? []);
+            }
+
+            // 5. If any items came back, return them (even partial success)
+            if (!empty($allItems)) {
+                $notice = null;
+                if ($failedBatches > 0) {
+                    $notice = "AI parsed " . count($allItems) . " items across " . count($batches) . " batches ({$failedBatches} batch(es) failed and were skipped).";
+                } else {
+                    $notice = "AI parsed " . count($allItems) . " items across " . count($batches) . " parallel batches.";
+                }
+
+                // Backfill category_id on any AI items that don't have one
+                foreach ($allItems as &$item) {
+                    if (empty($item['category_id']) && !empty($item['product_name'])) {
+                        $item['category_id'] = $this->inferCategoryId($item['product_name']);
+                    }
+                }
+
+                return response()->json([
+                    'items' => $allItems,
+                    'skipped' => $allSkipped,
+                    'summary' => [
+                        'total_parsed' => count($allItems),
+                        'updates' => count(array_filter($allItems, fn($i) => ($i['action'] ?? '') === 'update')),
+                        'new_variants' => count(array_filter($allItems, fn($i) => ($i['action'] ?? '') === 'new_variant')),
+                        'creates' => count(array_filter($allItems, fn($i) => ($i['action'] ?? '') === 'create')),
+                        'skipped' => count($allSkipped),
+                    ],
+                    'source' => 'ai',
+                    'notice' => $notice,
+                    'batches' => count($batches),
+                ]);
+            }
+
+            $aiFailureReason = "All {$failedBatches} AI batches failed. Using regex fallback.";
+        } catch (\Exception $e) {
+            $aiFailureReason = 'AI parallel request failed: ' . $e->getMessage();
+        }
+
+        // AI couldn't do it — fall back to regex
         $fallback = $this->fallbackParse($validated['raw_text'], $existingProducts, $brands);
         $fallback['source'] = 'regex';
-        $fallback['notice'] = 'AI parser failed — used regex fallback. ' . $aiFailureReason;
+        $fallback['notice'] = $aiFailureReason;
 
-        // If even fallback found nothing, return the AI error so user can debug
         if (empty($fallback['items'])) {
             return response()->json([
-                'error' => $aiFailureReason . ' Fallback regex parser also found no products. Try a different format.',
+                'error' => $aiFailureReason . ' Regex fallback also found no products. Check your input format.',
                 'items' => [],
                 'skipped' => $fallback['skipped'] ?? [],
             ], 422);
         }
 
         return response()->json($fallback);
+    }
+
+    /**
+     * Split lines into batches of N item-lines each, preserving any header/
+     * context lines (Ex US, iPhones, Samsung) in every batch so the AI has
+     * the right brand/condition context.
+     */
+    private function splitIntoBatches(array $lines, int $batchSize): array
+    {
+        $headers = [];
+        $items = [];
+
+        foreach ($lines as $line) {
+            $trim = trim($line);
+            if ($trim === '') continue;
+            $lower = strtolower($trim);
+            // Treat non-data lines as headers (text with no digits + "-" + digits pattern)
+            if (!preg_match('/\d+GB.*\d/i', $trim)) {
+                $headers[] = $line;
+                continue;
+            }
+            $items[] = $line;
+        }
+
+        if (empty($items)) return [];
+
+        $batches = [];
+        $chunks = array_chunk($items, $batchSize);
+        foreach ($chunks as $chunk) {
+            // Prepend all headers to every batch so AI has context
+            $batches[] = implode("\n", array_merge($headers, $chunk));
+        }
+        return $batches;
+    }
+
+    /**
+     * Slim prompt for a single batch — no product catalog JSON, just the
+     * essentials. Asks for compact response (fewer fields per item).
+     */
+    private function buildBatchPrompt(string $batchText, array $existingProducts, array $brands): string
+    {
+        $brandsJson = json_encode($brands);
+        // Only send top 50 existing products by name match probability
+        $productsJson = json_encode(array_slice($existingProducts, 0, 50));
+
+        return <<<PROMPT
+Parse this Kenyan phone/laptop price list. Output ONLY compact JSON.
+
+## Existing products (for match detection):
+{$productsJson}
+
+## Brands:
+{$brandsJson}
+
+## Markup rules (apply to EVERY raw price to get final selling price):
+- 15,000–20,000 → +1,500
+- 20,000–30,000 → +2,500
+- 30,000–40,000 → +3,000
+- 40,000–50,000 → +4,000
+- 50,000–55,000 → +4,500
+- 55,000–88,000 → +5,000
+- 89,000+ → +6,000
+- Below 15,000 → no markup
+
+## Price list:
+{$batchText}
+
+## Rules:
+- "Ex US"/"Ex USA" header → condition: "ex-us"
+- "Ex UK" header → condition: "ex-uk"
+- "Brand New" or no header → condition: "new"
+- "Refurbished" → condition: "refurbished"
+- eSIM keyword → sim_type: "eSIM"
+- Match against existing products by name. If exact name+storage match → action: "update" with existing_product_id and existing_variant_id. If name matches but not storage → "new_variant". Else → "create".
+
+## Output (JSON only, no markdown):
+{
+  "items": [
+    {
+      "action": "update|new_variant|create",
+      "product_name": "Full product name",
+      "storage": "256GB",
+      "sim_type": "eSIM or null",
+      "raw_price": 25000,
+      "price": 27500,
+      "condition": "new|ex-uk|ex-us|refurbished",
+      "brand_id": 1,
+      "existing_product_id": null,
+      "existing_variant_id": null
+    }
+  ],
+  "skipped": []
+}
+PROMPT;
     }
 
     private function buildPrompt(string $rawText, array $existingProducts, array $brands, array $categories): string
