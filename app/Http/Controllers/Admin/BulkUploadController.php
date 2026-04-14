@@ -111,25 +111,48 @@ class BulkUploadController extends Controller
                 }, $batches);
             });
 
-            // 4. MERGE results
+            // 4. MERGE results — handle both Response objects AND exceptions
+            //    (Http::pool returns Throwable when a request fails)
             $allItems = [];
             $allSkipped = [];
             $failedBatches = 0;
+            $failureDetails = [];
 
             foreach ($responses as $i => $response) {
-                if (!$response || !$response->successful()) {
+                // Guard against exception-type responses from pool failures
+                if ($response instanceof \Throwable) {
                     $failedBatches++;
+                    $failureDetails[] = "Batch " . ($i + 1) . ": " . $response->getMessage();
+                    continue;
+                }
+                if (!is_object($response) || !method_exists($response, 'successful')) {
+                    $failedBatches++;
+                    $failureDetails[] = "Batch " . ($i + 1) . ": invalid response";
+                    continue;
+                }
+                if (!$response->successful()) {
+                    $failedBatches++;
+                    $errMsg = $response->json('error.message') ?? 'HTTP ' . $response->status();
+                    $failureDetails[] = "Batch " . ($i + 1) . ": " . $errMsg;
                     continue;
                 }
                 $aiText = $response->json('content.0.text', '');
                 $parsed = $this->extractJson($aiText);
                 if ($parsed === null) {
                     $failedBatches++;
+                    $failureDetails[] = "Batch " . ($i + 1) . ": invalid JSON response";
                     continue;
                 }
                 $allItems = array_merge($allItems, $parsed['items'] ?? []);
                 $allSkipped = array_merge($allSkipped, $parsed['skipped'] ?? []);
             }
+
+            Log::info('Bulk upload AI batched', [
+                'batches' => count($batches),
+                'items' => count($allItems),
+                'failed_batches' => $failedBatches,
+                'failure_details' => $failureDetails,
+            ]);
 
             // 5. If any items came back, return them (even partial success)
             if (!empty($allItems)) {
@@ -185,34 +208,64 @@ class BulkUploadController extends Controller
     }
 
     /**
-     * Split lines into batches of N item-lines each, preserving any header/
-     * context lines (Ex US, iPhones, Samsung) in every batch so the AI has
-     * the right brand/condition context.
+     * Split lines into batches. Groups items BY section first (so each
+     * section's items stay together), then chunks each section into
+     * batches of N items, prepending the section's header to each batch.
      */
     private function splitIntoBatches(array $lines, int $batchSize): array
     {
-        $headers = [];
-        $items = [];
+        // Walk through lines, build sections: each section has its own
+        // header block + items belonging to it.
+        $sections = [];
+        $currentHeaders = [];
+        $currentItems = [];
+
+        $flushSection = function () use (&$sections, &$currentHeaders, &$currentItems) {
+            if (!empty($currentItems)) {
+                $sections[] = [
+                    'headers' => $currentHeaders,
+                    'items' => $currentItems,
+                ];
+            }
+            $currentItems = [];
+        };
 
         foreach ($lines as $line) {
             $trim = trim($line);
             if ($trim === '') continue;
-            $lower = strtolower($trim);
-            // Treat non-data lines as headers (text with no digits + "-" + digits pattern)
-            if (!preg_match('/\d+GB.*\d/i', $trim)) {
-                $headers[] = $line;
+
+            // Data line?
+            if (preg_match('/\d+\s*(GB|TB).*\d/i', $trim)) {
+                $currentItems[] = $line;
                 continue;
             }
-            $items[] = $line;
+
+            // Section-starting header (brand/condition change)?
+            $lower = strtolower($trim);
+            $isSectionHeader = preg_match('/^(brand\s*new|new\s*stock|ex[\s\-]?(us|uk|usa)|refurb)/i', $lower)
+                || preg_match('/^(iphones?|samsung)$/i', $lower);
+
+            if ($isSectionHeader) {
+                // Close previous section before starting new one
+                $flushSection();
+                $currentHeaders = [$line];
+            } else {
+                // Regular descriptive line — add to current header block
+                $currentHeaders[] = $line;
+            }
         }
+        // Don't forget the final section
+        $flushSection();
 
-        if (empty($items)) return [];
+        if (empty($sections)) return [];
 
+        // Now chunk each section's items into batches of $batchSize
         $batches = [];
-        $chunks = array_chunk($items, $batchSize);
-        foreach ($chunks as $chunk) {
-            // Prepend all headers to every batch so AI has context
-            $batches[] = implode("\n", array_merge($headers, $chunk));
+        foreach ($sections as $section) {
+            $chunks = array_chunk($section['items'], $batchSize);
+            foreach ($chunks as $chunk) {
+                $batches[] = implode("\n", array_merge($section['headers'], [''], $chunk));
+            }
         }
         return $batches;
     }
