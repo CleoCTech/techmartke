@@ -503,6 +503,41 @@ PROMPT;
         return $fallback->id;
     }
 
+    /**
+     * Generate a globally-unique variant SKU.
+     *
+     * product_variants.sku has a UNIQUE constraint. If the generated SKU
+     * already belongs to the SAME variant we're about to update (matched
+     * on product_id + storage + sim_type), we reuse it. Otherwise we
+     * append -2, -3, ... until a free SKU is found.
+     */
+    private function uniqueVariantSku(string $baseSku, int $productId, ?string $storage, ?string $simType): string
+    {
+        // Find the single existing variant (if any) using this SKU
+        $existing = ProductVariant::where('sku', $baseSku)->first();
+
+        // No one owns this SKU → we can use it freely
+        if (!$existing) return $baseSku;
+
+        // The existing variant IS the one we're about to update → reuse
+        if ($existing->product_id === $productId
+            && $existing->storage === $storage
+            && $existing->sim_type === $simType) {
+            return $baseSku;
+        }
+
+        // Someone else owns this SKU → find next available suffix
+        $i = 2;
+        while (ProductVariant::where('sku', $baseSku . '-' . $i)->exists()) {
+            $i++;
+            if ($i > 999) {
+                // Astronomical edge case — fall back to random suffix
+                return $baseSku . '-' . substr(md5(uniqid()), 0, 6);
+            }
+        }
+        return $baseSku . '-' . $i;
+    }
+
     private function applyMarkup(int $rawPrice): array
     {
         $markup = 0;
@@ -852,7 +887,12 @@ PROMPT;
                             $product = Product::find($item['existing_product_id']);
                             if ($product) {
                                 $simSlug = !empty($item['sim_type']) ? '-' . Str::slug($item['sim_type']) : '';
-                                $sku = Str::slug($product->name) . '-' . Str::slug($item['storage'] ?? 'default') . $simSlug;
+                                $sku = $this->uniqueVariantSku(
+                                    Str::slug($product->name) . '-' . Str::slug($item['storage'] ?? 'default') . $simSlug,
+                                    $product->id,
+                                    $item['storage'] ?? null,
+                                    $item['sim_type'] ?? null
+                                );
                                 // Match on both storage AND sim_type so eSIM and Physical are separate variants
                                 $variant = $product->variants()->updateOrCreate(
                                     [
@@ -905,7 +945,12 @@ PROMPT;
                         );
 
                         $simSlug = !empty($item['sim_type']) ? '-' . Str::slug($item['sim_type']) : '';
-                        $variantSku = Str::slug($item['product_name']) . '-' . Str::slug($item['storage'] ?? 'default') . $simSlug;
+                        $variantSku = $this->uniqueVariantSku(
+                            Str::slug($item['product_name']) . '-' . Str::slug($item['storage'] ?? 'default') . $simSlug,
+                            $product->id,
+                            $item['storage'] ?? null,
+                            $item['sim_type'] ?? null
+                        );
                         $variant = $product->variants()->updateOrCreate(
                             [
                                 'storage' => $item['storage'] ?? null,
