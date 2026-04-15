@@ -53,17 +53,34 @@ const parseText = async () => {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 180000);
 
+    // Read CSRF token fresh from cookie (Laravel auto-refreshes XSRF-TOKEN)
+    const xsrfCookie = document.cookie.split(';').find(c => c.trim().startsWith('XSRF-TOKEN='));
+    const xsrfToken = xsrfCookie ? decodeURIComponent(xsrfCookie.split('=')[1]) : '';
+    const metaCsrf = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+
     try {
         const response = await fetch('/admin/products/bulk-upload/parse', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '',
+                'X-CSRF-TOKEN': metaCsrf,
+                'X-XSRF-TOKEN': xsrfToken,
                 'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
             },
+            credentials: 'same-origin',
             body: JSON.stringify({ raw_text: priceText.value }),
             signal: controller.signal,
         });
+
+        // 419 = expired CSRF. Give user a clear message and reload option.
+        if (response.status === 419) {
+            error.value = 'Your session expired. Please refresh the page and try again.';
+            showResults.value = true;
+            clearTimeout(timeoutId);
+            isParsing.value = false;
+            return;
+        }
         clearTimeout(timeoutId);
 
         // If server returned HTML (e.g. nginx 504 page), try text first

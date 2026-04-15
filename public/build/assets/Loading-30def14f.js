@@ -1,1 +1,0 @@
-import{_ as e,o,a as r}from"./app-cca117da.js";/* empty css                  */const t={},n={id:"loader",src:"/storage/general/Fountain.gif"};function a(c,s){return o(),r("img",n)}const d=e(t,[["render",a]]);export{d as default};

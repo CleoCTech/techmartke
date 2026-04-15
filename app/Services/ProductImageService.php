@@ -30,7 +30,7 @@ class ProductImageService
                 'anthropic-version' => '2023-06-01',
                 'content-type' => 'application/json',
             ])->timeout(30)->post('https://api.anthropic.com/v1/messages', [
-                'model' => 'claude-sonnet-4-20250514',
+                'model' => env('ANTHROPIC_MODEL', 'claude-sonnet-4-5'),
                 'max_tokens' => 256,
                 'messages' => [
                     ['role' => 'user', 'content' => self::buildImagePrompt($product->name)],

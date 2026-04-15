@@ -21,7 +21,7 @@ class AiStatusController extends Controller
     public function test()
     {
         $apiKey = config('anthropic.api_key') ?: env('ANTHROPIC_API_KEY');
-        $model = env('ANTHROPIC_MODEL', 'claude-sonnet-4-20250514');
+        $model = env('ANTHROPIC_MODEL', 'claude-sonnet-4-5');
 
         if (empty($apiKey)) {
             return response()->json([

@@ -94,7 +94,7 @@ class BulkUploadController extends Controller
         // 3. PARALLEL requests via Http::pool() — all batches fire at once.
         //    Each batch has <=15 items, small prompt, quick response.
         try {
-            $model = env('ANTHROPIC_MODEL', 'claude-sonnet-4-20250514');
+            $model = env('ANTHROPIC_MODEL', 'claude-sonnet-4-5');
 
             $responses = Http::pool(function ($pool) use ($batches, $productContext, $brandList, $apiKey, $model) {
                 return array_map(function ($batch) use ($pool, $productContext, $brandList, $apiKey, $model) {
