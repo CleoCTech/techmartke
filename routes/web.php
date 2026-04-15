@@ -388,3 +388,34 @@ Route::group([], __DIR__.'/system.php');
 // cd /var/www/techmartke
 // npm run build
 // sudo bash /var/www/deploy-techmartke.sh
+
+
+// # View just the last 50 lines (recommended)
+// tail -n 50 /var/www/techmartke/storage/logs/laravel-2026-04-15.log
+
+// # Follow live (see new entries as they happen — useful while testing)
+// tail -f /var/www/techmartke/storage/logs/laravel-2026-04-14.log
+
+// # Open in nano
+// nano /var/www/techmartke/storage/logs/laravel-2026-04-14.log
+
+// # Jump to end in nano: Ctrl+End
+// # Exit nano: Ctrl+X
+
+// grep -A 5 "Bulk upload\|Anthropic\|ERROR" /var/www/techmartke/storage/logs/laravel-2026-04-14.log | tail -60
+
+//Clear the logs
+// cd /var/www/techmartke/storage/logs
+
+// # Truncate today's log (keeps file, empties content)
+// > laravel-2026-04-14.log
+
+// # Or clear all old log files
+// > laravel.log
+// rm laravel-2025-*.log
+// rm laravel-2026-0[1-3]-*.log
+
+// # To clear ALL logs at once (nuclear option)
+// find . -name "laravel-*.log" -type f -exec truncate -s 0 {} \;
+
+//tail -f /var/www/techmartke/storage/logs/laravel-2026-04-14.log 
