@@ -30,6 +30,25 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=manrope:500,600,700,800|inter:400,500,600,700|lexend:300,400,500|urbanist:500,600,700,800&display=swap" rel="stylesheet" />
 
+        <!-- PWA manifest + theme -->
+        <link rel="manifest" href="/build/manifest.webmanifest">
+        <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)">
+        <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+        <meta name="application-name" content="TechMart KE">
+        <meta name="mobile-web-app-capable" content="yes">
+
+        <!-- iOS PWA support -->
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        <meta name="apple-mobile-web-app-title" content="TechMart KE">
+        <link rel="apple-touch-icon" href="/pwa/apple-touch-icon.png">
+        <link rel="apple-touch-icon" sizes="192x192" href="/pwa/icon-192.png">
+
+        <!-- Icons -->
+        <link rel="icon" type="image/png" sizes="32x32" href="/pwa/favicon-32.png">
+        <link rel="icon" type="image/png" sizes="192x192" href="/pwa/icon-192.png">
+        <link rel="icon" href="/favicon.ico">
+
         <!-- css -->
         <!-- Scripts -->
         @routes

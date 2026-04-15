@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Maskable icon with safe zone (80% center) — full black bg for edge-to-edge safety -->
+  <rect width="512" height="512" fill="#000000"/>
+  <path d="M300 144 L192 304 L256 304 L232 400 L320 240 L256 240 Z" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="6" stroke-linejoin="round"/>
+</svg>

@@ -3,6 +3,7 @@ import { Link, usePage } from '@inertiajs/vue3';
 import { Zap, ShoppingCart, Menu, X, Phone, Mail, MapPin } from 'lucide-vue-next';
 import FloatingContactBar from '@/Components/Customer/FloatingContactBar.vue';
 import LogoLoader from '@/Components/Customer/LogoLoader.vue';
+import PwaPrompt from '@/Components/Customer/PwaPrompt.vue';
 import { ref, computed, onMounted } from 'vue';
 import { useCompanyInfo } from '@/Composables/useCompanyInfo';
 
@@ -156,6 +157,9 @@ const isActive = (link) => {
 
         <!-- Floating Contact Bar -->
         <FloatingContactBar />
+
+        <!-- PWA install & update prompts -->
+        <PwaPrompt />
 
         <!-- Footer — dark, minimal. pb-20 on mobile to clear the sticky bar -->
         <footer class="bg-[#1D1D1F] text-white pt-12 md:pt-16 pb-20 md:pb-6">
