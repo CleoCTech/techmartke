@@ -245,6 +245,13 @@ const pickSuggestion = (suggestion) => {
 };
 
 const onKeydown = (e) => {
+    // Enter/Go key submits search even when suggestions are not showing
+    if (e.key === 'Enter' && (!showSuggestions.value || !suggestions.value.length)) {
+        e.preventDefault();
+        showSuggestions.value = false;
+        smartSearch();
+        return;
+    }
     if (!showSuggestions.value || !suggestions.value.length) return;
     if (e.key === 'ArrowDown') {
         e.preventDefault();
@@ -405,12 +412,14 @@ const quickBudgets = [30000, 50000, 80000, 120000]; // kept for quick budget but
         </div>
 
         <!-- Hero — monochrome, generous negative space -->
-        <section class="relative overflow-hidden pt-6 pb-4 md:pt-10 md:pb-6">
-            <!-- Particle Canvas -->
-            <canvas
-                ref="canvasRef"
-                class="absolute inset-0 pointer-events-none z-0"
-            />
+        <section class="relative overflow-visible pt-6 pb-16 md:pt-10 md:pb-20 z-10">
+            <!-- Particle Canvas — clipped to hero bounds -->
+            <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
+                <canvas
+                    ref="canvasRef"
+                    class="absolute inset-0"
+                />
+            </div>
 
             <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
                 <div class="max-w-2xl mx-auto">
@@ -423,7 +432,7 @@ const quickBudgets = [30000, 50000, 80000, 120000]; // kept for quick budget but
                     </div>
 
                     <!-- Compact Inline Search (no big card) -->
-                    <div class="animate-fade-in-up animation-delay-100 relative z-20">
+                    <div class="animate-fade-in-up animation-delay-100 relative z-30">
                         <!-- Search Input with Autocomplete -->
                         <div class="relative">
                             <div class="absolute left-3.5 top-1/2 -translate-y-1/2 z-10">
@@ -515,7 +524,7 @@ const quickBudgets = [30000, 50000, 80000, 120000]; // kept for quick budget but
         <!-- Trade-In Banner — solid black, green icon for the "wink" -->
         <Link
             href="/trade-in"
-            class="block bg-black hover:bg-[#1D1D1F] transition-colors cursor-pointer"
+            class="relative z-0 block bg-black hover:bg-[#1D1D1F] transition-colors cursor-pointer"
         >
             <div class="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 flex items-center justify-center gap-2 text-white">
                 <svg class="w-4 h-4 flex-shrink-0 text-[#1A531B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 014-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
@@ -525,7 +534,7 @@ const quickBudgets = [30000, 50000, 80000, 120000]; // kept for quick budget but
         </Link>
 
         <!-- Category Strip -->
-        <section class="border-b border-[#E5E5EA] bg-[#F5F5F7]">
+        <section class="relative z-0 border-b border-[#E5E5EA] bg-[#F5F5F7]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3">
                 <div class="flex gap-2 overflow-x-auto scrollbar-hide -mx-1 px-1">
                     <Link

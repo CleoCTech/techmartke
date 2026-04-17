@@ -26,6 +26,9 @@
 
         <!-- Favicon -->
         <link rel="icon" href="<?php echo e(asset('favicon.ico')); ?>" type="image/x-icon"/>
+        <link rel="icon" type="image/png" sizes="32x32" href="/pwa/favicon-32.png">
+        <link rel="apple-touch-icon" href="/pwa/apple-touch-icon.png">
+        <meta name="theme-color" content="#000000">
 
         <!-- Scripts -->
         <?php echo app('Tighten\Ziggy\BladeRouteGenerator')->generate(); ?>

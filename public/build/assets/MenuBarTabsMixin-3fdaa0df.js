@@ -1,0 +1,1 @@
+import t from"./MenuBarItem-0a1f21a1.js";const a={props:{indexRoute:{default:""}},components:{xMenuBarItem:t},data(){return{isChart:!1,chartUrl:""}},methods:{onChartClick(e){this.isOpen=!1,this.$parent.filterPage=""}}};export{a as M};
